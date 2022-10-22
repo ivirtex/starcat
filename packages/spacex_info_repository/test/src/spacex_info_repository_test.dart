@@ -11,17 +11,17 @@ class MockSpaceXApiClient extends Mock implements SpaceXApiClient {}
 void main() {
   group('SpacexInfoRepository', () {
     late SpaceXApiClient spaceXApiClient;
-    late SpacexInfoRepository spacexInfoRepository;
+    late SpaceXInfoRepository spacexInfoRepository;
 
     setUp(() {
       spaceXApiClient = MockSpaceXApiClient();
       spacexInfoRepository =
-          SpacexInfoRepository(spacexApiClient: spaceXApiClient);
+          SpaceXInfoRepository(spacexApiClient: spaceXApiClient);
     });
 
     group('constructor', () {
       test('instantiates internal SpaceXApiClient when not injected', () {
-        expect(SpacexInfoRepository(), isNotNull);
+        expect(SpaceXInfoRepository(), isNotNull);
       });
     });
 
