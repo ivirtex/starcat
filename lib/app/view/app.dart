@@ -1,23 +1,44 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
-import 'package:falcon/app/theme.dart';
 import 'package:falcon/explore/explore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spacex_info_repository/spacex_info_repository.dart';
+
+import 'package:falcon/theme/theme.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({
+    required SpaceXInfoRepository spaceXInfoRepository,
+    super.key,
+  }) : _spaceXInfoRepository = spaceXInfoRepository;
+
+  final SpaceXInfoRepository _spaceXInfoRepository;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      home: const ExplorePage(),
+    return RepositoryProvider.value(
+      value: _spaceXInfoRepository,
+      child: BlocProvider(
+        create: (_) => ThemeCubit(),
+        child: const AppView(),
+      ),
+    );
+  }
+}
+
+class AppView extends StatelessWidget {
+  const AppView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ThemeCubit, ThemeState>(
+      builder: (context, state) {
+        return MaterialApp(
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: state.themeMode,
+          home: const ExplorePage(),
+        );
+      },
     );
   }
 }

@@ -7,7 +7,12 @@
 
 import 'package:falcon/app/app.dart';
 import 'package:falcon/bootstrap.dart';
+import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 void main() {
-  bootstrap(() => const App());
+  bootstrap(
+    () => App(
+      spaceXInfoRepository: SpaceXInfoRepository(),
+    ),
+  );
 }

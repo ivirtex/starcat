@@ -16,6 +16,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   google_fonts: ^3.0.1
   hydrated_bloc: ^9.0.0-dev.3
+  path_provider: ^2.0.11
   spacex_info_repository:
     path: packages/spacex_info_repository
 

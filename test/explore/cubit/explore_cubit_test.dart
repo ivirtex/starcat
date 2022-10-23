@@ -51,7 +51,7 @@ void main() {
       );
 
       blocTest<ExploreCubit, ExploreState>(
-        'emits [loading, success] when successful',
+        'emits [loading, success] when fetchLaunches returns launches',
         build: () => exploreCubit,
         act: (cubit) => cubit.fetchLaunches(launchTime: LaunchTime.upcoming),
         expect: () => [
@@ -63,14 +63,15 @@ void main() {
       );
 
       blocTest<ExploreCubit, ExploreState>(
-        'emits [loading, failure] when unsuccessful',
+        'emits [loading, failure] when fetchLaunches throws',
         setUp: () => when(() => spaceXInfoRepository.getLaunches(any()))
             .thenThrow(Exception()),
         build: () => exploreCubit,
         act: (cubit) => cubit.fetchLaunches(launchTime: LaunchTime.upcoming),
         expect: () => [
           const ExploreState(status: ExploreStatus.loading),
-          const ExploreState(status: ExploreStatus.failure),
+          isA<ExploreState>()
+              .having((w) => w.status, 'status', ExploreStatus.failure)
         ],
       );
     });
