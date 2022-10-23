@@ -1,8 +1,11 @@
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
-import 'package:falcon/explore/explore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
+
+// Project imports:
+import 'package:falcon/explore/explore.dart';
 
 const launchesCount = 1;
 const launchesResults = [

@@ -1,4 +1,4 @@
-// ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: lines_longer_than_80_chars, prefer_const_literals_to_create_immutables
 
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';

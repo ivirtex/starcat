@@ -1,9 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:mocktail/mocktail.dart';
-import 'package:spacex_api/spacex_api.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
-// ignore_for_file: prefer_const_constructors
 import 'package:test/test.dart';
 
 class MockSpaceXApiClient extends Mock implements SpaceXApiClient {}

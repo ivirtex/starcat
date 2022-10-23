@@ -1,8 +1,12 @@
-import 'package:falcon/explore/explore.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
+// Project imports:
+import 'package:falcon/explore/explore.dart';
 import 'package:falcon/theme/theme.dart';
 
 class App extends StatelessWidget {

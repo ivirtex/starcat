@@ -1,4 +1,4 @@
-// ignore_for_file: inference_failure_on_collection_literal, lines_longer_than_80_chars
+// ignore_for_file: inference_failure_on_collection_literal, lines_longer_than_80_chars, prefer_const_literals_to_create_immutables
 
 import 'package:spacex_api/src/models/models.dart';
 import 'package:test/expect.dart';

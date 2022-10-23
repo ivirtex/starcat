@@ -1,8 +1,12 @@
-import 'package:bloc_test/bloc_test.dart';
-import 'package:falcon/theme/theme.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// Project imports:
+import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
 void main() {

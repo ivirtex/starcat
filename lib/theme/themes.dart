@@ -1,6 +1,8 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+// Package imports:
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 const FlexSchemeData spacexTheme = FlexSchemeData(
   name: 'SpaceX',

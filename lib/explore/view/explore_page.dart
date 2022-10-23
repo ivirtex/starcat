@@ -1,5 +1,8 @@
-import 'package:falcon/explore/widgets/explore_card.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:falcon/explore/widgets/explore_card.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -27,7 +30,7 @@ class ExplorePage extends StatelessWidget {
                       Text('2021-07-20 12:00:00'),
                     ],
                   ),
-                  Text('Falcon 9'),
+                  const Text('Falcon 9'),
                 ],
               ),
             ),

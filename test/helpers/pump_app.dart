@@ -5,11 +5,16 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:falcon/theme/cubit/cubit.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
+
+// Project imports:
+import 'package:falcon/theme/cubit/cubit.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
