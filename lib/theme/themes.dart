@@ -24,11 +24,13 @@ final lightTheme = FlexThemeData.light(
   subThemesData: const FlexSubThemesData(),
   colors: spacexTheme.light,
   fontFamily: 'D-DIN',
-  // textTheme: GoogleFonts.interTextTheme(),
 );
 
 final darkTheme = FlexThemeData.dark(
   useMaterial3: true,
+  appBarBackground: Colors.black,
+  background: Colors.black,
+  scaffoldBackground: Colors.black,
   subThemesData: const FlexSubThemesData(),
   colors: spacexTheme.dark,
   fontFamily: 'D-DIN',
