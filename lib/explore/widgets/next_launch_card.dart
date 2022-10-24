@@ -47,19 +47,17 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
 
   void processState(ExploreState state) {
     if (state.status == ExploreStatus.success) {
-      final nextLaunchData = state.launches!.results!.first;
+      final nextLaunchData = state.launches?.results?.first;
 
-      _launchName = nextLaunchData.mission?.name;
-      _isLaunchTimeTbd = nextLaunchData.status?.abbrev == 'TBD';
-      _rocket = nextLaunchData.rocket;
-      _description = nextLaunchData.mission?.description;
+      _launchName = nextLaunchData?.mission?.name;
+      _isLaunchTimeTbd = nextLaunchData?.status?.abbrev == 'TBD';
+      _rocket = nextLaunchData?.rocket;
+      _description = nextLaunchData?.mission?.description;
 
-      Timer.periodic(const Duration(seconds: 1), (timer) {
-        _timer = timer;
-
+      _timer = Timer.periodic(const Duration(seconds: 1), (_) {
         setState(() {
           final tMinusToLaunch =
-              nextLaunchData.net?.toLocal().difference(DateTime.now());
+              nextLaunchData?.net?.toLocal().difference(DateTime.now());
 
           if (tMinusToLaunch != null) {
             _tMinusToLaunchDays =

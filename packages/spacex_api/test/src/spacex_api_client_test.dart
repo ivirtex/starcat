@@ -42,12 +42,31 @@ void main() {
         try {
           await apiClient.getLaunches(LaunchTime.previous);
         } catch (_) {}
-
         verify(
           () => httpClient.get(
             Uri.https(
               'lldev.thespacedevs.com',
               '/2.2.0/launch/previous/',
+              <String, String>{
+                'ordering': 'net',
+                'search': 'SpaceX',
+              },
+            ),
+          ),
+        ).called(1);
+
+        try {
+          await apiClient.getLaunches(LaunchTime.upcoming);
+        } catch (_) {}
+        verify(
+          () => httpClient.get(
+            Uri.https(
+              'lldev.thespacedevs.com',
+              '/2.2.0/launch/upcoming/',
+              <String, String>{
+                'ordering': 'net',
+                'search': 'SpaceX',
+              },
             ),
           ),
         ).called(1);

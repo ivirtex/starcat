@@ -33,6 +33,10 @@ void main() {
 
     setUp(() {
       spaceXInfoRepository = MockSpaceXInfoRepository();
+
+      registerFallbackValue(LaunchTime.upcoming);
+      when(() => spaceXInfoRepository.getLaunches(any()))
+          .thenAnswer((_) async => const Launches());
     });
 
     testWidgets('renders AppView', (tester) async {
@@ -52,9 +56,12 @@ void main() {
       spaceXInfoRepository = MockSpaceXInfoRepository();
       themeCubit = MockThemeCubit();
 
+      registerFallbackValue(LaunchTime.upcoming);
       when(() => themeCubit.state).thenReturn(
         const ThemeState(ThemeMode.system),
       );
+      when(() => spaceXInfoRepository.getLaunches(any()))
+          .thenAnswer((_) async => const Launches());
     });
 
     testWidgets('renders ExplorePage', (tester) async {
