@@ -14,20 +14,33 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
+import 'package:falcon/explore/explore.dart';
 import 'package:falcon/theme/cubit/cubit.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
-    Widget widget,
-    ThemeCubit themeCubit,
-    SpaceXInfoRepository spaceXInfoRepository,
-  ) {
+    Widget widget, {
+    SpaceXInfoRepository? spaceXInfoRepository,
+    ExploreCubit? exploreCubit,
+    ThemeCubit? themeCubit,
+  }) {
     return pumpWidget(
       RepositoryProvider.value(
         value: spaceXInfoRepository,
-        child: BlocProvider.value(
-          value: themeCubit,
-          child: MaterialApp(home: widget),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider.value(
+              value: themeCubit ?? ThemeCubit(),
+            ),
+            BlocProvider.value(
+              value: exploreCubit ??
+                  ExploreCubit(spaceXInfoRepository ?? SpaceXInfoRepository()),
+            ),
+          ],
+          child: MaterialApp(
+            themeMode: themeCubit?.state.themeMode,
+            home: widget,
+          ),
         ),
       ),
     );

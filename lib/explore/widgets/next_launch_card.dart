@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
@@ -14,7 +13,10 @@ import 'package:falcon/explore/explore.dart';
 class NextLaunchCard extends StatefulWidget {
   const NextLaunchCard({
     super.key,
+    required this.launch,
   });
+
+  final Launch launch;
 
   @override
   State<NextLaunchCard> createState() => _NextLaunchCardState();
@@ -26,6 +28,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
   Rocket? _rocket;
   String? _description;
 
+  bool _isTMinusAvailable = true;
   String? _tMinusToLaunchDays;
   late String _tMinusToLaunchHours;
   late String _tMinusToLaunchMinutes;
@@ -33,9 +36,20 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
 
   @override
   void initState() {
-    context.read<ExploreCubit>().fetchLaunches(launchTime: LaunchTime.upcoming);
-
     super.initState();
+
+    final nextLaunchData = widget.launch;
+
+    _launchName = nextLaunchData.mission?.name;
+    _isLaunchTimeTbd = nextLaunchData.status?.abbrev == 'TBD';
+    _rocket = nextLaunchData.rocket;
+    _description = nextLaunchData.mission?.description;
+
+    _updateLaunchTime(nextLaunchData);
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => _updateLaunchTime(nextLaunchData),
+    );
   }
 
   @override
@@ -45,94 +59,66 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
     _timer?.cancel();
   }
 
-  void processState(ExploreState state) {
-    if (state.status == ExploreStatus.success) {
-      final nextLaunchData = state.launches?.results?.first;
+  void _updateLaunchTime(Launch? launch) {
+    if (launch == null || launch.net == null) {
+      _isTMinusAvailable = false;
 
-      _launchName = nextLaunchData?.mission?.name;
-      _isLaunchTimeTbd = nextLaunchData?.status?.abbrev == 'TBD';
-      _rocket = nextLaunchData?.rocket;
-      _description = nextLaunchData?.mission?.description;
-
-      _timer = Timer.periodic(const Duration(seconds: 1), (_) {
-        setState(() {
-          final tMinusToLaunch =
-              nextLaunchData?.net?.toLocal().difference(DateTime.now());
-
-          if (tMinusToLaunch != null) {
-            _tMinusToLaunchDays =
-                tMinusToLaunch.inDays.toString().padLeft(2, '0');
-            _tMinusToLaunchHours =
-                (tMinusToLaunch.inHours % 24).toString().padLeft(2, '0');
-            _tMinusToLaunchMinutes =
-                (tMinusToLaunch.inMinutes % 60).toString().padLeft(2, '0');
-          }
-        });
-      });
+      return;
     }
+
+    final launchDate = launch.net!.toUtc();
+    final now = DateTime.now().toUtc();
+
+    final duration = launchDate.difference(now);
+
+    final days = duration.inDays;
+    final hours = duration.inHours - (days * 24);
+    final minutes = duration.inMinutes - (days * 24 * 60) - (hours * 60);
+
+    setState(() {
+      _tMinusToLaunchDays = days.toString().padLeft(2, '0');
+      _tMinusToLaunchHours = hours.toString().padLeft(2, '0');
+      _tMinusToLaunchMinutes = minutes.toString().padLeft(2, '0');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ExploreCubit, ExploreState>(
-      listener: (context, state) => processState(state),
-      builder: (context, state) {
-        if (state.status == ExploreStatus.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        if (state.status == ExploreStatus.failure) {
-          return const Center(
-            child: Text('Something went wrong'),
-          );
-        }
-
-        return ExploreCard(
-          title: const Text('Next Launch'),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return ExploreCard(
+      title: const Text('Next Launch'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    _launchName ?? 'No launch name',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  if (_tMinusToLaunchDays != null) ...[
-                    CountdownTimer(
-                      tMinusToLaunchDays: _tMinusToLaunchDays,
-                      tMinusToLaunchHours: _tMinusToLaunchHours,
-                      tMinusToLaunchMinutes: _tMinusToLaunchMinutes,
-                      isLaunchTimeTbd: _isLaunchTimeTbd,
-                    )
-                  ] else
-                    SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator.adaptive(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.background,
-                      ),
-                    )
-                ],
-              ),
-              const SizedBox(height: 10),
               Text(
-                _rocket?.configuration?.fullName ?? 'No rocket name',
+                _launchName ?? 'No launch name',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
-              const SizedBox(height: 10),
-              Text(_description ?? 'No description'),
-              const SizedBox(height: 10),
+              if (_isTMinusAvailable) ...[
+                CountdownTimer(
+                  tMinusToLaunchDays: _tMinusToLaunchDays,
+                  tMinusToLaunchHours: _tMinusToLaunchHours,
+                  tMinusToLaunchMinutes: _tMinusToLaunchMinutes,
+                  isLaunchTimeTbd: _isLaunchTimeTbd,
+                )
+              ] else
+                const Text('T- not available'),
             ],
           ),
-        );
-      },
+          const SizedBox(height: 10),
+          Text(
+            _rocket?.configuration?.fullName ?? 'No rocket name',
+          ),
+          const SizedBox(height: 10),
+          Text(_description ?? 'No description'),
+          const SizedBox(height: 10),
+        ],
+      ),
     );
   }
 }

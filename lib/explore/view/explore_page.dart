@@ -20,10 +20,22 @@ class ExplorePage extends StatelessWidget {
   }
 }
 
-class ExploreView extends StatelessWidget {
+class ExploreView extends StatefulWidget {
   const ExploreView({
     super.key,
   });
+
+  @override
+  State<ExploreView> createState() => _ExploreViewState();
+}
+
+class _ExploreViewState extends State<ExploreView> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<ExploreCubit>().fetchLaunches(launchTime: LaunchTime.upcoming);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +45,28 @@ class ExploreView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: Column(
-          children: const [
-            NextLaunchCard(),
-          ],
+        child: BlocBuilder<ExploreCubit, ExploreState>(
+          builder: (context, state) {
+            switch (state.status) {
+              case ExploreStatus.initial:
+              case ExploreStatus.loading:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case ExploreStatus.failure:
+                return const ExploreCard(
+                  child: Text('Something went wrong'),
+                );
+              case ExploreStatus.success:
+                return Column(
+                  children: [
+                    NextLaunchCard(
+                      launch: state.launches!.results!.first,
+                    ),
+                  ],
+                );
+            }
+          },
         ),
       ),
     );

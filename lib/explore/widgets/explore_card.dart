@@ -1,6 +1,12 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
+import 'package:falcon/theme/cubit/cubit.dart';
+
 class ExploreCard extends StatelessWidget {
   const ExploreCard({
     this.lightCardColor = Colors.black,
@@ -17,7 +23,7 @@ class ExploreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = context.read<ThemeCubit>().state.themeMode == ThemeMode.dark;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
