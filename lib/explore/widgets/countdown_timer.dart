@@ -1,5 +1,8 @@
-import 'package:falcon/shared/shared.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:falcon/shared/shared.dart';
 
 class CountdownTimer extends StatelessWidget {
   const CountdownTimer({
