@@ -24,7 +24,7 @@ class NextLaunchCard extends StatefulWidget {
 
 class _NextLaunchCardState extends State<NextLaunchCard> {
   String? _launchName;
-  String? _launchStatusAbbrev;
+  Status? _launchStatus;
   Rocket? _rocket;
   String? _description;
 
@@ -42,7 +42,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
     final nextLaunchData = widget.launch;
 
     _launchName = nextLaunchData.mission?.name;
-    _launchStatusAbbrev = nextLaunchData.status?.abbrev;
+    _launchStatus = nextLaunchData.status;
     _rocket = nextLaunchData.rocket;
     _description = nextLaunchData.mission?.description;
 
@@ -92,13 +92,16 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
   Widget build(BuildContext context) {
     return ExploreCard(
       title: const Text('Next Launch'),
+      trailing: LaunchStatus(_launchStatus),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
+                flex: 6,
                 child: Text(
                   _launchName ?? 'No launch name',
                   style: const TextStyle(
@@ -107,28 +110,83 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              const Spacer(),
               if (_isTMinusAvailable) ...[
                 CountdownTimer(
+                  mode: _launchStatus?.abbrev == 'Go'
+                      ? CountdownTimerMode.hoursMinutesSeconds
+                      : CountdownTimerMode.daysHoursMinutes,
                   days: _tMinusToLaunchDays,
                   hours: _tMinusToLaunchHours,
                   minutes: _tMinusToLaunchMinutes,
                   seconds: _tMinusToLaunchSeconds,
-                  abbrev: _launchStatusAbbrev,
                 )
               ] else
-                const Text('T- not available'),
+                const Text(
+                  'T- not available',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
             ],
           ),
+          const SizedBox(height: 10),
+          Text(_description ?? 'No description'),
           const SizedBox(height: 10),
           Text(
             _rocket?.configuration?.fullName ?? 'No rocket name',
           ),
           const SizedBox(height: 10),
-          Text(_description ?? 'No description'),
-          const SizedBox(height: 10),
         ],
       ),
+    );
+  }
+}
+
+class LaunchStatus extends StatelessWidget {
+  const LaunchStatus(
+    this.launchStatus, {
+    super.key,
+  });
+
+  final Status? launchStatus;
+
+  Color getColorForAbbrev(String? abbrev, BuildContext context) {
+    switch (abbrev) {
+      case 'Go':
+        return Colors.green;
+      case 'TBC':
+        return Colors.greenAccent[700]!;
+      case 'TBD':
+        return Colors.orange;
+      default:
+        return Theme.of(context).primaryTextTheme.bodySmall!.color!;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          launchStatus?.abbrev == 'Go'
+              ? Icons.check_rounded
+              : launchStatus?.abbrev == 'TBC'
+                  ? Icons.access_time_rounded
+                  : launchStatus?.abbrev == 'TBD'
+                      ? Icons.access_time_rounded
+                      : Icons.warning,
+          size: 15,
+          color: getColorForAbbrev(launchStatus?.abbrev, context),
+        ),
+        const SizedBox(width: 3),
+        Text(
+          launchStatus?.name ?? '',
+          style: TextStyle(
+            color: getColorForAbbrev(launchStatus?.abbrev, context),
+          ),
+        ),
+      ],
     );
   }
 }

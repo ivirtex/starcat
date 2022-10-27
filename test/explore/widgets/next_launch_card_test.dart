@@ -18,6 +18,8 @@ class MockExploreCubit extends MockCubit<ExploreState> implements ExploreCubit {
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
 void main() {
+  initHydratedStorage();
+
   group('NextLaunchCard', () {
     late ExploreCubit exploreCubit;
     late ThemeCubit themeCubit;
@@ -120,6 +122,59 @@ void main() {
       );
 
       expect(find.byType(CountdownTimer), findsOneWidget);
+    });
+  });
+
+  group('LaunchStatus', () {
+    const launchStatus = Status(
+      name: 'Go for launch',
+      abbrev: 'Go',
+    );
+
+    testWidgets('renders status correctly', (WidgetTester tester) async {
+      await tester.pumpApp(
+        const LaunchStatus(launchStatus),
+      );
+
+      expect(find.text(launchStatus.name!), findsOneWidget);
+    });
+
+    testWidgets('renders with green color when aabrev is "Go"',
+        (WidgetTester tester) async {
+      await tester.pumpApp(
+        const LaunchStatus(launchStatus),
+      );
+
+      final statusWidgetIcon = tester.widget(find.byType(Icon)) as Icon;
+      expect(statusWidgetIcon.color, Colors.green);
+    });
+
+    testWidgets('renders with green accent color when aabrev is "TBC"',
+        (WidgetTester tester) async {
+      const launchStatus = Status(
+        abbrev: 'TBC',
+      );
+
+      await tester.pumpApp(
+        const LaunchStatus(launchStatus),
+      );
+
+      final statusWidgetIcon = tester.widget(find.byType(Icon)) as Icon;
+      expect(statusWidgetIcon.color, Colors.greenAccent[700]);
+    });
+
+    testWidgets('renders with orange color when aabrev is "TBD"',
+        (WidgetTester tester) async {
+      const launchStatus = Status(
+        abbrev: 'TBD',
+      );
+
+      await tester.pumpApp(
+        const LaunchStatus(launchStatus),
+      );
+
+      final statusWidgetIcon = tester.widget(find.byType(Icon)) as Icon;
+      expect(statusWidgetIcon.color, Colors.orange);
     });
   });
 }

@@ -1,28 +1,29 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Project imports:
-import 'package:falcon/shared/shared.dart';
+enum CountdownTimerMode {
+  daysHoursMinutes,
+  hoursMinutesSeconds,
+}
 
 class CountdownTimer extends StatelessWidget {
   const CountdownTimer({
+    this.mode = CountdownTimerMode.daysHoursMinutes,
     String? days,
     required String hours,
     required String minutes,
     required String seconds,
-    String? abbrev,
     super.key,
-  })  : _tMinusToLaunchDays = days,
-        _tMinusToLaunchHours = hours,
-        _tMinusToLaunchMinutes = minutes,
-        _tMinusToLaunchSeconds = seconds,
-        _launchStatusAbbrev = abbrev;
+  })  : tMinusDays = days,
+        tMinusHours = hours,
+        tMinusMinutes = minutes,
+        tMinusSeconds = seconds;
 
-  final String? _tMinusToLaunchDays;
-  final String _tMinusToLaunchHours;
-  final String _tMinusToLaunchMinutes;
-  final String _tMinusToLaunchSeconds;
-  final String? _launchStatusAbbrev;
+  final CountdownTimerMode mode;
+  final String? tMinusDays;
+  final String tMinusHours;
+  final String tMinusMinutes;
+  final String tMinusSeconds;
 
   @override
   Widget build(BuildContext context) {
@@ -31,110 +32,65 @@ class CountdownTimer extends StatelessWidget {
       fontSize: 18,
     );
 
-    return Row(
-      children: [
-        if (_launchStatusAbbrev == 'Go') ...[
-          Text(
-            'T -',
-            style: TextStyle(
-              fontSize: 18,
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
-          ),
-          const SizedBox(width: 5),
-          Text(
-            _tMinusToLaunchHours,
-            style: numberTextStyle,
-          ),
-          const Text('h', style: TextStyle(fontSize: 18)),
-          const SizedBox(width: 5),
-          Text(
-            _tMinusToLaunchMinutes,
-            style: numberTextStyle,
-          ),
-          const Text('m', style: TextStyle(fontSize: 18)),
-          const SizedBox(width: 5),
-          Text(
-            _tMinusToLaunchSeconds,
-            style: numberTextStyle,
-          ),
-          const Text('s', style: TextStyle(fontSize: 18)),
-          const SizedBox(width: 5),
-          InfoCard(
-            color: Colors.greenAccent[700]!,
-            icon: Icon(
-              Icons.check_circle_rounded,
-              color: Theme.of(context).colorScheme.secondary,
-              size: 15,
-            ),
-            child: const Text(
-              'Confirmed',
+    return RepaintBoundary(
+      child: Row(
+        children: [
+          if (mode == CountdownTimerMode.hoursMinutesSeconds) ...[
+            Text(
+              'T -',
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Theme.of(context).colorScheme.tertiary,
               ),
             ),
-          ),
-        ] else ...[
-          Text(
-            'T -',
-            style: TextStyle(
-              fontSize: 18,
-              color: Theme.of(context).colorScheme.tertiary,
+            const SizedBox(width: 5),
+            Text(
+              tMinusHours,
+              style: numberTextStyle,
             ),
-          ),
-          const SizedBox(width: 5),
-          Text(
-            _tMinusToLaunchDays!,
-            style: numberTextStyle,
-          ),
-          const Text('d', style: TextStyle(fontSize: 18)),
-          const SizedBox(width: 5),
-          Text(
-            _tMinusToLaunchHours,
-            style: numberTextStyle,
-          ),
-          const Text('h', style: TextStyle(fontSize: 18)),
-          const SizedBox(width: 5),
-          Text(
-            _tMinusToLaunchMinutes,
-            style: numberTextStyle,
-          ),
-          const Text('m', style: TextStyle(fontSize: 18)),
-          const SizedBox(width: 5),
+            const Text('h', style: TextStyle(fontSize: 18)),
+            const SizedBox(width: 5),
+            Text(
+              tMinusMinutes,
+              style: numberTextStyle,
+            ),
+            const Text('m', style: TextStyle(fontSize: 18)),
+            const SizedBox(width: 5),
+            Text(
+              tMinusSeconds,
+              style: numberTextStyle,
+            ),
+            const Text('s', style: TextStyle(fontSize: 18)),
+          ] else ...[
+            Text(
+              'T -',
+              style: TextStyle(
+                fontSize: 18,
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
+            ),
+            const SizedBox(width: 5),
+            Text(
+              tMinusDays!,
+              style: numberTextStyle,
+            ),
+            const Text('d', style: TextStyle(fontSize: 18)),
+            const SizedBox(width: 5),
+            Text(
+              tMinusHours,
+              style: numberTextStyle,
+            ),
+            const Text('h', style: TextStyle(fontSize: 18)),
+            const SizedBox(width: 5),
+            Text(
+              tMinusMinutes,
+              style: numberTextStyle,
+            ),
+            const Text('m', style: TextStyle(fontSize: 18)),
+            const SizedBox(width: 5),
+          ],
         ],
-        if (_launchStatusAbbrev != null) ...[
-          if (_launchStatusAbbrev == 'TBD')
-            InfoCard(
-              color: Colors.yellow[700]!,
-              icon: Icon(
-                Icons.warning_rounded,
-                color: Theme.of(context).colorScheme.secondary,
-                size: 15,
-              ),
-              child: const Text(
-                'TBD',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          if (_launchStatusAbbrev == 'TBC')
-            InfoCard(
-              color: Colors.green[700]!,
-              icon: Icon(
-                Icons.check_circle_rounded,
-                color: Theme.of(context).colorScheme.secondary,
-                size: 15,
-              ),
-              child: const Text(
-                'TBC',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-        ],
-      ],
+      ),
     );
   }
 }

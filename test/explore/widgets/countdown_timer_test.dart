@@ -8,7 +8,6 @@ import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
-import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
@@ -59,17 +58,17 @@ void main() {
     });
 
     testWidgets(
-        'renders CountdownTimer as HH:MM:SS when status is Go for Launch',
+        'renders CountdownTimer as HH:MM:SS when mode is set to CountdownTimerMode.hoursMinutesSeconds',
         (WidgetTester tester) async {
       await tester.pumpApp(
         themeCubit: themeCubit,
         exploreCubit: exploreCubit,
         const CountdownTimer(
+          mode: CountdownTimerMode.hoursMinutesSeconds,
           days: '1',
           hours: '2',
           minutes: '3',
           seconds: '4',
-          abbrev: 'Go',
         ),
       );
 
@@ -85,74 +84,6 @@ void main() {
 
       expect(find.text('4'), findsOneWidget);
       expect(find.text('s'), findsOneWidget);
-    });
-
-    testWidgets('renders TBD card when launch status is TBD',
-        (WidgetTester tester) async {
-      await tester.pumpApp(
-        themeCubit: themeCubit,
-        exploreCubit: exploreCubit,
-        const CountdownTimer(
-          days: '1',
-          hours: '2',
-          minutes: '3',
-          seconds: '4',
-          abbrev: 'TBD',
-        ),
-      );
-
-      expect(find.byType(InfoCard), findsOneWidget);
-      expect(find.text('TBD'), findsOneWidget);
-    });
-
-    testWidgets('does not render TBD card when launch status is not TBD',
-        (WidgetTester tester) async {
-      await tester.pumpApp(
-        themeCubit: themeCubit,
-        exploreCubit: exploreCubit,
-        const CountdownTimer(
-          days: '1',
-          hours: '2',
-          minutes: '3',
-          seconds: '4',
-        ),
-      );
-
-      expect(find.byType(InfoCard), findsNothing);
-    });
-
-    testWidgets('renders TBC card when launch status is TBC',
-        (WidgetTester tester) async {
-      await tester.pumpApp(
-        themeCubit: themeCubit,
-        exploreCubit: exploreCubit,
-        const CountdownTimer(
-          days: '1',
-          hours: '2',
-          minutes: '3',
-          seconds: '4',
-          abbrev: 'TBC',
-        ),
-      );
-
-      expect(find.byType(InfoCard), findsOneWidget);
-      expect(find.text('TBC'), findsOneWidget);
-    });
-
-    testWidgets('does not render TBC card when launch status is not TBC',
-        (WidgetTester tester) async {
-      await tester.pumpApp(
-        themeCubit: themeCubit,
-        exploreCubit: exploreCubit,
-        const CountdownTimer(
-          days: '1',
-          hours: '2',
-          minutes: '3',
-          seconds: '4',
-        ),
-      );
-
-      expect(find.byType(InfoCard), findsNothing);
     });
   });
 }

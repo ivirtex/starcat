@@ -59,9 +59,37 @@ class _ExploreViewState extends State<ExploreView> {
                 );
               case ExploreStatus.success:
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     NextLaunchCard(
                       launch: state.launches!.results!.first,
+                    ),
+                    const SizedBox(height: 10),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4),
+                      child: Text('Upcoming Launches'),
+                    ),
+                    Flexible(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.launches!.results!.length,
+                        itemBuilder: (context, index) {
+                          return ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxWidth: 200,
+                            ),
+                            child: ExploreCard(
+                              title: Text(
+                                'NET: ${state.launches!.results![index].net?.toLocal().toString().replaceAll('.000', '') ?? ''}',
+                              ),
+                              child: Text(
+                                state.launches!.results![index].mission?.name ??
+                                    'No name',
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 );

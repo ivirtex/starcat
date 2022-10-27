@@ -12,6 +12,7 @@ class ExploreCard extends StatelessWidget {
     this.lightCardColor = Colors.black,
     this.darkCardColor = Colors.white,
     this.title,
+    this.trailing,
     required this.child,
     super.key,
   });
@@ -19,6 +20,7 @@ class ExploreCard extends StatelessWidget {
   final Color lightCardColor;
   final Color darkCardColor;
   final Widget? title;
+  final Widget? trailing;
   final Widget child;
 
   @override
@@ -30,8 +32,16 @@ class ExploreCard extends StatelessWidget {
       children: [
         if (title != null)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: title,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                title!,
+                if (trailing != null) ...[
+                  const Spacer(),
+                  trailing!,
+                ],
+              ],
+            ),
           ),
         Card(
           color: isDark ? darkCardColor : lightCardColor,
