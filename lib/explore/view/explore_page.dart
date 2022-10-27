@@ -29,12 +29,29 @@ class ExploreView extends StatefulWidget {
   State<ExploreView> createState() => _ExploreViewState();
 }
 
-class _ExploreViewState extends State<ExploreView> {
+class _ExploreViewState extends State<ExploreView>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(milliseconds: 700),
+    vsync: this,
+  );
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.easeIn,
+  );
+
   @override
   void initState() {
-    super.initState();
-
     context.read<ExploreCubit>().fetchLaunches(launchTime: LaunchTime.upcoming);
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -58,40 +75,62 @@ class _ExploreViewState extends State<ExploreView> {
                   child: Text('Something went wrong'),
                 );
               case ExploreStatus.success:
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    NextLaunchCard(
-                      launch: state.launches!.results!.first,
-                    ),
-                    const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 4),
-                      child: Text('Upcoming Launches'),
-                    ),
-                    Flexible(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.launches!.results!.length,
-                        itemBuilder: (context, index) {
-                          return ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              maxWidth: 200,
-                            ),
-                            child: ExploreCard(
-                              title: Text(
-                                'NET: ${state.launches!.results![index].net?.toLocal().toString().replaceAll('.000', '') ?? ''}',
-                              ),
-                              child: Text(
-                                state.launches!.results![index].mission?.name ??
-                                    'No name',
-                              ),
-                            ),
-                          );
-                        },
+                _controller.forward();
+
+                return FadeTransition(
+                  opacity: _animation,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      NextLaunchCard(
+                        launch: state.launches!.results!.first,
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 10),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Text('Upcoming Launches'),
+                      ),
+                      Flexible(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.launches!.results!.length,
+                          itemBuilder: (context, index) {
+                            return ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxWidth: 200,
+                                maxHeight: 200,
+                              ),
+                              child: ExploreCard(
+                                title: Text(
+                                  'NET: ${state.launches!.results![index].net?.toLocal().toString().replaceAll('.000', '') ?? ''}',
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      state.launches!.results![index].mission
+                                              ?.name ??
+                                          'No name',
+                                    ),
+                                    Text(
+                                      state.launches!.results![index].pad
+                                              ?.name ??
+                                          'No pad',
+                                    ),
+                                    Image.network(
+                                      state.launches!.results![index].image ??
+                                          'No image',
+                                      height: 150,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 );
             }
           },
