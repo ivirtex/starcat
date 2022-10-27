@@ -24,7 +24,7 @@ class NextLaunchCard extends StatefulWidget {
 
 class _NextLaunchCardState extends State<NextLaunchCard> {
   String? _launchName;
-  bool? _isLaunchTimeTbd;
+  String? _launchStatusAbbrev;
   Rocket? _rocket;
   String? _description;
 
@@ -32,6 +32,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
   String? _tMinusToLaunchDays;
   late String _tMinusToLaunchHours;
   late String _tMinusToLaunchMinutes;
+  late String _tMinusToLaunchSeconds;
   Timer? _timer;
 
   @override
@@ -41,7 +42,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
     final nextLaunchData = widget.launch;
 
     _launchName = nextLaunchData.mission?.name;
-    _isLaunchTimeTbd = nextLaunchData.status?.abbrev == 'TBD';
+    _launchStatusAbbrev = nextLaunchData.status?.abbrev;
     _rocket = nextLaunchData.rocket;
     _description = nextLaunchData.mission?.description;
 
@@ -74,11 +75,16 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
     final days = duration.inDays;
     final hours = duration.inHours - (days * 24);
     final minutes = duration.inMinutes - (days * 24 * 60) - (hours * 60);
+    final seconds = duration.inSeconds -
+        (days * 24 * 60 * 60) -
+        (hours * 60 * 60) -
+        (minutes * 60);
 
     setState(() {
       _tMinusToLaunchDays = days.toString().padLeft(2, '0');
       _tMinusToLaunchHours = hours.toString().padLeft(2, '0');
       _tMinusToLaunchMinutes = minutes.toString().padLeft(2, '0');
+      _tMinusToLaunchSeconds = seconds.toString().padLeft(2, '0');
     });
   }
 
@@ -92,19 +98,23 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                _launchName ?? 'No launch name',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+              Flexible(
+                child: Text(
+                  _launchName ?? 'No launch name',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
               ),
+              const SizedBox(width: 10),
               if (_isTMinusAvailable) ...[
                 CountdownTimer(
-                  tMinusToLaunchDays: _tMinusToLaunchDays,
-                  tMinusToLaunchHours: _tMinusToLaunchHours,
-                  tMinusToLaunchMinutes: _tMinusToLaunchMinutes,
-                  isLaunchTimeTbd: _isLaunchTimeTbd,
+                  days: _tMinusToLaunchDays,
+                  hours: _tMinusToLaunchHours,
+                  minutes: _tMinusToLaunchMinutes,
+                  seconds: _tMinusToLaunchSeconds,
+                  abbrev: _launchStatusAbbrev,
                 )
               ] else
                 const Text('T- not available'),
@@ -119,94 +129,6 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
           const SizedBox(height: 10),
         ],
       ),
-    );
-  }
-}
-
-class CountdownTimer extends StatelessWidget {
-  const CountdownTimer({
-    super.key,
-    required String? tMinusToLaunchDays,
-    required String tMinusToLaunchHours,
-    required String tMinusToLaunchMinutes,
-    required bool? isLaunchTimeTbd,
-  })  : _tMinusToLaunchDays = tMinusToLaunchDays,
-        _tMinusToLaunchHours = tMinusToLaunchHours,
-        _tMinusToLaunchMinutes = tMinusToLaunchMinutes,
-        _isLaunchTimeTbd = isLaunchTimeTbd;
-
-  final String? _tMinusToLaunchDays;
-  final String _tMinusToLaunchHours;
-  final String _tMinusToLaunchMinutes;
-  final bool? _isLaunchTimeTbd;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          'T -',
-          style: TextStyle(
-            fontSize: 18,
-            color: Theme.of(context).colorScheme.tertiary,
-          ),
-        ),
-        const SizedBox(width: 5),
-        Text(
-          _tMinusToLaunchDays!,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        const Text('d', style: TextStyle(fontSize: 18)),
-        const SizedBox(width: 5),
-        Text(
-          _tMinusToLaunchHours,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        const Text('h', style: TextStyle(fontSize: 18)),
-        const SizedBox(width: 5),
-        Text(
-          _tMinusToLaunchMinutes,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-        const Text('m', style: TextStyle(fontSize: 18)),
-        const SizedBox(width: 5),
-        if (_isLaunchTimeTbd != null && _isLaunchTimeTbd!) ...[
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.yellow[700],
-              borderRadius: const BorderRadius.all(
-                Radius.circular(5),
-              ),
-            ),
-            padding: const EdgeInsets.all(5),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.warning_rounded,
-                  color: Theme.of(context).colorScheme.secondary,
-                  size: 15,
-                ),
-                const SizedBox(width: 2),
-                const Text(
-                  'TBD',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ],
     );
   }
 }
