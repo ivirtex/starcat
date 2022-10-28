@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -34,4 +35,21 @@ final darkTheme = FlexThemeData.dark(
   subThemesData: const FlexSubThemesData(),
   colors: spacexTheme.dark,
   fontFamily: 'D-DIN',
+);
+
+const cupertinoTheme = CupertinoThemeData(
+  primaryColor: CupertinoColors.systemBackground,
+  primaryContrastingColor: CupertinoColors.label,
+  barBackgroundColor: CupertinoColors.systemBackground,
+  textTheme: CupertinoTextThemeData(
+    navLargeTitleTextStyle: TextStyle(
+      color: CupertinoColors.label,
+      fontSize: 34,
+      fontFamily: 'D-DINBold',
+    ),
+    textStyle: TextStyle(
+      color: CupertinoColors.label,
+      fontFamily: 'D-DIN',
+    ),
+  ),
 );

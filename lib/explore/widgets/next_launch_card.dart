@@ -2,6 +2,7 @@
 import 'dart:async';
 
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -122,10 +123,12 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
                   seconds: _tMinusToLaunchSeconds,
                 )
               ] else
-                const Text(
+                Text(
                   'T- not available',
                   style: TextStyle(
-                    color: Colors.red,
+                    color: Theme.of(context).platform == TargetPlatform.iOS
+                        ? CupertinoColors.systemRed.resolveFrom(context)
+                        : Colors.red,
                   ),
                 ),
             ],
@@ -151,7 +154,7 @@ class LaunchStatus extends StatelessWidget {
 
   final Status? launchStatus;
 
-  Color getColorForAbbrev(String? abbrev, BuildContext context) {
+  Color? tryToGetColorForAbbrev(String? abbrev) {
     switch (abbrev) {
       case 'Go':
         return Colors.green;
@@ -160,7 +163,7 @@ class LaunchStatus extends StatelessWidget {
       case 'TBD':
         return Colors.orange;
       default:
-        return Theme.of(context).primaryTextTheme.bodySmall!.color!;
+        return null;
     }
   }
 
@@ -175,15 +178,15 @@ class LaunchStatus extends StatelessWidget {
                   ? Icons.access_time_rounded
                   : launchStatus?.abbrev == 'TBD'
                       ? Icons.access_time_rounded
-                      : Icons.warning,
+                      : Icons.comment_rounded,
           size: 15,
-          color: getColorForAbbrev(launchStatus?.abbrev, context),
+          color: tryToGetColorForAbbrev(launchStatus?.abbrev),
         ),
         const SizedBox(width: 3),
         Text(
           launchStatus?.name ?? '',
           style: TextStyle(
-            color: getColorForAbbrev(launchStatus?.abbrev, context),
+            color: tryToGetColorForAbbrev(launchStatus?.abbrev),
           ),
         ),
       ],

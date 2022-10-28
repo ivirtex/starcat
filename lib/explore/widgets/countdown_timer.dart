@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 enum CountdownTimerMode {
@@ -40,7 +41,9 @@ class CountdownTimer extends StatelessWidget {
               'T -',
               style: TextStyle(
                 fontSize: 18,
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).platform == TargetPlatform.iOS
+                    ? CupertinoColors.systemRed.resolveFrom(context)
+                    : Colors.red,
               ),
             ),
             const SizedBox(width: 5),
@@ -66,7 +69,9 @@ class CountdownTimer extends StatelessWidget {
               'T -',
               style: TextStyle(
                 fontSize: 18,
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).platform == TargetPlatform.iOS
+                    ? CupertinoColors.systemRed.resolveFrom(context)
+                    : Colors.red,
               ),
             ),
             const SizedBox(width: 5),

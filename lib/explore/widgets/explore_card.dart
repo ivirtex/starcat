@@ -45,8 +45,13 @@ class ExploreCard extends StatelessWidget {
           ),
         Card(
           color: isDark ? darkCardColor : lightCardColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           child: DefaultTextStyle(
-            style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+            style: TextStyle(
+              color: Theme.of(context).textTheme.bodyMedium?.backgroundColor,
+            ),
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: child,

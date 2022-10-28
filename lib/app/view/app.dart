@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
@@ -36,11 +37,19 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
-        return MaterialApp(
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          themeMode: state.themeMode,
-          home: const ExplorePage(),
+        return MediaQuery.fromWindow(
+          child: PlatformApp(
+            material: (_, __) => MaterialAppData(
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: state.themeMode,
+            ),
+            cupertino: (_, __) => CupertinoAppData(
+              theme: cupertinoTheme.resolveFrom(context),
+              useInheritedMediaQuery: true,
+            ),
+            home: const ExplorePage(),
+          ),
         );
       },
     );
