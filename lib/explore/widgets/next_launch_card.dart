@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:async';
-
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +27,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
   String? _description;
 
   bool _isTMinusAvailable = true;
-  String? _tMinusToLaunchDays;
-  late String _tMinusToLaunchHours;
-  late String _tMinusToLaunchMinutes;
-  late String _tMinusToLaunchSeconds;
-  Timer? _timer;
+  DateTime? _launchDate;
 
   @override
   void initState() {
@@ -42,51 +35,15 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
 
     final nextLaunchData = widget.launch;
 
+    if (nextLaunchData.net == null) {
+      _isTMinusAvailable = false;
+    }
+
+    _launchDate = nextLaunchData.net;
     _launchName = nextLaunchData.mission?.name;
     _launchStatus = nextLaunchData.status;
     _rocket = nextLaunchData.rocket;
     _description = nextLaunchData.mission?.description;
-
-    _updateLaunchTime(nextLaunchData);
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (_) => _updateLaunchTime(nextLaunchData),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-
-    _timer?.cancel();
-  }
-
-  void _updateLaunchTime(Launch? launch) {
-    if (launch == null || launch.net == null) {
-      _isTMinusAvailable = false;
-
-      return;
-    }
-
-    final launchDate = launch.net!.toUtc();
-    final now = DateTime.now().toUtc();
-
-    final duration = launchDate.difference(now);
-
-    final days = duration.inDays;
-    final hours = duration.inHours - (days * 24);
-    final minutes = duration.inMinutes - (days * 24 * 60) - (hours * 60);
-    final seconds = duration.inSeconds -
-        (days * 24 * 60 * 60) -
-        (hours * 60 * 60) -
-        (minutes * 60);
-
-    setState(() {
-      _tMinusToLaunchDays = days.toString().padLeft(2, '0');
-      _tMinusToLaunchHours = hours.toString().padLeft(2, '0');
-      _tMinusToLaunchMinutes = minutes.toString().padLeft(2, '0');
-      _tMinusToLaunchSeconds = seconds.toString().padLeft(2, '0');
-    });
   }
 
   @override
@@ -114,13 +71,10 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
               const Spacer(),
               if (_isTMinusAvailable) ...[
                 CountdownTimer(
+                  launchDate: _launchDate!,
                   mode: _launchStatus?.abbrev == 'Go'
                       ? CountdownTimerMode.hoursMinutesSeconds
                       : CountdownTimerMode.daysHoursMinutes,
-                  days: _tMinusToLaunchDays,
-                  hours: _tMinusToLaunchHours,
-                  minutes: _tMinusToLaunchMinutes,
-                  seconds: _tMinusToLaunchSeconds,
                 )
               ] else
                 Text(

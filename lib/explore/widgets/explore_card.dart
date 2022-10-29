@@ -51,6 +51,8 @@ class ExploreCard extends StatelessWidget {
           child: DefaultTextStyle(
             style: TextStyle(
               color: Theme.of(context).textTheme.bodyMedium?.backgroundColor,
+              fontFamily: 'D-DIN',
+              fontSize: 16,
             ),
             child: Padding(
               padding: const EdgeInsets.all(10),

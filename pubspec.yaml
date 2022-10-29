@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.0
+  clock: ^1.1.1
   equatable: ^2.0.5
   flex_color_scheme: ^6.0.1
   flutter:

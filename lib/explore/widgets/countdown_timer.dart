@@ -1,30 +1,82 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:clock/clock.dart';
 
 enum CountdownTimerMode {
   daysHoursMinutes,
   hoursMinutesSeconds,
 }
 
-class CountdownTimer extends StatelessWidget {
+class CountdownTimer extends StatefulWidget {
   const CountdownTimer({
     this.mode = CountdownTimerMode.daysHoursMinutes,
-    String? days,
-    required String hours,
-    required String minutes,
-    required String seconds,
+    required this.launchDate,
+    this.clock = const Clock(),
     super.key,
-  })  : tMinusDays = days,
-        tMinusHours = hours,
-        tMinusMinutes = minutes,
-        tMinusSeconds = seconds;
+  });
 
   final CountdownTimerMode mode;
-  final String? tMinusDays;
-  final String tMinusHours;
-  final String tMinusMinutes;
-  final String tMinusSeconds;
+  final DateTime launchDate;
+  final Clock clock;
+
+  @override
+  State<CountdownTimer> createState() => _CountdownTimerState();
+}
+
+class _CountdownTimerState extends State<CountdownTimer> {
+  late String _tMinusToLaunchDays;
+  late String _tMinusToLaunchHours;
+  late String _tMinusToLaunchMinutes;
+  late String _tMinusToLaunchSeconds;
+  bool _isNegative = false;
+  Timer? _timer;
+
+  void _updateLaunchTime(DateTime launchDate) {
+    final localLaunchDate = launchDate.toLocal();
+    final now = widget.clock.now().toLocal();
+
+    final duration = localLaunchDate.difference(now);
+    _isNegative = duration.isNegative;
+
+    final days = duration.inDays;
+    final hours = duration.inHours - (days * 24);
+    final minutes = duration.inMinutes - (days * 24 * 60) - (hours * 60);
+    final seconds = duration.inSeconds -
+        (days * 24 * 60 * 60) -
+        (hours * 60 * 60) -
+        (minutes * 60);
+
+    setState(() {
+      _tMinusToLaunchDays = days.toString().padLeft(2, '0');
+      _tMinusToLaunchHours = hours.toString().padLeft(2, '0');
+      _tMinusToLaunchMinutes = minutes.toString().padLeft(2, '0');
+      _tMinusToLaunchSeconds = seconds.toString().padLeft(2, '0');
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _updateLaunchTime(widget.launchDate);
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => _updateLaunchTime(widget.launchDate),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _timer?.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +88,9 @@ class CountdownTimer extends StatelessWidget {
     return RepaintBoundary(
       child: Row(
         children: [
-          if (mode == CountdownTimerMode.hoursMinutesSeconds) ...[
+          if (widget.mode == CountdownTimerMode.hoursMinutesSeconds) ...[
             Text(
-              'T -',
+              _isNegative ? 'T +' : 'T -',
               style: TextStyle(
                 fontSize: 18,
                 color: Theme.of(context).platform == TargetPlatform.iOS
@@ -48,25 +100,25 @@ class CountdownTimer extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             Text(
-              tMinusHours,
+              _tMinusToLaunchHours,
               style: numberTextStyle,
             ),
             const Text('h', style: TextStyle(fontSize: 18)),
             const SizedBox(width: 5),
             Text(
-              tMinusMinutes,
+              _tMinusToLaunchMinutes,
               style: numberTextStyle,
             ),
             const Text('m', style: TextStyle(fontSize: 18)),
             const SizedBox(width: 5),
             Text(
-              tMinusSeconds,
+              _tMinusToLaunchSeconds,
               style: numberTextStyle,
             ),
             const Text('s', style: TextStyle(fontSize: 18)),
           ] else ...[
             Text(
-              'T -',
+              _isNegative ? 'T +' : 'T -',
               style: TextStyle(
                 fontSize: 18,
                 color: Theme.of(context).platform == TargetPlatform.iOS
@@ -76,19 +128,19 @@ class CountdownTimer extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             Text(
-              tMinusDays!,
+              _tMinusToLaunchDays,
               style: numberTextStyle,
             ),
             const Text('d', style: TextStyle(fontSize: 18)),
             const SizedBox(width: 5),
             Text(
-              tMinusHours,
+              _tMinusToLaunchHours,
               style: numberTextStyle,
             ),
             const Text('h', style: TextStyle(fontSize: 18)),
             const SizedBox(width: 5),
             Text(
-              tMinusMinutes,
+              _tMinusToLaunchMinutes,
               style: numberTextStyle,
             ),
             const Text('m', style: TextStyle(fontSize: 18)),
