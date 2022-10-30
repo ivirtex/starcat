@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:go_router/go_router.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
@@ -22,7 +23,6 @@ class NextLaunchCard extends StatefulWidget {
 class _NextLaunchCardState extends State<NextLaunchCard> {
   String? _launchName;
   Status? _launchStatus;
-  Rocket? _rocket;
   String? _description;
 
   DateTime? _launchDate;
@@ -32,11 +32,9 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
     super.initState();
 
     final nextLaunchData = widget.launch;
-
     _launchDate = nextLaunchData.net;
-    _launchName = nextLaunchData.mission?.name;
+    _launchName = nextLaunchData.name;
     _launchStatus = nextLaunchData.status;
-    _rocket = nextLaunchData.rocket;
     _description = nextLaunchData.mission?.description;
   }
 
@@ -77,7 +75,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
             style: const ButtonStyle(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
-            onPressed: () {},
+            onPressed: () => context.go('/launch/${widget.launch.id}'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

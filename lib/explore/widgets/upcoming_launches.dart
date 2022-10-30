@@ -24,6 +24,12 @@ class UpcomingLaunches extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemCount: launches.results!.length,
           itemBuilder: (context, index) {
+            // We are not displaying the first launch because
+            // it is already displayed above this widget
+            if (index == 0) {
+              return const SizedBox();
+            }
+
             final launch = launches.results![index];
             final net = launch.net?.toLocal().toString().replaceAll('.000', '');
 

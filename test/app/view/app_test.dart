@@ -70,7 +70,7 @@ void main() {
           value: spaceXInfoRepository,
           child: BlocProvider.value(
             value: themeCubit,
-            child: const AppView(),
+            child: AppView(),
           ),
         ),
       );

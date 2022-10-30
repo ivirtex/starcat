@@ -16,10 +16,7 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ExploreCubit(context.read<SpaceXInfoRepository>()),
-      child: const ExploreView(),
-    );
+    return const ExploreView();
   }
 }
 
