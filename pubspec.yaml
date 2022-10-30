@@ -16,6 +16,8 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.1
   flutter_platform_widgets: ^2.0.0
+  flutter_svg: ^1.1.6
+  font_awesome_flutter: ^10.2.1
   google_fonts: ^3.0.1
   hydrated_bloc: ^9.0.0-dev.3
   path_provider: ^2.0.11
@@ -33,6 +35,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/rockets/falcon_heavy/
 
   fonts:
     - family: D-DIN

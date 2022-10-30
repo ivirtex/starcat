@@ -9,6 +9,7 @@ import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/shared/shared.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -124,52 +125,10 @@ class Body extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    NextLaunchCard(
-                      launch: state.launches!.results!.first,
-                    ),
+                    NextLaunchCard(launch: state.launches!.results!.first),
                     const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        'Upcoming Launches',
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyMedium?.color,
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.launches!.results!.length,
-                        itemBuilder: (context, index) {
-                          return ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              maxWidth: 250,
-                              maxHeight: 200,
-                            ),
-                            child: ExploreCard(
-                              title: Text(
-                                'NET: ${state.launches!.results![index].net?.toLocal().toString().replaceAll('.000', '') ?? ''}',
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    state.launches!.results![index].mission
-                                            ?.name ??
-                                        'No name',
-                                  ),
-                                  Text(
-                                    state.launches!.results![index].pad?.name ??
-                                        'No pad',
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                    const Section(name: 'Upcoming Launches'),
+                    UpcomingLaunches(launches: state.launches!),
                   ],
                 ),
               );

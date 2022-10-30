@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -26,7 +25,6 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
   Rocket? _rocket;
   String? _description;
 
-  bool _isTMinusAvailable = true;
   DateTime? _launchDate;
 
   @override
@@ -34,10 +32,6 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
     super.initState();
 
     final nextLaunchData = widget.launch;
-
-    if (nextLaunchData.net == null) {
-      _isTMinusAvailable = false;
-    }
 
     _launchDate = nextLaunchData.net;
     _launchName = nextLaunchData.mission?.name;
@@ -68,32 +62,34 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
                   ),
                 ),
               ),
-              const Spacer(),
-              if (_isTMinusAvailable) ...[
-                CountdownTimer(
-                  launchDate: _launchDate!,
-                  mode: _launchStatus?.abbrev == 'Go'
-                      ? CountdownTimerMode.hoursMinutesSeconds
-                      : CountdownTimerMode.daysHoursMinutes,
-                )
-              ] else
-                Text(
-                  'T- not available',
-                  style: TextStyle(
-                    color: Theme.of(context).platform == TargetPlatform.iOS
-                        ? CupertinoColors.systemRed.resolveFrom(context)
-                        : Colors.red,
-                  ),
-                ),
+              CountdownTimer(
+                launchDate: _launchDate,
+                mode: _launchStatus?.abbrev == 'Go'
+                    ? CountdownTimerMode.hoursMinutesSeconds
+                    : CountdownTimerMode.daysHoursMinutes,
+              )
             ],
           ),
           const SizedBox(height: 10),
           Text(_description ?? 'No description'),
           const SizedBox(height: 10),
-          Text(
-            _rocket?.configuration?.fullName ?? 'No rocket name',
+          OutlinedButton(
+            style: const ButtonStyle(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Launch Details',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 10),
         ],
       ),
     );

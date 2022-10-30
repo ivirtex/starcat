@@ -1,10 +1,12 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:clock/clock.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:

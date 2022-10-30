@@ -22,7 +22,7 @@ class CountdownTimer extends StatefulWidget {
   });
 
   final CountdownTimerMode mode;
-  final DateTime launchDate;
+  final DateTime? launchDate;
   final Clock clock;
 
   @override
@@ -64,11 +64,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
   void initState() {
     super.initState();
 
-    _updateLaunchTime(widget.launchDate);
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (_) => _updateLaunchTime(widget.launchDate),
-    );
+    if (widget.launchDate != null) {
+      _updateLaunchTime(widget.launchDate!);
+      _timer = Timer.periodic(
+        const Duration(seconds: 1),
+        (_) => _updateLaunchTime(widget.launchDate!),
+      );
+    }
   }
 
   @override
@@ -84,6 +86,24 @@ class _CountdownTimerState extends State<CountdownTimer> {
       fontWeight: FontWeight.bold,
       fontSize: 18,
     );
+
+    if (widget.launchDate == null) {
+      return Row(
+        children: [
+          Text(
+            'T -',
+            style: TextStyle(
+              fontSize: 18,
+              color: Theme.of(context).platform == TargetPlatform.iOS
+                  ? CupertinoColors.systemRed.resolveFrom(context)
+                  : Colors.red,
+            ),
+          ),
+          const SizedBox(width: 5),
+          const Text('N/A', style: numberTextStyle),
+        ],
+      );
+    }
 
     return RepaintBoundary(
       child: Row(

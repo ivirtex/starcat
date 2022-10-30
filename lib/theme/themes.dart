@@ -22,7 +22,12 @@ const FlexSchemeData spacexTheme = FlexSchemeData(
 
 final lightTheme = FlexThemeData.light(
   useMaterial3: true,
-  subThemesData: const FlexSubThemesData(),
+  subThemesData: const FlexSubThemesData(
+    elevatedButtonRadius: 10,
+    outlinedButtonRadius: 10,
+    textButtonRadius: 10,
+    cardRadius: 10,
+  ),
   colors: spacexTheme.light,
   fontFamily: 'D-DIN',
 );
@@ -32,7 +37,12 @@ final darkTheme = FlexThemeData.dark(
   appBarBackground: Colors.black,
   background: Colors.black,
   scaffoldBackground: Colors.black,
-  subThemesData: const FlexSubThemesData(),
+  subThemesData: const FlexSubThemesData(
+    elevatedButtonRadius: 10,
+    outlinedButtonRadius: 10,
+    textButtonRadius: 10,
+    cardRadius: 10,
+  ),
   colors: spacexTheme.dark,
   fontFamily: 'D-DIN',
 );
