@@ -3,6 +3,7 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
@@ -92,14 +93,36 @@ void main() {
         (WidgetTester tester) async {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
 
-      await tester.pumpApp(
-        CountdownTimer(launchDate: launchDate),
+      await tester.pumpWidget(
+        CupertinoApp(home: CountdownTimer(launchDate: launchDate)),
       );
 
       final text = tester.widget<Text>(find.textContaining('T'));
       expect(text.style?.color, CupertinoColors.systemRed);
 
       debugDefaultTargetPlatformOverride = null;
+    });
+
+    testWidgets('uses Colors.red in Android for T -',
+        (WidgetTester tester) async {
+      await tester.pumpApp(
+        CountdownTimer(launchDate: launchDate),
+      );
+
+      final text = tester.widget<Text>(find.textContaining('T'));
+      expect(text.style?.color, Colors.red);
+    });
+
+    testWidgets('does not render minuses for T +', (WidgetTester tester) async {
+      await tester.pumpApp(
+        CountdownTimer(
+          launchDate: launchDate,
+          clock: Clock.fixed(mockedCurrentTime.add(const Duration(days: 3))),
+        ),
+      );
+
+      expect(find.textContaining('T +'), findsOneWidget);
+      expect(find.textContaining('-'), findsNothing);
     });
   });
 }

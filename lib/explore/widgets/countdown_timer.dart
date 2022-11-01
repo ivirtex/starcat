@@ -53,10 +53,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
         (minutes * 60);
 
     setState(() {
-      _tMinusToLaunchDays = days.toString().padLeft(2, '0');
-      _tMinusToLaunchHours = hours.toString().padLeft(2, '0');
-      _tMinusToLaunchMinutes = minutes.toString().padLeft(2, '0');
-      _tMinusToLaunchSeconds = seconds.toString().padLeft(2, '0');
+      _tMinusToLaunchDays = days.toString().replaceAll('-', '').padLeft(2, '0');
+      _tMinusToLaunchHours =
+          hours.toString().replaceAll('-', '').padLeft(2, '0');
+      _tMinusToLaunchMinutes =
+          minutes.toString().replaceAll('-', '').padLeft(2, '0');
+      _tMinusToLaunchSeconds =
+          seconds.toString().replaceAll('-', '').padLeft(2, '0');
     });
   }
 
@@ -83,8 +86,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   Widget build(BuildContext context) {
     const numberTextStyle = TextStyle(
-      fontWeight: FontWeight.bold,
       fontSize: 18,
+      fontWeight: FontWeight.bold,
     );
 
     if (widget.launchDate == null) {
@@ -164,7 +167,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
               style: numberTextStyle,
             ),
             const Text('m', style: TextStyle(fontSize: 18)),
-            const SizedBox(width: 5),
           ],
         ],
       ),

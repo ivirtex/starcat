@@ -1,16 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-// Project imports:
-import 'package:falcon/theme/cubit/cubit.dart';
-
 class ExploreCard extends StatelessWidget {
   const ExploreCard({
     this.lightCardColor = Colors.black,
     this.darkCardColor = Colors.white,
+    this.padding = const EdgeInsets.all(10),
     this.title,
     this.trailing,
     required this.child,
@@ -19,13 +14,14 @@ class ExploreCard extends StatelessWidget {
 
   final Color lightCardColor;
   final Color darkCardColor;
+  final EdgeInsets padding;
   final Widget? title;
   final Widget? trailing;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.read<ThemeCubit>().state.themeMode == ThemeMode.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -47,12 +43,12 @@ class ExploreCard extends StatelessWidget {
           color: isDark ? darkCardColor : lightCardColor,
           child: DefaultTextStyle(
             style: TextStyle(
-              color: Theme.of(context).textTheme.bodyMedium?.backgroundColor,
+              color: isDark ? Colors.black : Colors.white,
               fontFamily: 'D-DIN',
               fontSize: 16,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: padding,
               child: child,
             ),
           ),

@@ -7,6 +7,7 @@ import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/shared/shared.dart';
 
 class NextLaunchCard extends StatefulWidget {
   const NextLaunchCard({
@@ -71,20 +72,12 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
           const SizedBox(height: 10),
           Text(_description ?? 'No description'),
           const SizedBox(height: 10),
-          OutlinedButton(
-            style: const ButtonStyle(
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
+          ThemedOutlinedButton(
             onPressed: () => context.go('/launch/${widget.launch.id}'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Launch Details',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
+              children: const [
+                Text('Launch Details'),
               ],
             ),
           ),

@@ -37,12 +37,16 @@ void main() {
       registerFallbackValue(LaunchTime.upcoming);
       when(() => spaceXInfoRepository.getLaunches(any()))
           .thenAnswer((_) async => launches);
+      when(
+        () => exploreCubit.fetchLaunches(launchTime: any(named: 'launchTime')),
+      ).thenAnswer((_) async => const Launches());
+      when(() => exploreCubit.state).thenReturn(const ExploreState());
       when(() => themeCubit.state).thenReturn(
         const ThemeState(ThemeMode.system),
       );
     });
 
-    testWidgets('renders WeatherView', (WidgetTester tester) async {
+    testWidgets('renders ExplorePage', (WidgetTester tester) async {
       await tester.pumpApp(
         spaceXInfoRepository: spaceXInfoRepository,
         exploreCubit: exploreCubit,

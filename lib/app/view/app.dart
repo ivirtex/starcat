@@ -33,14 +33,14 @@ class App extends StatelessWidget {
             create: (_) => ExploreCubit(_spaceXInfoRepository),
           ),
         ],
-        child: AppView(),
+        child: const AppView(),
       ),
     );
   }
 }
 
 class AppView extends StatelessWidget {
-  AppView({super.key});
+  const AppView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -70,22 +70,22 @@ class AppView extends StatelessWidget {
       },
     );
   }
-
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const ExplorePage(),
-        routes: [
-          GoRoute(
-            name: 'launch',
-            path: 'launch/:id',
-            builder: (context, state) => LaunchDetailsPage(
-              launchId: state.params['id']!,
-            ),
-          )
-        ],
-      ),
-    ],
-  );
 }
+
+final _router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const ExplorePage(),
+      routes: [
+        GoRoute(
+          name: 'launch',
+          path: 'launch/:id',
+          builder: (context, state) => LaunchDetailsPage(
+            launchId: state.params['id']!,
+          ),
+        )
+      ],
+    ),
+  ],
+);

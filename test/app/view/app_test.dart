@@ -1,16 +1,5 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
@@ -40,7 +29,7 @@ void main() {
     });
 
     testWidgets('renders AppView', (tester) async {
-      await tester.pumpWidget(
+      await tester.pumpApp(
         App(spaceXInfoRepository: spaceXInfoRepository),
       );
 
@@ -49,30 +38,9 @@ void main() {
   });
 
   group('AppView', () {
-    late SpaceXInfoRepository spaceXInfoRepository;
-    late ThemeCubit themeCubit;
-
-    setUp(() {
-      spaceXInfoRepository = MockSpaceXInfoRepository();
-      themeCubit = MockThemeCubit();
-
-      registerFallbackValue(LaunchTime.upcoming);
-      when(() => themeCubit.state).thenReturn(
-        const ThemeState(ThemeMode.system),
-      );
-      when(() => spaceXInfoRepository.getLaunches(any()))
-          .thenAnswer((_) async => const Launches());
-    });
-
     testWidgets('renders ExplorePage', (tester) async {
-      await tester.pumpWidget(
-        RepositoryProvider.value(
-          value: spaceXInfoRepository,
-          child: BlocProvider.value(
-            value: themeCubit,
-            child: AppView(),
-          ),
-        ),
+      await tester.pumpApp(
+        const AppView(),
       );
 
       expect(find.byType(ExplorePage), findsOneWidget);

@@ -15,7 +15,7 @@ import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
-import 'package:falcon/theme/cubit/cubit.dart';
+import 'package:falcon/theme/theme.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
@@ -39,6 +39,8 @@ extension PumpApp on WidgetTester {
           ],
           child: MaterialApp(
             themeMode: themeCubit?.state.themeMode,
+            theme: lightTheme,
+            darkTheme: darkTheme,
             home: widget,
           ),
         ),
