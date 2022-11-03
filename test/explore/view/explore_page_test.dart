@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -156,6 +158,40 @@ void main() {
         );
 
         expect(find.byType(NextLaunchCard), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'renders Cupertino style page for iOS',
+      (WidgetTester tester) async {
+        debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+
+        when(() => exploreCubit.state).thenReturn(
+          const ExploreState(
+            status: ExploreStatus.success,
+            launches: Launches(
+              results: [
+                Launch(),
+              ],
+            ),
+          ),
+        );
+
+        await tester.pumpApp(
+          spaceXInfoRepository: spaceXInfoRepository,
+          exploreCubit: exploreCubit,
+          themeCubit: themeCubit,
+          const ExploreView(),
+        );
+
+        expect(find.byType(CupertinoPageScaffold), findsOneWidget);
+        expect(find.byType(Scaffold), findsNothing);
+
+        expect(find.byType(CustomScrollView), findsOneWidget);
+        expect(find.byType(CupertinoSliverNavigationBar), findsOneWidget);
+        expect(find.byType(SliverFillRemaining), findsOneWidget);
+
+        debugDefaultTargetPlatformOverride = null;
       },
     );
   });

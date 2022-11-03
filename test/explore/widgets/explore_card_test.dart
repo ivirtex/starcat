@@ -9,11 +9,13 @@ import 'package:mocktail/mocktail.dart';
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/theme/theme.dart';
-import '../../helpers/pump_app.dart';
+import '../../helpers/helpers.dart';
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
 void main() {
+  initHydratedStorage();
+
   group('ExploreCard', () {
     late MockThemeCubit themeCubit;
 
@@ -26,7 +28,6 @@ void main() {
 
     testWidgets('renders title if provided', (WidgetTester tester) async {
       await tester.pumpApp(
-        themeCubit: themeCubit,
         ExploreCard(
           title: const Text('Next Launch'),
           child: Container(),
@@ -39,7 +40,6 @@ void main() {
     testWidgets('does not render title if not provided',
         (WidgetTester tester) async {
       await tester.pumpApp(
-        themeCubit: themeCubit,
         ExploreCard(
           child: Container(),
         ),
@@ -50,7 +50,6 @@ void main() {
 
     testWidgets('has correct color in light mode', (WidgetTester tester) async {
       await tester.pumpApp(
-        themeCubit: themeCubit,
         ExploreCard(
           child: Container(),
         ),

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
 
 class App extends StatelessWidget {
@@ -47,7 +47,7 @@ class AppView extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return PlatformWidget(
-          material: (context, platform) {
+          material: (context) {
             return MaterialApp.router(
               title: 'Falcon',
               theme: lightTheme,
@@ -56,7 +56,7 @@ class AppView extends StatelessWidget {
               routerConfig: _router,
             );
           },
-          cupertino: (context, platform) {
+          cupertino: (context) {
             return MediaQuery.fromWindow(
               child: CupertinoApp.router(
                 title: 'Falcon',

@@ -1,3 +1,7 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -44,6 +48,19 @@ void main() {
       );
 
       expect(find.byType(ExplorePage), findsOneWidget);
+    });
+
+    testWidgets('uses CupertinoApp on iOS', (tester) async {
+      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+
+      await tester.pumpApp(
+        const AppView(),
+      );
+
+      expect(find.byType(CupertinoApp), findsOneWidget);
+      expect(find.byType(ExplorePage), findsOneWidget);
+
+      debugDefaultTargetPlatformOverride = null;
     });
   });
 }
