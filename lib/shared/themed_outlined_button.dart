@@ -23,11 +23,16 @@ class ThemedOutlinedButton extends StatelessWidget {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
       onPressed: onPressed,
-      child: DefaultTextStyle(
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimary,
+      child: IconTheme(
+        data: IconThemeData(
+          color: isDark ? Colors.black : Colors.white,
         ),
-        child: child,
+        child: DefaultTextStyle(
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+          child: child,
+        ),
       ),
     );
   }

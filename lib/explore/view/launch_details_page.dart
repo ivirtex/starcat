@@ -77,6 +77,15 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
+            if (widget.launch.image != null)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(widget.launch.image!),
+                ),
+              ),
+            const SizedBox(height: 10),
             Section(name: widget.launch.mission?.description ?? 'N/A'),
             const SizedBox(height: 10),
             ExploreCard(

@@ -97,6 +97,7 @@ class LaunchStatus extends StatelessWidget {
 
   Color? tryToGetColorForAbbrev(String? abbrev) {
     switch (abbrev) {
+      case 'Success':
       case 'Go':
         return Colors.green;
       case 'TBC':
@@ -108,19 +109,28 @@ class LaunchStatus extends StatelessWidget {
     }
   }
 
+  IconData tryToGetIconForAbbrev(String? abbrev) {
+    switch (abbrev) {
+      case 'Success':
+        return Icons.check_circle;
+      case 'Go':
+        return Icons.check_rounded;
+      case 'TBC':
+        return Icons.access_time_rounded;
+      case 'TBD':
+        return Icons.access_time_rounded;
+      default:
+        return Icons.event;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Icon(
-          launchStatus?.abbrev == 'Go'
-              ? Icons.check_rounded
-              : launchStatus?.abbrev == 'TBC'
-                  ? Icons.access_time_rounded
-                  : launchStatus?.abbrev == 'TBD'
-                      ? Icons.access_time_rounded
-                      : Icons.comment_rounded,
-          size: 15,
+          tryToGetIconForAbbrev(launchStatus?.abbrev),
+          size: 14,
           color: tryToGetColorForAbbrev(launchStatus?.abbrev),
         ),
         const SizedBox(width: 3),
