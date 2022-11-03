@@ -9,13 +9,39 @@ import '../../helpers/helpers.dart';
 void main() {
   initHydratedStorage();
 
-  const launches = Launches(
+  final launches = Launches(
     results: [
       Launch(
         name: 'Name',
-        mission: Mission(
+        net: DateTime(2021),
+        mission: const Mission(
           name: 'Mission Name',
           description: 'Mission Description',
+        ),
+        pad: const Pad(
+          name: 'Pad Name',
+        ),
+      ),
+      Launch(
+        name: 'Name 2',
+        net: DateTime(2021),
+        mission: const Mission(
+          name: 'Mission Name 2',
+          description: 'Mission Description 2',
+        ),
+        pad: const Pad(
+          name: 'Pad Name 2',
+        ),
+      ),
+      Launch(
+        name: 'Name 3',
+        net: DateTime(2021),
+        mission: const Mission(
+          name: 'Mission Name 3',
+          description: 'Mission Description 3',
+        ),
+        pad: const Pad(
+          name: 'Pad Name 3',
         ),
       ),
     ],
@@ -24,10 +50,20 @@ void main() {
   group('UpcomingLaunches', () {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpApp(
-        const UpcomingLaunches(
-          launches: launches,
-        ),
+        UpcomingLaunches(launches: launches),
       );
+
+      expect(find.byType(UpcomingLaunches), findsOneWidget);
+
+      for (final launch in launches.results!.skip(1)) {
+        await tester.scrollUntilVisible(
+          find.text(launch.mission!.name!),
+          10,
+        );
+
+        expect(find.text(launch.mission!.name!), findsOneWidget);
+        expect(find.text(launch.pad!.name!), findsOneWidget);
+      }
     });
   });
 }

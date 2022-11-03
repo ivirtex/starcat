@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:flutter_test/flutter_test.dart';
+import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -12,7 +13,7 @@ void main() {
 
     test('copyWith is working correctly', () {
       const state = ExploreState();
-      final newState = state.copyWith(status: ExploreStatus.success);
+      final newState = state.copyWith(launches: const Launches());
 
       expect(newState, isNot(state));
     });

@@ -63,32 +63,6 @@ void main() {
       expect(find.text(launch.mission!.description!), findsOneWidget);
     });
 
-    testWidgets('renders ExploreCard for ExploreStatus.success',
-        (WidgetTester tester) async {
-      const launch = Launch(
-        name: 'Name',
-        mission: Mission(
-          name: 'Mission Name',
-          description: 'Mission Description',
-        ),
-      );
-
-      when(() => exploreCubit.state).thenReturn(
-        const ExploreState(
-          status: ExploreStatus.success,
-          launches: Launches(
-            results: [launch],
-          ),
-        ),
-      );
-
-      await tester.pumpApp(
-        themeCubit: themeCubit,
-        exploreCubit: exploreCubit,
-        const NextLaunchCard(launch: launch),
-      );
-    });
-
     group('LaunchStatus', () {
       const launchStatus = Status(
         name: 'Go for launch',

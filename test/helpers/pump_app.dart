@@ -5,7 +5,11 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+// Dart imports:
+import 'dart:io';
+
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -37,11 +41,22 @@ extension PumpApp on WidgetTester {
                   ExploreCubit(spaceXInfoRepository ?? SpaceXInfoRepository()),
             ),
           ],
-          child: MaterialApp(
-            themeMode: themeCubit?.state.themeMode,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            home: widget,
+          child: Builder(
+            builder: (context) {
+              if (Platform.isIOS) {
+                return CupertinoApp(
+                  theme: cupertinoTheme.resolveFrom(context),
+                  home: widget,
+                );
+              } else {
+                return MaterialApp(
+                  themeMode: themeCubit?.state.themeMode,
+                  theme: lightTheme,
+                  darkTheme: darkTheme,
+                  home: widget,
+                );
+              }
+            },
           ),
         ),
       ),

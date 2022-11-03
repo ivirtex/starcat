@@ -39,8 +39,10 @@ class UpcomingLaunches extends StatelessWidget {
                 maxHeight: 200,
               ),
               child: ExploreCard(
-                title: Text(
-                  'NET: ${net ?? 'N/A'}',
+                title: Flexible(
+                  child: Text(
+                    'NET: ${net ?? 'N/A'}',
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

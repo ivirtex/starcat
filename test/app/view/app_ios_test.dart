@@ -1,5 +1,8 @@
+// Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+
 // Package imports:
-import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -13,12 +16,11 @@ import '../../helpers/helpers.dart';
 
 class MockSpaceXInfoRepository extends Mock implements SpaceXInfoRepository {}
 
-class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
-
+//! Workaround for: https://github.com/flutter/flutter/issues/83788
 void main() {
   initHydratedStorage();
 
-  group('App', () {
+  group('AppView iOS', () {
     late SpaceXInfoRepository spaceXInfoRepository;
 
     setUp(() {
@@ -29,27 +31,9 @@ void main() {
           .thenAnswer((_) async => const Launches());
     });
 
-    testWidgets('renders AppView', (tester) async {
-      await tester.pumpApp(
-        App(spaceXInfoRepository: spaceXInfoRepository),
-      );
+    testWidgets('uses CupertinoApp on iOS', (tester) async {
+      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
 
-      expect(find.byType(AppView), findsOneWidget);
-    });
-  });
-
-  group('AppView', () {
-    late SpaceXInfoRepository spaceXInfoRepository;
-
-    setUp(() {
-      spaceXInfoRepository = MockSpaceXInfoRepository();
-
-      registerFallbackValue(LaunchTime.upcoming);
-      when(() => spaceXInfoRepository.getLaunches(any()))
-          .thenAnswer((_) async => const Launches());
-    });
-
-    testWidgets('renders ExplorePage', (tester) async {
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [
@@ -64,7 +48,9 @@ void main() {
         ),
       );
 
-      expect(find.byType(ExplorePage), findsOneWidget);
+      expect(find.byType(CupertinoApp), findsOneWidget);
+
+      debugDefaultTargetPlatformOverride = null;
     });
   });
 }
