@@ -24,6 +24,23 @@ void main() {
     late ExploreCubit exploreCubit;
     late ThemeCubit themeCubit;
 
+    const launch = Launch(
+      id: 'sampleID',
+      name: 'Name',
+      mission: Mission(
+        name: 'Mission Name',
+        description: 'Mission Description',
+      ),
+      pad: Pad(
+        name: 'Pad Name',
+        latitude: '0',
+        longitude: '1',
+        location: Location(
+          name: 'Location Name',
+        ),
+      ),
+    );
+
     setUp(() {
       exploreCubit = MockExploreCubit();
       themeCubit = MockThemeCubit();
@@ -35,14 +52,6 @@ void main() {
 
     testWidgets('renders ExploreCard for ExploreStatus.success',
         (WidgetTester tester) async {
-      const launch = Launch(
-        name: 'Name',
-        mission: Mission(
-          name: 'Mission Name',
-          description: 'Mission Description',
-        ),
-      );
-
       when(() => exploreCubit.state).thenReturn(
         const ExploreState(
           status: ExploreStatus.success,
@@ -61,6 +70,30 @@ void main() {
       expect(find.byType(ExploreCard), findsOneWidget);
       expect(find.text(launch.name!), findsOneWidget);
       expect(find.text(launch.mission!.description!), findsOneWidget);
+    });
+
+    testWidgets(
+        'goes to LaunchDetailsPage when "Launch Details" button is tapped',
+        (WidgetTester tester) async {
+      when(() => exploreCubit.state).thenReturn(
+        const ExploreState(
+          status: ExploreStatus.success,
+          launches: Launches(
+            results: [launch],
+          ),
+        ),
+      );
+
+      await tester.pumpAppWithRouter(
+        themeCubit: themeCubit,
+        exploreCubit: exploreCubit,
+        const NextLaunchCard(launch: launch),
+      );
+
+      await tester.tap(find.text('Launch Details'));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(LaunchDetailsPage), findsOneWidget);
     });
 
     group('LaunchStatus', () {
