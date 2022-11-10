@@ -54,16 +54,22 @@ class LaunchDateCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(localEEEE ?? 'N/A'),
-              Text(
-                '$localHm ($utcTime UTC)',
-                style: TextStyle(color: Colors.grey.shade600),
-              ),
+              if (localHm != null)
+                Text(
+                  '$localHm ($utcTime UTC)',
+                  style: TextStyle(color: Colors.grey.shade600),
+                )
+              else
+                Text(
+                  'N/A',
+                  style: TextStyle(color: Colors.grey.shade600),
+                ),
             ],
           ),
           const Spacer(),
           ThemedOutlinedButton(
+            onPressed: date != null ? () {} : null,
             child: const Text('Notify me'),
-            onPressed: () {},
           ),
         ],
       ),

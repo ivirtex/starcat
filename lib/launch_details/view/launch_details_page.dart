@@ -1,13 +1,8 @@
-// Dart imports:
-import 'dart:async';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
@@ -36,7 +31,7 @@ class LaunchDetailsPage extends StatelessWidget {
   }
 }
 
-class LaunchDetailsView extends StatefulWidget {
+class LaunchDetailsView extends StatelessWidget {
   const LaunchDetailsView({
     required this.launch,
     super.key,
@@ -45,36 +40,10 @@ class LaunchDetailsView extends StatefulWidget {
   final Launch launch;
 
   @override
-  State<LaunchDetailsView> createState() => _LaunchDetailsViewState();
-}
-
-class _LaunchDetailsViewState extends State<LaunchDetailsView> {
-  final Completer<GoogleMapController> _controller = Completer();
-
-  late String mapStyle;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    loadMapStyle(_controller.future);
-  }
-
-  Future<void> loadMapStyle(Future<GoogleMapController>? controller) async {
-    mapStyle = await rootBundle.loadString(
-      Theme.of(context).brightness == Brightness.dark
-          ? 'assets/map_styles/dark_mode.json'
-          : 'assets/map_styles/light_mode.json',
-    );
-
-    await controller?.then((value) => value.setMapStyle(mapStyle));
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.launch.mission?.name ?? 'N/A'),
+        title: Text(launch.mission?.name ?? 'N/A'),
       ),
       body: ListView(
         children: [
@@ -82,27 +51,24 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
             padding: const EdgeInsets.all(10),
             child: Column(
               children: [
-                if (widget.launch.image != null)
+                if (launch.image != null)
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: MissionImage(
-                        imageUrl: widget.launch.image ?? '',
+                        imageUrl: launch.image ?? '',
                       ),
                     ),
                   ),
                 const SizedBox(height: 10),
-                Section(name: widget.launch.mission?.description ?? 'N/A'),
+                Section(name: launch.mission?.description ?? 'N/A'),
                 const SizedBox(height: 10),
-                LaunchDateCard(date: widget.launch.net),
+                LaunchDateCard(date: launch.net),
                 const SizedBox(height: 10),
-                LaunchVehicleCard(rocket: widget.launch.rocket),
+                LaunchVehicleCard(vehicle: launch.rocket),
                 const SizedBox(height: 10),
-                LaunchPadMap(
-                  controller: _controller,
-                  pad: widget.launch.pad!,
-                ),
+                LaunchPadMap(pad: launch.pad!),
               ],
             ),
           ),

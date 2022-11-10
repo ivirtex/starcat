@@ -11,10 +11,10 @@ import 'package:falcon/shared/shared.dart';
 class LaunchVehicleCard extends StatelessWidget {
   const LaunchVehicleCard({
     super.key,
-    required this.rocket,
+    required this.vehicle,
   });
 
-  final Rocket? rocket;
+  final Rocket? vehicle;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class LaunchVehicleCard extends StatelessWidget {
           Column(
             children: [
               Text(
-                rocket?.configuration?.fullName ?? 'N/A',
+                vehicle?.configuration?.fullName ?? 'N/A',
               ),
             ],
           ),

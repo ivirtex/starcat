@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,15 +14,39 @@ import 'package:spacex_info_repository/spacex_info_repository.dart';
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 
-class LaunchPadMap extends StatelessWidget {
+class LaunchPadMap extends StatefulWidget {
   const LaunchPadMap({
     super.key,
-    required Completer<GoogleMapController> controller,
     required this.pad,
-  }) : _controller = controller;
+  });
 
-  final Completer<GoogleMapController> _controller;
   final Pad pad;
+
+  @override
+  State<LaunchPadMap> createState() => _LaunchPadMapState();
+}
+
+class _LaunchPadMapState extends State<LaunchPadMap> {
+  final Completer<GoogleMapController> _controller = Completer();
+
+  late String mapStyle;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    loadMapStyle(_controller.future);
+  }
+
+  Future<void> loadMapStyle(Future<GoogleMapController>? controller) async {
+    mapStyle = await rootBundle.loadString(
+      Theme.of(context).brightness == Brightness.dark
+          ? 'assets/map_styles/dark_mode.json'
+          : 'assets/map_styles/light_mode.json',
+    );
+
+    await controller?.then((value) => value.setMapStyle(mapStyle));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +83,18 @@ class LaunchPadMap extends StatelessWidget {
                 },
                 markers: {
                   Marker(
-                    markerId: MarkerId(pad.name!),
+                    markerId: MarkerId(widget.pad.name!),
                     position: LatLng(
-                      double.parse(pad.latitude!),
-                      double.parse(pad.longitude!),
+                      double.parse(widget.pad.latitude!),
+                      double.parse(widget.pad.longitude!),
                     ),
                   ),
                 },
                 initialCameraPosition: CameraPosition(
                   zoom: 10,
                   target: LatLng(
-                    double.parse(pad.latitude!),
-                    double.parse(pad.longitude!),
+                    double.parse(widget.pad.latitude!),
+                    double.parse(widget.pad.longitude!),
                   ),
                 ),
               ),
@@ -81,13 +106,13 @@ class LaunchPadMap extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  pad.name!,
+                  widget.pad.name!,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 5),
-                Text(pad.location?.name ?? 'N/A'),
+                Text(widget.pad.location?.name ?? 'N/A'),
               ],
             ),
           ),
