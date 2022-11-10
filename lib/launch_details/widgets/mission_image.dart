@@ -6,13 +6,19 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+
+// Project imports:
+import 'package:falcon/constants.dart';
 
 class MissionImage extends StatelessWidget {
   const MissionImage({
     super.key,
+    this.cacheManager,
     required this.imageUrl,
   });
 
+  final BaseCacheManager? cacheManager;
   final String imageUrl;
 
   @override
@@ -25,6 +31,7 @@ class MissionImage extends StatelessWidget {
         color: Colors.black,
         child: CachedNetworkImage(
           imageUrl: imageUrl,
+          cacheManager: cacheManager,
           errorWidget: (context, error, stackTrace) {
             log(error);
 
@@ -36,7 +43,7 @@ class MissionImage extends StatelessWidget {
                     color: Theme.of(context).colorScheme.error,
                   ),
                   const Text(
-                    'Error loading the image',
+                    kImageErrorText,
                     style: TextStyle(
                       color: Colors.white,
                     ),

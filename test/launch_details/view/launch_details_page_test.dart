@@ -24,6 +24,7 @@ void main() {
           latitude: '1',
           longitude: '1',
         ),
+        image: 'https://placeholder.com',
       ),
     ],
   );
@@ -34,36 +35,40 @@ void main() {
     setUp(() {
       exploreCubit = MockExploreCubit();
       when(() => exploreCubit.state).thenReturn(
-        const ExploreState(
-          launches: launches,
-        ),
+        const ExploreState(launches: launches),
       );
     });
 
     testWidgets('renders LaunchDetailsPage', (tester) async {
       await tester.pumpApp(
         exploreCubit: exploreCubit,
-        LaunchDetailsPage(
-          launchId: launches.results!.first.id!,
-        ),
+        LaunchDetailsPage(launchId: launches.results!.first.id!),
       );
+
+      expect(find.byType(LaunchDetailsPage), findsOneWidget);
     });
   });
 
   group('LaunchDetailsView', () {
     testWidgets('renders LaunchDetailsView', (tester) async {
       await tester.pumpApp(
-        LaunchDetailsView(
-          launch: launches.results!.first,
-        ),
+        LaunchDetailsView(launch: launches.results!.first),
       );
+
+      expect(find.byType(LaunchDetailsView), findsOneWidget);
     });
 
-    testWidgets('Learn more button is tappable', (tester) async {
+    testWidgets('renders image', (tester) async {
       await tester.pumpApp(
-        LaunchDetailsView(
-          launch: launches.results!.first,
-        ),
+        LaunchDetailsView(launch: launches.results!.first),
+      );
+
+      expect(find.byType(MissionImage), findsOneWidget);
+    });
+
+    testWidgets('learn more button is tappable', (tester) async {
+      await tester.pumpApp(
+        LaunchDetailsView(launch: launches.results!.first),
       );
 
       await tester.tap(find.text('Learn more'));
