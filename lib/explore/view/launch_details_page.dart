@@ -50,7 +50,7 @@ class LaunchDetailsView extends StatefulWidget {
 }
 
 class _LaunchDetailsViewState extends State<LaunchDetailsView> {
-  late GoogleMapController _controller;
+  final Completer<GoogleMapController> _controller = Completer();
 
   late String mapStyle;
 
@@ -58,15 +58,17 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    loadMapStyle();
+    loadMapStyle(_controller.future);
   }
 
-  Future<void> loadMapStyle() async {
+  Future<void> loadMapStyle(Future<GoogleMapController>? controller) async {
     mapStyle = await rootBundle.loadString(
       Theme.of(context).brightness == Brightness.dark
           ? 'assets/map_styles/dark_mode.json'
           : 'assets/map_styles/light_mode.json',
     );
+
+    await controller?.then((value) => value.setMapStyle(mapStyle));
   }
 
   @override
@@ -151,8 +153,7 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
                             },
                             onMapCreated:
                                 (GoogleMapController controller) async {
-                              _controller = controller;
-                              await _controller.setMapStyle(mapStyle);
+                              _controller.complete(controller);
                             },
                             markers: {
                               Marker(

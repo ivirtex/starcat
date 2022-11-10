@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -70,7 +71,7 @@ void main() {
       );
 
       final card = tester.widget<Card>(find.byType(Card));
-      expect(card.color, Colors.white);
+      expect(card.color, Colors.white10);
     });
   });
 }
