@@ -61,6 +61,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
                   ),
                 ),
               ),
+              const SizedBox(width: 20),
               CountdownTimer(
                 launchDate: _launchDate,
                 mode: _launchStatus?.abbrev == 'Go'

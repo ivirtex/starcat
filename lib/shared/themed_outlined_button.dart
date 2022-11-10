@@ -17,19 +17,20 @@ class ThemedOutlinedButton extends StatelessWidget {
 
     return OutlinedButton(
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(
-          isDark ? Colors.grey.shade200 : Colors.grey.shade800,
-        ),
+        overlayColor: MaterialStateProperty.all(Colors.grey.shade800),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        side: MaterialStateProperty.all(
+          const BorderSide(color: Colors.white70),
+        ),
       ),
       onPressed: onPressed,
-      child: IconTheme(
-        data: IconThemeData(
-          color: isDark ? Colors.black : Colors.white,
+      child: DefaultTextStyle(
+        style: const TextStyle(
+          color: Colors.white,
         ),
-        child: DefaultTextStyle(
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
+        child: IconTheme(
+          data: IconThemeData(
+            color: isDark ? Colors.white : Colors.black,
           ),
           child: child,
         ),

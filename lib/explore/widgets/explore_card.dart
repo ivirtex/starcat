@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class ExploreCard extends StatelessWidget {
   const ExploreCard({
     this.lightCardColor = Colors.black,
-    this.darkCardColor = Colors.white,
+    this.darkCardColor = Colors.white10,
     this.padding = const EdgeInsets.all(10),
+    this.expandVertically = false,
     this.title,
     this.trailing,
+    this.onTap,
     required this.child,
     super.key,
   });
@@ -15,8 +17,10 @@ class ExploreCard extends StatelessWidget {
   final Color lightCardColor;
   final Color darkCardColor;
   final EdgeInsets padding;
+  final bool expandVertically;
   final Widget? title;
   final Widget? trailing;
+  final VoidCallback? onTap;
   final Widget child;
 
   @override
@@ -39,21 +43,33 @@ class ExploreCard extends StatelessWidget {
               ],
             ),
           ),
-        Card(
-          color: isDark ? darkCardColor : lightCardColor,
-          child: DefaultTextStyle(
-            style: TextStyle(
-              color: isDark ? Colors.black : Colors.white,
-              fontFamily: 'D-DIN',
-              fontSize: 16,
-            ),
-            child: Padding(
-              padding: padding,
-              child: child,
-            ),
+        if (expandVertically)
+          Expanded(
+            child: buildContent(isDark: isDark),
+          )
+        else
+          buildContent(isDark: isDark)
+      ],
+    );
+  }
+
+  Card buildContent({required bool isDark}) {
+    return Card(
+      color: isDark ? darkCardColor : lightCardColor,
+      child: InkWell(
+        overlayColor: MaterialStateProperty.all(Colors.grey.shade800),
+        onTap: onTap,
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontFamily: 'D-DIN',
+            fontSize: 16,
+          ),
+          child: Padding(
+            padding: padding,
+            child: child,
           ),
         ),
-      ],
+      ),
     );
   }
 }

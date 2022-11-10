@@ -19,7 +19,7 @@ class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: color,
+        border: Border.all(color: Colors.white70),
         borderRadius: const BorderRadius.all(
           Radius.circular(5),
         ),
@@ -27,10 +27,13 @@ class InfoCard extends StatelessWidget {
       padding: padding,
       child: DefaultTextStyle(
         style: TextStyle(
-          color: Theme.of(context).textTheme.caption!.color,
+          color: ThemeData.estimateBrightnessForColor(color) == Brightness.dark
+              ? Colors.white
+              : Colors.black,
           fontSize: 11,
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             if (icon != null) ...[
               icon!,

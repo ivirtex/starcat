@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/helpers/parse_date.dart';
 import 'package:falcon/shared/shared.dart';
 
 class UpcomingLaunches extends StatelessWidget {
@@ -19,7 +21,8 @@ class UpcomingLaunches extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
+    return SizedBox(
+      height: 100,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: launches.results!.length,
@@ -31,69 +34,42 @@ class UpcomingLaunches extends StatelessWidget {
           }
 
           final launch = launches.results![index];
-          final net =
-              launch.net?.toLocal().toString().replaceAll('.000', '') ?? 'N/A';
+          final date = parseDateStr(launch.net!.toLocal());
 
           return SizedBox(
-            width: 300,
-            height: 200,
+            width: 250,
             child: ExploreCard(
-              padding: EdgeInsets.zero,
-              title: Flexible(
-                child: Row(
-                  children: [
-                    InfoCard(
-                      color: Colors.grey.shade200,
-                      padding: const EdgeInsets.all(3),
-                      child: Text('NET: $net'),
-                    ),
-                  ],
-                ),
-              ),
+              expandVertically: true,
+              onTap: () => context.go('/launch/${launch.id}'),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.network(
-                    launch.image ?? '',
-                    width: 300,
-                    height: 200,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Center(
-                        child: Icon(Icons.error),
-                      );
-                    },
-                    loadingBuilder: (context, child, loadingProgress) {
-                      return const Center(
-                        child: CircularProgressIndicator.adaptive(),
-                      );
-                    },
+                  AutoSizeText(
+                    launch.mission?.name ?? 'No name',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  const SizedBox(height: 5),
+                  Flexible(
+                    child: Wrap(
+                      direction: Axis.vertical,
+                      spacing: 5,
+                      runSpacing: 5,
                       children: [
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                launch.mission?.name ?? 'No name',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                launch.pad?.name ?? 'No pad',
-                              ),
-                            ],
-                          ),
+                        InfoCard(
+                          color: Colors.grey.shade800,
+                          padding: const EdgeInsets.all(3),
+                          child: Text(date),
                         ),
-                        const SizedBox(width: 10),
-                        ThemedOutlinedButton(
-                          child: const Icon(Icons.chevron_right_rounded),
-                          onPressed: () => context.go('/launch/${launch.id}'),
+                        InfoCard(
+                          color: Colors.grey.shade800,
+                          padding: const EdgeInsets.all(3),
+                          child: Text(
+                            launch.pad?.name ?? 'No pad',
+                          ),
                         ),
                       ],
                     ),

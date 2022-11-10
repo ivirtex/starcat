@@ -5,10 +5,12 @@ publish_to: none
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
-  flutter: 3.3.3
+  # flutter: 3.3.3
 
 dependencies:
+  auto_size_text: ^3.0.0
   bloc: ^8.1.0
+  cached_network_image: ^3.2.2
   clock: ^1.1.1
   equatable: ^2.0.5
   flex_color_scheme: ^6.0.1
@@ -17,10 +19,11 @@ dependencies:
   flutter_bloc: ^8.1.1
   flutter_svg: ^1.1.6
   font_awesome_flutter: ^10.2.1
-  go_router: ^5.1.1
+  go_router: ^5.1.5
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.2.1
-  hydrated_bloc: ^9.0.0-dev.3
+  hydrated_bloc: ^9.0.0
+  intl: ^0.17.0
   path_provider: ^2.0.11
   spacex_info_repository:
     path: packages/spacex_info_repository

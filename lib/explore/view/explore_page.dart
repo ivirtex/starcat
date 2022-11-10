@@ -124,9 +124,7 @@ class Body extends StatelessWidget {
                     NextLaunchCard(launch: state.launches!.results!.first),
                     const SizedBox(height: 10),
                     const Section(name: 'Upcoming Launches'),
-                    Expanded(
-                      child: UpcomingLaunches(launches: state.launches!),
-                    ),
+                    UpcomingLaunches(launches: state.launches!),
                   ],
                 ),
               );
