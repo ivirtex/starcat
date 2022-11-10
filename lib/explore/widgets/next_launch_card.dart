@@ -71,7 +71,12 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
             ],
           ),
           const SizedBox(height: 10),
-          Text(_description ?? 'No description'),
+          Text(
+            _description ?? 'No description',
+            style: TextStyle(
+              color: Colors.grey.shade400,
+            ),
+          ),
           const SizedBox(height: 10),
           ThemedOutlinedButton(
             onPressed: () => context.go('/launch/${widget.launch.id}'),

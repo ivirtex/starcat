@@ -9,6 +9,7 @@ import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/launch_details/launch_details.dart';
 import 'package:falcon/theme/theme.dart';
 
 extension PumpApp on WidgetTester {
