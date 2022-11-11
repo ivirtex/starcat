@@ -91,16 +91,13 @@ void main() {
 
     testWidgets('uses CupertinoColors.systemRed in iOS for T -',
         (WidgetTester tester) async {
-      debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
-
-      await tester.pumpWidget(
-        CupertinoApp(home: CountdownTimer(launchDate: launchDate)),
+      await tester.pumpApp(
+        platform: TargetPlatform.iOS,
+        CountdownTimer(launchDate: launchDate),
       );
 
       final text = tester.widget<Text>(find.textContaining('T'));
       expect(text.style?.color, CupertinoColors.systemRed);
-
-      debugDefaultTargetPlatformOverride = null;
     });
 
     testWidgets('uses Colors.red in Android for T -',
