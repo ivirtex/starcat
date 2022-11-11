@@ -20,7 +20,6 @@ void main() {
 
       expect(find.text('Jan 2'), findsOneWidget);
       expect(find.text('Sunday'), findsOneWidget);
-      expect(find.textContaining('(02:04 UTC)'), findsOneWidget);
     });
 
     testWidgets('renders correctly when date is null',
