@@ -18,6 +18,7 @@ extension PumpApp on WidgetTester {
     SpaceXInfoRepository? spaceXInfoRepository,
     ExploreCubit? exploreCubit,
     ThemeCubit? themeCubit,
+    TargetPlatform platform = TargetPlatform.android,
   }) {
     return pumpWidget(
       RepositoryProvider.value(
@@ -34,8 +35,8 @@ extension PumpApp on WidgetTester {
           ],
           child: MaterialApp(
             themeMode: themeCubit?.state.themeMode,
-            theme: lightTheme,
-            darkTheme: darkTheme,
+            theme: lightTheme.copyWith(platform: platform),
+            darkTheme: darkTheme.copyWith(platform: platform),
             home: widget,
           ),
         ),
@@ -48,6 +49,7 @@ extension PumpApp on WidgetTester {
     SpaceXInfoRepository? spaceXInfoRepository,
     ExploreCubit? exploreCubit,
     ThemeCubit? themeCubit,
+    TargetPlatform platform = TargetPlatform.android,
   }) {
     return pumpWidget(
       RepositoryProvider.value(
@@ -64,8 +66,8 @@ extension PumpApp on WidgetTester {
           ],
           child: MaterialApp.router(
             themeMode: themeCubit?.state.themeMode,
-            theme: lightTheme,
-            darkTheme: darkTheme,
+            theme: lightTheme.copyWith(platform: platform),
+            darkTheme: darkTheme.copyWith(platform: platform),
             routerConfig: GoRouter(
               routes: [
                 GoRoute(
