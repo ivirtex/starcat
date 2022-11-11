@@ -1,6 +1,7 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +17,6 @@ import '../../helpers/helpers.dart';
 
 class MockSpaceXInfoRepository extends Mock implements SpaceXInfoRepository {}
 
-//! Workaround for: https://github.com/flutter/flutter/issues/83788
 void main() {
   initHydratedStorage();
 
@@ -35,22 +35,26 @@ void main() {
       debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
 
       await tester.pumpWidget(
-        MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => ThemeCubit(),
-            ),
-            BlocProvider(
-              create: (context) => ExploreCubit(spaceXInfoRepository),
-            ),
-          ],
-          child: const AppView(),
+        //! Workaround for: https://github.com/flutter/flutter/issues/83788
+        Theme(
+          data: ThemeData(platform: TargetPlatform.iOS),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => ThemeCubit(),
+              ),
+              BlocProvider(
+                create: (context) => ExploreCubit(spaceXInfoRepository),
+              ),
+            ],
+            child: const AppView(),
+          ),
         ),
       );
 
-      expect(find.byType(CupertinoApp), findsOneWidget);
-
       debugDefaultTargetPlatformOverride = null;
+
+      expect(find.byType(CupertinoApp), findsOneWidget);
     });
   });
 }
