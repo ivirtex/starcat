@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // Package imports:
 import 'package:intl/intl.dart';
@@ -68,11 +69,29 @@ class LaunchDateCard extends StatelessWidget {
           ),
           const Spacer(),
           ThemedOutlinedButton(
-            onPressed: date != null ? () {} : null,
+            onPressed: date != null ? onNotifyMePressed : null,
             child: const Text('Notify me'),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> onNotifyMePressed() async {
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()!
+        .requestPermission();
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
   }
 }

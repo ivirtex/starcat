@@ -36,6 +36,7 @@ dev_dependencies:
   dart_code_metrics: ^4.19.1
   flutter_test:
     sdk: flutter
+  icons_launcher: ^2.0.5
   import_sorter: ^4.6.0
   mocktail: ^0.3.0
   very_good_analysis: ^3.1.0
@@ -44,6 +45,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/
     - assets/map_styles/
     - assets/rockets/falcon_heavy/
 
