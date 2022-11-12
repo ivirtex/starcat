@@ -1,9 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // Package imports:
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -12,10 +13,12 @@ import 'package:falcon/shared/shared.dart';
 class LaunchDateCard extends StatelessWidget {
   const LaunchDateCard({
     super.key,
-    required this.date,
+    this.date,
+    this.launchName,
   });
 
   final DateTime? date;
+  final String? launchName;
 
   @override
   Widget build(BuildContext context) {
@@ -93,5 +96,29 @@ class LaunchDateCard extends StatelessWidget {
           badge: true,
           sound: true,
         );
+
+    const androidNotificationDetails = AndroidNotificationDetails(
+      'your channel id',
+      'your channel name',
+      channelDescription: 'your channel description',
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+    );
+    const notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      launchName.hashCode,
+      launchName,
+      'T-5 minutes to the launch',
+      // tz.TZDateTime.from(date!.toLocal(), tz.local)
+      //     .subtract(const Duration(minutes: 5)),
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      notificationDetails,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
   }
 }

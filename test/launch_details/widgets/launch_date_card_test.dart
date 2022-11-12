@@ -26,9 +26,7 @@ void main() {
         (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: LaunchDateCard(
-            date: null,
-          ),
+          home: LaunchDateCard(),
         ),
       );
 
