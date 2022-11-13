@@ -17,7 +17,7 @@ class DataLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconTheme(
       data: IconThemeData(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
         size: 16,
       ),
       child: Wrap(

@@ -1,3 +1,4 @@
+// Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -115,8 +116,6 @@ class _CupertinoInkWellState extends State<CupertinoInkWell>
   @override
   Widget build(BuildContext context) {
     final enabled = widget.enabled;
-
-    print('animation value: ${_animationController.value}');
 
     return MouseRegion(
       cursor: enabled && kIsWeb ? SystemMouseCursors.click : MouseCursor.defer,

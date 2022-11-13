@@ -2,7 +2,6 @@
 import 'dart:async';
 
 // Flutter imports:
-import 'package:falcon/helpers/helpers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +13,7 @@ import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/helpers/helpers.dart';
 
 class LaunchPadMap extends StatefulWidget {
   const LaunchPadMap({
