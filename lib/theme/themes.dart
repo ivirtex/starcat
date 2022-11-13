@@ -47,18 +47,37 @@ final darkTheme = FlexThemeData.dark(
   fontFamily: 'D-DIN',
 );
 
-const cupertinoTheme = CupertinoThemeData(
-  primaryColor: CupertinoColors.systemBackground,
-  primaryContrastingColor: CupertinoColors.label,
+const _cupertinoTextThemeData = CupertinoTextThemeData();
+
+final cupertinoTheme = CupertinoThemeData(
+  primaryColor: CupertinoColors.white,
+  primaryContrastingColor: CupertinoColors.black,
   barBackgroundColor: CupertinoColors.systemBackground,
   textTheme: CupertinoTextThemeData(
-    navLargeTitleTextStyle: TextStyle(
-      color: CupertinoColors.label,
-      fontSize: 34,
-      fontFamily: 'D-DINBold',
+    textStyle: _cupertinoTextThemeData.textStyle.copyWith(
+      fontFamily: 'D-DIN',
     ),
-    textStyle: TextStyle(
-      color: CupertinoColors.label,
+    actionTextStyle: _cupertinoTextThemeData.actionTextStyle.copyWith(
+      fontFamily: 'D-DIN',
+    ),
+    tabLabelTextStyle: _cupertinoTextThemeData.tabLabelTextStyle.copyWith(
+      fontFamily: 'D-DIN',
+    ),
+    navTitleTextStyle: _cupertinoTextThemeData.navTitleTextStyle.copyWith(
+      fontFamily: 'D-DIN',
+    ),
+    navLargeTitleTextStyle:
+        _cupertinoTextThemeData.navLargeTitleTextStyle.copyWith(
+      fontFamily: 'D-DIN',
+    ),
+    navActionTextStyle: _cupertinoTextThemeData.navActionTextStyle.copyWith(
+      fontFamily: 'D-DIN',
+    ),
+    pickerTextStyle: _cupertinoTextThemeData.pickerTextStyle.copyWith(
+      fontFamily: 'D-DIN',
+    ),
+    dateTimePickerTextStyle:
+        _cupertinoTextThemeData.dateTimePickerTextStyle.copyWith(
       fontFamily: 'D-DIN',
     ),
   ),

@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,7 @@ class LaunchDetailsView extends StatelessWidget {
             CupertinoSliverNavigationBar(
               stretch: true,
               border: null,
-              largeTitle: Text(launch.mission?.name ?? 'N/A'),
+              largeTitle: AutoSizeText(launch.mission?.name ?? 'N/A'),
             ),
             SliverToBoxAdapter(
               child: Body(launch: launch),

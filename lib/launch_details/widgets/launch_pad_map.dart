@@ -2,6 +2,7 @@
 import 'dart:async';
 
 // Flutter imports:
+import 'package:falcon/helpers/helpers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
 
   Future<void> loadMapStyle(Future<GoogleMapController>? controller) async {
     mapStyle = await rootBundle.loadString(
-      Theme.of(context).brightness == Brightness.dark
+      isDarkMode(context)
           ? 'assets/map_styles/dark_mode.json'
           : 'assets/map_styles/light_mode.json',
     );

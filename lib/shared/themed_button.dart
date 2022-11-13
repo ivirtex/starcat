@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:falcon/helpers/helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,17 +20,30 @@ class ThemedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = isDarkMode(context);
 
     return PlatformWidget(
       cupertino: (_) => shouldCupertinoButtonBeFilled
-          ? CupertinoButton.filled(
+          ? CupertinoButton(
               onPressed: onPressed,
-              child: child,
+              color: Colors.white,
+              child: DefaultTextStyle(
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                child: child,
+              ),
             )
           : CupertinoButton(
               onPressed: onPressed,
-              child: child,
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              minSize: 30,
+              child: DefaultTextStyle(
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+                child: child,
+              ),
             ),
       material: (_) => OutlinedButton(
         style: ButtonStyle(

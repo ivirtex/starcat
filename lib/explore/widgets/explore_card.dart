@@ -1,5 +1,5 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
+import 'package:falcon/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
@@ -29,23 +29,27 @@ class ExploreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark ||
-        CupertinoTheme.brightnessOf(context) == Brightness.dark;
+    final isDark = isDarkMode(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (title != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                title!,
-                if (trailing != null) ...[
-                  const Spacer(),
-                  trailing!,
+          IconTheme(
+            data: IconThemeData(
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  title!,
+                  if (trailing != null) ...[
+                    const Spacer(),
+                    trailing!,
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         if (expandVertically)
@@ -62,13 +66,13 @@ class ExploreCard extends StatelessWidget {
     return PlatformWidget(
       cupertino: (_) => Padding(
         padding: const EdgeInsets.all(5),
-        child: GestureDetector(
-          onTap: onTap,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: isDark ? darkCardColor : lightCardColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: isDark ? darkCardColor : lightCardColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: CupertinoInkWell(
+            onPressed: onTap,
             child: DefaultTextStyle(
               style: const TextStyle(
                 fontFamily: 'D-DIN',
