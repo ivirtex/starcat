@@ -71,7 +71,7 @@ class LaunchDateCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          ThemedOutlinedButton(
+          ThemedButton(
             onPressed: date != null ? onNotifyMePressed : null,
             child: const Text('Notify me'),
           ),
@@ -85,8 +85,8 @@ class LaunchDateCard extends StatelessWidget {
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()!
-        .requestPermission();
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestPermission();
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<

@@ -78,7 +78,8 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
             ),
           ),
           const SizedBox(height: 10),
-          ThemedOutlinedButton(
+          ThemedButton(
+            shouldCupertinoButtonBeFilled: true,
             onPressed: () => context.go('/launch/${widget.launch.id}'),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

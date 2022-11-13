@@ -36,7 +36,7 @@ class LaunchVehicleCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          ThemedOutlinedButton(
+          ThemedButton(
             child: const Text('Learn more'),
             onPressed: () {},
           ),

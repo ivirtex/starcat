@@ -12,6 +12,7 @@ dependencies:
   bloc: ^8.1.0
   cached_network_image: ^3.2.2
   clock: ^1.1.1
+  cupertino_icons: ^1.0.5
   equatable: ^2.0.5
   flex_color_scheme: ^6.0.1
   flutter:

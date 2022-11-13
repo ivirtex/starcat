@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -41,37 +42,67 @@ class LaunchDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(launch.mission?.name ?? 'N/A'),
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                if (launch.image != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: MissionImage(
-                        imageUrl: launch.image ?? '',
-                      ),
-                    ),
-                  ),
-                const SizedBox(height: 10),
-                Section(name: launch.mission?.description ?? 'N/A'),
-                const SizedBox(height: 10),
-                LaunchDateCard(date: launch.net),
-                const SizedBox(height: 10),
-                LaunchVehicleCard(vehicle: launch.rocket),
-                const SizedBox(height: 10),
-                LaunchPadMap(pad: launch.pad!),
-              ],
+    return PlatformWidget(
+      cupertino: (context) => CupertinoPageScaffold(
+        child: CustomScrollView(
+          slivers: [
+            CupertinoSliverNavigationBar(
+              stretch: true,
+              border: null,
+              largeTitle: Text(launch.mission?.name ?? 'N/A'),
             ),
-          ),
+            SliverToBoxAdapter(
+              child: Body(launch: launch),
+            ),
+          ],
+        ),
+      ),
+      material: (_) => Scaffold(
+        appBar: AppBar(
+          title: Text(launch.mission?.name ?? 'N/A'),
+        ),
+        body: ListView(
+          children: [
+            Body(launch: launch),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Body extends StatelessWidget {
+  const Body({
+    required this.launch,
+    super.key,
+  });
+
+  final Launch launch;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          if (launch.image != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: MissionImage(
+                  imageUrl: launch.image ?? '',
+                ),
+              ),
+            ),
+          const SizedBox(height: 10),
+          Section(name: launch.mission?.description ?? 'N/A'),
+          const SizedBox(height: 10),
+          LaunchDateCard(date: launch.net),
+          const SizedBox(height: 10),
+          LaunchVehicleCard(vehicle: launch.rocket),
+          const SizedBox(height: 10),
+          LaunchPadMap(pad: launch.pad!),
         ],
       ),
     );
