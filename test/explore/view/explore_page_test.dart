@@ -188,7 +188,6 @@ void main() {
 
         expect(find.byType(CustomScrollView), findsOneWidget);
         expect(find.byType(CupertinoSliverNavigationBar), findsOneWidget);
-        expect(find.byType(SliverFillRemaining), findsOneWidget);
       },
     );
   });

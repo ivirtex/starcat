@@ -13,6 +13,7 @@ import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/helpers/helpers.dart';
 
 class LaunchPadMap extends StatefulWidget {
   const LaunchPadMap({
@@ -40,7 +41,7 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
 
   Future<void> loadMapStyle(Future<GoogleMapController>? controller) async {
     mapStyle = await rootBundle.loadString(
-      Theme.of(context).brightness == Brightness.dark
+      isDarkMode(context)
           ? 'assets/map_styles/dark_mode.json'
           : 'assets/map_styles/light_mode.json',
     );

@@ -61,8 +61,7 @@ class AppView extends StatelessWidget {
             return MediaQuery.fromWindow(
               child: CupertinoApp.router(
                 title: 'Falcon',
-                theme: cupertinoTheme.resolveFrom(context),
-                useInheritedMediaQuery: true,
+                theme: cupertinoTheme,
                 routerConfig: _router,
               ),
             );

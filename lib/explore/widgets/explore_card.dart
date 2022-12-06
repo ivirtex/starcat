@@ -1,6 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Project imports:
+import 'package:falcon/helpers/helpers.dart';
+import 'package:falcon/shared/shared.dart';
+
 class ExploreCard extends StatelessWidget {
   const ExploreCard({
     this.lightCardColor = Colors.black,
@@ -25,22 +29,27 @@ class ExploreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isDark = isDarkMode(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (title != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                title!,
-                if (trailing != null) ...[
-                  const Spacer(),
-                  trailing!,
+          IconTheme(
+            data: IconThemeData(
+              color: isDark ? Colors.white : Colors.black,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  title!,
+                  if (trailing != null) ...[
+                    const Spacer(),
+                    trailing!,
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         if (expandVertically)
@@ -53,20 +62,44 @@ class ExploreCard extends StatelessWidget {
     );
   }
 
-  Card buildContent({required bool isDark}) {
-    return Card(
-      color: isDark ? darkCardColor : lightCardColor,
-      child: InkWell(
-        overlayColor: MaterialStateProperty.all(Colors.grey.shade800),
-        onTap: onTap,
-        child: DefaultTextStyle(
-          style: const TextStyle(
-            fontFamily: 'D-DIN',
-            fontSize: 16,
+  Widget buildContent({required bool isDark}) {
+    return PlatformWidget(
+      cupertino: (_) => Padding(
+        padding: const EdgeInsets.all(5),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: isDark ? darkCardColor : lightCardColor,
+            borderRadius: BorderRadius.circular(10),
           ),
-          child: Padding(
-            padding: padding,
-            child: child,
+          child: CupertinoInkWell(
+            onPressed: onTap,
+            child: DefaultTextStyle(
+              style: const TextStyle(
+                fontFamily: 'D-DIN',
+                fontSize: 16,
+              ),
+              child: Padding(
+                padding: padding,
+                child: child,
+              ),
+            ),
+          ),
+        ),
+      ),
+      material: (_) => Card(
+        color: isDark ? darkCardColor : lightCardColor,
+        child: InkWell(
+          overlayColor: MaterialStateProperty.all(Colors.grey.shade800),
+          onTap: onTap,
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontFamily: 'D-DIN',
+              fontSize: 16,
+            ),
+            child: Padding(
+              padding: padding,
+              child: child,
+            ),
           ),
         ),
       ),

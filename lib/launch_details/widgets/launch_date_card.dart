@@ -75,7 +75,7 @@ class LaunchDateCard extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          ThemedOutlinedButton(
+          ThemedButton(
             onPressed: date != null ? onNotifyMePressed : null,
             child: const Text('Notify me'),
           ),

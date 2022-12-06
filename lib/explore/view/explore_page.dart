@@ -64,7 +64,7 @@ class _ExploreViewState extends State<ExploreView>
               border: null,
               largeTitle: Text('Explore'),
             ),
-            SliverFillRemaining(
+            SliverToBoxAdapter(
               child: Body(
                 controller: _controller,
                 animation: _animation,
