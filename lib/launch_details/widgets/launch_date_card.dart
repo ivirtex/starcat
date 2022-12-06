@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
+import 'package:spacex_info_repository/spacex_info_repository.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
@@ -14,10 +15,12 @@ class LaunchDateCard extends StatelessWidget {
   const LaunchDateCard({
     super.key,
     this.date,
+    this.status,
     this.launchName,
   });
 
   final DateTime? date;
+  final Status? status;
   final String? launchName;
 
   @override
@@ -37,6 +40,7 @@ class LaunchDateCard extends StatelessWidget {
     }
 
     return ExploreCard(
+      trailing: LaunchStatus(status),
       title: Row(
         children: const [
           Icon(Icons.calendar_month_rounded, size: 14),
@@ -85,8 +89,8 @@ class LaunchDateCard extends StatelessWidget {
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()!
-        .requestPermission();
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestPermission();
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -101,9 +105,7 @@ class LaunchDateCard extends StatelessWidget {
       'your channel id',
       'your channel name',
       channelDescription: 'your channel description',
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
+      visibility: NotificationVisibility.public,
     );
     const notificationDetails =
         NotificationDetails(android: androidNotificationDetails);
@@ -114,7 +116,7 @@ class LaunchDateCard extends StatelessWidget {
       'T-5 minutes to the launch',
       // tz.TZDateTime.from(date!.toLocal(), tz.local)
       //     .subtract(const Duration(minutes: 5)),
-      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 3)),
       notificationDetails,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:

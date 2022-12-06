@@ -64,7 +64,11 @@ class LaunchDetailsView extends StatelessWidget {
                 const SizedBox(height: 10),
                 Section(name: launch.mission?.description ?? 'N/A'),
                 const SizedBox(height: 10),
-                LaunchDateCard(date: launch.net),
+                LaunchDateCard(
+                  date: launch.net,
+                  status: launch.status,
+                  launchName: launch.name,
+                ),
                 const SizedBox(height: 10),
                 LaunchVehicleCard(vehicle: launch.rocket),
                 const SizedBox(height: 10),

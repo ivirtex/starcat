@@ -30,12 +30,33 @@ class CountdownTimer extends StatefulWidget {
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  late String _tMinusToLaunchDays;
-  late String _tMinusToLaunchHours;
-  late String _tMinusToLaunchMinutes;
-  late String _tMinusToLaunchSeconds;
+  late Map<String, String> _timeMap;
   bool _isNegative = false;
   Timer? _timer;
+
+  Map<String, String> _getTimeToLaunchMap(Duration duration) {
+    final days = duration.inDays;
+    final hours = duration.inHours - days * 24;
+    final minutes = duration.inMinutes - days * 24 * 60 - hours * 60;
+    final seconds = duration.inSeconds -
+        days * 24 * 60 * 60 -
+        hours * 60 * 60 -
+        minutes * 60;
+
+    if (widget.mode == CountdownTimerMode.daysHoursMinutes) {
+      return {
+        'days': days.toString().replaceAll('-', '').padLeft(2, '0'),
+        'hours': hours.toString().replaceAll('-', '').padLeft(2, '0'),
+        'minutes': minutes.toString().replaceAll('-', '').padLeft(2, '0'),
+      };
+    } else {
+      return {
+        'hours': hours.toString().replaceAll('-', '').padLeft(2, '0'),
+        'minutes': minutes.toString().replaceAll('-', '').padLeft(2, '0'),
+        'seconds': seconds.toString().replaceAll('-', '').padLeft(2, '0'),
+      };
+    }
+  }
 
   void _updateLaunchTime(DateTime launchDate) {
     final localLaunchDate = launchDate.toLocal();
@@ -44,22 +65,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
     final duration = localLaunchDate.difference(now);
     _isNegative = duration.isNegative;
 
-    final days = duration.inDays;
-    final hours = duration.inHours - (days * 24);
-    final minutes = duration.inMinutes - (days * 24 * 60) - (hours * 60);
-    final seconds = duration.inSeconds -
-        (days * 24 * 60 * 60) -
-        (hours * 60 * 60) -
-        (minutes * 60);
-
     setState(() {
-      _tMinusToLaunchDays = days.toString().replaceAll('-', '').padLeft(2, '0');
-      _tMinusToLaunchHours =
-          hours.toString().replaceAll('-', '').padLeft(2, '0');
-      _tMinusToLaunchMinutes =
-          minutes.toString().replaceAll('-', '').padLeft(2, '0');
-      _tMinusToLaunchSeconds =
-          seconds.toString().replaceAll('-', '').padLeft(2, '0');
+      _timeMap = _getTimeToLaunchMap(duration);
     });
   }
 
@@ -88,6 +95,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
     const numberTextStyle = TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
+      color: Colors.white,
     );
 
     if (widget.launchDate == null) {
@@ -111,63 +119,42 @@ class _CountdownTimerState extends State<CountdownTimer> {
     return RepaintBoundary(
       child: Row(
         children: [
-          if (widget.mode == CountdownTimerMode.hoursMinutesSeconds) ...[
-            Text(
-              _isNegative ? 'T +' : 'T -',
-              style: TextStyle(
-                fontSize: 18,
-                color: Theme.of(context).platform == TargetPlatform.iOS
-                    ? CupertinoColors.systemRed.resolveFrom(context)
-                    : Colors.red,
-              ),
+          Text(
+            _isNegative ? 'T +' : 'T -',
+            style: TextStyle(
+              fontSize: 18,
+              color: Theme.of(context).platform == TargetPlatform.iOS
+                  ? CupertinoColors.systemRed.resolveFrom(context)
+                  : Colors.red,
             ),
-            const SizedBox(width: 5),
-            Text(
-              _tMinusToLaunchHours,
-              style: numberTextStyle,
+          ),
+          const SizedBox(width: 5),
+          for (final entry in _timeMap.entries)
+            Row(
+              children: [
+                for (final char in entry.value.characters)
+                  Card(
+                    color: Colors.grey.shade800,
+                    margin: const EdgeInsets.only(right: 2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        char,
+                        style: numberTextStyle,
+                      ),
+                    ),
+                  ),
+                const SizedBox(width: 2),
+                Text(
+                  entry.key.characters.first,
+                ),
+                if (entry.key != _timeMap.entries.last.key)
+                  const SizedBox(width: 6),
+              ],
             ),
-            const Text('h', style: TextStyle(fontSize: 18)),
-            const SizedBox(width: 5),
-            Text(
-              _tMinusToLaunchMinutes,
-              style: numberTextStyle,
-            ),
-            const Text('m', style: TextStyle(fontSize: 18)),
-            const SizedBox(width: 5),
-            Text(
-              _tMinusToLaunchSeconds,
-              style: numberTextStyle,
-            ),
-            const Text('s', style: TextStyle(fontSize: 18)),
-          ] else ...[
-            Text(
-              _isNegative ? 'T +' : 'T -',
-              style: TextStyle(
-                fontSize: 18,
-                color: Theme.of(context).platform == TargetPlatform.iOS
-                    ? CupertinoColors.systemRed.resolveFrom(context)
-                    : Colors.red,
-              ),
-            ),
-            const SizedBox(width: 5),
-            Text(
-              _tMinusToLaunchDays,
-              style: numberTextStyle,
-            ),
-            const Text('d', style: TextStyle(fontSize: 18)),
-            const SizedBox(width: 5),
-            Text(
-              _tMinusToLaunchHours,
-              style: numberTextStyle,
-            ),
-            const Text('h', style: TextStyle(fontSize: 18)),
-            const SizedBox(width: 5),
-            Text(
-              _tMinusToLaunchMinutes,
-              style: numberTextStyle,
-            ),
-            const Text('m', style: TextStyle(fontSize: 18)),
-          ],
         ],
       ),
     );
