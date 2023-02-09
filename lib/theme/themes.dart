@@ -7,6 +7,9 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 final lightTheme = FlexThemeData.light(
   useMaterial3: true,
+  appBarBackground: Colors.grey.shade100,
+  background: Colors.grey.shade100,
+  scaffoldBackground: Colors.grey.shade100,
   fontFamily: 'D-DIN',
   subThemesData: const FlexSubThemesData(
     elevatedButtonRadius: 10,
@@ -15,10 +18,10 @@ final lightTheme = FlexThemeData.light(
     cardRadius: 10,
   ),
   colors: const FlexSchemeColor(
-    primary: Color(0xffffffff),
-    primaryContainer: Color(0xfffcfcfc),
-    secondary: Color(0xff000000),
-    secondaryContainer: Color(0xff101010),
+    primary: Color(0xff000000),
+    primaryContainer: Color(0xff171717),
+    secondary: Color(0xffffffff),
+    secondaryContainer: Color(0xfffcfcfc),
     tertiary: Color(0xfff80900),
     tertiaryContainer: Color(0xffd3001b),
     appBarColor: Color(0xfffcfcfc),
