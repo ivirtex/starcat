@@ -41,39 +41,45 @@ class UpcomingLaunches extends StatelessWidget {
             child: ExploreCard(
               expandVertically: true,
               onTap: () => context.go('/launch/${launch.id}'),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Row(
                 children: [
-                  AutoSizeText(
-                    launch.mission?.name ?? 'No name',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                  ),
-                  const SizedBox(height: 5),
-                  Flexible(
-                    child: Wrap(
-                      direction: Axis.vertical,
-                      spacing: 5,
-                      runSpacing: 5,
-                      children: [
-                        InfoCard(
-                          color: Colors.grey.shade800,
-                          padding: const EdgeInsets.all(3),
-                          child: Text(date),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AutoSizeText(
+                        launch.mission?.name ?? 'No name',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                        InfoCard(
-                          color: Colors.grey.shade800,
-                          padding: const EdgeInsets.all(3),
-                          child: Text(
-                            launch.pad?.name ?? 'No pad',
-                          ),
+                        maxLines: 2,
+                      ),
+                      const SizedBox(height: 5),
+                      Flexible(
+                        child: Wrap(
+                          direction: Axis.vertical,
+                          spacing: 5,
+                          runSpacing: 5,
+                          children: [
+                            InfoCard(
+                              color: Colors.grey.shade800,
+                              padding: const EdgeInsets.all(3),
+                              child: Text(date),
+                            ),
+                            InfoCard(
+                              color: Colors.grey.shade800,
+                              padding: const EdgeInsets.all(3),
+                              child: Text(
+                                launch.pad?.name ?? 'No pad',
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  const Spacer(),
+                  const Placeholder(fallbackWidth: 30)
                 ],
               ),
             ),

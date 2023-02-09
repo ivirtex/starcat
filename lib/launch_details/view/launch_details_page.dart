@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
@@ -110,7 +111,7 @@ class Body extends StatelessWidget {
               LaunchVehicleCard(vehicle: launch.rocket),
               const SizedBox(height: 10),
               LaunchPadMap(pad: launch.pad!),
-            ],
+            ].animate(interval: 100.ms).fade(duration: 350.ms, delay: 100.ms),
           ),
         ),
       ],

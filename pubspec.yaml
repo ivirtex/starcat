@@ -17,6 +17,7 @@ dependencies:
   flex_color_scheme: ^6.1.2
   flutter:
     sdk: flutter
+  flutter_animate: ^3.1.0
   flutter_bloc: ^8.1.2
   flutter_cache_manager: ^3.3.0
   flutter_local_notifications: ^13.0.0

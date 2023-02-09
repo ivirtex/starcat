@@ -5,31 +5,25 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
-const FlexSchemeData spacexTheme = FlexSchemeData(
-  name: 'SpaceX',
-  description: '',
-  light: FlexSchemeColor(
-    primary: Colors.black,
-    secondary: Colors.white,
-    tertiary: Colors.red,
-  ),
-  dark: FlexSchemeColor(
-    primary: Colors.white,
-    secondary: Colors.black,
-    tertiary: Colors.red,
-  ),
-);
-
 final lightTheme = FlexThemeData.light(
   useMaterial3: true,
+  fontFamily: 'D-DIN',
   subThemesData: const FlexSubThemesData(
     elevatedButtonRadius: 10,
     outlinedButtonRadius: 10,
     textButtonRadius: 10,
     cardRadius: 10,
   ),
-  colors: spacexTheme.light,
-  fontFamily: 'D-DIN',
+  colors: const FlexSchemeColor(
+    primary: Color(0xffffffff),
+    primaryContainer: Color(0xfffcfcfc),
+    secondary: Color(0xff000000),
+    secondaryContainer: Color(0xff101010),
+    tertiary: Color(0xfff80900),
+    tertiaryContainer: Color(0xffd3001b),
+    appBarColor: Color(0xfffcfcfc),
+    error: Color(0xffcf6679),
+  ),
 );
 
 final darkTheme = FlexThemeData.dark(
@@ -37,14 +31,23 @@ final darkTheme = FlexThemeData.dark(
   appBarBackground: Colors.black,
   background: Colors.black,
   scaffoldBackground: Colors.black,
+  fontFamily: 'D-DIN',
   subThemesData: const FlexSubThemesData(
     elevatedButtonRadius: 10,
     outlinedButtonRadius: 10,
     textButtonRadius: 10,
     cardRadius: 10,
   ),
-  colors: spacexTheme.dark,
-  fontFamily: 'D-DIN',
+  colors: const FlexSchemeColor(
+    primary: Color(0xff000000),
+    primaryContainer: Color(0xff171717),
+    secondary: Color(0xffffffff),
+    secondaryContainer: Color(0xfffcfcfc),
+    tertiary: Color(0xfff80900),
+    tertiaryContainer: Color(0xffd3001b),
+    appBarColor: Color(0xfffcfcfc),
+    error: Color(0xffcf6679),
+  ),
 );
 
 const _cupertinoTextThemeData = CupertinoTextThemeData();

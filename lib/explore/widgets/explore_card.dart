@@ -7,23 +7,19 @@ import 'package:falcon/shared/shared.dart';
 
 class ExploreCard extends StatelessWidget {
   const ExploreCard({
-    this.lightCardColor = Colors.black,
-    this.darkCardColor = Colors.white10,
-    this.padding = const EdgeInsets.all(10),
-    this.expandVertically = false,
     this.title,
     this.trailing,
+    this.padding = const EdgeInsets.all(10),
+    this.expandVertically = false,
     this.onTap,
     required this.child,
     super.key,
   });
 
-  final Color lightCardColor;
-  final Color darkCardColor;
-  final EdgeInsets padding;
-  final bool expandVertically;
   final Widget? title;
   final Widget? trailing;
+  final EdgeInsets padding;
+  final bool expandVertically;
   final VoidCallback? onTap;
   final Widget child;
 
@@ -54,21 +50,21 @@ class ExploreCard extends StatelessWidget {
           ),
         if (expandVertically)
           Expanded(
-            child: buildContent(isDark: isDark),
+            child: buildContent(context: context),
           )
         else
-          buildContent(isDark: isDark)
+          buildContent(context: context)
       ],
     );
   }
 
-  Widget buildContent({required bool isDark}) {
+  Widget buildContent({required BuildContext context}) {
     return PlatformWidget(
       cupertino: (_) => Padding(
         padding: const EdgeInsets.all(5),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: isDark ? darkCardColor : lightCardColor,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
           ),
           child: CupertinoInkWell(
@@ -87,7 +83,7 @@ class ExploreCard extends StatelessWidget {
         ),
       ),
       material: (_) => Card(
-        color: isDark ? darkCardColor : lightCardColor,
+        color: Theme.of(context).colorScheme.primaryContainer,
         child: InkWell(
           overlayColor: MaterialStateProperty.all(Colors.grey.shade800),
           onTap: onTap,

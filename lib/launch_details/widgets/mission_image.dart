@@ -23,45 +23,43 @@ class MissionImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        minHeight: 200,
-      ),
-      child: ColoredBox(
-        color: Colors.black,
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          cacheManager: cacheManager,
-          errorWidget: (context, error, stackTrace) {
-            log(error);
+    return CachedNetworkImage(
+      imageUrl: imageUrl,
+      cacheManager: cacheManager,
+      errorWidget: (context, error, stackTrace) {
+        log(error);
 
-            return Center(
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.error,
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                  const Text(
-                    kImageErrorText,
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+        return Center(
+          child: Column(
+            children: [
+              Icon(
+                Icons.error,
+                color: Theme.of(context).colorScheme.error,
               ),
-            );
-          },
-          progressIndicatorBuilder: (context, child, loadingProgress) {
-            return Center(
+              const Text(
+                kImageErrorText,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      progressIndicatorBuilder: (context, child, loadingProgress) {
+        return SizedBox(
+          height: 200,
+          child: ColoredBox(
+            color: Theme.of(context).colorScheme.primary,
+            child: Center(
               child: CircularProgressIndicator.adaptive(
                 value: loadingProgress.progress,
                 backgroundColor: Colors.white,
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

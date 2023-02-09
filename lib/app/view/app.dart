@@ -58,12 +58,10 @@ class AppView extends StatelessWidget {
             );
           },
           cupertino: (context) {
-            return MediaQuery.fromWindow(
-              child: CupertinoApp.router(
-                title: 'Falcon',
-                theme: cupertinoTheme,
-                routerConfig: _router,
-              ),
+            return CupertinoApp.router(
+              title: 'Falcon',
+              theme: cupertinoTheme,
+              routerConfig: _router,
             );
           },
         );
