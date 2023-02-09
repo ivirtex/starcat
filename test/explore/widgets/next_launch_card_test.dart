@@ -10,11 +10,12 @@ import 'package:spacex_info_repository/spacex_info_repository.dart';
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
-class MockExploreCubit extends MockCubit<ExploreState> implements ExploreCubit {
-}
+class MockExploreCubit extends MockCubit<ExploreState>
+    implements ExploreCubit {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 

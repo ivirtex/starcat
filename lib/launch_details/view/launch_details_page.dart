@@ -82,41 +82,38 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                if (launch.image != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: MissionImage(
-                        imageUrl: launch.image ?? '',
-                      ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              if (launch.image != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: MissionImage(
+                      imageUrl: launch.image ?? '',
                     ),
                   ),
-                const SizedBox(height: 10),
-                Section(name: launch.mission?.description ?? 'N/A'),
-                const SizedBox(height: 10),
-                LaunchDateCard(
-                  date: launch.net,
-                  status: launch.status,
-                  launchName: launch.name,
                 ),
-                const SizedBox(height: 10),
-                LaunchVehicleCard(vehicle: launch.rocket),
-                const SizedBox(height: 10),
-                LaunchPadMap(pad: launch.pad!),
-              ],
-            ),
+              const SizedBox(height: 10),
+              Section(name: launch.mission?.description ?? 'N/A'),
+              const SizedBox(height: 10),
+              LaunchDateCard(
+                date: launch.net,
+                status: launch.status,
+                launchName: launch.name,
+              ),
+              const SizedBox(height: 10),
+              LaunchVehicleCard(vehicle: launch.rocket),
+              const SizedBox(height: 10),
+              LaunchPadMap(pad: launch.pad!),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
