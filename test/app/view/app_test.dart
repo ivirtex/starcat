@@ -26,13 +26,15 @@ void main() {
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => spaceXInfoRepository.getLaunches(any()))
-          .thenAnswer((_) async => const Launches());
+          .thenAnswer((_) async => const Launches(results: [Launch()]));
     });
 
     testWidgets('renders AppView', (tester) async {
       await tester.pumpApp(
         App(spaceXInfoRepository: spaceXInfoRepository),
       );
+
+      await tester.pump(const Duration(seconds: 1));
 
       expect(find.byType(AppView), findsOneWidget);
     });
@@ -46,7 +48,7 @@ void main() {
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => spaceXInfoRepository.getLaunches(any()))
-          .thenAnswer((_) async => const Launches());
+          .thenAnswer((_) async => const Launches(results: [Launch()]));
     });
 
     testWidgets('renders ExplorePage', (tester) async {
@@ -63,6 +65,8 @@ void main() {
           child: const AppView(),
         ),
       );
+
+      await tester.pump(const Duration(seconds: 1));
 
       expect(find.byType(ExplorePage), findsOneWidget);
     });

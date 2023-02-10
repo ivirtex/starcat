@@ -39,7 +39,7 @@ class InfoCard extends StatelessWidget {
               icon!,
               const SizedBox(width: 2),
             ],
-            child,
+            Flexible(child: child),
           ],
         ),
       ),

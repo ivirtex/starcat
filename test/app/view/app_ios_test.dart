@@ -28,7 +28,7 @@ void main() {
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => spaceXInfoRepository.getLaunches(any()))
-          .thenAnswer((_) async => const Launches());
+          .thenAnswer((_) async => const Launches(results: [Launch()]));
     });
 
     testWidgets('uses CupertinoApp on iOS', (tester) async {
@@ -52,9 +52,11 @@ void main() {
         ),
       );
 
-      debugDefaultTargetPlatformOverride = null;
+      await tester.pump(const Duration(seconds: 1));
 
       expect(find.byType(CupertinoApp), findsOneWidget);
+
+      debugDefaultTargetPlatformOverride = null;
     });
   });
 }

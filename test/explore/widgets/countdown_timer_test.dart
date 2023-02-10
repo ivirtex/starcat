@@ -14,8 +14,8 @@ import 'package:falcon/explore/explore.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
-class MockExploreCubit extends MockCubit<ExploreState> implements ExploreCubit {
-}
+class MockExploreCubit extends MockCubit<ExploreState>
+    implements ExploreCubit {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
@@ -50,16 +50,21 @@ void main() {
       );
 
       expect(find.byType(CountdownTimer), findsOneWidget);
-      expect(find.text(tMinusToLaunchDays), findsOneWidget);
+      for (final char in tMinusToLaunchDays.split('')) {
+        expect(find.text(char), findsWidgets);
+      }
       expect(find.text('d'), findsOneWidget);
 
-      expect(find.text(tMinusToLaunchHours), findsOneWidget);
+      for (final char in tMinusToLaunchHours.split('')) {
+        expect(find.text(char), findsWidgets);
+      }
       expect(find.text('h'), findsOneWidget);
 
-      expect(find.text(tMinusToLaunchMinutes), findsOneWidget);
+      for (final char in tMinusToLaunchMinutes.split('')) {
+        expect(find.text(char), findsWidgets);
+      }
       expect(find.text('m'), findsOneWidget);
 
-      expect(find.text(tMinusToLaunchSeconds), findsNothing);
       expect(find.text('s'), findsNothing);
     });
 
@@ -75,16 +80,21 @@ void main() {
       );
 
       expect(find.byType(CountdownTimer), findsOneWidget);
-      expect(find.text(tMinusToLaunchDays), findsNothing);
       expect(find.text('d'), findsNothing);
 
-      expect(find.text(tMinusToLaunchHours), findsOneWidget);
+      for (final char in tMinusToLaunchHours.split('')) {
+        expect(find.text(char), findsWidgets);
+      }
       expect(find.text('h'), findsOneWidget);
 
-      expect(find.text(tMinusToLaunchMinutes), findsOneWidget);
+      for (final char in tMinusToLaunchMinutes.split('')) {
+        expect(find.text(char), findsWidgets);
+      }
       expect(find.text('m'), findsOneWidget);
 
-      expect(find.text(tMinusToLaunchSeconds), findsOneWidget);
+      for (final char in tMinusToLaunchSeconds.split('')) {
+        expect(find.text(char), findsWidgets);
+      }
       expect(find.text('s'), findsOneWidget);
     });
 

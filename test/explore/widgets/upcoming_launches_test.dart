@@ -15,11 +15,11 @@ void main() {
         name: 'Name',
         net: DateTime(2021),
         mission: const Mission(
-          name: 'Mission Name',
+          name: 'Long Mission Name',
           description: 'Mission Description',
         ),
         pad: const Pad(
-          name: 'Pad Name',
+          name: 'Looooooooooong Pad Name',
         ),
       ),
       Launch(

@@ -15,8 +15,8 @@ import '../../helpers/helpers.dart';
 
 class MockSpaceXInfoRepository extends Mock implements SpaceXInfoRepository {}
 
-class MockExploreCubit extends MockCubit<ExploreState> implements ExploreCubit {
-}
+class MockExploreCubit extends MockCubit<ExploreState>
+    implements ExploreCubit {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
@@ -54,6 +54,8 @@ void main() {
         themeCubit: themeCubit,
         const ExplorePage(),
       );
+
+      await tester.pump(const Duration(seconds: 1));
     });
   });
 
@@ -94,6 +96,8 @@ void main() {
           const ExploreView(),
         );
 
+        await tester.pump(const Duration(seconds: 1));
+
         expect(find.byType(CircularProgressIndicator), findsOneWidget);
       },
     );
@@ -112,6 +116,8 @@ void main() {
           const ExploreView(),
         );
 
+        await tester.pump(const Duration(seconds: 1));
+
         expect(find.byType(CircularProgressIndicator), findsOneWidget);
       },
     );
@@ -129,6 +135,8 @@ void main() {
           themeCubit: themeCubit,
           const ExploreView(),
         );
+
+        await tester.pump(const Duration(seconds: 1));
 
         expect(find.byType(ExploreCard), findsOneWidget);
         expect(find.text('Something went wrong'), findsOneWidget);
@@ -156,6 +164,8 @@ void main() {
           const ExploreView(),
         );
 
+        await tester.pump(const Duration(seconds: 1));
+
         expect(find.byType(NextLaunchCard), findsOneWidget);
       },
     );
@@ -182,6 +192,8 @@ void main() {
           platform: TargetPlatform.iOS,
           const ExploreView(),
         );
+
+        await tester.pump(const Duration(seconds: 1));
 
         expect(find.byType(CupertinoPageScaffold), findsOneWidget);
         expect(find.byType(Scaffold), findsNothing);

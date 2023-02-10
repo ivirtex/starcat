@@ -43,40 +43,60 @@ class UpcomingLaunches extends StatelessWidget {
               onTap: () => context.go('/launch/${launch.id}'),
               child: Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AutoSizeText(
-                        launch.mission?.name ?? 'No name',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
+                  ShaderMask(
+                    shaderCallback: (rect) {
+                      return const LinearGradient(
+                        colors: <Color>[
+                          Colors.white,
+                          Colors.transparent,
+                        ],
+                      ).createShader(
+                        Rect.fromLTRB(
+                          rect.width - 50,
+                          rect.height - 50,
+                          rect.width - 10,
+                          rect.height - 10,
                         ),
-                        maxLines: 2,
-                      ),
-                      const SizedBox(height: 5),
-                      Flexible(
-                        child: Wrap(
-                          direction: Axis.vertical,
-                          spacing: 5,
-                          runSpacing: 5,
+                      );
+                    },
+                    child: ClipRect(
+                      child: SizedBox(
+                        width: 190,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InfoCard(
-                              color: Colors.grey.shade800,
-                              padding: const EdgeInsets.all(3),
-                              child: Text(date),
-                            ),
-                            InfoCard(
-                              color: Colors.grey.shade800,
-                              padding: const EdgeInsets.all(3),
-                              child: Text(
-                                launch.pad?.name ?? 'No pad',
+                            AutoSizeText(
+                              launch.mission?.name ?? 'No name',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
                               ),
+                              maxLines: 2,
+                            ),
+                            const SizedBox(height: 5),
+                            Wrap(
+                              direction: Axis.vertical,
+                              spacing: 5,
+                              runSpacing: 5,
+                              children: [
+                                InfoCard(
+                                  color: Colors.grey.shade800,
+                                  padding: const EdgeInsets.all(3),
+                                  child: Text(date),
+                                ),
+                                InfoCard(
+                                  color: Colors.grey.shade800,
+                                  padding: const EdgeInsets.all(3),
+                                  child: Text(
+                                    launch.pad?.name ?? 'No pad',
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                   const Spacer(),
                   const Placeholder(fallbackWidth: 30)

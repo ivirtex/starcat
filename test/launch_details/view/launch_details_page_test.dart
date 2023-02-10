@@ -12,8 +12,8 @@ import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launch_details/launch_details.dart';
 import '../../helpers/helpers.dart';
 
-class MockExploreCubit extends MockCubit<ExploreState> implements ExploreCubit {
-}
+class MockExploreCubit extends MockCubit<ExploreState>
+    implements ExploreCubit {}
 
 void main() {
   initHydratedStorage();
@@ -48,6 +48,8 @@ void main() {
         LaunchDetailsPage(launchId: launches.results!.first.id!),
       );
 
+      await tester.pump(const Duration(seconds: 1));
+
       expect(find.byType(LaunchDetailsPage), findsOneWidget);
     });
   });
@@ -58,6 +60,8 @@ void main() {
         LaunchDetailsView(launch: launches.results!.first),
       );
 
+      await tester.pump(const Duration(seconds: 1));
+
       expect(find.byType(LaunchDetailsView), findsOneWidget);
     });
 
@@ -66,6 +70,8 @@ void main() {
         platform: TargetPlatform.iOS,
         LaunchDetailsView(launch: launches.results!.first),
       );
+
+      await tester.pump(const Duration(seconds: 1));
 
       expect(find.byType(CupertinoPageScaffold), findsOneWidget);
       expect(find.byType(CupertinoSliverNavigationBar), findsOneWidget);
@@ -76,6 +82,8 @@ void main() {
         LaunchDetailsView(launch: launches.results!.first),
       );
 
+      await tester.pump(const Duration(seconds: 1));
+
       expect(find.byType(MissionImage), findsOneWidget);
     });
 
@@ -83,6 +91,8 @@ void main() {
       await tester.pumpApp(
         LaunchDetailsView(launch: launches.results!.first),
       );
+
+      await tester.pump(const Duration(seconds: 1));
 
       await tester.tap(find.text('Learn more'));
     });

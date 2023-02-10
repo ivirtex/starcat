@@ -56,7 +56,7 @@ void main() {
       );
 
       final card = tester.widget<Card>(find.byType(Card));
-      expect(card.color, Colors.black);
+      expect(card.color, const Color(0xff171717));
     });
 
     testWidgets('has correct color in dark mode', (WidgetTester tester) async {
@@ -70,7 +70,7 @@ void main() {
       );
 
       final card = tester.widget<Card>(find.byType(Card));
-      expect(card.color, Colors.white10);
+      expect(card.color, const Color(0xff171717));
     });
   });
 }
