@@ -8,19 +8,19 @@ import 'package:vector_graphics/vector_graphics.dart';
 
 class VehicleScheme extends StatelessWidget {
   const VehicleScheme({
-    this.vehicleConfiguration,
+    this.vehicle,
     this.mission,
     super.key,
   });
 
-  final Configuration? vehicleConfiguration;
+  final Rocket? vehicle;
   final Mission? mission;
 
   @override
   Widget build(BuildContext context) {
     String? vehiclePath;
 
-    switch (vehicleConfiguration?.name) {
+    switch (vehicle?.configuration?.name) {
       case 'Falcon 9':
         if (mission?.type == 'Resupply' ||
             mission?.type == 'Human Exploration') {

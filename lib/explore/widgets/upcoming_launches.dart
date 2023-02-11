@@ -44,6 +44,7 @@ class UpcomingLaunches extends StatelessWidget {
                 width: 250,
                 child: ExploreCard(
                   expandVertically: true,
+                  // TODO(ivirtex): Test this route
                   onTap: () => context.go('/launch/${launch.id}'),
                   child: Row(
                     children: [
@@ -102,7 +103,7 @@ class UpcomingLaunches extends StatelessWidget {
                         ),
                       ),
                       VehicleScheme(
-                        vehicleConfiguration: launch.rocket?.configuration,
+                        vehicle: launch.rocket,
                         mission: launch.mission,
                       )
                     ],
