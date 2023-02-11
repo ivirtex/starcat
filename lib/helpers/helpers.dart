@@ -1,2 +1,2 @@
 export 'is_dark_mode.dart';
-export 'parse_date.dart';
+export 'format_date.dart';

@@ -1,7 +1,7 @@
 // Package imports:
 import 'package:intl/intl.dart';
 
-String parseDateStr(
+String formatDate(
   DateTime date, {
   DateFormat? dateFormat,
 }) {

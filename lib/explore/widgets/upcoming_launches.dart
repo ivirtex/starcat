@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
+import 'package:vector_graphics/vector_graphics_compat.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
-import 'package:falcon/helpers/parse_date.dart';
+import 'package:falcon/helpers/format_date.dart';
 import 'package:falcon/shared/shared.dart';
 
 class UpcomingLaunches extends StatelessWidget {
@@ -22,7 +24,7 @@ class UpcomingLaunches extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 110,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: launches.results!.length,
@@ -34,7 +36,7 @@ class UpcomingLaunches extends StatelessWidget {
           }
 
           final launch = launches.results![index];
-          final date = parseDateStr(launch.net!.toLocal());
+          final date = formatDate(launch.net!.toLocal());
 
           return SizedBox(
             width: 250,
@@ -61,7 +63,7 @@ class UpcomingLaunches extends StatelessWidget {
                     },
                     child: ClipRect(
                       child: SizedBox(
-                        width: 190,
+                        width: 180,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,13 +101,59 @@ class UpcomingLaunches extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  const Placeholder(fallbackWidth: 30)
+                  Flexible(
+                    child: VehicleScheme(
+                      vehicleConfiguration: launch.rocket?.configuration,
+                      mission: launch.mission,
+                    ),
+                  )
                 ],
               ),
             ),
           );
         },
       ),
+    );
+  }
+}
+
+class VehicleScheme extends StatelessWidget {
+  const VehicleScheme({
+    this.vehicleConfiguration,
+    this.mission,
+    super.key,
+  });
+
+  final Configuration? vehicleConfiguration;
+  final Mission? mission;
+
+  @override
+  Widget build(BuildContext context) {
+    String? vehiclePath;
+
+    switch (vehicleConfiguration?.name) {
+      case 'Falcon 9':
+        if (mission?.type == 'Resupply' ||
+            mission?.type == 'Human Exploration') {
+          vehiclePath = 'assets/schematics/falcon_9/f9_dragon.svg.vec';
+        } else {
+          vehiclePath = 'assets/schematics/falcon_9/f9.svg.vec';
+        }
+
+        break;
+      case 'Falcon Heavy':
+        vehiclePath = 'assets/schematics/falcon_heavy/fh.svg.vec';
+        break;
+      default:
+        break;
+    }
+
+    if (vehiclePath == null) {
+      return const SizedBox();
+    }
+
+    return SvgPicture(
+      AssetBytesLoader(vehiclePath),
     );
   }
 }

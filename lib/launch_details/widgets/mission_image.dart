@@ -36,10 +36,10 @@ class MissionImage extends StatelessWidget {
                 Icons.error,
                 color: Theme.of(context).colorScheme.error,
               ),
-              const Text(
+              Text(
                 kImageErrorText,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onError,
                 ),
               ),
             ],
@@ -47,10 +47,10 @@ class MissionImage extends StatelessWidget {
         );
       },
       progressIndicatorBuilder: (context, child, loadingProgress) {
-        return SizedBox(
-          height: 200,
-          child: ColoredBox(
-            color: Theme.of(context).colorScheme.primary,
+        return ColoredBox(
+          color: Theme.of(context).colorScheme.primary,
+          child: SizedBox(
+            height: 200,
             child: Center(
               child: CircularProgressIndicator.adaptive(
                 value: loadingProgress.progress,
