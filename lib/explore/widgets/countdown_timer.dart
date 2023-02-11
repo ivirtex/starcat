@@ -95,6 +95,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
     const numberTextStyle = TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.bold,
+      fontFamily: 'SpaceMono',
       color: Colors.white,
     );
 

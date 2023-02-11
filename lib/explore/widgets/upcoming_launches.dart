@@ -54,10 +54,10 @@ class UpcomingLaunches extends StatelessWidget {
                         ],
                       ).createShader(
                         Rect.fromLTRB(
-                          rect.width - 50,
-                          rect.height - 50,
-                          rect.width - 10,
-                          rect.height - 10,
+                          rect.width - 40,
+                          rect.height - 40,
+                          rect.width,
+                          rect.height,
                         ),
                       );
                     },
