@@ -87,11 +87,9 @@ class Body extends StatelessWidget {
               );
             case ExploreStatus.success:
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   NextLaunchCard(launch: state.launches!.results!.first),
                   const SizedBox(height: 10),
-                  const Section(name: 'Upcoming Launches'),
                   UpcomingLaunches(launches: state.launches!),
                 ],
               );

@@ -36,7 +36,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
     _launchDate = nextLaunchData.net;
     _launchName = nextLaunchData.name;
     _launchStatus = nextLaunchData.status;
-    _description = nextLaunchData.mission?.description;
+    _description = '${nextLaunchData.mission?.description?.split('.').first}.';
   }
 
   @override
