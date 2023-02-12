@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';

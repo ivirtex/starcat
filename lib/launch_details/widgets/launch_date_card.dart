@@ -101,14 +101,14 @@ class LaunchDateCard extends StatelessWidget {
           sound: true,
         );
 
-    const androidNotificationDetails = AndroidNotificationDetails(
-      'your channel id',
-      'your channel name',
-      channelDescription: 'your channel description',
-      visibility: NotificationVisibility.public,
+    const notificationDetails = NotificationDetails(
+      android: AndroidNotificationDetails(
+        '0',
+        'dev.ivirtex.falcon.notifications',
+        visibility: NotificationVisibility.public,
+      ),
+      iOS: DarwinNotificationDetails(),
     );
-    const notificationDetails =
-        NotificationDetails(android: androidNotificationDetails);
 
     await flutterLocalNotificationsPlugin.zonedSchedule(
       launchName.hashCode,

@@ -27,16 +27,6 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> onDidReceiveNotificationResponse(
-  NotificationResponse notificationResponse,
-) async {
-  final payload = notificationResponse.payload;
-
-  if (notificationResponse.payload != null) {
-    debugPrint('notification payload: $payload');
-  }
-}
-
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
@@ -49,32 +39,36 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
 
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  await initNotifications();
 
+  await runZonedGuarded(
+    () async => runApp(await builder()),
+    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+  );
+}
+
+Future<void> initNotifications() async {
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   const initializationSettingsAndroid =
       AndroidInitializationSettings('app_icon');
-  const initializationSettingsDarwin = DarwinInitializationSettings();
-  const initializationSettingsLinux =
-      LinuxInitializationSettings(defaultActionName: 'Open notification');
+  const initializationSettingsDarwin = DarwinInitializationSettings(
+    // These will be requested when user
+    // schedules a first launch notification
+    requestAlertPermission: false,
+    requestBadgePermission: false,
+    requestSoundPermission: false,
+  );
 
   const initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
     iOS: initializationSettingsDarwin,
-    macOS: initializationSettingsDarwin,
-    linux: initializationSettingsLinux,
   );
   await flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
-    onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
   );
 
   tz.initializeTimeZones();
   tz.setLocalLocation(
     tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()),
-  );
-
-  await runZonedGuarded(
-    () async => runApp(await builder()),
-    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }

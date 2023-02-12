@@ -1,4 +1,4 @@
-package com.example.verygoodcore.falcon
+package dev.ivirtex.falcon
 
 import io.flutter.embedding.android.FlutterActivity
 
