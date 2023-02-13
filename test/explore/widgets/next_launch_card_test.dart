@@ -31,7 +31,7 @@ void main() {
       name: 'Name',
       mission: Mission(
         name: 'Mission Name',
-        description: 'Mission Description',
+        description: 'Mission Description.',
       ),
       pad: Pad(
         name: 'Pad Name',
