@@ -50,7 +50,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 Future<void> initNotifications() async {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   const initializationSettingsAndroid =
-      AndroidInitializationSettings('app_icon');
+      AndroidInitializationSettings('@drawable/ic_stat_name');
   const initializationSettingsDarwin = DarwinInitializationSettings(
     // These will be requested when user
     // schedules a first launch notification
