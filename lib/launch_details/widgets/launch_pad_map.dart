@@ -33,23 +33,40 @@ class LaunchPadMap extends StatefulWidget {
 class _LaunchPadMapState extends State<LaunchPadMap> {
   final Completer<GoogleMapController> _controller = Completer();
 
-  late String mapStyle;
+  late String _mapStyle;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    loadMapStyle(_controller.future);
+    _loadMapStyle(_controller.future);
   }
 
-  Future<void> loadMapStyle(Future<GoogleMapController>? controller) async {
-    mapStyle = await rootBundle.loadString(
+  Future<void> _loadMapStyle(Future<GoogleMapController>? controller) async {
+    _mapStyle = await rootBundle.loadString(
       isDarkMode(context)
           ? 'assets/map_styles/dark_mode.json'
           : 'assets/map_styles/light_mode.json',
     );
 
-    await controller?.then((value) => value.setMapStyle(mapStyle));
+    await controller?.then((value) => value.setMapStyle(_mapStyle));
+  }
+
+  void _launchMapView() {
+    try {
+      final launchByName =
+          widget.pad.name != null && widget.pad.name != 'Unknown Pad';
+
+      MapsLauncher.launchQuery(
+        launchByName ? widget.pad.name! : widget.pad.location?.name ?? 'N/A',
+      );
+    } catch (e) {
+      final url = Uri.parse(
+        'https://www.google.com/maps/search/?api=1&query=${widget.pad.location?.name}',
+      );
+
+      launchUrl(url);
+    }
   }
 
   @override
@@ -114,7 +131,7 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.pad.name!,
+                        widget.pad.name ?? 'N/A',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -126,19 +143,7 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
                 ),
                 const Spacer(),
                 ThemedButton(
-                  onPressed: () {
-                    try {
-                      MapsLauncher.launchQuery(
-                        widget.pad.name ?? '',
-                      );
-                    } catch (e) {
-                      final url = Uri.parse(
-                        'https://www.google.com/maps/search/?api=1&query=${widget.pad.location?.name}',
-                      );
-
-                      launchUrl(url);
-                    }
-                  },
+                  onPressed: _launchMapView,
                   child: const Icon(Icons.map_rounded),
                 ),
               ],
