@@ -9,11 +9,14 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/helpers/helpers.dart';
+import 'package:falcon/shared/shared.dart';
 
 class LaunchPadMap extends StatefulWidget {
   const LaunchPadMap({
@@ -103,17 +106,41 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
           ),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Text(
-                  widget.pad.name!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.pad.name!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(widget.pad.location?.name ?? 'N/A'),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 5),
-                Text(widget.pad.location?.name ?? 'N/A'),
+                const Spacer(),
+                ThemedButton(
+                  onPressed: () {
+                    try {
+                      MapsLauncher.launchQuery(
+                        widget.pad.name ?? '',
+                      );
+                    } catch (e) {
+                      final url = Uri.parse(
+                        'https://www.google.com/maps/search/?api=1&query=${widget.pad.location?.name}',
+                      );
+
+                      launchUrl(url);
+                    }
+                  },
+                  child: const Icon(Icons.map_rounded),
+                ),
               ],
             ),
           ),

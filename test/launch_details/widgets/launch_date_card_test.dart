@@ -22,8 +22,7 @@ void main() {
       expect(find.text('Sunday'), findsOneWidget);
     });
 
-    testWidgets('renders correctly when date is null',
-        (WidgetTester tester) async {
+    testWidgets('renders N/A when date is null', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: LaunchDateCard(),

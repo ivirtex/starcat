@@ -2,42 +2,45 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/shared/shared.dart';
 
-class LaunchVehicleCard extends StatelessWidget {
-  const LaunchVehicleCard({
+class TargetOrbitCard extends StatelessWidget {
+  const TargetOrbitCard({
     super.key,
-    required this.vehicle,
+    required this.orbit,
   });
 
-  final Rocket? vehicle;
+  final Status? orbit;
 
   @override
   Widget build(BuildContext context) {
+    final isAvailable = orbit != null && orbit!.name != null;
+
     return ExploreCard(
       title: Row(
         children: const [
-          Icon(Icons.rocket_launch_rounded, size: 14),
+          Icon(PhosphorIcons.planetBold, size: 14),
           SizedBox(width: 5),
-          Text('Launch Vehicle'),
+          Text('Target Orbit'),
         ],
       ),
       child: Row(
         children: [
           Expanded(
-            flex: 4,
+            flex: 8,
             child: Text(
-              vehicle?.configuration?.fullName ?? 'N/A',
+              isAvailable ? '${orbit!.name} (${orbit!.abbrev})' : 'N/A',
             ),
           ),
           const Spacer(),
           ThemedButton(
-            child: const Text('Learn more'),
-            onPressed: () {},
+            onPressed: isAvailable ? () {} : null,
+            child: const Text('Details'),
           ),
         ],
       ),

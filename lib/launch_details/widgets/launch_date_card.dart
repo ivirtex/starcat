@@ -50,29 +50,37 @@ class LaunchDateCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(
-            localMMMd ?? 'N/A',
-            style: const TextStyle(
-              color: Colors.red,
-              fontSize: 18,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(localEEEE ?? 'N/A'),
-              if (localHm != null)
+          Expanded(
+            flex: 4,
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
                 Text(
-                  '$localHm ($utcTime UTC)',
-                  style: TextStyle(color: Colors.grey.shade600),
-                )
-              else
-                Text(
-                  'N/A',
-                  style: TextStyle(color: Colors.grey.shade600),
+                  localMMMd ?? 'N/A',
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 18,
+                  ),
                 ),
-            ],
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(localEEEE ?? 'N/A'),
+                    if (localHm != null)
+                      Text(
+                        '$localHm ($utcTime UTC)',
+                        style: TextStyle(color: Colors.grey.shade600),
+                      )
+                    else
+                      Text(
+                        'N/A',
+                        style: TextStyle(color: Colors.grey.shade600),
+                      ),
+                  ],
+                ),
+              ],
+            ),
           ),
           const Spacer(),
           ThemedButton(

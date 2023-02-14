@@ -18,5 +18,17 @@
         <meta-data android:name="flutterEmbedding" android:value="2" />
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDWLhQ7HEzJJ166prQBCwf2S2MbQmf2A-g"/>
+
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
+    </queries>
 </manifest>

@@ -101,6 +101,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
     if (widget.launchDate == null) {
       return Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'T -',
@@ -119,6 +120,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
     return RepaintBoundary(
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             _isNegative ? 'T +' : 'T -',

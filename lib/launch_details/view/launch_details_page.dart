@@ -30,22 +30,27 @@ class LaunchDetailsPage extends StatelessWidget {
         .results!
         .firstWhere((launch) => launch.id == launchId);
 
-    return LaunchDetailsView(launch: launch);
+    final isUpcoming = launch.id ==
+        context.read<ExploreCubit>().state.launches!.results!.first.id;
+
+    return LaunchDetailsView(launch: launch, isUpcoming: isUpcoming);
   }
 }
 
 class LaunchDetailsView extends StatelessWidget {
   const LaunchDetailsView({
     required this.launch,
+    this.isUpcoming = false,
     super.key,
   });
 
   final Launch launch;
+  final bool isUpcoming;
 
   @override
   Widget build(BuildContext context) {
     return PlatformWidget(
-      cupertino: (context) => CupertinoPageScaffold(
+      cupertino: (_) => CupertinoPageScaffold(
         child: CustomScrollView(
           slivers: [
             CupertinoSliverNavigationBar(
@@ -54,7 +59,10 @@ class LaunchDetailsView extends StatelessWidget {
               largeTitle: AutoSizeText(launch.mission?.name ?? 'N/A'),
             ),
             SliverToBoxAdapter(
-              child: Body(launch: launch),
+              child: Body(
+                launch: launch,
+                isUpcoming: isUpcoming,
+              ),
             ),
           ],
         ),
@@ -65,7 +73,10 @@ class LaunchDetailsView extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            Body(launch: launch),
+            Body(
+              launch: launch,
+              isUpcoming: isUpcoming,
+            ),
           ],
         ),
       ),
@@ -76,10 +87,12 @@ class LaunchDetailsView extends StatelessWidget {
 class Body extends StatelessWidget {
   const Body({
     required this.launch,
+    required this.isUpcoming,
     super.key,
   });
 
   final Launch launch;
+  final bool isUpcoming;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +102,7 @@ class Body extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
+              const SizedBox(height: 10),
               if (launch.image != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -111,6 +125,8 @@ class Body extends StatelessWidget {
               LaunchVehicleCard(vehicle: launch.rocket),
               const SizedBox(height: 10),
               LaunchPadMap(pad: launch.pad!),
+              const SizedBox(height: 10),
+              TargetOrbitCard(orbit: launch.mission?.orbit),
             ].animate(interval: 100.ms).fade(duration: 350.ms, delay: 100.ms),
           ),
         ),

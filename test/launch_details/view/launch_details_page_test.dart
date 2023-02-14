@@ -48,7 +48,7 @@ void main() {
         LaunchDetailsPage(launchId: launches.results!.first.id!),
       );
 
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(LaunchDetailsPage), findsOneWidget);
     });
@@ -60,7 +60,7 @@ void main() {
         LaunchDetailsView(launch: launches.results!.first),
       );
 
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(LaunchDetailsView), findsOneWidget);
     });
@@ -71,7 +71,7 @@ void main() {
         LaunchDetailsView(launch: launches.results!.first),
       );
 
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(CupertinoPageScaffold), findsOneWidget);
       expect(find.byType(CupertinoSliverNavigationBar), findsOneWidget);
@@ -82,7 +82,7 @@ void main() {
         LaunchDetailsView(launch: launches.results!.first),
       );
 
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(MissionImage), findsOneWidget);
     });
@@ -92,7 +92,7 @@ void main() {
         LaunchDetailsView(launch: launches.results!.first),
       );
 
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 2));
 
       await tester.tap(find.text('Learn more'));
     });
