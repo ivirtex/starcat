@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:falcon/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -75,27 +76,42 @@ class Body extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: BlocBuilder<ExploreCubit, ExploreState>(
         builder: (context, state) {
-          switch (state.status) {
-            case ExploreStatus.initial:
-            case ExploreStatus.loading:
-              return const Center(
-                child: CircularProgressIndicator.adaptive(),
-              );
-            case ExploreStatus.failure:
-              return const ExploreCard(
-                child: Text('Something went wrong'),
-              );
-            case ExploreStatus.success:
-              return Column(
-                children: [
-                  NextLaunchCard(launch: state.launches!.results!.first),
-                  const SizedBox(height: 10),
-                  UpcomingLaunches(launches: state.launches!),
-                ],
-              );
-          }
+          return AnimatedSwitcher(
+            duration: kStateChangeAnimationDuration,
+            child: state.status == ExploreStatus.loading ||
+                    state.status == ExploreStatus.initial
+                ? _buildLoader(context)
+                : state.status == ExploreStatus.failure
+                    ? _buildError(context)
+                    : _buildSuccess(state),
+          );
         },
       ),
-    ).animate(key: UniqueKey()).fadeIn(duration: 1000.ms, curve: Curves.ease);
+    );
+  }
+
+  Widget _buildLoader(BuildContext context) {
+    return Center(
+      key: const ValueKey('loading'),
+      child: CircularProgressIndicator.adaptive(
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
+      ),
+    );
+  }
+
+  Widget _buildError(BuildContext context) {
+    return const ExploreCard(
+      child: Text('Something went wrong'),
+    ).animate(delay: kStateChangeAnimationDuration).fadeIn();
+  }
+
+  Widget _buildSuccess(ExploreState state) {
+    return Column(
+      children: [
+        NextLaunchCard(launch: state.launches!.results!.first),
+        const SizedBox(height: 10),
+        UpcomingLaunches(launches: state.launches!),
+      ],
+    ).animate(delay: kStateChangeAnimationDuration).fadeIn();
   }
 }

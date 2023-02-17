@@ -54,7 +54,7 @@ class MissionImage extends StatelessWidget {
             child: Center(
               child: CircularProgressIndicator.adaptive(
                 value: loadingProgress.progress,
-                backgroundColor: Colors.white,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
               ),
             ),
           ),
