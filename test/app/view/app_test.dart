@@ -34,7 +34,7 @@ void main() {
         App(spaceXInfoRepository: spaceXInfoRepository),
       );
 
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle(const Duration(seconds: 3));
 
       expect(find.byType(AppView), findsOneWidget);
     });
@@ -66,7 +66,7 @@ void main() {
         ),
       );
 
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle(const Duration(seconds: 3));
 
       expect(find.byType(ExplorePage), findsOneWidget);
     });
