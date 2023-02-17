@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:falcon/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
+import 'package:falcon/constants.dart';
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/shared/shared.dart';
 
