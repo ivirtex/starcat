@@ -52,7 +52,8 @@ class SpaceDevsApiClient {
       throw LaunchesRequestFailure();
     }
 
-    final launchesJson = jsonDecode(response.body) as Map<String, dynamic>;
+    final launchesJson =
+        jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
 
     if (!launchesJson.containsKey('results')) {
       log('Results not found in response.');
