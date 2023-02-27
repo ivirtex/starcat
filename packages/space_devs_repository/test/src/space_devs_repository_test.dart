@@ -1,8 +1,11 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+// Package imports:
 import 'package:mocktail/mocktail.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
 import 'package:test/test.dart';
+
+// Project imports:
+import 'package:space_devs_repository/space_devs_repository.dart';
 
 class MockSpaceXApiClient extends Mock implements SpaceDevsApiClient {}
 

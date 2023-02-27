@@ -1,9 +1,12 @@
 // ignore_for_file: lines_longer_than_80_chars, prefer_const_literals_to_create_immutables
 
+// Package imports:
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
-import 'package:space_devs_api/space_devs_api.dart';
 import 'package:test/test.dart';
+
+// Project imports:
+import 'package:space_devs_api/space_devs_api.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
 
