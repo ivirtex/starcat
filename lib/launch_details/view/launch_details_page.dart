@@ -102,7 +102,6 @@ class Body extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              const SizedBox(height: 10),
               if (launch.image != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
