@@ -26,7 +26,7 @@ class UpcomingLaunches extends StatelessWidget {
       children: [
         const Section(name: 'Upcoming Launches'),
         SizedBox(
-          height: 120,
+          height: 125,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: launches.results!.length,

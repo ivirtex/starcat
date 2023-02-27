@@ -29,8 +29,21 @@ class MissionImage extends StatelessWidget {
       curve: Curves.easeInOut,
       child: CachedNetworkImage(
         imageUrl: imageUrl,
-        cacheManager: cacheManager,
         fadeOutDuration: 0.ms,
+        cacheKey: GlobalKey().toString(),
+        placeholder: (context, child) {
+          return SizedBox(
+            height: 150,
+            child: ColoredBox(
+              color: Theme.of(context).colorScheme.primary,
+              child: Center(
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: Theme.of(context).colorScheme.tertiary,
+                ),
+              ),
+            ),
+          );
+        },
         errorWidget: (context, error, stackTrace) {
           log(error);
 
@@ -48,19 +61,6 @@ class MissionImage extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-          );
-        },
-        progressIndicatorBuilder: (context, child, loadingProgress) {
-          return ColoredBox(
-            color: Theme.of(context).colorScheme.primary,
-            child: SizedBox(
-              height: 180,
-              child: Center(
-                child: CircularProgressIndicator.adaptive(
-                  backgroundColor: Theme.of(context).colorScheme.tertiary,
-                ),
-              ),
             ),
           );
         },
