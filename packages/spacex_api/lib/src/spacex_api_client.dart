@@ -29,7 +29,6 @@ class SpaceXApiClient {
   Future<Launches> getLaunches(LaunchTime launchTime) async {
     final query = <String, String>{
       'ordering': 'net',
-      'search': 'SpaceX',
     };
 
     final launchRequest = Uri.https(
