@@ -16,26 +16,26 @@ dependencies:
   flex_color_scheme: ^6.1.2
   flutter:
     sdk: flutter
-  flutter_animate: ^4.0.0
+  flutter_animate: ^4.1.0
   flutter_bloc: ^8.1.2
   flutter_cache_manager: ^3.3.0
   flutter_local_notifications: ^13.0.0
   flutter_native_timezone: ^2.0.0
-  flutter_svg: ^2.0.1
-  go_router: ^6.0.8
+  flutter_svg: ^2.0.2
+  go_router: ^6.2.0
   google_fonts: ^4.0.3
-  google_maps_flutter: ^2.2.1
+  google_maps_flutter: ^2.2.4
   hydrated_bloc: ^9.1.0
   intl: ^0.18.0
-  live_activities: ^1.4.2+2
+  live_activities: ^1.6.0
   maps_launcher: ^2.2.0
-  path_provider: ^2.0.12
+  path_provider: ^2.0.13
   phosphor_flutter: ^1.4.0
   spacex_info_repository:
     path: packages/spacex_info_repository
   timezone: ^0.9.0
-  url_launcher: ^6.1.9
-  vector_graphics: ^1.0.1
+  url_launcher: ^6.1.10
+  vector_graphics: ^1.1.0
 
 dev_dependencies:
   bloc_test: ^9.1.0

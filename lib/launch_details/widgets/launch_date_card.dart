@@ -93,6 +93,7 @@ class LaunchDateCard extends StatelessWidget {
   }
 
   Future<void> onNotifyMePressed() async {
+    // TODO(ivirtex): implement notifications
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin

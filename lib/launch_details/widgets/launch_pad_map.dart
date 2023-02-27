@@ -144,7 +144,7 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
                 const Spacer(),
                 ThemedButton(
                   onPressed: _launchMapView,
-                  child: const Icon(Icons.map_rounded),
+                  child: const Icon(Icons.map_rounded, color: Colors.white),
                 ),
               ],
             ),
