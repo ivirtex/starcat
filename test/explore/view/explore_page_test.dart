@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:spacex_info_repository/spacex_info_repository.dart';
+import 'package:space_devs_repository/space_devs_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
-class MockSpaceXInfoRepository extends Mock implements SpaceXInfoRepository {}
+class MockSpaceDevsRepository extends Mock implements SpaceDevsRepository {}
 
 class MockExploreCubit extends MockCubit<ExploreState>
     implements ExploreCubit {}
@@ -24,19 +24,19 @@ class MockLaunches extends Mock implements Launches {}
 
 void main() {
   group('ExplorePage', () {
-    late SpaceXInfoRepository spaceXInfoRepository;
+    late SpaceDevsRepository spaceDevsRepository;
     late ExploreCubit exploreCubit;
     late ThemeCubit themeCubit;
     late Launches launches;
 
     setUp(() {
-      spaceXInfoRepository = MockSpaceXInfoRepository();
+      spaceDevsRepository = MockSpaceDevsRepository();
       exploreCubit = MockExploreCubit();
       themeCubit = MockThemeCubit();
       launches = MockLaunches();
 
       registerFallbackValue(LaunchTime.upcoming);
-      when(() => spaceXInfoRepository.getLaunches(any()))
+      when(() => spaceDevsRepository.getLaunches(any()))
           .thenAnswer((_) async => launches);
       when(
         () => exploreCubit.fetchLaunches(launchTime: any(named: 'launchTime')),
@@ -49,7 +49,7 @@ void main() {
 
     testWidgets('renders ExplorePage', (WidgetTester tester) async {
       await tester.pumpApp(
-        spaceXInfoRepository: spaceXInfoRepository,
+        spaceDevsRepository: spaceDevsRepository,
         exploreCubit: exploreCubit,
         themeCubit: themeCubit,
         const ExplorePage(),
@@ -60,19 +60,19 @@ void main() {
   });
 
   group('ExploreView', () {
-    late SpaceXInfoRepository spaceXInfoRepository;
+    late SpaceDevsRepository spaceDevsRepository;
     late ExploreCubit exploreCubit;
     late ThemeCubit themeCubit;
     late Launches launches;
 
     setUp(() {
-      spaceXInfoRepository = MockSpaceXInfoRepository();
+      spaceDevsRepository = MockSpaceDevsRepository();
       exploreCubit = MockExploreCubit();
       themeCubit = MockThemeCubit();
       launches = MockLaunches();
 
       registerFallbackValue(LaunchTime.upcoming);
-      when(() => spaceXInfoRepository.getLaunches(any()))
+      when(() => spaceDevsRepository.getLaunches(any()))
           .thenAnswer((_) async => launches);
       when(
         () => exploreCubit.fetchLaunches(launchTime: any(named: 'launchTime')),
@@ -90,7 +90,7 @@ void main() {
         );
 
         await tester.pumpApp(
-          spaceXInfoRepository: spaceXInfoRepository,
+          spaceDevsRepository: spaceDevsRepository,
           exploreCubit: exploreCubit,
           themeCubit: themeCubit,
           const ExploreView(),
@@ -110,7 +110,7 @@ void main() {
         );
 
         await tester.pumpApp(
-          spaceXInfoRepository: spaceXInfoRepository,
+          spaceDevsRepository: spaceDevsRepository,
           exploreCubit: exploreCubit,
           themeCubit: themeCubit,
           const ExploreView(),
@@ -130,7 +130,7 @@ void main() {
         );
 
         await tester.pumpApp(
-          spaceXInfoRepository: spaceXInfoRepository,
+          spaceDevsRepository: spaceDevsRepository,
           exploreCubit: exploreCubit,
           themeCubit: themeCubit,
           const ExploreView(),
@@ -158,7 +158,7 @@ void main() {
         );
 
         await tester.pumpApp(
-          spaceXInfoRepository: spaceXInfoRepository,
+          spaceDevsRepository: spaceDevsRepository,
           exploreCubit: exploreCubit,
           themeCubit: themeCubit,
           const ExploreView(),
@@ -186,7 +186,7 @@ void main() {
         );
 
         await tester.pumpApp(
-          spaceXInfoRepository: spaceXInfoRepository,
+          spaceDevsRepository: spaceDevsRepository,
           exploreCubit: exploreCubit,
           themeCubit: themeCubit,
           platform: TargetPlatform.iOS,

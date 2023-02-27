@@ -1,25 +1,25 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 import 'package:mocktail/mocktail.dart';
-import 'package:spacex_info_repository/spacex_info_repository.dart';
+import 'package:space_devs_repository/space_devs_repository.dart';
 import 'package:test/test.dart';
 
-class MockSpaceXApiClient extends Mock implements SpaceXApiClient {}
+class MockSpaceXApiClient extends Mock implements SpaceDevsApiClient {}
 
 void main() {
-  group('SpacexInfoRepository', () {
-    late SpaceXApiClient spaceXApiClient;
-    late SpaceXInfoRepository spacexInfoRepository;
+  group('SpaceDevsRepository', () {
+    late SpaceDevsApiClient spaceXApiClient;
+    late SpaceDevsRepository spaceDevsRepository;
 
     setUp(() {
       spaceXApiClient = MockSpaceXApiClient();
-      spacexInfoRepository =
-          SpaceXInfoRepository(spacexApiClient: spaceXApiClient);
+      spaceDevsRepository =
+          SpaceDevsRepository(spacexApiClient: spaceXApiClient);
     });
 
     group('constructor', () {
-      test('instantiates internal SpaceXApiClient when not injected', () {
-        expect(SpaceXInfoRepository(), isNotNull);
+      test('instantiates internal SpaceDevsRepository when not injected', () {
+        expect(SpaceDevsRepository(), isNotNull);
       });
     });
 
@@ -28,7 +28,7 @@ void main() {
         const launchTime = LaunchTime.previous;
 
         try {
-          await spacexInfoRepository.getLaunches(launchTime);
+          await spaceDevsRepository.getLaunches(launchTime);
         } catch (_) {}
 
         verify(() => spaceXApiClient.getLaunches(launchTime)).called(1);
@@ -41,7 +41,7 @@ void main() {
         when(() => spaceXApiClient.getLaunches(launchTime))
             .thenAnswer((_) async => launches);
 
-        expect(await spacexInfoRepository.getLaunches(launchTime), launches);
+        expect(await spaceDevsRepository.getLaunches(launchTime), launches);
       });
 
       test('throws when getLaunches fails', () async {
@@ -52,7 +52,7 @@ void main() {
             .thenThrow(exception);
 
         expect(
-          () => spacexInfoRepository.getLaunches(launchTime),
+          () => spaceDevsRepository.getLaunches(launchTime),
           throwsA(isA<LaunchesRequestFailure>()),
         );
       });

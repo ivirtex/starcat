@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
-import 'package:spacex_api/src/models/models.dart';
+import 'package:space_devs_api/src/models/models.dart';
 
 class LaunchesRequestFailure implements Exception {}
 
@@ -17,8 +17,8 @@ enum LaunchTime {
 }
 
 /// Class that handles HTTP requests to the thespacedevs API
-class SpaceXApiClient {
-  SpaceXApiClient({http.Client? httpClient})
+class SpaceDevsApiClient {
+  SpaceDevsApiClient({http.Client? httpClient})
       : _httpClient = httpClient ?? http.Client();
 
   // TODO(ivirtex): change url when production ready

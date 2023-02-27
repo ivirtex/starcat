@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'package:spacex_info_repository/spacex_info_repository.dart';
+import 'package:space_devs_repository/space_devs_repository.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:

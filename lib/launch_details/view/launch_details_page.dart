@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spacex_info_repository/spacex_info_repository.dart';
+import 'package:space_devs_repository/space_devs_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';

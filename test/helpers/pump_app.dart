@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spacex_info_repository/spacex_info_repository.dart';
+import 'package:space_devs_repository/space_devs_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -15,14 +15,14 @@ import 'package:falcon/theme/theme.dart';
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
-    SpaceXInfoRepository? spaceXInfoRepository,
+    SpaceDevsRepository? spaceDevsRepository,
     ExploreCubit? exploreCubit,
     ThemeCubit? themeCubit,
     TargetPlatform platform = TargetPlatform.android,
   }) {
     return pumpWidget(
       RepositoryProvider.value(
-        value: spaceXInfoRepository,
+        value: SpaceDevsRepository,
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(
@@ -30,7 +30,7 @@ extension PumpApp on WidgetTester {
             ),
             BlocProvider.value(
               value: exploreCubit ??
-                  ExploreCubit(spaceXInfoRepository ?? SpaceXInfoRepository()),
+                  ExploreCubit(spaceDevsRepository ?? SpaceDevsRepository()),
             ),
           ],
           child: MaterialApp(
@@ -46,14 +46,14 @@ extension PumpApp on WidgetTester {
 
   Future<void> pumpAppWithRouter(
     Widget widget, {
-    SpaceXInfoRepository? spaceXInfoRepository,
+    SpaceDevsRepository? spaceDevsRepository,
     ExploreCubit? exploreCubit,
     ThemeCubit? themeCubit,
     TargetPlatform platform = TargetPlatform.android,
   }) {
     return pumpWidget(
       RepositoryProvider.value(
-        value: spaceXInfoRepository,
+        value: SpaceDevsRepository,
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(
@@ -61,7 +61,7 @@ extension PumpApp on WidgetTester {
             ),
             BlocProvider.value(
               value: exploreCubit ??
-                  ExploreCubit(spaceXInfoRepository ?? SpaceXInfoRepository()),
+                  ExploreCubit(spaceDevsRepository ?? SpaceDevsRepository()),
             ),
           ],
           child: MaterialApp.router(

@@ -31,8 +31,8 @@ dependencies:
   maps_launcher: ^2.2.0
   path_provider: ^2.0.13
   phosphor_flutter: ^1.4.0
-  spacex_info_repository:
-    path: packages/spacex_info_repository
+  space_devs_repository:
+    path: packages/space_devs_repository
   timezone: ^0.9.0
   url_launcher: ^6.1.10
   vector_graphics: ^1.1.0

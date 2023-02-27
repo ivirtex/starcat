@@ -2,7 +2,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:spacex_info_repository/spacex_info_repository.dart';
+import 'package:space_devs_repository/space_devs_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -12,32 +12,32 @@ const launchesResults = [
   Launch(name: 'Example Launch'),
 ];
 
-class MockSpaceXInfoRepository extends Mock implements SpaceXInfoRepository {}
+class MockSpaceDevsRepository extends Mock implements SpaceDevsRepository {}
 
 class MockLaunches extends Mock implements Launches {}
 
 void main() {
   group('ExploreCubit', () {
-    late SpaceXInfoRepository spaceXInfoRepository;
+    late SpaceDevsRepository spaceDevsRepository;
     late Launches launches;
     late ExploreCubit exploreCubit;
 
     setUp(() {
       registerFallbackValue(LaunchTime.upcoming);
 
-      spaceXInfoRepository = MockSpaceXInfoRepository();
+      spaceDevsRepository = MockSpaceDevsRepository();
       launches = MockLaunches();
 
       when(() => launches.count).thenReturn(launchesCount);
       when(() => launches.results).thenReturn(launchesResults);
-      when(() => spaceXInfoRepository.getLaunches(any()))
+      when(() => spaceDevsRepository.getLaunches(any()))
           .thenAnswer((_) async => launches);
 
-      exploreCubit = ExploreCubit(spaceXInfoRepository);
+      exploreCubit = ExploreCubit(spaceDevsRepository);
     });
 
     test('initial state is correct', () {
-      final exploreCubit = ExploreCubit(spaceXInfoRepository);
+      final exploreCubit = ExploreCubit(spaceDevsRepository);
 
       expect(exploreCubit.state, const ExploreState());
     });
@@ -48,7 +48,7 @@ void main() {
         build: () => exploreCubit,
         act: (cubit) => cubit.fetchLaunches(launchTime: LaunchTime.upcoming),
         verify: (_) {
-          verify(() => spaceXInfoRepository.getLaunches(LaunchTime.upcoming))
+          verify(() => spaceDevsRepository.getLaunches(LaunchTime.upcoming))
               .called(1);
         },
       );
@@ -67,7 +67,7 @@ void main() {
 
       blocTest<ExploreCubit, ExploreState>(
         'emits [loading, failure] when fetchLaunches throws',
-        setUp: () => when(() => spaceXInfoRepository.getLaunches(any()))
+        setUp: () => when(() => spaceDevsRepository.getLaunches(any()))
             .thenThrow(Exception()),
         build: () => exploreCubit,
         act: (cubit) => cubit.fetchLaunches(launchTime: LaunchTime.upcoming),

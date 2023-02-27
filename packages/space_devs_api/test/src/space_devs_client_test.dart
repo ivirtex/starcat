@@ -2,8 +2,7 @@
 
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
-import 'package:spacex_api/spacex_api.dart';
-// ignore_for_file: prefer_const_constructors
+import 'package:space_devs_api/space_devs_api.dart';
 import 'package:test/test.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
@@ -13,9 +12,9 @@ class MockResponse extends Mock implements http.Response {}
 class FakeUri extends Fake implements Uri {}
 
 void main() {
-  group('SpaceXApiClient', () {
+  group('SpaceDevsApiClient', () {
     late http.Client httpClient;
-    late SpaceXApiClient apiClient;
+    late SpaceDevsApiClient apiClient;
 
     setUpAll(() {
       registerFallbackValue(FakeUri());
@@ -23,12 +22,12 @@ void main() {
 
     setUp(() {
       httpClient = MockHttpClient();
-      apiClient = SpaceXApiClient(httpClient: httpClient);
+      apiClient = SpaceDevsApiClient(httpClient: httpClient);
     });
 
     group('constructor', () {
       test('does not require an httpClient', () {
-        expect(SpaceXApiClient(), isNotNull);
+        expect(SpaceDevsApiClient(), isNotNull);
       });
     });
 
@@ -49,7 +48,6 @@ void main() {
               '/2.2.0/launch/previous/',
               <String, String>{
                 'ordering': 'net',
-                'search': 'SpaceX',
               },
             ),
           ),
@@ -65,7 +63,6 @@ void main() {
               '/2.2.0/launch/upcoming/',
               <String, String>{
                 'ordering': 'net',
-                'search': 'SpaceX',
               },
             ),
           ),

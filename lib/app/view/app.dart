@@ -5,33 +5,33 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spacex_info_repository/spacex_info_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launch_details/launch_details.dart';
 import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
+import 'package:space_devs_repository/space_devs_repository.dart';
 
 class App extends StatelessWidget {
   const App({
-    required SpaceXInfoRepository spaceXInfoRepository,
+    required SpaceDevsRepository spaceDevsRepository,
     super.key,
-  }) : _spaceXInfoRepository = spaceXInfoRepository;
+  }) : _spaceDevsRepository = spaceDevsRepository;
 
-  final SpaceXInfoRepository _spaceXInfoRepository;
+  final SpaceDevsRepository _spaceDevsRepository;
 
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
-      value: _spaceXInfoRepository,
+      value: _spaceDevsRepository,
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (_) => ThemeCubit(),
           ),
           BlocProvider(
-            create: (_) => ExploreCubit(_spaceXInfoRepository),
+            create: (_) => ExploreCubit(_spaceDevsRepository),
           ),
         ],
         child: const AppView(),

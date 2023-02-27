@@ -837,17 +837,17 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  spacex_api:
+  space_devs_api:
     dependency: transitive
     description:
-      path: "packages/spacex_api"
+      path: "packages/space_devs_api"
       relative: true
     source: path
     version: "0.1.0+1"
-  spacex_info_repository:
+  space_devs_repository:
     dependency: "direct main"
     description:
-      path: "packages/spacex_info_repository"
+      path: "packages/space_devs_repository"
       relative: true
     source: path
     version: "0.0.0"

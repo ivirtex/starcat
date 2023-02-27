@@ -1,13 +1,13 @@
-name: spacex_info_repository
-description: Dart package for fetching data about SpaceX
+name: space_devs_repository
+description: Dart package for fetching data from the Space Devs API
 publish_to: none
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  spacex_api:
-    path: ../spacex_api
+  space_devs_api:
+    path: ../space_devs_api
 
 dev_dependencies:
   mocktail: ^0.3.0
