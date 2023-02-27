@@ -10,7 +10,6 @@ final lightTheme = FlexThemeData.light(
   appBarBackground: Colors.grey.shade100,
   background: Colors.grey.shade100,
   scaffoldBackground: Colors.grey.shade100,
-  fontFamily: 'D-DIN',
   subThemesData: const FlexSubThemesData(
     elevatedButtonRadius: 10,
     outlinedButtonRadius: 10,
@@ -34,7 +33,6 @@ final darkTheme = FlexThemeData.dark(
   appBarBackground: Colors.black,
   background: Colors.black,
   scaffoldBackground: Colors.black,
-  fontFamily: 'D-DIN',
   subThemesData: const FlexSubThemesData(
     elevatedButtonRadius: 10,
     outlinedButtonRadius: 10,
@@ -53,38 +51,8 @@ final darkTheme = FlexThemeData.dark(
   ),
 );
 
-const _cupertinoTextThemeData = CupertinoTextThemeData();
-
-final cupertinoTheme = CupertinoThemeData(
+const cupertinoTheme = CupertinoThemeData(
   primaryColor: CupertinoColors.white,
   primaryContrastingColor: CupertinoColors.black,
   barBackgroundColor: CupertinoColors.systemBackground,
-  textTheme: CupertinoTextThemeData(
-    textStyle: _cupertinoTextThemeData.textStyle.copyWith(
-      fontFamily: 'D-DIN',
-    ),
-    actionTextStyle: _cupertinoTextThemeData.actionTextStyle.copyWith(
-      fontFamily: 'D-DIN',
-    ),
-    tabLabelTextStyle: _cupertinoTextThemeData.tabLabelTextStyle.copyWith(
-      fontFamily: 'D-DIN',
-    ),
-    navTitleTextStyle: _cupertinoTextThemeData.navTitleTextStyle.copyWith(
-      fontFamily: 'D-DIN',
-    ),
-    navLargeTitleTextStyle:
-        _cupertinoTextThemeData.navLargeTitleTextStyle.copyWith(
-      fontFamily: 'D-DIN',
-    ),
-    navActionTextStyle: _cupertinoTextThemeData.navActionTextStyle.copyWith(
-      fontFamily: 'D-DIN',
-    ),
-    pickerTextStyle: _cupertinoTextThemeData.pickerTextStyle.copyWith(
-      fontFamily: 'D-DIN',
-    ),
-    dateTimePickerTextStyle:
-        _cupertinoTextThemeData.dateTimePickerTextStyle.copyWith(
-      fontFamily: 'D-DIN',
-    ),
-  ),
 );

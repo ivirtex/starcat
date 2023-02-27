@@ -71,7 +71,6 @@ class ExploreCard extends StatelessWidget {
             onPressed: onTap,
             child: DefaultTextStyle(
               style: const TextStyle(
-                fontFamily: 'D-DIN',
                 fontSize: 16,
               ),
               child: Padding(
@@ -89,7 +88,6 @@ class ExploreCard extends StatelessWidget {
           onTap: onTap,
           child: DefaultTextStyle(
             style: const TextStyle(
-              fontFamily: 'D-DIN',
               fontSize: 16,
             ),
             child: Padding(
