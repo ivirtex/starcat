@@ -1,10 +1,10 @@
 // Flutter imports:
-import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:space_devs_repository/space_devs_repository.dart';

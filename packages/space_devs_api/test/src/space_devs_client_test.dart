@@ -1,7 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars, prefer_const_literals_to_create_immutables
 
 // Package imports:
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;

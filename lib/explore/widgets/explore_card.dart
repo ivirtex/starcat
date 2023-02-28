@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:falcon/helpers/helpers.dart';
 import 'package:falcon/shared/shared.dart';
 
 class ExploreCard extends StatelessWidget {
