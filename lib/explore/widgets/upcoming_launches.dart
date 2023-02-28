@@ -84,12 +84,10 @@ class UpcomingLaunches extends StatelessWidget {
                                   runSpacing: 5,
                                   children: [
                                     InfoCard(
-                                      color: Colors.grey.shade800,
                                       padding: const EdgeInsets.all(3),
                                       child: Text(date),
                                     ),
                                     InfoCard(
-                                      color: Colors.grey.shade800,
                                       padding: const EdgeInsets.all(3),
                                       child: Text(
                                         launch.pad?.name ?? 'No pad',

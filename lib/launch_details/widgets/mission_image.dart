@@ -35,11 +35,9 @@ class MissionImage extends StatelessWidget {
           return SizedBox(
             height: 150,
             child: ColoredBox(
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.surface,
               child: Center(
-                child: CircularProgressIndicator.adaptive(
-                  backgroundColor: Theme.of(context).colorScheme.tertiary,
-                ),
+                child: CircularProgressIndicator.adaptive(),
               ),
             ),
           );

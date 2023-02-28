@@ -91,11 +91,9 @@ class Body extends StatelessWidget {
   }
 
   Widget _buildLoader(BuildContext context) {
-    return Center(
-      key: const ValueKey('loading'),
-      child: CircularProgressIndicator.adaptive(
-        backgroundColor: Theme.of(context).colorScheme.tertiary,
-      ),
+    return const Center(
+      key: ValueKey('loading'),
+      child: CircularProgressIndicator.adaptive(),
     );
   }
 

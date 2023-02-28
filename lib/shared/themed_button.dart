@@ -20,8 +20,6 @@ class ThemedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = isDarkMode(context);
-
     return PlatformWidget(
       cupertino: (_) => shouldCupertinoButtonBeFilled
           ? CupertinoButton(
@@ -45,26 +43,9 @@ class ThemedButton extends StatelessWidget {
                 child: child,
               ),
             ),
-      material: (_) => OutlinedButton(
-        style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.grey.shade800),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          side: MaterialStateProperty.all(
-            const BorderSide(color: Colors.white70),
-          ),
-        ),
+      material: (_) => FilledButton.tonal(
         onPressed: onPressed,
-        child: DefaultTextStyle(
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-          child: IconTheme(
-            data: IconThemeData(
-              color: isDark ? Colors.white : Colors.black,
-            ),
-            child: child,
-          ),
-        ),
+        child: child,
       ),
     );
   }

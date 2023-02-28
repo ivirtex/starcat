@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -48,24 +50,69 @@ class AppView extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         return PlatformWidget(
-          material: (context) {
-            return MaterialApp.router(
-              title: 'Falcon',
-              theme: lightTheme,
-              darkTheme: darkTheme,
-              themeMode: state.themeMode,
-              routerConfig: _router,
-            );
-          },
-          cupertino: (context) {
-            return CupertinoApp.router(
-              title: 'Falcon',
-              theme: cupertinoTheme,
-              routerConfig: _router,
-            );
-          },
+          material: _createSchemedMaterialApp,
+          cupertino: _createCupertinoApp,
         );
       },
+    );
+  }
+
+  Widget _createSchemedMaterialApp(BuildContext context) {
+    return DynamicColorBuilder(
+      builder: (lightDynamic, darkDynamic) {
+        ColorScheme lightScheme;
+        ColorScheme darkScheme;
+
+        if (lightDynamic != null && darkDynamic != null) {
+          lightScheme = lightDynamic;
+          darkScheme = darkDynamic;
+        } else {
+          lightScheme =
+              FlexThemeData.light(scheme: FlexScheme.brandBlue).colorScheme;
+          darkScheme =
+              FlexThemeData.dark(scheme: FlexScheme.brandBlue).colorScheme;
+        }
+
+        return MaterialApp.router(
+          title: 'Falcon',
+          theme: FlexThemeData.light(
+            useMaterial3: true,
+            useMaterial3ErrorColors: true,
+            swapLegacyOnMaterial3: true,
+            surfaceMode: FlexSurfaceMode.highSurfaceLowScaffold,
+            appBarStyle: FlexAppBarStyle.scaffoldBackground,
+            blendLevel: 20,
+            colorScheme: lightScheme,
+            subThemesData: const FlexSubThemesData(),
+          ),
+          darkTheme: FlexThemeData.dark(
+            useMaterial3: true,
+            useMaterial3ErrorColors: true,
+            swapLegacyOnMaterial3: true,
+            surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+            appBarStyle: FlexAppBarStyle.scaffoldBackground,
+            blendLevel: 30,
+            colorScheme: darkScheme,
+            subThemesData: const FlexSubThemesData(),
+          ),
+          themeMode: context.read<ThemeCubit>().state.themeMode,
+          routerConfig: _router,
+        );
+      },
+    );
+  }
+
+  Widget _createCupertinoApp(BuildContext context) {
+    return CupertinoApp.router(
+      title: 'Falcon',
+      theme: CupertinoThemeData(
+        brightness: context.read<ThemeCubit>().state.themeMode == ThemeMode.dark
+            ? Brightness.dark
+            : context.read<ThemeCubit>().state.themeMode == ThemeMode.light
+                ? Brightness.light
+                : null,
+      ),
+      routerConfig: _router,
     );
   }
 }

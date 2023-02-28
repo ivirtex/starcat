@@ -96,7 +96,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
       fontSize: 18,
       fontWeight: FontWeight.bold,
       fontFamily: 'SpaceMono',
-      color: Colors.white,
     );
 
     if (widget.launchDate == null) {
@@ -124,20 +123,18 @@ class _CountdownTimerState extends State<CountdownTimer> {
         children: [
           Text(
             _isNegative ? 'T +' : 'T -',
-            style: TextStyle(
-              fontSize: 18,
-              color: Theme.of(context).platform == TargetPlatform.iOS
-                  ? CupertinoColors.systemRed.resolveFrom(context)
-                  : Colors.red,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(width: 5),
-          for (final entry in _timeMap.entries)
+          for (final timeUnit in _timeMap.entries)
             Row(
               children: [
-                for (final char in entry.value.characters)
+                for (final char in timeUnit.value.characters)
                   Card(
-                    color: Colors.grey.shade800,
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                     margin: const EdgeInsets.only(right: 2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -152,9 +149,10 @@ class _CountdownTimerState extends State<CountdownTimer> {
                   ),
                 const SizedBox(width: 2),
                 Text(
-                  entry.key.characters.first,
+                  timeUnit.key.characters.first,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-                if (entry.key != _timeMap.entries.last.key)
+                if (timeUnit.key != _timeMap.entries.last.key)
                   const SizedBox(width: 6),
               ],
             ),

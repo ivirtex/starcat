@@ -57,8 +57,8 @@ class LaunchDateCard extends StatelessWidget {
               children: [
                 Text(
                   localMMMd ?? 'N/A',
-                  style: const TextStyle(
-                    color: Colors.red,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
                     fontSize: 18,
                   ),
                 ),

@@ -74,7 +74,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
           Text(
             _description ?? 'No description',
             style: TextStyle(
-              color: Colors.grey.shade400,
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
             ),
           ),
           const SizedBox(height: 10),

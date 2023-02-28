@@ -35,8 +35,8 @@ extension PumpApp on WidgetTester {
           ],
           child: MaterialApp(
             themeMode: themeCubit?.state.themeMode,
-            theme: lightTheme.copyWith(platform: platform),
-            darkTheme: darkTheme.copyWith(platform: platform),
+            theme: ThemeData().copyWith(platform: platform),
+            darkTheme: ThemeData.dark().copyWith(platform: platform),
             home: widget,
           ),
         ),
@@ -66,8 +66,8 @@ extension PumpApp on WidgetTester {
           ],
           child: MaterialApp.router(
             themeMode: themeCubit?.state.themeMode,
-            theme: lightTheme.copyWith(platform: platform),
-            darkTheme: darkTheme.copyWith(platform: platform),
+            theme: ThemeData().copyWith(platform: platform),
+            darkTheme: ThemeData.dark().copyWith(platform: platform),
             routerConfig: GoRouter(
               routes: [
                 GoRoute(

@@ -43,6 +43,10 @@ class VehicleScheme extends StatelessWidget {
 
     return SvgPicture(
       AssetBytesLoader(vehiclePath),
+      colorFilter: ColorFilter.mode(
+        Theme.of(context).colorScheme.outline,
+        BlendMode.srcIn,
+      ),
     );
   }
 }

@@ -15,7 +15,6 @@ void main() {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpApp(
         const InfoCard(
-          color: Colors.blue,
           icon: Icon(Icons.ac_unit),
           child: Text('Child'),
         ),

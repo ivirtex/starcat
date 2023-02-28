@@ -25,27 +25,20 @@ class ExploreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = isDarkMode(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (title != null)
-          IconTheme(
-            data: IconThemeData(
-              color: isDark ? Colors.white : Colors.black,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  title!,
-                  if (trailing != null) ...[
-                    const Spacer(),
-                    trailing!,
-                  ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              children: [
+                title!,
+                if (trailing != null) ...[
+                  const Spacer(),
+                  trailing!,
                 ],
-              ),
+              ],
             ),
           ),
         if (expandVertically)
@@ -64,36 +57,24 @@ class ExploreCard extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
           ),
           child: CupertinoInkWell(
             onPressed: onTap,
-            child: DefaultTextStyle(
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-              child: Padding(
-                padding: padding,
-                child: child,
-              ),
+            child: Padding(
+              padding: padding,
+              child: child,
             ),
           ),
         ),
       ),
       material: (_) => Card(
-        color: Theme.of(context).colorScheme.primaryContainer,
+        color: Theme.of(context).colorScheme.surface,
         child: InkWell(
-          overlayColor: MaterialStateProperty.all(Colors.grey.shade800),
           onTap: onTap,
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 16,
-            ),
-            child: Padding(
-              padding: padding,
-              child: child,
-            ),
+          child: Padding(
+            padding: padding,
+            child: child,
           ),
         ),
       ),
