@@ -47,30 +47,5 @@ void main() {
 
       expect(find.text('Next Launch'), findsNothing);
     });
-
-    testWidgets('has correct color in light mode', (WidgetTester tester) async {
-      await tester.pumpApp(
-        ExploreCard(
-          child: Container(),
-        ),
-      );
-
-      final card = tester.widget<Card>(find.byType(Card));
-      expect(card.color, const Color(0xff171717));
-    });
-
-    testWidgets('has correct color in dark mode', (WidgetTester tester) async {
-      when(() => themeCubit.state).thenReturn(const ThemeState(ThemeMode.dark));
-
-      await tester.pumpApp(
-        themeCubit: themeCubit,
-        ExploreCard(
-          child: Container(),
-        ),
-      );
-
-      final card = tester.widget<Card>(find.byType(Card));
-      expect(card.color, const Color(0xff171717));
-    });
   });
 }

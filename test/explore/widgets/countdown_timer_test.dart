@@ -98,25 +98,14 @@ void main() {
       expect(find.text('s'), findsOneWidget);
     });
 
-    testWidgets('uses CupertinoColors.systemRed in iOS for T -',
-        (WidgetTester tester) async {
-      await tester.pumpApp(
-        platform: TargetPlatform.iOS,
-        CountdownTimer(launchDate: launchDate),
-      );
-
-      final text = tester.widget<Text>(find.textContaining('T'));
-      expect(text.style?.color, CupertinoColors.systemRed);
-    });
-
-    testWidgets('uses Colors.red in Android for T -',
+    testWidgets('uses ColorScheme.primary for T -',
         (WidgetTester tester) async {
       await tester.pumpApp(
         CountdownTimer(launchDate: launchDate),
       );
 
       final text = tester.widget<Text>(find.textContaining('T'));
-      expect(text.style?.color, Colors.red);
+      expect(text.style?.color, ThemeData().colorScheme.primary);
     });
 
     testWidgets('does not render minuses for T +', (WidgetTester tester) async {

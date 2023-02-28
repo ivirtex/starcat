@@ -1,6 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars, prefer_const_literals_to_create_immutables
 
 // Package imports:
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -14,93 +17,7 @@ class MockResponse extends Mock implements http.Response {}
 
 class FakeUri extends Fake implements Uri {}
 
-void main() {
-  group('SpaceDevsApiClient', () {
-    late http.Client httpClient;
-    late SpaceDevsApiClient apiClient;
-
-    setUpAll(() {
-      registerFallbackValue(FakeUri());
-    });
-
-    setUp(() {
-      httpClient = MockHttpClient();
-      apiClient = SpaceDevsApiClient(httpClient: httpClient);
-    });
-
-    group('constructor', () {
-      test('does not require an httpClient', () {
-        expect(SpaceDevsApiClient(), isNotNull);
-      });
-    });
-
-    group('getLaunches', () {
-      test('makes correct http request', () async {
-        final response = MockResponse();
-        when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('{"results": []}');
-        when(() => httpClient.get(any())).thenAnswer((_) async => response);
-
-        try {
-          await apiClient.getLaunches(LaunchTime.previous);
-        } catch (_) {}
-        verify(
-          () => httpClient.get(
-            Uri.https(
-              'lldev.thespacedevs.com',
-              '/2.2.0/launch/previous/',
-              <String, String>{
-                'ordering': 'net',
-              },
-            ),
-          ),
-        ).called(1);
-
-        try {
-          await apiClient.getLaunches(LaunchTime.upcoming);
-        } catch (_) {}
-        verify(
-          () => httpClient.get(
-            Uri.https(
-              'lldev.thespacedevs.com',
-              '/2.2.0/launch/upcoming/',
-              <String, String>{
-                'ordering': 'net',
-              },
-            ),
-          ),
-        ).called(1);
-      });
-
-      test('throws LaunchesRequestFailure on non-200 response', () async {
-        final response = MockResponse();
-        when(() => response.statusCode).thenReturn(400);
-        when(() => httpClient.get(any())).thenAnswer((_) async => response);
-
-        await expectLater(
-          apiClient.getLaunches(LaunchTime.previous),
-          throwsA(isA<LaunchesRequestFailure>()),
-        );
-      });
-
-      test('throws LaunchesResultFailure when results key is missing',
-          () async {
-        final response = MockResponse();
-        when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('{}');
-        when(() => httpClient.get(any())).thenAnswer((_) async => response);
-
-        await expectLater(
-          apiClient.getLaunches(LaunchTime.previous),
-          throwsA(isA<LaunchesResultsNotFoundFailure>()),
-        );
-      });
-
-      test('returns Launches on 200 response with results key', () async {
-        final response = MockResponse();
-        when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn(
-          '''
+const String sampleResponse = '''
 {
   "count": 80,
   "next":
@@ -197,7 +114,96 @@ void main() {
       "agency_launch_attempt_count_year": 48
     }
   ]
-}''',
+}''';
+
+void main() {
+  group('SpaceDevsApiClient', () {
+    late http.Client httpClient;
+    late SpaceDevsApiClient apiClient;
+
+    setUpAll(() {
+      registerFallbackValue(FakeUri());
+    });
+
+    setUp(() {
+      httpClient = MockHttpClient();
+      apiClient = SpaceDevsApiClient(httpClient: httpClient);
+    });
+
+    group('constructor', () {
+      test('does not require an httpClient', () {
+        expect(SpaceDevsApiClient(), isNotNull);
+      });
+    });
+
+    group('getLaunches', () {
+      test('makes correct http request', () async {
+        final response = MockResponse();
+        when(() => response.statusCode).thenReturn(200);
+        when(() => response.body).thenReturn('{"results": []}');
+        when(() => httpClient.get(any())).thenAnswer((_) async => response);
+
+        try {
+          await apiClient.getLaunches(LaunchTime.previous);
+        } catch (_) {}
+        verify(
+          () => httpClient.get(
+            Uri.https(
+              'lldev.thespacedevs.com',
+              '/2.2.0/launch/previous/',
+              <String, String>{
+                'ordering': 'net',
+              },
+            ),
+          ),
+        ).called(1);
+
+        try {
+          await apiClient.getLaunches(LaunchTime.upcoming);
+        } catch (_) {}
+        verify(
+          () => httpClient.get(
+            Uri.https(
+              'lldev.thespacedevs.com',
+              '/2.2.0/launch/upcoming/',
+              <String, String>{
+                'ordering': 'net',
+              },
+            ),
+          ),
+        ).called(1);
+      });
+
+      test('throws LaunchesRequestFailure on non-200 response', () async {
+        final response = MockResponse();
+        when(() => response.statusCode).thenReturn(400);
+        when(() => httpClient.get(any())).thenAnswer((_) async => response);
+
+        await expectLater(
+          apiClient.getLaunches(LaunchTime.previous),
+          throwsA(isA<LaunchesRequestFailure>()),
+        );
+      });
+
+      test('throws LaunchesResultsNotFoundFailure when results key is missing',
+          () async {
+        final response = MockResponse();
+        when(() => response.statusCode).thenReturn(200);
+        when(() => response.bodyBytes)
+            .thenReturn(Uint8List.fromList('{}'.codeUnits));
+        when(() => httpClient.get(any())).thenAnswer((_) async => response);
+
+        await expectLater(
+          apiClient.getLaunches(LaunchTime.previous),
+          throwsA(isA<LaunchesResultsNotFoundFailure>()),
+        );
+      });
+
+      test('returns Launches on 200 response with results key', () async {
+        final response = MockResponse();
+        when(() => response.statusCode).thenReturn(200);
+        when(() => response.bodyBytes).thenReturn(
+          Uint8List.fromList(sampleResponse.codeUnits),
         );
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 

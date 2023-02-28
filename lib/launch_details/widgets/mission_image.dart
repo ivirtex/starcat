@@ -31,12 +31,13 @@ class MissionImage extends StatelessWidget {
         imageUrl: imageUrl,
         fadeOutDuration: 0.ms,
         cacheKey: GlobalKey().toString(),
-        placeholder: (context, child) {
+        cacheManager: cacheManager,
+        progressIndicatorBuilder: (context, child, _) {
           return SizedBox(
             height: 150,
             child: ColoredBox(
               color: Theme.of(context).colorScheme.surface,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator.adaptive(),
               ),
             ),

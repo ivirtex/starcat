@@ -104,12 +104,10 @@ class _CountdownTimerState extends State<CountdownTimer> {
         children: [
           Text(
             'T -',
-            style: TextStyle(
-              fontSize: 18,
-              color: Theme.of(context).platform == TargetPlatform.iOS
-                  ? CupertinoColors.systemRed.resolveFrom(context)
-                  : Colors.red,
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(width: 5),
           const Text('N/A', style: numberTextStyle),
