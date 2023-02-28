@@ -8,6 +8,7 @@ class ExploreCard extends StatelessWidget {
   const ExploreCard({
     this.title,
     this.trailing,
+    this.slideOut,
     this.padding = const EdgeInsets.all(10),
     this.expandVertically = false,
     this.onTap,
@@ -17,6 +18,7 @@ class ExploreCard extends StatelessWidget {
 
   final Widget? title;
   final Widget? trailing;
+  final Widget? slideOut;
   final EdgeInsets padding;
   final bool expandVertically;
   final VoidCallback? onTap;
@@ -29,15 +31,18 @@ class ExploreCard extends StatelessWidget {
       children: [
         if (title != null)
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                title!,
-                if (trailing != null) ...[
-                  const Spacer(),
-                  trailing!,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+            child: DefaultTextStyle(
+              style: Theme.of(context).textTheme.titleSmall!,
+              child: Row(
+                children: [
+                  title!,
+                  if (trailing != null) ...[
+                    const Spacer(),
+                    trailing!,
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         if (expandVertically)
@@ -67,16 +72,41 @@ class ExploreCard extends StatelessWidget {
           ),
         ),
       ),
-      material: (_) => Card(
-        color: Theme.of(context).colorScheme.surface,
-        child: InkWell(
-          onTap: onTap,
-          child: Padding(
-            padding: padding,
-            child: child,
-          ),
-        ),
-      ),
+      material: (_) => slideOut != null
+          ? Padding(
+              // Compensate for margin of a card
+              padding: const EdgeInsets.only(top: 4),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    slideOut!,
+                    Card(
+                      margin: EdgeInsets.zero,
+                      child: InkWell(
+                        onTap: onTap,
+                        child: Padding(
+                          padding: padding,
+                          child: child,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : Card(
+              child: InkWell(
+                onTap: onTap,
+                child: Padding(
+                  padding: padding,
+                  child: child,
+                ),
+              ),
+            ),
     );
   }
 }

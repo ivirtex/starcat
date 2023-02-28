@@ -23,21 +23,20 @@ class InfoCard extends StatelessWidget {
         color: Theme.of(context).colorScheme.secondaryContainer,
       ),
       padding: padding,
-      child: DefaultTextStyle(
-        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-              fontSize: 11,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (icon != null) ...[
-              icon!,
-              const SizedBox(width: 2),
-            ],
-            Flexible(child: child),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null) ...[
+            icon!,
+            const SizedBox(width: 2),
           ],
-        ),
+          Flexible(
+            child: DefaultTextStyle(
+              style: Theme.of(context).textTheme.labelSmall!,
+              child: child,
+            ),
+          ),
+        ],
       ),
     );
   }

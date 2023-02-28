@@ -131,7 +131,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
               children: [
                 for (final char in timeUnit.value.characters)
                   Card(
-                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    color:
+                        Theme.of(context).colorScheme.surface.withOpacity(0.5),
                     margin: const EdgeInsets.only(right: 2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),

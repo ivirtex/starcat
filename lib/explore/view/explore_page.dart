@@ -107,7 +107,7 @@ class Body extends StatelessWidget {
     return Column(
       children: [
         NextLaunchCard(launch: state.launches!.results!.first),
-        const SizedBox(height: 10),
+        const SizedBox(height: 15),
         UpcomingLaunches(launches: state.launches!),
       ],
     ).animate(delay: kStateChangeAnimationDuration).fadeIn();

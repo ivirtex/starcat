@@ -44,38 +44,37 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
     return ExploreCard(
       title: const Text('Next Launch'),
       trailing: LaunchStatus(_launchStatus),
+      slideOut: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        child: Row(
+          children: [
+            Text(
+              'Countdown',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+            const Spacer(),
+            CountdownTimer(
+              launchDate: _launchDate,
+              mode: _launchStatus?.abbrev == 'Go'
+                  ? CountdownTimerMode.hoursMinutesSeconds
+                  : CountdownTimerMode.daysHoursMinutes,
+            ),
+          ],
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                flex: 6,
-                child: Text(
-                  _launchName ?? 'No launch name',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 20),
-              CountdownTimer(
-                launchDate: _launchDate,
-                mode: _launchStatus?.abbrev == 'Go'
-                    ? CountdownTimerMode.hoursMinutesSeconds
-                    : CountdownTimerMode.daysHoursMinutes,
-              )
-            ],
+          Text(
+            _launchName ?? 'No launch name',
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(height: 10),
           Text(
             _description ?? 'No description',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-            ),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.outline,
+                ),
           ),
           const SizedBox(height: 10),
           ThemedButton(

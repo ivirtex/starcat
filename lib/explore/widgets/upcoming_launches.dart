@@ -24,9 +24,13 @@ class UpcomingLaunches extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Section(name: 'Upcoming Launches'),
+        Section(
+          text: 'Upcoming Launches',
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        const SizedBox(height: 3),
         SizedBox(
-          height: 125,
+          height: 130,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: launches.results!.length,
@@ -72,9 +76,8 @@ class UpcomingLaunches extends StatelessWidget {
                               children: [
                                 AutoSizeText(
                                   launch.mission?.name ?? 'No name',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
                                   maxLines: 2,
                                 ),
                                 const SizedBox(height: 5),
