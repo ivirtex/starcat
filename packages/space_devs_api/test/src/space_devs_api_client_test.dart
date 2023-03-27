@@ -139,12 +139,12 @@ void main() {
       test('makes correct http request', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn('{"results": []}');
+        when(() => response.bodyBytes)
+            .thenReturn(Uint8List.fromList('{"results": []}'.codeUnits));
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
-        try {
-          await apiClient.getLaunches(LaunchTime.previous);
-        } catch (_) {}
+        await apiClient.getLaunches(LaunchTime.previous);
+
         verify(
           () => httpClient.get(
             Uri.https(
@@ -157,9 +157,8 @@ void main() {
           ),
         ).called(1);
 
-        try {
-          await apiClient.getLaunches(LaunchTime.upcoming);
-        } catch (_) {}
+        await apiClient.getLaunches(LaunchTime.upcoming);
+
         verify(
           () => httpClient.get(
             Uri.https(

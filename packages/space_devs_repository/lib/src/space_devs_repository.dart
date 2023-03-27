@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:space_devs_api/space_devs_api.dart';
 
+// TODO(ivirtex): decouple launches model from API layer
 /// Repository for fetching data from the SpaceDevs API.
 class SpaceDevsRepository {
   SpaceDevsRepository({SpaceDevsApiClient? spacexApiClient})
