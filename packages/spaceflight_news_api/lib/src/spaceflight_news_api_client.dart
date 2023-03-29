@@ -5,9 +5,9 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:spaceflight_news_api/src/models/models.dart';
 
-class NewsRequestFailure implements Exception {}
+class ArticlesRequestFailure implements Exception {}
 
-class NewsResultsNotFoundFailure implements Exception {}
+class ArticlesResultsNotFoundFailure implements Exception {}
 
 class SpaceflightNewsApiClient {
   SpaceflightNewsApiClient({http.Client? httpClient})
@@ -25,7 +25,7 @@ class SpaceflightNewsApiClient {
     if (response.statusCode != HttpStatus.ok) {
       log('Request failed with status: ${response.statusCode}.');
 
-      throw NewsRequestFailure();
+      throw ArticlesRequestFailure();
     }
 
     final articlesJson = jsonDecode(response.body) as Map<String, dynamic>;
@@ -33,7 +33,7 @@ class SpaceflightNewsApiClient {
     final articles = Articles.fromJson(articlesJson);
 
     if (articles.results.isEmpty) {
-      throw NewsResultsNotFoundFailure();
+      throw ArticlesResultsNotFoundFailure();
     }
 
     return articles;

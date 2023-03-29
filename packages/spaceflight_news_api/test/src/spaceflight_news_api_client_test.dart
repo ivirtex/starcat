@@ -131,7 +131,7 @@ void main() {
 
         expect(
           spaceflightNewsApi.getArticles(),
-          throwsA(isA<NewsRequestFailure>()),
+          throwsA(isA<ArticlesRequestFailure>()),
         );
       });
 
@@ -143,7 +143,7 @@ void main() {
 
         expect(
           spaceflightNewsApi.getArticles(),
-          throwsA(isA<NewsResultsNotFoundFailure>()),
+          throwsA(isA<ArticlesResultsNotFoundFailure>()),
         );
       });
 

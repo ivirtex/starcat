@@ -7,17 +7,17 @@ import 'package:test/test.dart';
 // Project imports:
 import 'package:space_devs_repository/space_devs_repository.dart';
 
-class MockSpaceXApiClient extends Mock implements SpaceDevsApiClient {}
+class MockSpaceDevsApiClient extends Mock implements SpaceDevsApiClient {}
 
 void main() {
   group('SpaceDevsRepository', () {
-    late SpaceDevsApiClient spaceXApiClient;
+    late SpaceDevsApiClient spaceDevsApiClient;
     late SpaceDevsRepository spaceDevsRepository;
 
     setUp(() {
-      spaceXApiClient = MockSpaceXApiClient();
+      spaceDevsApiClient = MockSpaceDevsApiClient();
       spaceDevsRepository =
-          SpaceDevsRepository(spacexApiClient: spaceXApiClient);
+          SpaceDevsRepository(spacexApiClient: spaceDevsApiClient);
     });
 
     group('constructor', () {
@@ -34,14 +34,14 @@ void main() {
           await spaceDevsRepository.getLaunches(launchTime);
         } catch (_) {}
 
-        verify(() => spaceXApiClient.getLaunches(launchTime)).called(1);
+        verify(() => spaceDevsApiClient.getLaunches(launchTime)).called(1);
       });
 
       test('returns correct Launches', () async {
         const launchTime = LaunchTime.previous;
         const launches = Launches(results: []);
 
-        when(() => spaceXApiClient.getLaunches(launchTime))
+        when(() => spaceDevsApiClient.getLaunches(launchTime))
             .thenAnswer((_) async => launches);
 
         expect(await spaceDevsRepository.getLaunches(launchTime), launches);
@@ -51,7 +51,7 @@ void main() {
         const launchTime = LaunchTime.previous;
         final exception = LaunchesRequestFailure();
 
-        when(() => spaceXApiClient.getLaunches(launchTime))
+        when(() => spaceDevsApiClient.getLaunches(launchTime))
             .thenThrow(exception);
 
         expect(
