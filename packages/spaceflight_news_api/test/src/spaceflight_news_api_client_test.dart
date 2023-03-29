@@ -1,7 +1,10 @@
-import 'package:mocktail/mocktail.dart';
+// Package imports:
 import 'package:http/http.dart' as http;
-import 'package:spaceflight_news_api/spaceflight_news_api.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
+
+// Project imports:
+import 'package:spaceflight_news_api/spaceflight_news_api.dart';
 
 class MockHttpClient extends Mock implements http.Client {}
 

@@ -1,10 +1,15 @@
 // ignore_for_file: prefer_const_constructors
+
+// Package imports:
 import 'package:mocktail/mocktail.dart';
-import 'package:spaceflight_news_api/spaceflight_news_api.dart'
-    as spaceflight_api;
+import 'package:test/test.dart';
+
+// Project imports:
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:spaceflight_news_repository/src/models/models.dart';
-import 'package:test/test.dart';
+
+import 'package:spaceflight_news_api/spaceflight_news_api.dart'
+    as spaceflight_api;
 
 class MockSpaceflightNewsApiClient extends Mock
     implements spaceflight_api.SpaceflightNewsApiClient {}
