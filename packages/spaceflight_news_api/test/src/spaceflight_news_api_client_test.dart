@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-import 'dart:typed_data';
-
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 import 'package:spaceflight_news_api/spaceflight_news_api.dart';
@@ -13,48 +10,79 @@ class MockResponse extends Mock implements http.Response {}
 class FakeUri extends Fake implements Uri {}
 
 const String sampleResponse = '''
-[
-  {
-    "id": 18397,
-    "title": "Industry group to examine potential security threats in cislunar space",
-    "url": "https://spacenews.com/industry-group-to-examine-potential-security-threats-in-cislunar-space/",
-    "imageUrl": "https://i0.wp.com/spacenews.com/wp-content/uploads/2023/02/Win17_15021_00_N14b.jpg",
-    "newsSite": "SpaceNews",
-    "summary": "The Space Information Sharing and Analysis Center, or Space ISAC, is forming a group to focus on the security threats the United States could face in cislunar space outside Earth orbit.",
-    "publishedAt": "2023-02-28T18:42:56.000Z",
-    "updatedAt": "2023-02-28T18:45:17.309Z",
-    "featured": false,
-    "launches": [
-      
-    ],
-    "events": [
-      
-    ]
-  },
-  {
-    "id": 18398,
-    "title": "iSpace On Track For First Lunar Landing, Preparing For Next Missions",
-    "url": "https://tlpnetwork.com/news/2023/02/ispace-on-track-for-first-lunar-landing-preparing-for-next-missions",
-    "imageUrl": "https://cdn.tlpnetwork.com/articles/2023/1677607284754.jpg",
-    "newsSite": "The Launch Pad",
-    "summary": "Japanese lunar lander company ispace confirms its first mission is on track to attempt a lunar landing in two months as work continues on next two missions.",
-    "publishedAt": "2023-02-28T18:37:00.000Z",
-    "updatedAt": "2023-02-28T19:10:19.793Z",
-    "featured": false,
-    "launches": [
-      {
-        "id": "2306e0bc-e1a3-4a4a-9285-e1a94073655e",
-        "provider": "Launch Library 2"
-      }
-    ],
-    "events": [
-      {
-        "id": 730,
-        "provider": "Launch Library 2"
-      }
-    ]
-  }
-]
+{
+  "count": 16128,
+  "next": "https://api.spaceflightnewsapi.net/v4/articles/?limit=10&offset=10",
+  "previous": null,
+  "results": [
+    {
+      "id": 18798,
+      "title": "NASA Receives Top Honor of Best Place to Work in Federal Government",
+      "url": "http://www.nasa.gov/press-release/nasa-receives-top-honor-of-best-place-to-work-in-federal-government",
+      "image_url": "https://www.nasa.gov/sites/default/files/thumbnails/image/52692932279_6606876271_o.png?itok=7S34zJEt",
+      "news_site": "NASA",
+      "summary": "NASA is taking home the honor of the Best Place to Work in the Federal Government among large agencies for 11 years in a row, as ranked by the Partnership for Public Service.",
+      "published_at": "2023-03-29T15:45:00+02:00",
+      "updated_at": "2023-03-29T15:45:55.618000+02:00",
+      "featured": false,
+      "launches": [],
+      "events": []
+    },
+    {
+      "id": 18799,
+      "title": "Space infrastructure company Redwire trims quarterly losses, builds order backlog",
+      "url": "https://www.cnbc.com/2023/03/29/redwire-rdw-q4-earnings.html",
+      "image_url": "https://image.cnbcfm.com/api/v1/image/106938671-1631116931701Redwire-OB-Photo-20210908-DN-345-PRESS-4.jpg",
+      "news_site": "CNBC",
+      "summary": "Space infrastructure company Redwire reported fourth-quarter results on Wednesday, saying it further trimmed its losses and built its order backlog.",
+      "published_at": "2023-03-29T15:42:40+02:00",
+      "updated_at": "2023-03-29T15:46:16.588000+02:00",
+      "featured": false,
+      "launches": [],
+      "events": []
+    },
+    {
+      "id": 18796,
+      "title": "H3 failure could delay Japanese science missions",
+      "url": "https://spacenews.com/h3-failure-could-delay-japanese-science-missions/",
+      "image_url": "https://i0.wp.com/spacenews.com/wp-content/uploads/2023/03/h3-firstlaunch-1.jpg",
+      "news_site": "SpaceNews",
+      "summary": "The failure of Japan’s H3 rocket on its inaugural flight in March could delay several science missions, including two scheduled to launch on another rocket.",
+      "published_at": "2023-03-29T11:53:19+02:00",
+      "updated_at": "2023-03-29T14:10:50.035000+02:00",
+      "featured": false,
+      "launches": [
+        {
+          "launch_id": "13439df6-e99b-42b3-ab82-c0a8a2afe4d1",
+          "provider": "Launch Library 2"
+        }
+      ],
+      "events": []
+    },
+    {
+      "id": 18794,
+      "title": "Ovzon gets deadline extension for debut satellite",
+      "url": "https://spacenews.com/ovzon-gets-deadline-extension-for-debut-satellite/",
+      "image_url": "https://i0.wp.com/spacenews.com/wp-content/uploads/2020/10/Ovzon-3-reduced2.jpg",
+      "news_site": "SpaceNews",
+      "summary": "Mobile satcom services provider Ovzon said March 28 it has secured a deadline extension enabling it to keep priority spectrum rights for its first broadband satellite, as long as it launches early enough in a July-September window SpaceX has set for the mission.",
+      "published_at": "2023-03-29T01:43:31+02:00",
+      "updated_at": "2023-03-29T01:45:16.659000+02:00",
+      "featured": false,
+      "launches": [],
+      "events": []
+    }
+  ]
+}
+''';
+
+const String emptyResponse = '''
+{
+  "count": 0,
+  "next": null,
+  "previous": null,
+  "results": []
+}
 ''';
 
 void main() {
@@ -81,19 +109,16 @@ void main() {
       test('makes correct http request', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.bodyBytes)
-            .thenReturn(Uint8List.fromList('[]'.codeUnits));
+        when(() => response.body).thenReturn(sampleResponse);
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
-        try {
-          await spaceflightNewsApi.getArticles();
-        } catch (_) {}
+        await spaceflightNewsApi.getArticles();
 
         verify(
           () => httpClient.get(
             Uri.https(
               SpaceflightNewsApiClient.baseUrl,
-              '/v3/articles',
+              '/v4/articles',
             ),
           ),
         ).called(1);
@@ -113,8 +138,7 @@ void main() {
       test('throws NewsResultsNotFoundFailure on empty response', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.bodyBytes)
-            .thenReturn(Uint8List.fromList('[]'.codeUnits));
+        when(() => response.body).thenReturn(emptyResponse);
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         expect(
@@ -126,13 +150,12 @@ void main() {
       test('returns list of articles on valid response', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.bodyBytes)
-            .thenReturn(Uint8List.fromList(sampleResponse.codeUnits));
+        when(() => response.body).thenReturn(sampleResponse);
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         final news = await spaceflightNewsApi.getArticles();
 
-        expect(news, isA<List<Article>>());
+        expect(news, isA<Articles>());
       });
     });
   });

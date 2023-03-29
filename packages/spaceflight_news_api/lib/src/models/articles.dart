@@ -1,7 +1,33 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 
-part 'article.g.dart';
+part 'articles.g.dart';
+
+@JsonSerializable()
+class Articles extends Equatable {
+  const Articles({
+    required this.count,
+    required this.next,
+    required this.previous,
+    required this.results,
+  });
+
+  factory Articles.fromJson(Map<String, dynamic> json) =>
+      _$ArticlesFromJson(json);
+
+  final int count;
+  final String? next;
+  final String? previous;
+  final List<Article> results;
+
+  @override
+  List<Object?> get props => [
+        count,
+        next,
+        previous,
+        results,
+      ];
+}
 
 @JsonSerializable()
 class Article extends Equatable {
@@ -35,8 +61,6 @@ class Article extends Equatable {
   final List<LaunchInfo> launchesInfo;
   final List<Event> events;
 
-  Map<String, dynamic> toJson() => _$ArticleToJson(this);
-
   @override
   List<Object?> get props => [
         id,
@@ -56,21 +80,19 @@ class Article extends Equatable {
 @JsonSerializable()
 class LaunchInfo extends Equatable {
   const LaunchInfo({
-    required this.id,
+    required this.launchId,
     required this.provider,
   });
 
   factory LaunchInfo.fromJson(Map<String, dynamic> json) =>
       _$LaunchInfoFromJson(json);
 
-  final String id;
+  final String launchId;
   final String provider;
-
-  Map<String, dynamic> toJson() => _$LaunchInfoToJson(this);
 
   @override
   List<Object?> get props => [
-        id,
+        launchId,
         provider,
       ];
 }
@@ -78,20 +100,18 @@ class LaunchInfo extends Equatable {
 @JsonSerializable()
 class Event extends Equatable {
   const Event({
-    required this.id,
+    required this.eventId,
     required this.provider,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) => _$EventFromJson(json);
 
-  final int id;
+  final int eventId;
   final String provider;
-
-  Map<String, dynamic> toJson() => _$EventToJson(this);
 
   @override
   List<Object?> get props => [
-        id,
+        eventId,
         provider,
       ];
 }

@@ -17,8 +17,8 @@ class SpaceflightNewsApiClient {
 
   final http.Client _httpClient;
 
-  Future<List<Article>> getArticles() async {
-    final articlesRequest = Uri.https(baseUrl, '/v3/articles');
+  Future<Articles> getArticles() async {
+    final articlesRequest = Uri.https(baseUrl, '/v4/articles');
 
     final response = await _httpClient.get(articlesRequest);
 
@@ -28,18 +28,13 @@ class SpaceflightNewsApiClient {
       throw NewsRequestFailure();
     }
 
-    final articlesJson = jsonDecode(utf8.decode(response.bodyBytes)) as List;
+    final articlesJson = jsonDecode(response.body) as Map<String, dynamic>;
 
-    if (articlesJson.isEmpty) {
+    final articles = Articles.fromJson(articlesJson);
+
+    if (articles.results.isEmpty) {
       throw NewsResultsNotFoundFailure();
     }
-
-    final articles = articlesJson
-        .map(
-          (articleJson) =>
-              Article.fromJson(articleJson as Map<String, dynamic>),
-        )
-        .toList();
 
     return articles;
   }
