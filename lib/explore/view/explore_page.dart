@@ -106,7 +106,7 @@ class Body extends StatelessWidget {
   Widget _buildSuccess(ExploreState state) {
     return Column(
       children: [
-        NextLaunchCard(launch: state.launches!.results!.first),
+        UpcomingLaunchCard(launch: state.launches!.results!.first),
         const SizedBox(height: 15),
         UpcomingLaunches(launches: state.launches!),
       ],

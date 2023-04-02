@@ -9,8 +9,8 @@ import 'package:space_devs_repository/space_devs_repository.dart';
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/shared/shared.dart';
 
-class NextLaunchCard extends StatefulWidget {
-  const NextLaunchCard({
+class UpcomingLaunchCard extends StatefulWidget {
+  const UpcomingLaunchCard({
     super.key,
     required this.launch,
   });
@@ -18,10 +18,10 @@ class NextLaunchCard extends StatefulWidget {
   final Launch launch;
 
   @override
-  State<NextLaunchCard> createState() => _NextLaunchCardState();
+  State<UpcomingLaunchCard> createState() => _UpcomingLaunchCardState();
 }
 
-class _NextLaunchCardState extends State<NextLaunchCard> {
+class _UpcomingLaunchCardState extends State<UpcomingLaunchCard> {
   String? _launchName;
   Status? _launchStatus;
   String? _description;
