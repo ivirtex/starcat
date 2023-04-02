@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:clock/clock.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum CountdownTimerMode {
   daysHoursMinutes,
@@ -91,11 +92,10 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
-    const numberTextStyle = TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      fontFamily: 'SpaceMono',
-    );
+    final numberTextStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
+          fontFamily: GoogleFonts.firaMono().fontFamily,
+          fontWeight: FontWeight.bold,
+        );
 
     if (widget.launchDate == null) {
       return Row(
@@ -109,14 +109,13 @@ class _CountdownTimerState extends State<CountdownTimer> {
                 ?.copyWith(color: Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(width: 5),
-          const Text('N/A', style: numberTextStyle),
+          Text('N/A', style: numberTextStyle),
         ],
       );
     }
 
     return RepaintBoundary(
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             _isNegative ? 'T +' : 'T -',
@@ -131,8 +130,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
               children: [
                 for (final char in timeUnit.value.characters)
                   Card(
-                    color:
-                        Theme.of(context).colorScheme.surface.withOpacity(0.5),
+                    color: Theme.of(context).colorScheme.surface,
                     margin: const EdgeInsets.only(right: 2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),

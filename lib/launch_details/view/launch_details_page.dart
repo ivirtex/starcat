@@ -113,7 +113,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
               const SizedBox(height: 10),
-              Section(text: launch.mission?.description ?? 'N/A'),
+              Section(text: launch.mission?.description ?? 'No description'),
               const SizedBox(height: 10),
               LaunchDateCard(
                 date: launch.net,

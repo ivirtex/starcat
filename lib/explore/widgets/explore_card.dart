@@ -83,6 +83,7 @@ class ExploreCard extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
+                    // TODO(ivirtex): add slide out animation on scroll
                     slideOut!,
                     Card(
                       margin: EdgeInsets.zero,

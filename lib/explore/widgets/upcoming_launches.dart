@@ -48,9 +48,10 @@ class UpcomingLaunches extends StatelessWidget {
                 width: 250,
                 child: ExploreCard(
                   expandVertically: true,
-                  // TODO(ivirtex): Test this route
+                  // TODO(ivirtex): test this route
                   onTap: () => context.go('/launch/${launch.id}'),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: ClipRect(
