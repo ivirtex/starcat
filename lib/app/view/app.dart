@@ -8,6 +8,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -18,26 +19,29 @@ import 'package:falcon/theme/theme.dart';
 class App extends StatelessWidget {
   const App({
     required SpaceDevsRepository spaceDevsRepository,
+    required SpaceflightNewsRepository spaceflightNewsRepository,
     super.key,
-  }) : _spaceDevsRepository = spaceDevsRepository;
+  })  : _spaceDevsRepository = spaceDevsRepository,
+        _spaceflightNewsRepository = spaceflightNewsRepository;
 
   final SpaceDevsRepository _spaceDevsRepository;
+  final SpaceflightNewsRepository _spaceflightNewsRepository;
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-      value: _spaceDevsRepository,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) => ThemeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => ThemeCubit(),
+        ),
+        BlocProvider(
+          create: (_) => ExploreCubit(
+            _spaceDevsRepository,
+            _spaceflightNewsRepository,
           ),
-          BlocProvider(
-            create: (_) => ExploreCubit(_spaceDevsRepository),
-          ),
-        ],
-        child: const AppView(),
-      ),
+        ),
+      ],
+      child: const AppView(),
     );
   }
 }

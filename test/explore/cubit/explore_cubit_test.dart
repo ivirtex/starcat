@@ -3,6 +3,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -14,11 +15,15 @@ const launchesResults = [
 
 class MockSpaceDevsRepository extends Mock implements SpaceDevsRepository {}
 
+class MockSpaceflightNewsRepository extends Mock
+    implements SpaceflightNewsRepository {}
+
 class MockLaunches extends Mock implements Launches {}
 
 void main() {
   group('ExploreCubit', () {
     late SpaceDevsRepository spaceDevsRepository;
+    late SpaceflightNewsRepository spaceflightNewsRepository;
     late Launches launches;
     late ExploreCubit exploreCubit;
 
@@ -26,6 +31,7 @@ void main() {
       registerFallbackValue(LaunchTime.upcoming);
 
       spaceDevsRepository = MockSpaceDevsRepository();
+      spaceflightNewsRepository = MockSpaceflightNewsRepository();
       launches = MockLaunches();
 
       when(() => launches.count).thenReturn(launchesCount);
@@ -33,11 +39,17 @@ void main() {
       when(() => spaceDevsRepository.getLaunches(any()))
           .thenAnswer((_) async => launches);
 
-      exploreCubit = ExploreCubit(spaceDevsRepository);
+      exploreCubit = ExploreCubit(
+        spaceDevsRepository,
+        spaceflightNewsRepository,
+      );
     });
 
     test('initial state is correct', () {
-      final exploreCubit = ExploreCubit(spaceDevsRepository);
+      final exploreCubit = ExploreCubit(
+        spaceDevsRepository,
+        spaceflightNewsRepository,
+      );
 
       expect(exploreCubit.state, const ExploreState());
     });

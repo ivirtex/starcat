@@ -34,6 +34,8 @@ dependencies:
   phosphor_flutter: ^1.4.0
   space_devs_repository:
     path: packages/space_devs_repository
+  spaceflight_news_repository:
+    path: packages/spaceflight_news_repository
   timezone: ^0.9.0
   url_launcher: ^6.1.10
   vector_graphics: ^1.1.0

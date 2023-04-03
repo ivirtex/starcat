@@ -9,7 +9,12 @@ class ExploreCard extends StatelessWidget {
     this.title,
     this.trailing,
     this.slideOut,
+    this.slideOutPadding = const EdgeInsets.symmetric(
+      horizontal: 10,
+      vertical: 8,
+    ),
     this.padding = const EdgeInsets.all(10),
+    this.shape,
     this.expandVertically = false,
     this.onTap,
     required this.child,
@@ -19,7 +24,9 @@ class ExploreCard extends StatelessWidget {
   final Widget? title;
   final Widget? trailing;
   final Widget? slideOut;
+  final EdgeInsets slideOutPadding;
   final EdgeInsets padding;
+  final ShapeBorder? shape;
   final bool expandVertically;
   final VoidCallback? onTap;
   final Widget child;
@@ -29,33 +36,30 @@ class ExploreCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (title != null)
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-            child: DefaultTextStyle(
-              style: Theme.of(context).textTheme.titleSmall!,
-              child: Row(
-                children: [
-                  title!,
-                  if (trailing != null) ...[
-                    const Spacer(),
-                    trailing!,
-                  ],
-                ],
-              ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+          child: DefaultTextStyle(
+            style: Theme.of(context).textTheme.titleSmall!,
+            child: Row(
+              children: [
+                if (title != null) title!,
+                const Spacer(),
+                if (trailing != null) trailing!,
+              ],
             ),
           ),
+        ),
         if (expandVertically)
           Expanded(
-            child: buildContent(context: context),
+            child: buildBody(context: context),
           )
         else
-          buildContent(context: context)
+          buildBody(context: context)
       ],
     );
   }
 
-  Widget buildContent({required BuildContext context}) {
+  Widget buildBody({required BuildContext context}) {
     return PlatformWidget(
       cupertino: (_) => Padding(
         padding: const EdgeInsets.all(5),
@@ -79,14 +83,20 @@ class ExploreCard extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surfaceVariant,
+                  // TODO(ivirtex): move borderRadius to constants
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // TODO(ivirtex): add slide out animation on scroll
-                    slideOut!,
+                    Padding(
+                      padding: slideOutPadding,
+                      child: slideOut,
+                    ),
                     Card(
                       margin: EdgeInsets.zero,
+                      shape: shape,
                       child: InkWell(
                         onTap: onTap,
                         child: Padding(
@@ -100,6 +110,7 @@ class ExploreCard extends StatelessWidget {
               ),
             )
           : Card(
+              shape: shape,
               child: InkWell(
                 onTap: onTap,
                 child: Padding(

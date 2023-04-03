@@ -17,23 +17,23 @@ class UpcomingLaunches extends StatelessWidget {
     super.key,
   });
 
-  final Launches launches;
+  final Launches? launches;
 
   @override
   Widget build(BuildContext context) {
+    if (launches == null) {
+      return const SizedBox();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Section(
-          text: 'Upcoming Launches',
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        const SizedBox(height: 3),
+        const Section(text: 'Upcoming Launches'),
         SizedBox(
-          height: 130,
+          height: 140,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: launches.results!.length,
+            itemCount: launches!.results!.length,
             itemBuilder: (context, index) {
               // We are not displaying the first launch because
               // it is already displayed above this widget
@@ -41,7 +41,7 @@ class UpcomingLaunches extends StatelessWidget {
                 return const SizedBox();
               }
 
-              final launch = launches.results![index];
+              final launch = launches!.results![index];
               final date = formatDate(launch.net!.toLocal());
 
               return SizedBox(

@@ -34,6 +34,7 @@ class _ExploreViewState extends State<ExploreView> {
   @override
   void initState() {
     context.read<ExploreCubit>().fetchLaunches(launchTime: LaunchTime.upcoming);
+    context.read<ExploreCubit>().fetchNews();
 
     super.initState();
   }
@@ -104,11 +105,13 @@ class Body extends StatelessWidget {
   }
 
   Widget _buildSuccess(ExploreState state) {
-    return Column(
+    return ListView(
       children: [
-        UpcomingLaunchCard(launch: state.launches!.results!.first),
+        UpcomingLaunchCard(launch: state.launches?.results?.first),
         const SizedBox(height: 15),
-        UpcomingLaunches(launches: state.launches!),
+        UpcomingLaunches(launches: state.launches),
+        const SizedBox(height: 15),
+        Articles(articles: state.news?.articles),
       ],
     ).animate(delay: kStateChangeAnimationDuration).fadeIn();
   }

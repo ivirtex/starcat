@@ -14,10 +14,11 @@ class Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Text(
         text,
-        style: style ?? Theme.of(context).textTheme.bodyMedium,
+        style: style ??
+            Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18),
       ),
     );
   }

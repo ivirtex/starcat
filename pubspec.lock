@@ -859,6 +859,20 @@ packages:
       relative: true
     source: path
     version: "0.0.0"
+  spaceflight_news_api:
+    dependency: transitive
+    description:
+      path: "packages/spaceflight_news_api"
+      relative: true
+    source: path
+    version: "0.1.0+1"
+  spaceflight_news_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/spaceflight_news_repository"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   sqflite:
     dependency: transitive
     description:

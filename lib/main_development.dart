@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/app/app.dart';
@@ -9,6 +10,7 @@ void main() {
   bootstrap(
     () => App(
       spaceDevsRepository: SpaceDevsRepository(),
+      spaceflightNewsRepository: SpaceflightNewsRepository(),
     ),
   );
 }

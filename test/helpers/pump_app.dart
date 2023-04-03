@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -16,6 +17,7 @@ extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
     SpaceDevsRepository? spaceDevsRepository,
+    SpaceflightNewsRepository? spaceflightNewsRepository,
     ExploreCubit? exploreCubit,
     ThemeCubit? themeCubit,
     TargetPlatform platform = TargetPlatform.android,
@@ -30,7 +32,10 @@ extension PumpApp on WidgetTester {
             ),
             BlocProvider.value(
               value: exploreCubit ??
-                  ExploreCubit(spaceDevsRepository ?? SpaceDevsRepository()),
+                  ExploreCubit(
+                    spaceDevsRepository ?? SpaceDevsRepository(),
+                    spaceflightNewsRepository ?? SpaceflightNewsRepository(),
+                  ),
             ),
           ],
           child: MaterialApp(
@@ -47,44 +52,45 @@ extension PumpApp on WidgetTester {
   Future<void> pumpAppWithRouter(
     Widget widget, {
     SpaceDevsRepository? spaceDevsRepository,
+    SpaceflightNewsRepository? spaceflightNewsRepository,
     ExploreCubit? exploreCubit,
     ThemeCubit? themeCubit,
     TargetPlatform platform = TargetPlatform.android,
   }) {
     return pumpWidget(
-      RepositoryProvider.value(
-        value: SpaceDevsRepository,
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider.value(
-              value: themeCubit ?? ThemeCubit(),
-            ),
-            BlocProvider.value(
-              value: exploreCubit ??
-                  ExploreCubit(spaceDevsRepository ?? SpaceDevsRepository()),
-            ),
-          ],
-          child: MaterialApp.router(
-            themeMode: themeCubit?.state.themeMode,
-            theme: ThemeData().copyWith(platform: platform),
-            darkTheme: ThemeData.dark().copyWith(platform: platform),
-            routerConfig: GoRouter(
-              routes: [
-                GoRoute(
-                  path: '/',
-                  builder: (context, state) => widget,
-                  routes: [
-                    GoRoute(
-                      name: 'launch',
-                      path: 'launch/:id',
-                      builder: (context, state) => LaunchDetailsPage(
-                        launchId: state.params['id']!,
-                      ),
-                    )
-                  ],
+      MultiBlocProvider(
+        providers: [
+          BlocProvider.value(
+            value: themeCubit ?? ThemeCubit(),
+          ),
+          BlocProvider.value(
+            value: exploreCubit ??
+                ExploreCubit(
+                  spaceDevsRepository ?? SpaceDevsRepository(),
+                  spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                 ),
-              ],
-            ),
+          ),
+        ],
+        child: MaterialApp.router(
+          themeMode: themeCubit?.state.themeMode,
+          theme: ThemeData().copyWith(platform: platform),
+          darkTheme: ThemeData.dark().copyWith(platform: platform),
+          routerConfig: GoRouter(
+            routes: [
+              GoRoute(
+                path: '/',
+                builder: (context, state) => widget,
+                routes: [
+                  GoRoute(
+                    name: 'launch',
+                    path: 'launch/:id',
+                    builder: (context, state) => LaunchDetailsPage(
+                      launchId: state.params['id']!,
+                    ),
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),

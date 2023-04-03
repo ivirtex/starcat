@@ -6,7 +6,6 @@ import 'package:test/test.dart';
 
 // Project imports:
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
-import 'package:spaceflight_news_repository/src/models/models.dart';
 
 import 'package:spaceflight_news_api/spaceflight_news_api.dart'
     as spaceflight_api;
