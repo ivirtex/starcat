@@ -16,7 +16,10 @@ class Section extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
       child: IconTheme(
-        data: const IconThemeData(size: 20),
+        data: IconThemeData(
+          color: Theme.of(context).colorScheme.onSurface,
+          size: 20,
+        ),
         child: DefaultTextStyle(
           style:
               Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18) ??
