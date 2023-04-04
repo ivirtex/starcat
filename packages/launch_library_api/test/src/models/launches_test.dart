@@ -5,7 +5,7 @@ import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
 // Project imports:
-import 'package:space_devs_api/space_devs_api.dart';
+import 'package:launch_library_api/launch_library_api.dart';
 
 void main() {
   group('UpcomingLaunches', () {

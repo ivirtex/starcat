@@ -9,7 +9,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 // Project imports:
-import 'package:space_devs_api/space_devs_api.dart';
+import 'package:launch_library_api/launch_library_api.dart';
+
+// Project imports:
 
 class MockHttpClient extends Mock implements http.Client {}
 
@@ -17,7 +19,8 @@ class MockResponse extends Mock implements http.Response {}
 
 class FakeUri extends Fake implements Uri {}
 
-const String sampleResponse = '''
+const String sampleResponse =
+    '''
 {
   "count": 80,
   "next":
@@ -117,9 +120,9 @@ const String sampleResponse = '''
 }''';
 
 void main() {
-  group('SpaceDevsApiClient', () {
+  group('LaunchLibraryApiClient', () {
     late http.Client httpClient;
-    late SpaceDevsApiClient apiClient;
+    late LaunchLibraryApiClient apiClient;
 
     setUpAll(() {
       registerFallbackValue(FakeUri());
@@ -127,12 +130,12 @@ void main() {
 
     setUp(() {
       httpClient = MockHttpClient();
-      apiClient = SpaceDevsApiClient(httpClient: httpClient);
+      apiClient = LaunchLibraryApiClient(httpClient: httpClient);
     });
 
     group('constructor', () {
       test('does not require an httpClient', () {
-        expect(SpaceDevsApiClient(), isNotNull);
+        expect(LaunchLibraryApiClient(), isNotNull);
       });
     });
 

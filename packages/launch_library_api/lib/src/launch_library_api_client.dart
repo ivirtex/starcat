@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 // Project imports:
-import 'package:space_devs_api/src/models/models.dart';
+import 'package:launch_library_api/launch_library_api.dart';
 
 class LaunchesRequestFailure implements Exception {}
 
@@ -20,9 +20,9 @@ enum LaunchTime {
   upcoming,
 }
 
-/// Class that handles HTTP requests to the thespacedevs API
-class SpaceDevsApiClient {
-  SpaceDevsApiClient({http.Client? httpClient})
+/// Class that handles HTTP requests to the Launch Library 2 API.
+class LaunchLibraryApiClient {
+  LaunchLibraryApiClient({http.Client? httpClient})
       : _httpClient = httpClient ?? http.Client();
 
   // TODO(ivirtex): change url when production ready

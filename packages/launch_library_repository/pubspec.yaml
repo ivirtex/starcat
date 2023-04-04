@@ -1,4 +1,4 @@
-name: space_devs_repository
+name: launch_library_repository
 description: Dart package for fetching data from the Space Devs API
 publish_to: none
 
@@ -6,8 +6,8 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  space_devs_api:
-    path: ../space_devs_api
+  launch_library_api:
+    path: ../launch_library_api
 
 dev_dependencies:
   import_sorter: ^4.6.0
