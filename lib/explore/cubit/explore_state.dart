@@ -2,6 +2,7 @@ part of 'explore_cubit.dart';
 
 enum ExploreStatus { initial, loading, success, failure }
 
+// TODO(ivirtex): decouple news and use this cubit for launches only
 class ExploreState extends Equatable {
   const ExploreState({
     this.status = ExploreStatus.initial,

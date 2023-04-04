@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:go_router/go_router.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
@@ -33,7 +34,7 @@ class Articles extends StatelessWidget {
             ),
             const Spacer(),
             FilledButton.tonal(
-              onPressed: () {},
+              onPressed: () => context.go('/news'),
               child: const Text(
                 'View more',
               ),

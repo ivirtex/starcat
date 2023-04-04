@@ -13,6 +13,7 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/news/news.dart';
 import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
 
@@ -128,11 +129,14 @@ final _router = GoRouter(
       builder: (context, state) => const ExplorePage(),
       routes: [
         GoRoute(
-          name: 'launch',
           path: 'launch/:id',
           builder: (context, state) => LaunchDetailsPage(
             launchId: state.params['id']!,
           ),
+        ),
+        GoRoute(
+          path: 'news',
+          builder: (context, state) => const NewsPage(),
         )
       ],
     ),
