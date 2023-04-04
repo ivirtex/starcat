@@ -27,12 +27,15 @@ class Articles extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Section(text: 'News'),
+            const Section(
+              icon: Icon(Icons.newspaper_rounded),
+              child: Text('News'),
+            ),
             const Spacer(),
-            FilledTonalIconButton(
+            FilledButton.tonal(
               onPressed: () {},
-              icon: const Icon(
-                Icons.filter_alt_rounded,
+              child: const Text(
+                'View more',
               ),
             )
           ],

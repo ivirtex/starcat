@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
+import 'package:falcon/constants.dart';
 import 'package:falcon/shared/shared.dart';
 
 class ExploreCard extends StatelessWidget {
@@ -84,7 +85,7 @@ class ExploreCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surfaceVariant,
                   // TODO(ivirtex): move borderRadius to constants
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(kBorderRadius),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -111,6 +112,7 @@ class ExploreCard extends StatelessWidget {
             )
           : Card(
               shape: shape,
+              margin: EdgeInsets.zero,
               child: InkWell(
                 onTap: onTap,
                 child: Padding(

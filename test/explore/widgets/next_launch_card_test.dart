@@ -66,7 +66,7 @@ void main() {
       await tester.pumpApp(
         themeCubit: themeCubit,
         exploreCubit: exploreCubit,
-        const UpcomingLaunchCard(launch: launch),
+        const NextLaunchCard(launch: launch),
       );
 
       expect(find.byType(ExploreCard), findsOneWidget);
@@ -89,7 +89,7 @@ void main() {
       await tester.pumpAppWithRouter(
         themeCubit: themeCubit,
         exploreCubit: exploreCubit,
-        const UpcomingLaunchCard(launch: launch),
+        const NextLaunchCard(launch: launch),
       );
 
       await tester.tap(find.text('Launch Details'));

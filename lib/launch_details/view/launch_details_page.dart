@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:space_devs_repository/space_devs_repository.dart';
 
 // Project imports:
+import 'package:falcon/constants.dart';
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launch_details/launch_details.dart';
 import 'package:falcon/shared/shared.dart';
@@ -96,40 +97,44 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              if (launch.image != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: MissionImage(
-                      imageUrl: launch.image ?? '',
-                    ),
+    return Padding(
+      padding: kBodyPadding,
+      child: Column(
+        children: [
+          if (launch.image != null)
+            Column(
+              children: [
+                const SizedBox(height: 10),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: MissionImage(
+                    imageUrl: launch.image ?? '',
                   ),
                 ),
-              const SizedBox(height: 10),
-              Section(text: launch.mission?.description ?? 'No description'),
-              const SizedBox(height: 10),
-              LaunchDateCard(
-                date: launch.net,
-                status: launch.status,
-                launchName: launch.name,
-              ),
-              const SizedBox(height: 10),
-              LaunchVehicleCard(vehicle: launch.rocket),
-              const SizedBox(height: 10),
-              LaunchPadMap(pad: launch.pad!),
-              const SizedBox(height: 10),
-              TargetOrbitCard(orbit: launch.mission?.orbit),
-            ].animate(interval: 100.ms).fade(duration: 350.ms, delay: 100.ms),
+              ],
+            ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Text(
+              launch.mission?.description ?? 'No description',
+            ),
           ),
-        ),
-      ],
+          const SizedBox(height: 10),
+          LaunchDateCard(
+            date: launch.net,
+            status: launch.status,
+            launchName: launch.name,
+          ),
+          const SizedBox(height: 10),
+          LaunchVehicleCard(vehicle: launch.rocket),
+          const SizedBox(height: 10),
+          LaunchPadMap(pad: launch.pad!),
+          const SizedBox(height: 10),
+          TargetOrbitCard(orbit: launch.mission?.orbit),
+          const SizedBox(height: 10),
+        ].animate(interval: 100.ms).fade(duration: 350.ms, delay: 100.ms),
+      ),
     );
   }
 }

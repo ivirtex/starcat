@@ -7,8 +7,10 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
+import 'package:falcon/constants.dart';
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/helpers/helpers.dart';
+import 'package:falcon/launch_details/launch_details.dart';
 
 class ArticleCard extends StatelessWidget {
   const ArticleCard({
@@ -25,7 +27,7 @@ class ArticleCard extends StatelessWidget {
       child: ExploreCard(
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(12),
+            bottom: Radius.circular(kBorderRadius),
           ),
         ),
         title: Text(article.newsSite),
@@ -38,12 +40,9 @@ class ArticleCard extends StatelessWidget {
         slideOutPadding: EdgeInsets.zero,
         slideOut: ClipRRect(
           borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(12),
+            top: Radius.circular(kBorderRadius),
           ),
-          child: Image.network(
-            article.imageUrl,
-            fit: BoxFit.cover,
-          ),
+          child: MissionImage(imageUrl: article.imageUrl),
         ),
         onTap: () => launchUrlString(
           article.url,

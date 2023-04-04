@@ -28,7 +28,10 @@ class UpcomingLaunches extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Section(text: 'Upcoming Launches'),
+        const Section(
+          icon: Icon(Icons.rocket_rounded),
+          child: Text('Upcoming Launches'),
+        ),
         SizedBox(
           height: 140,
           child: ListView.builder(
@@ -38,84 +41,105 @@ class UpcomingLaunches extends StatelessWidget {
               // We are not displaying the first launch because
               // it is already displayed above this widget
               if (index == 0) {
-                return const SizedBox();
+                return const SizedBox.shrink();
               }
 
               final launch = launches!.results![index];
               final date = formatDate(launch.net!.toLocal());
 
-              return SizedBox(
-                width: 250,
-                child: ExploreCard(
-                  expandVertically: true,
-                  // TODO(ivirtex): test this route
-                  onTap: () => context.go('/launch/${launch.id}'),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: ClipRect(
-                          child: ShaderMask(
-                            shaderCallback: (rect) {
-                              return const LinearGradient(
-                                colors: <Color>[
-                                  Colors.white,
-                                  Colors.transparent,
-                                ],
-                              ).createShader(
-                                Rect.fromLTRB(
-                                  rect.width - 30,
-                                  rect.height - 30,
-                                  rect.width,
-                                  rect.height,
-                                ),
-                              );
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AutoSizeText(
-                                  launch.mission?.name ?? 'No name',
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                  maxLines: 2,
-                                ),
-                                const SizedBox(height: 5),
-                                Wrap(
-                                  direction: Axis.vertical,
-                                  spacing: 5,
-                                  runSpacing: 5,
-                                  children: [
-                                    InfoCard(
-                                      padding: const EdgeInsets.all(3),
-                                      child: Text(date),
-                                    ),
-                                    InfoCard(
-                                      padding: const EdgeInsets.all(3),
-                                      child: Text(
-                                        launch.pad?.name ?? 'No pad',
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      VehicleScheme(
-                        vehicle: launch.rocket,
-                        mission: launch.mission,
-                      )
-                    ],
-                  ),
+              return Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: UpcomingLaunchCard(
+                  launch: launch,
+                  date: date,
                 ),
               );
             },
           ),
         ),
       ],
+    );
+  }
+}
+
+class UpcomingLaunchCard extends StatelessWidget {
+  const UpcomingLaunchCard({
+    super.key,
+    required this.launch,
+    required this.date,
+  });
+
+  final Launch launch;
+  final String date;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 250,
+      child: ExploreCard(
+        expandVertically: true,
+        // TODO(ivirtex): test this route
+        onTap: () => context.go('/launch/${launch.id}'),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: ClipRect(
+                child: ShaderMask(
+                  shaderCallback: (rect) {
+                    return const LinearGradient(
+                      colors: <Color>[
+                        Colors.white,
+                        Colors.transparent,
+                      ],
+                    ).createShader(
+                      Rect.fromLTRB(
+                        rect.width - 30,
+                        rect.height - 30,
+                        rect.width,
+                        rect.height,
+                      ),
+                    );
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AutoSizeText(
+                        launch.mission?.name ?? 'No name',
+                        style: Theme.of(context).textTheme.titleMedium,
+                        maxLines: 2,
+                      ),
+                      const SizedBox(height: 5),
+                      Wrap(
+                        direction: Axis.vertical,
+                        spacing: 5,
+                        runSpacing: 5,
+                        children: [
+                          InfoCard(
+                            padding: const EdgeInsets.all(3),
+                            child: Text(date),
+                          ),
+                          InfoCard(
+                            padding: const EdgeInsets.all(3),
+                            child: Text(
+                              launch.pad?.name ?? 'No pad',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            VehicleScheme(
+              vehicle: launch.rocket,
+              mission: launch.mission,
+            )
+          ],
+        ),
+      ),
     );
   }
 }

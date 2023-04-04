@@ -74,7 +74,7 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: kBodyPadding,
       child: BlocBuilder<ExploreCubit, ExploreState>(
         builder: (context, state) {
           return AnimatedSwitcher(
@@ -84,7 +84,7 @@ class Body extends StatelessWidget {
                 ? _buildLoader(context)
                 : state.status == ExploreStatus.failure
                     ? _buildError(context)
-                    : _buildSuccess(state),
+                    : _buildBody(state),
           );
         },
       ),
@@ -104,13 +104,14 @@ class Body extends StatelessWidget {
     ).animate(delay: kStateChangeAnimationDuration).fadeIn();
   }
 
-  Widget _buildSuccess(ExploreState state) {
+  Widget _buildBody(ExploreState state) {
     return ListView(
       children: [
-        UpcomingLaunchCard(launch: state.launches?.results?.first),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
+        NextLaunchCard(launch: state.launches?.results?.first),
+        const SizedBox(height: 20),
         UpcomingLaunches(launches: state.launches),
-        const SizedBox(height: 15),
+        const SizedBox(height: 20),
         Articles(articles: state.news?.articles),
       ],
     ).animate(delay: kStateChangeAnimationDuration).fadeIn();
