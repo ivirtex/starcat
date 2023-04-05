@@ -20,7 +20,6 @@ class MockLaunch extends Mock implements Launch {}
 void main() {
   group('ExploreCubit', () {
     late LaunchLibraryRepository spaceDevsRepository;
-    late SpaceflightNewsRepository spaceflightNewsRepository;
     late Launch launch;
     late ExploreCubit exploreCubit;
 
@@ -28,7 +27,6 @@ void main() {
       registerFallbackValue(LaunchTime.upcoming);
 
       spaceDevsRepository = MockLaunchLibraryRepository();
-      spaceflightNewsRepository = MockSpaceflightNewsRepository();
       launch = MockLaunch();
 
       when(() => launch).thenReturn(launch);
@@ -37,14 +35,12 @@ void main() {
 
       exploreCubit = ExploreCubit(
         spaceDevsRepository,
-        spaceflightNewsRepository,
       );
     });
 
     test('initial state is correct', () {
       final exploreCubit = ExploreCubit(
         spaceDevsRepository,
-        spaceflightNewsRepository,
       );
 
       expect(exploreCubit.state, const ExploreState());

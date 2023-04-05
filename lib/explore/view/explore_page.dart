@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:falcon/news/news.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class _ExploreViewState extends State<ExploreView> {
   @override
   void initState() {
     context.read<ExploreCubit>().fetchLaunches(launchTime: LaunchTime.upcoming);
-    context.read<ExploreCubit>().fetchNews();
+    context.read<NewsBloc>().add(NewsFetchRequested());
 
     super.initState();
   }
@@ -75,19 +76,44 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: kBodyPadding,
-      child: BlocBuilder<ExploreCubit, ExploreState>(
-        builder: (context, state) {
-          return AnimatedSwitcher(
-            duration: kStateChangeAnimationDuration,
-            child: state.status == ExploreStatus.loading ||
-                    state.status == ExploreStatus.initial
-                ? _buildLoader(context)
-                : state.status == ExploreStatus.failure
-                    ? _buildError(context)
-                    : _buildBody(state),
-          );
-        },
-      ),
+      child: ListView(
+        children: [
+          const SizedBox(height: 10),
+          BlocBuilder<ExploreCubit, ExploreState>(
+            builder: (context, state) {
+              switch (state.status) {
+                case ExploreStatus.initial:
+                case ExploreStatus.loading:
+                  return _buildLoader(context);
+                case ExploreStatus.failure:
+                  return _buildError(context);
+                case ExploreStatus.success:
+                  return Column(
+                    children: [
+                      NextLaunchCard(launch: state.launches?.first),
+                      const SizedBox(height: 20),
+                      UpcomingLaunches(launches: state.launches),
+                    ],
+                  );
+              }
+            },
+          ),
+          const SizedBox(height: 20),
+          BlocBuilder<NewsBloc, NewsState>(
+            builder: (context, state) {
+              switch (state.status) {
+                case NewsStatus.initial:
+                case NewsStatus.loading:
+                  return _buildLoader(context);
+                case NewsStatus.failure:
+                  return _buildError(context);
+                case NewsStatus.success:
+                  return Articles(articles: state.news.articles);
+              }
+            },
+          ),
+        ],
+      ).animate(delay: kStateChangeAnimationDuration).fadeIn(),
     );
   }
 
@@ -101,19 +127,6 @@ class Body extends StatelessWidget {
   Widget _buildError(BuildContext context) {
     return const ExploreCard(
       child: Text('Something went wrong'),
-    ).animate(delay: kStateChangeAnimationDuration).fadeIn();
-  }
-
-  Widget _buildBody(ExploreState state) {
-    return ListView(
-      children: [
-        const SizedBox(height: 10),
-        NextLaunchCard(launch: state.launches?.first),
-        const SizedBox(height: 20),
-        UpcomingLaunches(launches: state.launches),
-        const SizedBox(height: 20),
-        Articles(articles: state.news?.articles),
-      ],
     ).animate(delay: kStateChangeAnimationDuration).fadeIn();
   }
 }

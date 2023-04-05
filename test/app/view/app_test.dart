@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
+import 'package:falcon/news/news.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -74,9 +75,13 @@ void main() {
             BlocProvider(
               create: (context) => ExploreCubit(
                 spaceDevsRepository,
-                spaceflightNewsRepository,
               ),
             ),
+            BlocProvider(
+              create: (context) => NewsBloc(
+                spaceflightNewsRepository,
+              ),
+            )
           ],
           child: const AppView(),
         ),

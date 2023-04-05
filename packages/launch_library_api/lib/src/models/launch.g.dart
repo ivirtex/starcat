@@ -20,20 +20,31 @@ Launch _$LaunchFromJson(Map<String, dynamic> json) => $checkedCreate(
           status: $checkedConvert(
               'status', (v) => Status.fromJson(v as Map<String, dynamic>)),
           lastUpdated: $checkedConvert('last_updated', (v) => v as String),
-          launchServiceProvider: $checkedConvert('launch_service_provider',
-              (v) => LaunchServiceProvider.fromJson(v as Map<String, dynamic>)),
+          launchServiceProvider: $checkedConvert(
+              'launch_service_provider',
+              (v) => v == null
+                  ? null
+                  : LaunchServiceProvider.fromJson(v as Map<String, dynamic>)),
           rocket: $checkedConvert(
-              'rocket', (v) => Rocket.fromJson(v as Map<String, dynamic>)),
+              'rocket',
+              (v) => v == null
+                  ? null
+                  : Rocket.fromJson(v as Map<String, dynamic>)),
           mission: $checkedConvert(
-              'mission', (v) => Mission.fromJson(v as Map<String, dynamic>)),
+              'mission',
+              (v) => v == null
+                  ? null
+                  : Mission.fromJson(v as Map<String, dynamic>)),
           pad: $checkedConvert(
-              'pad', (v) => Pad.fromJson(v as Map<String, dynamic>)),
+              'pad',
+              (v) =>
+                  v == null ? null : Pad.fromJson(v as Map<String, dynamic>)),
           webcastLive: $checkedConvert('webcast_live', (v) => v as bool),
           image: $checkedConvert('image', (v) => v as String?),
           program: $checkedConvert(
               'program',
-              (v) => (v as List<dynamic>)
-                  .map((e) => Program.fromJson(e as Map<String, dynamic>))
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => Program.fromJson(e as Map<String, dynamic>))
                   .toList()),
           infographic: $checkedConvert('infographic', (v) => v as String?),
           net: $checkedConvert('net', (v) => v as String?),

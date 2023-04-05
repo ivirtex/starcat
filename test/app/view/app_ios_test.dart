@@ -28,11 +28,9 @@ void main() {
 
   group('AppView iOS', () {
     late LaunchLibraryRepository spaceDevsRepository;
-    late SpaceflightNewsRepository spaceflightNewsRepository;
 
     setUp(() {
       spaceDevsRepository = MockLaunchLibraryRepository();
-      spaceflightNewsRepository = MockSpaceflightNewsRepository();
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => spaceDevsRepository.getLaunches(any()))
@@ -54,7 +52,6 @@ void main() {
               BlocProvider(
                 create: (context) => ExploreCubit(
                   spaceDevsRepository,
-                  spaceflightNewsRepository,
                 ),
               ),
             ],

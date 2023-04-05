@@ -7,15 +7,13 @@ class ExploreState extends Equatable {
   const ExploreState({
     this.status = ExploreStatus.initial,
     this.launches,
-    this.news,
   });
 
   final ExploreStatus status;
   final List<Launch>? launches;
-  final News? news;
 
   @override
-  List<Object?> get props => [status, launches, news];
+  List<Object?> get props => [status, launches];
 
   ExploreState copyWith({
     ExploreStatus? status,
@@ -25,7 +23,6 @@ class ExploreState extends Equatable {
     return ExploreState(
       status: status ?? this.status,
       launches: launches ?? this.launches,
-      news: news ?? this.news,
     );
   }
 }

@@ -9,14 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
-import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
-
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launch_details/launch_details.dart';
 import 'package:falcon/news/news.dart';
 import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
+import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -39,9 +38,13 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (_) => ExploreCubit(
             _spaceDevsRepository,
-            _spaceflightNewsRepository,
           ),
         ),
+        BlocProvider(
+          create: (context) => NewsBloc(
+            _spaceflightNewsRepository,
+          ),
+        )
       ],
       child: const AppView(),
     );

@@ -22,10 +22,10 @@ import 'package:falcon/shared/shared.dart';
 class LaunchPadMap extends StatefulWidget {
   const LaunchPadMap({
     super.key,
-    required this.pad,
+    this.pad,
   });
 
-  final Pad pad;
+  final Pad? pad;
 
   @override
   State<LaunchPadMap> createState() => _LaunchPadMapState();
@@ -56,14 +56,14 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
   void _launchMapView() {
     try {
       final launchByName =
-          widget.pad.name != null && widget.pad.name != 'Unknown Pad';
+          widget.pad!.name != null && widget.pad!.name != 'Unknown Pad';
 
       MapsLauncher.launchQuery(
-        launchByName ? widget.pad.name! : widget.pad.location.name ?? 'N/A',
+        launchByName ? widget.pad!.name! : widget.pad!.location.name ?? 'N/A',
       );
     } catch (e) {
       final url = Uri.parse(
-        'https://www.google.com/maps/search/?api=1&query=${widget.pad.location.name}',
+        'https://www.google.com/maps/search/?api=1&query=${widget.pad!.location.name}',
       );
 
       launchUrl(url);
@@ -84,7 +84,6 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // TODO(ivirtex): visual glitch?
           ClipRRect(
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(10),
@@ -92,34 +91,36 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
             ),
             child: SizedBox(
               height: 150,
-              child: GoogleMap(
-                zoomControlsEnabled: false,
-                gestureRecognizers: const <
-                    Factory<OneSequenceGestureRecognizer>>{
-                  Factory<OneSequenceGestureRecognizer>(
-                    EagerGestureRecognizer.new,
-                  ),
-                },
-                onMapCreated: (GoogleMapController controller) async {
-                  _controller.complete(controller);
-                },
-                markers: {
-                  Marker(
-                    markerId: MarkerId(widget.pad.name!),
-                    position: LatLng(
-                      double.parse(widget.pad.latitude!),
-                      double.parse(widget.pad.longitude!),
-                    ),
-                  ),
-                },
-                initialCameraPosition: CameraPosition(
-                  zoom: 10,
-                  target: LatLng(
-                    double.parse(widget.pad.latitude!),
-                    double.parse(widget.pad.longitude!),
-                  ),
-                ),
-              ),
+              child: widget.pad != null
+                  ? GoogleMap(
+                      zoomControlsEnabled: false,
+                      gestureRecognizers: const <
+                          Factory<OneSequenceGestureRecognizer>>{
+                        Factory<OneSequenceGestureRecognizer>(
+                          EagerGestureRecognizer.new,
+                        ),
+                      },
+                      onMapCreated: (GoogleMapController controller) async {
+                        _controller.complete(controller);
+                      },
+                      markers: {
+                        Marker(
+                          markerId: MarkerId(widget.pad!.name!),
+                          position: LatLng(
+                            double.parse(widget.pad!.latitude!),
+                            double.parse(widget.pad!.longitude!),
+                          ),
+                        ),
+                      },
+                      initialCameraPosition: CameraPosition(
+                        zoom: 10,
+                        target: LatLng(
+                          double.parse(widget.pad!.latitude!),
+                          double.parse(widget.pad!.longitude!),
+                        ),
+                      ),
+                    )
+                  : const Text('N/A'),
             ),
           ),
           Padding(
@@ -132,19 +133,19 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.pad.name ?? 'N/A',
+                        widget.pad?.name ?? 'N/A',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 5),
-                      Text(widget.pad.location.name ?? 'N/A'),
+                      Text(widget.pad?.location.name ?? 'N/A'),
                     ],
                   ),
                 ),
                 const Spacer(),
                 ThemedButton(
-                  onPressed: _launchMapView,
+                  onPressed: widget.pad != null ? _launchMapView : null,
                   child: const Icon(Icons.map_rounded),
                 ),
               ],

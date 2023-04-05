@@ -35,7 +35,6 @@ extension PumpApp on WidgetTester {
               value: exploreCubit ??
                   ExploreCubit(
                     spaceDevsRepository ?? LaunchLibraryRepository(),
-                    spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                   ),
             ),
           ],
@@ -68,7 +67,6 @@ extension PumpApp on WidgetTester {
             value: exploreCubit ??
                 ExploreCubit(
                   spaceDevsRepository ?? LaunchLibraryRepository(),
-                  spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                 ),
           ),
         ],

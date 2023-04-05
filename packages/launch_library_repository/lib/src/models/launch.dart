@@ -48,7 +48,11 @@ class Launch extends Equatable {
         url: launch.url,
         slug: launch.slug,
         name: launch.name,
-        status: launch.status as Status,
+        status: Status(
+          name: launch.status.name,
+          abbrev: launch.status.abbrev,
+          description: launch.status.description,
+        ),
         net: DateTime.parse(launch.net ?? ''),
         windowEnd: DateTime.parse(launch.windowEnd ?? ''),
         windowStart: DateTime.parse(launch.windowStart ?? ''),
@@ -56,15 +60,76 @@ class Launch extends Equatable {
         holdreason: launch.holdreason,
         failreason: launch.failreason,
         hashtag: launch.hashtag,
-        launchServiceProvider:
-            launch.launchServiceProvider as LaunchServiceProvider,
-        rocket: launch.rocket as Rocket,
-        mission: launch.mission as Mission,
-        pad: launch.pad as Pad,
+        launchServiceProvider: LaunchServiceProvider(
+          url: launch.launchServiceProvider?.url,
+          name: launch.launchServiceProvider?.name,
+          type: launch.launchServiceProvider?.type,
+        ),
+        rocket: Rocket(
+          configuration: Configuration(
+            url: launch.rocket?.configuration.url ?? '',
+            name: launch.rocket?.configuration.name ?? 'N/A',
+            family: launch.rocket?.configuration.family ?? 'N/A',
+            fullName: launch.rocket?.configuration.fullName ?? 'N/A',
+            variant: launch.rocket?.configuration.variant ?? 'N/A',
+          ),
+        ),
+        mission: Mission(
+          orbit: Orbit(
+            name: launch.mission?.orbit.name,
+            abbrev: launch.mission?.orbit.abbrev,
+          ),
+          description: launch.mission?.description,
+          type: launch.mission?.type,
+          launchDesignator: launch.mission?.launchDesignator,
+        ),
+        pad: Pad(
+          url: launch.pad?.url,
+          name: launch.pad?.name,
+          latitude: launch.pad?.latitude,
+          longitude: launch.pad?.longitude,
+          location: Location(
+            name: launch.pad?.location.name ?? 'N/A',
+          ),
+        ),
         webcastLive: launch.webcastLive,
         image: launch.image,
         infographic: launch.infographic,
-        program: launch.program as List<Program>,
+        program: launch.program
+                ?.map(
+                  (program) => Program(
+                    agencies: program.agencies
+                        .map(
+                          (agency) => LaunchServiceProvider(
+                            url: agency.url,
+                            name: agency.name,
+                            type: agency.type,
+                          ),
+                        )
+                        .toList(),
+                    missionPatches: program.missionPatches
+                        .map(
+                          (patch) => MissionPatch(
+                            agency: LaunchServiceProvider(
+                              url: patch.agency.url,
+                              name: patch.agency.name,
+                              type: patch.agency.type,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    url: program.url,
+                    name: program.name,
+                    description: program.description,
+                    imageUrl: program.imageUrl,
+                    startDate: DateTime.parse(program.startDate ?? ''),
+                    endDate: DateTime.parse(program.endDate ?? ''),
+                    infoUrl: program.infoUrl,
+                    wikiUrl: program.wikiUrl,
+                  ),
+                )
+                .toList() ??
+            <Program>[],
         orbitalLaunchAttemptCount: launch.orbitalLaunchAttemptCount,
         locationLaunchAttemptCount: launch.locationLaunchAttemptCount,
         padLaunchAttemptCount: launch.padLaunchAttemptCount,
