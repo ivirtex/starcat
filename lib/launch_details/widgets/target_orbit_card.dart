@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -15,7 +15,7 @@ class TargetOrbitCard extends StatelessWidget {
     required this.orbit,
   });
 
-  final Status? orbit;
+  final Orbit? orbit;
 
   @override
   Widget build(BuildContext context) {

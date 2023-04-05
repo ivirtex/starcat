@@ -6,41 +6,42 @@ import 'package:flutter/material.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
-class MockSpaceDevsRepository extends Mock implements SpaceDevsRepository {}
+class MockLaunchLibraryRepository extends Mock
+    implements LaunchLibraryRepository {}
 
 class MockExploreCubit extends MockCubit<ExploreState>
     implements ExploreCubit {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
-class MockLaunches extends Mock implements Launches {}
+class MockLaunch extends Mock implements Launch {}
 
 void main() {
   group('ExplorePage', () {
-    late SpaceDevsRepository spaceDevsRepository;
+    late LaunchLibraryRepository spaceDevsRepository;
     late ExploreCubit exploreCubit;
     late ThemeCubit themeCubit;
-    late Launches launches;
+    late Launch launch;
 
     setUp(() {
-      spaceDevsRepository = MockSpaceDevsRepository();
+      spaceDevsRepository = MockLaunchLibraryRepository();
       exploreCubit = MockExploreCubit();
       themeCubit = MockThemeCubit();
-      launches = MockLaunches();
+      launch = MockLaunch();
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => spaceDevsRepository.getLaunches(any()))
-          .thenAnswer((_) async => launches);
+          .thenAnswer((_) async => <Launch>[launch]);
       when(
         () => exploreCubit.fetchLaunches(launchTime: any(named: 'launchTime')),
-      ).thenAnswer((_) async => const Launches());
+      ).thenAnswer((_) async => <Launch>[launch]);
       when(() => exploreCubit.state).thenReturn(const ExploreState());
       when(() => themeCubit.state).thenReturn(
         const ThemeState(ThemeMode.system),
@@ -60,20 +61,20 @@ void main() {
   });
 
   group('ExploreView', () {
-    late SpaceDevsRepository spaceDevsRepository;
+    late LaunchLibraryRepository spaceDevsRepository;
     late ExploreCubit exploreCubit;
     late ThemeCubit themeCubit;
-    late Launches launches;
+    late Launch launches;
 
     setUp(() {
-      spaceDevsRepository = MockSpaceDevsRepository();
+      spaceDevsRepository = MockLaunchLibraryRepository();
       exploreCubit = MockExploreCubit();
       themeCubit = MockThemeCubit();
-      launches = MockLaunches();
+      launches = MockLaunch();
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => spaceDevsRepository.getLaunches(any()))
-          .thenAnswer((_) async => launches);
+          .thenAnswer((_) async => <Launch>[launches]);
       when(
         () => exploreCubit.fetchLaunches(launchTime: any(named: 'launchTime')),
       ).thenAnswer((_) async => launches);
@@ -149,11 +150,7 @@ void main() {
         when(() => exploreCubit.state).thenReturn(
           const ExploreState(
             status: ExploreStatus.success,
-            launches: Launches(
-              results: [
-                Launch(),
-              ],
-            ),
+            launches: <Launch>[],
           ),
         );
 
@@ -177,11 +174,7 @@ void main() {
         when(() => exploreCubit.state).thenReturn(
           const ExploreState(
             status: ExploreStatus.success,
-            launches: Launches(
-              results: [
-                Launch(),
-              ],
-            ),
+            launches: <Launch>[],
           ),
         );
 

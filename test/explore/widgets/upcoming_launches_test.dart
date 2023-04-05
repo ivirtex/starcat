@@ -1,6 +1,6 @@
 // Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -9,60 +9,69 @@ import '../../helpers/helpers.dart';
 void main() {
   initHydratedStorage();
 
-  final launches = Launches(
-    results: [
-      Launch(
-        name: 'Name',
-        net: DateTime(2021),
-        mission: const Mission(
-          name: 'Long Mission Name',
-          description: 'Mission Description',
-        ),
-        pad: const Pad(
-          name: 'Looooooooooong Pad Name',
+  const launches = [
+    Launch(
+      id: 'sampleID',
+      url: 'sampleURL',
+      slug: 'sampleSlug',
+      name: 'Name',
+      webcastLive: false,
+      status: Status(
+        name: 'Status Name',
+        abbrev: 'Status Abbrev',
+      ),
+      launchServiceProvider: LaunchServiceProvider(
+        name: 'Launch Service Provider Name',
+      ),
+      mission: Mission(
+        name: 'Mission Name',
+        description: 'Mission Description.',
+        orbit: Orbit(
+          name: 'Orbit Name',
         ),
       ),
-      Launch(
-        name: 'Name 2',
-        net: DateTime(2021),
-        mission: const Mission(
-          name: 'Mission Name 2',
-          description: 'Mission Description 2',
-        ),
-        pad: const Pad(
-          name: 'Pad Name 2',
-        ),
-      ),
-      Launch(
-        name: 'Name 3',
-        net: DateTime(2021),
-        mission: const Mission(
-          name: 'Mission Name 3',
-          description: 'Mission Description 3',
-        ),
-        pad: const Pad(
-          name: 'Pad Name 3',
+      program: [
+        Program(
+          agencies: [],
+          missionPatches: [],
+        )
+      ],
+      pad: Pad(
+        name: 'Pad Name',
+        latitude: '0',
+        longitude: '1',
+        location: Location(
+          name: 'Location Name',
         ),
       ),
-    ],
-  );
+      rocket: Rocket(
+        configuration: Configuration(
+          url: '',
+          name: 'name',
+          family: 'family',
+          fullName: 'fullName',
+          variant: 'variant',
+        ),
+      ),
+    ),
+  ];
 
   group('UpcomingLaunches', () {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpApp(
-        UpcomingLaunches(launches: launches),
+        const UpcomingLaunches(launches: launches),
       );
 
       expect(find.byType(UpcomingLaunches), findsOneWidget);
 
-      for (final launch in launches.results!.skip(1)) {
+      for (final launch in launches.skip(1)) {
         await tester.scrollUntilVisible(
-          find.text(launch.mission!.name!),
+          find.text(launch.mission.name!),
           10,
         );
 
-        expect(find.text(launch.mission!.name!), findsOneWidget);
-        expect(find.text(launch.pad!.name!), findsOneWidget);
+        expect(find.text(launch.mission.name!), findsOneWidget);
+        expect(find.text(launch.pad.name!), findsOneWidget);
       }
     });
   });

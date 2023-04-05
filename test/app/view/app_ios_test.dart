@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
+
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
@@ -16,7 +17,8 @@ import 'package:falcon/explore/explore.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
-class MockSpaceDevsRepository extends Mock implements SpaceDevsRepository {}
+class MockLaunchLibraryRepository extends Mock
+    implements LaunchLibraryRepository {}
 
 class MockSpaceflightNewsRepository extends Mock
     implements SpaceflightNewsRepository {}
@@ -25,16 +27,16 @@ void main() {
   initHydratedStorage();
 
   group('AppView iOS', () {
-    late SpaceDevsRepository spaceDevsRepository;
+    late LaunchLibraryRepository spaceDevsRepository;
     late SpaceflightNewsRepository spaceflightNewsRepository;
 
     setUp(() {
-      spaceDevsRepository = MockSpaceDevsRepository();
+      spaceDevsRepository = MockLaunchLibraryRepository();
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => spaceDevsRepository.getLaunches(any()))
-          .thenAnswer((_) async => const Launches(results: [Launch()]));
+          .thenAnswer((_) async => <Launch>[]);
     });
 
     testWidgets('uses CupertinoApp on iOS', (tester) async {

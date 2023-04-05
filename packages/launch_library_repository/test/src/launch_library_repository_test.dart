@@ -1,24 +1,26 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 // Package imports:
-import 'package:launch_library_api/launch_library_api.dart';
+import 'package:launch_library_api/launch_library_api.dart' as api;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 // Project imports:
-import 'package:launch_library_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
-class MockSpaceDevsApiClient extends Mock implements LaunchLibraryApiClient {}
+class MockSpaceDevsApiClient extends Mock
+    implements api.LaunchLibraryApiClient {}
 
 void main() {
   group('LaunchLibraryRepository', () {
-    late LaunchLibraryApiClient launchLibraryApiClient;
+    late api.LaunchLibraryApiClient launchLibraryApiClient;
     late LaunchLibraryRepository launchLibraryRepository;
 
     setUp(() {
       launchLibraryApiClient = MockSpaceDevsApiClient();
-      launchLibraryRepository =
-          LaunchLibraryRepository(spacexApiClient: launchLibraryApiClient);
+      launchLibraryRepository = LaunchLibraryRepository(
+        launchLibraryApiClient: launchLibraryApiClient,
+      );
     });
 
     group('constructor', () {
@@ -41,24 +43,27 @@ void main() {
 
       test('returns correct Launches', () async {
         const launchTime = LaunchTime.previous;
-        const launches = Launches(results: []);
+        const launches = api.Launches(count: 0, results: []);
 
         when(() => launchLibraryApiClient.getLaunches(launchTime))
             .thenAnswer((_) async => launches);
 
-        expect(await launchLibraryRepository.getLaunches(launchTime), launches);
+        expect(
+          await launchLibraryRepository.getLaunches(launchTime),
+          <Launch>[],
+        );
       });
 
       test('throws when getLaunches fails', () async {
         const launchTime = LaunchTime.previous;
-        final exception = LaunchesRequestFailure();
+        final exception = api.LaunchesRequestFailure();
 
         when(() => launchLibraryApiClient.getLaunches(launchTime))
             .thenThrow(exception);
 
         expect(
           () => launchLibraryRepository.getLaunches(launchTime),
-          throwsA(isA<LaunchesRequestFailure>()),
+          throwsA(isA<api.LaunchesRequestFailure>()),
         );
       });
     });

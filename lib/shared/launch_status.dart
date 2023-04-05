@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 class LaunchStatus extends StatelessWidget {
   const LaunchStatus(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/launch_details/launch_details.dart';
@@ -15,7 +15,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: TargetOrbitCard(
-            orbit: Status(
+            orbit: Orbit(
               name: 'Low Earth Orbit',
               abbrev: 'LEO',
             ),
@@ -41,7 +41,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: TargetOrbitCard(
-            orbit: Status(),
+            orbit: Orbit(),
           ),
         ),
       );
@@ -67,7 +67,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: TargetOrbitCard(
-            orbit: Status(),
+            orbit: Orbit(),
           ),
         ),
       );

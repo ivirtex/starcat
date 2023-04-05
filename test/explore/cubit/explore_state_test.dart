@@ -1,6 +1,6 @@
 // Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -13,7 +13,7 @@ void main() {
 
     test('copyWith is working correctly', () {
       const state = ExploreState();
-      final newState = state.copyWith(launches: const Launches());
+      final newState = state.copyWith(launches: <Launch>[]);
 
       expect(newState, isNot(state));
     });

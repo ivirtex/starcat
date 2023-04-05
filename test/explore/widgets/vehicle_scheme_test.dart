@@ -3,7 +3,8 @@
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
+
 import 'package:vector_graphics/vector_graphics.dart';
 
 // Project imports:
@@ -14,59 +15,119 @@ void main() {
   initHydratedStorage();
 
   const f9RessuplyLaunch = Launch(
-    name: 'Name',
+    id: '1',
+    url: '',
+    slug: '',
+    name: 'Falcon 9 Block 5 | CRS-21',
+    status: Status(),
+    launchServiceProvider: LaunchServiceProvider(),
+    rocket: Rocket(
+      configuration: Configuration(
+        url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
+        name: 'Falcon 9',
+        family: 'Falcon',
+        fullName: 'Falcon 9 Block 5',
+        variant: 'Block 5',
+      ),
+    ),
     mission: Mission(
       name: 'Long Mission Name',
       description: 'Mission Description',
       type: 'Resupply',
+      orbit: Orbit(),
     ),
-    rocket: Rocket(
-      configuration: Configuration(
-        name: 'Falcon 9',
-      ),
+    pad: Pad(
+      location: Location(),
     ),
+    webcastLive: false,
+    program: [],
   );
 
   const f9HumanExplorationLaunch = Launch(
-    name: 'Name',
+    id: '1',
+    url: '',
+    slug: '',
+    name: 'Falcon 9 Block 5 | CRS-21',
+    status: Status(),
+    launchServiceProvider: LaunchServiceProvider(),
+    rocket: Rocket(
+      configuration: Configuration(
+        url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
+        name: 'Falcon 9',
+        family: 'Falcon',
+        fullName: 'Falcon 9 Block 5',
+        variant: 'Block 5',
+      ),
+    ),
     mission: Mission(
       name: 'Long Mission Name',
       description: 'Mission Description',
       type: 'Human Exploration',
+      orbit: Orbit(),
     ),
-    rocket: Rocket(
-      configuration: Configuration(
-        name: 'Falcon 9',
-      ),
+    pad: Pad(
+      location: Location(),
     ),
+    webcastLive: false,
+    program: [],
   );
 
   const f9StarlinkLaunch = Launch(
-    name: 'Name',
+    id: '1',
+    url: '',
+    slug: '',
+    name: 'Falcon 9 Block 5 | CRS-21',
+    status: Status(),
+    launchServiceProvider: LaunchServiceProvider(),
+    rocket: Rocket(
+      configuration: Configuration(
+        url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
+        name: 'Falcon 9',
+        family: 'Falcon',
+        fullName: 'Falcon 9 Block 5',
+        variant: 'Block 5',
+      ),
+    ),
     mission: Mission(
       name: 'Long Mission Name',
       description: 'Mission Description',
       type: 'Communications',
+      orbit: Orbit(),
     ),
-    rocket: Rocket(
-      configuration: Configuration(
-        name: 'Falcon 9',
-      ),
+    pad: Pad(
+      location: Location(),
     ),
+    webcastLive: false,
+    program: [],
   );
 
   const fhLaunch = Launch(
-    name: 'Name',
+    id: '1',
+    url: '',
+    slug: '',
+    name: 'Falcon 9 Block 5 | CRS-21',
+    status: Status(),
+    launchServiceProvider: LaunchServiceProvider(),
+    rocket: Rocket(
+      configuration: Configuration(
+        url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
+        name: 'Falcon Heavy',
+        family: 'Falcon',
+        fullName: 'Falcon Heavy',
+        variant: '',
+      ),
+    ),
     mission: Mission(
       name: 'Long Mission Name',
       description: 'Mission Description',
-      type: 'Human Exploration',
+      type: 'Communications',
+      orbit: Orbit(),
     ),
-    rocket: Rocket(
-      configuration: Configuration(
-        name: 'Falcon Heavy',
-      ),
+    pad: Pad(
+      location: Location(),
     ),
+    webcastLive: false,
+    program: [],
   );
 
   group('VehicleScheme', () {

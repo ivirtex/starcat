@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/constants.dart';
@@ -28,11 +28,10 @@ class LaunchDetailsPage extends StatelessWidget {
         .read<ExploreCubit>()
         .state
         .launches!
-        .results!
         .firstWhere((launch) => launch.id == launchId);
 
-    final isUpcoming = launch.id ==
-        context.read<ExploreCubit>().state.launches!.results!.first.id;
+    final isUpcoming =
+        launch.id == context.read<ExploreCubit>().state.launches!.first.id;
 
     return LaunchDetailsView(launch: launch, isUpcoming: isUpcoming);
   }
@@ -57,7 +56,7 @@ class LaunchDetailsView extends StatelessWidget {
             CupertinoSliverNavigationBar(
               stretch: true,
               border: null,
-              largeTitle: AutoSizeText(launch.mission?.name ?? 'N/A'),
+              largeTitle: AutoSizeText(launch.mission.name ?? 'N/A'),
             ),
             SliverToBoxAdapter(
               child: Body(
@@ -70,7 +69,7 @@ class LaunchDetailsView extends StatelessWidget {
       ),
       material: (_) => Scaffold(
         appBar: AppBar(
-          title: Text(launch.mission?.name ?? 'N/A'),
+          title: Text(launch.mission.name ?? 'N/A'),
         ),
         body: ListView(
           children: [
@@ -117,7 +116,7 @@ class Body extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5),
             child: Text(
-              launch.mission?.description ?? 'No description',
+              launch.mission.description ?? 'No description',
             ),
           ),
           const SizedBox(height: 10),
@@ -129,9 +128,9 @@ class Body extends StatelessWidget {
           const SizedBox(height: 10),
           LaunchVehicleCard(vehicle: launch.rocket),
           const SizedBox(height: 10),
-          LaunchPadMap(pad: launch.pad!),
+          LaunchPadMap(pad: launch.pad),
           const SizedBox(height: 10),
-          TargetOrbitCard(orbit: launch.mission?.orbit),
+          TargetOrbitCard(orbit: launch.mission.orbit),
           const SizedBox(height: 10),
         ].animate(interval: 100.ms).fade(duration: 350.ms, delay: 100.ms),
       ),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
+
 import 'package:vector_graphics/vector_graphics.dart';
 
 class VehicleScheme extends StatelessWidget {
@@ -20,7 +21,7 @@ class VehicleScheme extends StatelessWidget {
   Widget build(BuildContext context) {
     String? vehiclePath;
 
-    switch (vehicle?.configuration?.name) {
+    switch (vehicle?.configuration.name) {
       case 'Falcon 9':
         if (mission?.type == 'Resupply' ||
             mission?.type == 'Human Exploration') {

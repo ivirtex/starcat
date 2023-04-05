@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -28,17 +28,45 @@ void main() {
 
     const launch = Launch(
       id: 'sampleID',
+      url: 'sampleURL',
+      slug: 'sampleSlug',
       name: 'Name',
+      webcastLive: false,
+      status: Status(
+        name: 'Status Name',
+        abbrev: 'Status Abbrev',
+      ),
+      launchServiceProvider: LaunchServiceProvider(
+        name: 'Launch Service Provider Name',
+      ),
       mission: Mission(
         name: 'Mission Name',
         description: 'Mission Description.',
+        orbit: Orbit(
+          name: 'Orbit Name',
+        ),
       ),
+      program: [
+        Program(
+          agencies: [],
+          missionPatches: [],
+        )
+      ],
       pad: Pad(
         name: 'Pad Name',
         latitude: '0',
         longitude: '1',
         location: Location(
           name: 'Location Name',
+        ),
+      ),
+      rocket: Rocket(
+        configuration: Configuration(
+          url: '',
+          name: 'name',
+          family: 'family',
+          fullName: 'fullName',
+          variant: 'variant',
         ),
       ),
     );
@@ -57,9 +85,7 @@ void main() {
       when(() => exploreCubit.state).thenReturn(
         const ExploreState(
           status: ExploreStatus.success,
-          launches: Launches(
-            results: [launch],
-          ),
+          launches: [launch],
         ),
       );
 
@@ -70,8 +96,8 @@ void main() {
       );
 
       expect(find.byType(ExploreCard), findsOneWidget);
-      expect(find.text(launch.name!), findsOneWidget);
-      expect(find.text(launch.mission!.description!), findsOneWidget);
+      expect(find.text(launch.name), findsOneWidget);
+      expect(find.text(launch.mission.description!), findsOneWidget);
     });
 
     testWidgets(
@@ -80,9 +106,7 @@ void main() {
       when(() => exploreCubit.state).thenReturn(
         const ExploreState(
           status: ExploreStatus.success,
-          launches: Launches(
-            results: [launch],
-          ),
+          launches: [launch],
         ),
       );
 

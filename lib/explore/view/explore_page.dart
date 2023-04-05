@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/constants.dart';
@@ -108,7 +108,7 @@ class Body extends StatelessWidget {
     return ListView(
       children: [
         const SizedBox(height: 10),
-        NextLaunchCard(launch: state.launches?.results?.first),
+        NextLaunchCard(launch: state.launches?.first),
         const SizedBox(height: 20),
         UpcomingLaunches(launches: state.launches),
         const SizedBox(height: 20),

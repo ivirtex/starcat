@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -18,18 +18,36 @@ class MockExploreCubit extends MockCubit<ExploreState>
 void main() {
   initHydratedStorage();
 
-  const launches = Launches(
-    results: [
-      Launch(
-        id: '123',
-        pad: Pad(
-          name: 'Pad 1',
-          latitude: '1',
-          longitude: '1',
-        ),
-        image: 'https://placeholder.com',
+  const launch = Launch(
+    id: '1',
+    url: '',
+    slug: '',
+    name: 'Falcon 9 Block 5 | CRS-21',
+    status: Status(),
+    launchServiceProvider: LaunchServiceProvider(),
+    rocket: Rocket(
+      configuration: Configuration(
+        url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
+        name: 'Falcon 9',
+        family: 'Falcon',
+        fullName: 'Falcon 9 Block 5',
+        variant: 'Block 5',
       ),
-    ],
+    ),
+    mission: Mission(
+      name: 'Long Mission Name',
+      description: 'Mission Description',
+      type: 'Resupply',
+      orbit: Orbit(),
+    ),
+    pad: Pad(
+      name: 'Pad 39A',
+      latitude: '0',
+      longitude: '0',
+      location: Location(),
+    ),
+    webcastLive: false,
+    program: [],
   );
 
   group('LaunchDetailsPage', () {
@@ -38,14 +56,14 @@ void main() {
     setUp(() {
       exploreCubit = MockExploreCubit();
       when(() => exploreCubit.state).thenReturn(
-        const ExploreState(launches: launches),
+        const ExploreState(launches: [launch]),
       );
     });
 
     testWidgets('renders LaunchDetailsPage', (tester) async {
       await tester.pumpApp(
         exploreCubit: exploreCubit,
-        LaunchDetailsPage(launchId: launches.results!.first.id!),
+        LaunchDetailsPage(launchId: launch.id),
       );
 
       await tester.pump(const Duration(seconds: 2));
@@ -57,7 +75,7 @@ void main() {
   group('LaunchDetailsView', () {
     testWidgets('renders LaunchDetailsView', (tester) async {
       await tester.pumpApp(
-        LaunchDetailsView(launch: launches.results!.first),
+        const LaunchDetailsView(launch: launch),
       );
 
       await tester.pump(const Duration(seconds: 2));
@@ -68,7 +86,7 @@ void main() {
     testWidgets('uses Cupertino widgets on iOS', (tester) async {
       await tester.pumpApp(
         platform: TargetPlatform.iOS,
-        LaunchDetailsView(launch: launches.results!.first),
+        const LaunchDetailsView(launch: launch),
       );
 
       await tester.pump(const Duration(seconds: 2));
@@ -79,7 +97,7 @@ void main() {
 
     testWidgets('renders image', (tester) async {
       await tester.pumpApp(
-        LaunchDetailsView(launch: launches.results!.first),
+        const LaunchDetailsView(launch: launch),
       );
 
       await tester.pump(const Duration(seconds: 2));
@@ -89,7 +107,7 @@ void main() {
 
     testWidgets('learn more button is tappable', (tester) async {
       await tester.pumpApp(
-        LaunchDetailsView(launch: launches.results!.first),
+        const LaunchDetailsView(launch: launch),
       );
 
       await tester.pump(const Duration(seconds: 2));

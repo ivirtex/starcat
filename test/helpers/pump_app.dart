@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
+
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
@@ -16,7 +17,7 @@ import 'package:falcon/theme/theme.dart';
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
-    SpaceDevsRepository? spaceDevsRepository,
+    LaunchLibraryRepository? spaceDevsRepository,
     SpaceflightNewsRepository? spaceflightNewsRepository,
     ExploreCubit? exploreCubit,
     ThemeCubit? themeCubit,
@@ -24,7 +25,7 @@ extension PumpApp on WidgetTester {
   }) {
     return pumpWidget(
       RepositoryProvider.value(
-        value: SpaceDevsRepository,
+        value: LaunchLibraryRepository,
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(
@@ -33,7 +34,7 @@ extension PumpApp on WidgetTester {
             BlocProvider.value(
               value: exploreCubit ??
                   ExploreCubit(
-                    spaceDevsRepository ?? SpaceDevsRepository(),
+                    spaceDevsRepository ?? LaunchLibraryRepository(),
                     spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                   ),
             ),
@@ -51,7 +52,7 @@ extension PumpApp on WidgetTester {
 
   Future<void> pumpAppWithRouter(
     Widget widget, {
-    SpaceDevsRepository? spaceDevsRepository,
+    LaunchLibraryRepository? spaceDevsRepository,
     SpaceflightNewsRepository? spaceflightNewsRepository,
     ExploreCubit? exploreCubit,
     ThemeCubit? themeCubit,
@@ -66,7 +67,7 @@ extension PumpApp on WidgetTester {
           BlocProvider.value(
             value: exploreCubit ??
                 ExploreCubit(
-                  spaceDevsRepository ?? SpaceDevsRepository(),
+                  spaceDevsRepository ?? LaunchLibraryRepository(),
                   spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                 ),
           ),

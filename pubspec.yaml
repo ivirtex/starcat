@@ -28,12 +28,12 @@ dependencies:
   google_maps_flutter: ^2.2.4
   hydrated_bloc: ^9.1.0
   intl: ^0.18.0
+  launch_library_repository:
+    path: packages/launch_library_repository
   live_activities: ^1.6.0
   maps_launcher: ^2.2.0
   path_provider: ^2.0.13
   phosphor_flutter: ^1.4.0
-  space_devs_repository:
-    path: packages/space_devs_repository
   spaceflight_news_repository:
     path: packages/spaceflight_news_repository
   timezone: ^0.9.0

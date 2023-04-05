@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:go_router/go_router.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -17,7 +17,7 @@ class UpcomingLaunches extends StatelessWidget {
     super.key,
   });
 
-  final Launches? launches;
+  final List<Launch>? launches;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class UpcomingLaunches extends StatelessWidget {
           height: 140,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: launches!.results!.length,
+            itemCount: launches!.length,
             itemBuilder: (context, index) {
               // We are not displaying the first launch because
               // it is already displayed above this widget
@@ -44,7 +44,7 @@ class UpcomingLaunches extends StatelessWidget {
                 return const SizedBox.shrink();
               }
 
-              final launch = launches!.results![index];
+              final launch = launches![index];
               final date = formatDate(launch.net!.toLocal());
 
               return Padding(
@@ -106,7 +106,7 @@ class UpcomingLaunchCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AutoSizeText(
-                        launch.mission?.name ?? 'No name',
+                        launch.mission.name ?? 'No name',
                         style: Theme.of(context).textTheme.titleMedium,
                         maxLines: 2,
                       ),
@@ -123,7 +123,7 @@ class UpcomingLaunchCard extends StatelessWidget {
                           InfoCard(
                             padding: const EdgeInsets.all(3),
                             child: Text(
-                              launch.pad?.name ?? 'No pad',
+                              launch.pad.name ?? 'No pad',
                             ),
                           ),
                         ],

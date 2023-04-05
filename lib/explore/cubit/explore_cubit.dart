@@ -1,7 +1,8 @@
 // Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
+
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 part 'explore_state.dart';
@@ -10,7 +11,7 @@ class ExploreCubit extends Cubit<ExploreState> {
   ExploreCubit(this._spaceDevsRepository, this._spaceflightNewsRepository)
       : super(const ExploreState());
 
-  final SpaceDevsRepository _spaceDevsRepository;
+  final LaunchLibraryRepository _spaceDevsRepository;
   final SpaceflightNewsRepository _spaceflightNewsRepository;
 
   Future<void> fetchLaunches({required LaunchTime launchTime}) async {

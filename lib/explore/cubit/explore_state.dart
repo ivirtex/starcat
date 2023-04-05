@@ -11,7 +11,7 @@ class ExploreState extends Equatable {
   });
 
   final ExploreStatus status;
-  final Launches? launches;
+  final List<Launch>? launches;
   final News? news;
 
   @override
@@ -19,7 +19,7 @@ class ExploreState extends Equatable {
 
   ExploreState copyWith({
     ExploreStatus? status,
-    Launches? launches,
+    List<Launch>? launches,
     News? news,
   }) {
     return ExploreState(

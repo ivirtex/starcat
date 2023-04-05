@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:go_router/go_router.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -37,7 +37,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
       _launchDate = nextLaunchData!.net;
       _launchName = nextLaunchData.name;
       _launchStatus = nextLaunchData.status;
-      _description = nextLaunchData.mission?.description?.split('.').first;
+      _description = nextLaunchData.mission.description?.split('.').first;
       _description = _description != null ? '$_description.' : null;
     }
   }

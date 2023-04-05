@@ -7,7 +7,8 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
+
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
@@ -19,13 +20,13 @@ import 'package:falcon/theme/theme.dart';
 
 class App extends StatelessWidget {
   const App({
-    required SpaceDevsRepository spaceDevsRepository,
+    required LaunchLibraryRepository spaceDevsRepository,
     required SpaceflightNewsRepository spaceflightNewsRepository,
     super.key,
   })  : _spaceDevsRepository = spaceDevsRepository,
         _spaceflightNewsRepository = spaceflightNewsRepository;
 
-  final SpaceDevsRepository _spaceDevsRepository;
+  final LaunchLibraryRepository _spaceDevsRepository;
   final SpaceflightNewsRepository _spaceflightNewsRepository;
 
   @override

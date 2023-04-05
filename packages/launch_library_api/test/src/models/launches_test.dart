@@ -125,33 +125,33 @@ void main() {
             (w) => w.results,
             'results',
             [
-              Launch(
+              const Launch(
                 id: 'adcb0090-6f97-40c2-821f-104b5ed3e9c7',
                 url:
                     'https://ll.thespacedevs.com/2.2.0/launch/adcb0090-6f97-40c2-821f-104b5ed3e9c7/',
                 slug: 'falcon-9-block-5-starlink-group-4-36',
                 name: 'Falcon 9 Block 5 | Starlink Group 4-36',
-                status: const Status(
+                status: Status(
                   id: 8,
                   name: 'To Be Confirmed',
                   abbrev: 'TBC',
                   description:
                       'Awaiting official confirmation - current date is known with some certainty.',
                 ),
-                lastUpdated: DateTime.parse('2022-10-19T02:39:03Z'),
-                net: DateTime.parse('2022-10-20T14:50:00Z'),
-                windowEnd: DateTime.parse('2022-10-20T14:50:00Z'),
-                windowStart: DateTime.parse('2022-10-20T14:50:00Z'),
+                lastUpdated: '2022-10-19T02:39:03Z',
+                net: '2022-10-20T14:50:00Z',
+                windowEnd: '2022-10-20T14:50:00Z',
+                windowStart: '2022-10-20T14:50:00Z',
                 probability: 90,
                 holdreason: '',
                 failreason: '',
-                launchServiceProvider: const LaunchServiceProvider(
+                launchServiceProvider: LaunchServiceProvider(
                   id: 121,
                   url: 'https://ll.thespacedevs.com/2.2.0/agencies/121/',
                   name: 'SpaceX',
                   type: 'Commercial',
                 ),
-                rocket: const Rocket(
+                rocket: Rocket(
                   id: 7631,
                   configuration: Configuration(
                     id: 164,
@@ -163,19 +163,19 @@ void main() {
                     variant: 'Block 5',
                   ),
                 ),
-                mission: const Mission(
+                mission: Mission(
                   id: 6129,
                   name: 'Starlink Group 4-36',
                   description:
                       "A batch of 52 satellites for Starlink mega-constellation - SpaceX's project for space-based Internet communication system.",
                   type: 'Communications',
-                  orbit: Status(
+                  orbit: Orbit(
                     id: 8,
                     name: 'Low Earth Orbit',
                     abbrev: 'LEO',
                   ),
                 ),
-                pad: const Pad(
+                pad: Pad(
                   id: 80,
                   url: 'https://ll.thespacedevs.com/2.2.0/pad/80/',
                   agencyId: 121,

@@ -2,42 +2,38 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:space_devs_repository/space_devs_repository.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
+
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
 
-const launchesCount = 1;
-const launchesResults = [
-  Launch(name: 'Example Launch'),
-];
-
-class MockSpaceDevsRepository extends Mock implements SpaceDevsRepository {}
+class MockLaunchLibraryRepository extends Mock
+    implements LaunchLibraryRepository {}
 
 class MockSpaceflightNewsRepository extends Mock
     implements SpaceflightNewsRepository {}
 
-class MockLaunches extends Mock implements Launches {}
+class MockLaunch extends Mock implements Launch {}
 
 void main() {
   group('ExploreCubit', () {
-    late SpaceDevsRepository spaceDevsRepository;
+    late LaunchLibraryRepository spaceDevsRepository;
     late SpaceflightNewsRepository spaceflightNewsRepository;
-    late Launches launches;
+    late Launch launch;
     late ExploreCubit exploreCubit;
 
     setUp(() {
       registerFallbackValue(LaunchTime.upcoming);
 
-      spaceDevsRepository = MockSpaceDevsRepository();
+      spaceDevsRepository = MockLaunchLibraryRepository();
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
-      launches = MockLaunches();
+      launch = MockLaunch();
 
-      when(() => launches.count).thenReturn(launchesCount);
-      when(() => launches.results).thenReturn(launchesResults);
+      when(() => launch).thenReturn(launch);
       when(() => spaceDevsRepository.getLaunches(any()))
-          .thenAnswer((_) async => launches);
+          .thenAnswer((_) async => <Launch>[launch]);
 
       exploreCubit = ExploreCubit(
         spaceDevsRepository,
@@ -73,7 +69,7 @@ void main() {
           const ExploreState(status: ExploreStatus.loading),
           isA<ExploreState>()
               .having((w) => w.status, 'status', ExploreStatus.success)
-              .having((w) => w.launches, 'launches', launches),
+              .having((w) => w.launches, 'launches', <Launch>[]),
         ],
       );
 
