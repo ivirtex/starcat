@@ -6,20 +6,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/launches/launches.dart';
 import 'package:falcon/theme/theme.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
     Widget widget, {
-    LaunchLibraryRepository? spaceDevsRepository,
+    LaunchLibraryRepository? launchLibraryRepository,
     SpaceflightNewsRepository? spaceflightNewsRepository,
-    ExploreCubit? exploreCubit,
+    LaunchesBloc? launchesBloc,
     ThemeCubit? themeCubit,
     TargetPlatform platform = TargetPlatform.android,
   }) {
@@ -32,9 +30,9 @@ extension PumpApp on WidgetTester {
               value: themeCubit ?? ThemeCubit(),
             ),
             BlocProvider.value(
-              value: exploreCubit ??
-                  ExploreCubit(
-                    spaceDevsRepository ?? LaunchLibraryRepository(),
+              value: launchesBloc ??
+                  LaunchesBloc(
+                    launchLibraryRepository ?? LaunchLibraryRepository(),
                   ),
             ),
           ],
@@ -51,9 +49,9 @@ extension PumpApp on WidgetTester {
 
   Future<void> pumpAppWithRouter(
     Widget widget, {
-    LaunchLibraryRepository? spaceDevsRepository,
+    LaunchLibraryRepository? launchLibraryRepository,
     SpaceflightNewsRepository? spaceflightNewsRepository,
-    ExploreCubit? exploreCubit,
+    LaunchesBloc? launchesBloc,
     ThemeCubit? themeCubit,
     TargetPlatform platform = TargetPlatform.android,
   }) {
@@ -64,9 +62,9 @@ extension PumpApp on WidgetTester {
             value: themeCubit ?? ThemeCubit(),
           ),
           BlocProvider.value(
-            value: exploreCubit ??
-                ExploreCubit(
-                  spaceDevsRepository ?? LaunchLibraryRepository(),
+            value: launchesBloc ??
+                LaunchesBloc(
+                  launchLibraryRepository ?? LaunchLibraryRepository(),
                 ),
           ),
         ],

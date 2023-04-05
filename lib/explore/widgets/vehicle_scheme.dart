@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-
 import 'package:vector_graphics/vector_graphics.dart';
 
 class VehicleScheme extends StatelessWidget {

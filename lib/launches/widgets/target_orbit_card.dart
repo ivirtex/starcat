@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';

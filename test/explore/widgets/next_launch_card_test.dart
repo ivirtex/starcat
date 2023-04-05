@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/launches/launches.dart';
 import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
-class MockExploreCubit extends MockCubit<ExploreState>
-    implements ExploreCubit {}
+class MockLaunchesBloc extends MockCubit<LaunchesState>
+    implements LaunchesBloc {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
@@ -23,7 +23,7 @@ void main() {
   initHydratedStorage();
 
   group('NextLaunchCard', () {
-    late ExploreCubit exploreCubit;
+    late LaunchesBloc launchesBloc;
     late ThemeCubit themeCubit;
 
     const launch = Launch(
@@ -72,7 +72,7 @@ void main() {
     );
 
     setUp(() {
-      exploreCubit = MockExploreCubit();
+      launchesBloc = MockLaunchesBloc();
       themeCubit = MockThemeCubit();
 
       when(() => themeCubit.state).thenReturn(
@@ -80,18 +80,18 @@ void main() {
       );
     });
 
-    testWidgets('renders ExploreCard for ExploreStatus.success',
+    testWidgets('renders ExploreCard for LaunchesStatus.success',
         (WidgetTester tester) async {
-      when(() => exploreCubit.state).thenReturn(
-        const ExploreState(
-          status: ExploreStatus.success,
+      when(() => launchesBloc.state).thenReturn(
+        const LaunchesState(
+          status: LaunchesStatus.success,
           launches: [launch],
         ),
       );
 
       await tester.pumpApp(
         themeCubit: themeCubit,
-        exploreCubit: exploreCubit,
+        launchesBloc: launchesBloc,
         const NextLaunchCard(launch: launch),
       );
 
@@ -103,16 +103,16 @@ void main() {
     testWidgets(
         'goes to LaunchDetailsPage when "Launch Details" button is tapped',
         (WidgetTester tester) async {
-      when(() => exploreCubit.state).thenReturn(
-        const ExploreState(
-          status: ExploreStatus.success,
+      when(() => launchesBloc.state).thenReturn(
+        const LaunchesState(
+          status: LaunchesStatus.success,
           launches: [launch],
         ),
       );
 
       await tester.pumpAppWithRouter(
         themeCubit: themeCubit,
-        exploreCubit: exploreCubit,
+        launchesBloc: launchesBloc,
         const NextLaunchCard(launch: launch),
       );
 

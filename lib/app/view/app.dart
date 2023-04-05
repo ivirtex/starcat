@@ -8,24 +8,24 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/launches/launches.dart';
 import 'package:falcon/news/news.dart';
 import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
-import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 class App extends StatelessWidget {
   const App({
-    required LaunchLibraryRepository spaceDevsRepository,
+    required LaunchLibraryRepository launchLibraryRepository,
     required SpaceflightNewsRepository spaceflightNewsRepository,
     super.key,
-  })  : _spaceDevsRepository = spaceDevsRepository,
+  })  : _launchLibraryRepository = launchLibraryRepository,
         _spaceflightNewsRepository = spaceflightNewsRepository;
 
-  final LaunchLibraryRepository _spaceDevsRepository;
+  final LaunchLibraryRepository _launchLibraryRepository;
   final SpaceflightNewsRepository _spaceflightNewsRepository;
 
   @override
@@ -36,8 +36,8 @@ class App extends StatelessWidget {
           create: (_) => ThemeCubit(),
         ),
         BlocProvider(
-          create: (_) => ExploreCubit(
-            _spaceDevsRepository,
+          create: (_) => LaunchesBloc(
+            _launchLibraryRepository,
           ),
         ),
         BlocProvider(

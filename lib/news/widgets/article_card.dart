@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import 'package:falcon/constants.dart';
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/helpers/helpers.dart';
-import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/launches/launch_details.dart';
 
 class ArticleCard extends StatelessWidget {
   const ArticleCard({

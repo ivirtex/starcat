@@ -10,8 +10,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:falcon/constants.dart';
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/launches/launches.dart';
 import 'package:falcon/shared/shared.dart';
 
 class LaunchDetailsPage extends StatelessWidget {
@@ -25,13 +24,13 @@ class LaunchDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final launch = context
-        .read<ExploreCubit>()
+        .read<LaunchesBloc>()
         .state
-        .launches!
+        .launches
         .firstWhere((launch) => launch.id == launchId);
 
     final isUpcoming =
-        launch.id == context.read<ExploreCubit>().state.launches!.first.id;
+        launch.id == context.read<LaunchesBloc>().state.launches.first.id;
 
     return LaunchDetailsView(launch: launch, isUpcoming: isUpcoming);
   }

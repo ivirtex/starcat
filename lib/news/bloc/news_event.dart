@@ -7,4 +7,6 @@ abstract class NewsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class NewsFetchRequested extends NewsEvent {}
+class NewsFetchRequested extends NewsEvent {
+  const NewsFetchRequested();
+}

@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:falcon/news/news.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +10,8 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 // Project imports:
 import 'package:falcon/constants.dart';
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/launches/launches.dart';
+import 'package:falcon/news/news.dart';
 import 'package:falcon/shared/shared.dart';
 
 class ExplorePage extends StatelessWidget {
@@ -34,8 +35,10 @@ class ExploreView extends StatefulWidget {
 class _ExploreViewState extends State<ExploreView> {
   @override
   void initState() {
-    context.read<ExploreCubit>().fetchLaunches(launchTime: LaunchTime.upcoming);
-    context.read<NewsBloc>().add(NewsFetchRequested());
+    context
+        .read<LaunchesBloc>()
+        .add(const LaunchesRequested(launchTime: LaunchTime.upcoming));
+    context.read<NewsBloc>().add(const NewsFetchRequested());
 
     super.initState();
   }
@@ -79,18 +82,18 @@ class Body extends StatelessWidget {
       child: ListView(
         children: [
           const SizedBox(height: 10),
-          BlocBuilder<ExploreCubit, ExploreState>(
+          BlocBuilder<LaunchesBloc, LaunchesState>(
             builder: (context, state) {
               switch (state.status) {
-                case ExploreStatus.initial:
-                case ExploreStatus.loading:
+                case LaunchesStatus.initial:
+                case LaunchesStatus.loading:
                   return _buildLoader(context);
-                case ExploreStatus.failure:
+                case LaunchesStatus.failure:
                   return _buildError(context);
-                case ExploreStatus.success:
+                case LaunchesStatus.success:
                   return Column(
                     children: [
-                      NextLaunchCard(launch: state.launches?.first),
+                      NextLaunchCard(launch: state.launches.first),
                       const SizedBox(height: 20),
                       UpcomingLaunches(launches: state.launches),
                     ],

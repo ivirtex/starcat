@@ -5,19 +5,20 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/launches/launches.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
 class MockLaunchLibraryRepository extends Mock
     implements LaunchLibraryRepository {}
 
-class MockExploreCubit extends MockCubit<ExploreState>
-    implements ExploreCubit {}
+class MockLaunchesBloc extends MockCubit<LaunchesState>
+    implements LaunchesBloc {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
@@ -25,24 +26,25 @@ class MockLaunch extends Mock implements Launch {}
 
 void main() {
   group('ExplorePage', () {
-    late LaunchLibraryRepository spaceDevsRepository;
-    late ExploreCubit exploreCubit;
+    late LaunchLibraryRepository launchLibraryRepository;
+    late LaunchesBloc launchesBloc;
     late ThemeCubit themeCubit;
     late Launch launch;
 
     setUp(() {
-      spaceDevsRepository = MockLaunchLibraryRepository();
-      exploreCubit = MockExploreCubit();
+      launchLibraryRepository = MockLaunchLibraryRepository();
+      launchesBloc = MockLaunchesBloc();
       themeCubit = MockThemeCubit();
       launch = MockLaunch();
 
       registerFallbackValue(LaunchTime.upcoming);
-      when(() => spaceDevsRepository.getLaunches(any()))
+      when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[launch]);
       when(
-        () => exploreCubit.fetchLaunches(launchTime: any(named: 'launchTime')),
+        () => launchesBloc
+            .add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
       ).thenAnswer((_) async => <Launch>[launch]);
-      when(() => exploreCubit.state).thenReturn(const ExploreState());
+      when(() => launchesBloc.state).thenReturn(const LaunchesState());
       when(() => themeCubit.state).thenReturn(
         const ThemeState(ThemeMode.system),
       );
@@ -50,8 +52,8 @@ void main() {
 
     testWidgets('renders ExplorePage', (WidgetTester tester) async {
       await tester.pumpApp(
-        spaceDevsRepository: spaceDevsRepository,
-        exploreCubit: exploreCubit,
+        launchLibraryRepository: launchLibraryRepository,
+        launchesBloc: launchesBloc,
         themeCubit: themeCubit,
         const ExplorePage(),
       );
@@ -61,22 +63,23 @@ void main() {
   });
 
   group('ExploreView', () {
-    late LaunchLibraryRepository spaceDevsRepository;
-    late ExploreCubit exploreCubit;
+    late LaunchLibraryRepository launchLibraryRepository;
+    late LaunchesBloc launchesBloc;
     late ThemeCubit themeCubit;
     late Launch launches;
 
     setUp(() {
-      spaceDevsRepository = MockLaunchLibraryRepository();
-      exploreCubit = MockExploreCubit();
+      launchLibraryRepository = MockLaunchLibraryRepository();
+      launchesBloc = MockLaunchesBloc();
       themeCubit = MockThemeCubit();
       launches = MockLaunch();
 
       registerFallbackValue(LaunchTime.upcoming);
-      when(() => spaceDevsRepository.getLaunches(any()))
+      when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[launches]);
       when(
-        () => exploreCubit.fetchLaunches(launchTime: any(named: 'launchTime')),
+        () => launchesBloc
+            .add(LaunchesRequested(launchTime: any(named: 'launchTime'))),
       ).thenAnswer((_) async => launches);
       when(() => themeCubit.state).thenReturn(
         const ThemeState(ThemeMode.system),
@@ -84,15 +87,15 @@ void main() {
     });
 
     testWidgets(
-      'renders CircularProgressIndicator for ExploreStatus.initial',
+      'renders CircularProgressIndicator for LaunchesStatus.initial',
       (WidgetTester tester) async {
-        when(() => exploreCubit.state).thenReturn(
-          const ExploreState(),
+        when(() => launchesBloc.state).thenReturn(
+          const LaunchesState(),
         );
 
         await tester.pumpApp(
-          spaceDevsRepository: spaceDevsRepository,
-          exploreCubit: exploreCubit,
+          launchLibraryRepository: launchLibraryRepository,
+          launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           const ExploreView(),
         );
@@ -104,15 +107,15 @@ void main() {
     );
 
     testWidgets(
-      'renders CircularProgressIndicator for ExploreStatus.loading',
+      'renders CircularProgressIndicator for LaunchesStatus.loading',
       (WidgetTester tester) async {
-        when(() => exploreCubit.state).thenReturn(
-          const ExploreState(status: ExploreStatus.loading),
+        when(() => launchesBloc.state).thenReturn(
+          const LaunchesState(status: LaunchesStatus.loading),
         );
 
         await tester.pumpApp(
-          spaceDevsRepository: spaceDevsRepository,
-          exploreCubit: exploreCubit,
+          launchLibraryRepository: launchLibraryRepository,
+          launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           const ExploreView(),
         );
@@ -124,15 +127,15 @@ void main() {
     );
 
     testWidgets(
-      'renders ExploreCard with failure message for ExploreStatus.failure',
+      'renders ExploreCard with failure message for LaunchesStatus.failure',
       (WidgetTester tester) async {
-        when(() => exploreCubit.state).thenReturn(
-          const ExploreState(status: ExploreStatus.failure),
+        when(() => launchesBloc.state).thenReturn(
+          const LaunchesState(status: LaunchesStatus.failure),
         );
 
         await tester.pumpApp(
-          spaceDevsRepository: spaceDevsRepository,
-          exploreCubit: exploreCubit,
+          launchLibraryRepository: launchLibraryRepository,
+          launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           const ExploreView(),
         );
@@ -145,18 +148,17 @@ void main() {
     );
 
     testWidgets(
-      'renders ExploreCard with launches for ExploreStatus.success',
+      'renders ExploreCard with launches for LaunchesStatus.success',
       (WidgetTester tester) async {
-        when(() => exploreCubit.state).thenReturn(
-          const ExploreState(
-            status: ExploreStatus.success,
-            launches: <Launch>[],
+        when(() => launchesBloc.state).thenReturn(
+          const LaunchesState(
+            status: LaunchesStatus.success,
           ),
         );
 
         await tester.pumpApp(
-          spaceDevsRepository: spaceDevsRepository,
-          exploreCubit: exploreCubit,
+          launchLibraryRepository: launchLibraryRepository,
+          launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           const ExploreView(),
         );
@@ -171,16 +173,15 @@ void main() {
     testWidgets(
       'renders Cupertino style page for iOS',
       (WidgetTester tester) async {
-        when(() => exploreCubit.state).thenReturn(
-          const ExploreState(
-            status: ExploreStatus.success,
-            launches: <Launch>[],
+        when(() => launchesBloc.state).thenReturn(
+          const LaunchesState(
+            status: LaunchesStatus.success,
           ),
         );
 
         await tester.pumpApp(
-          spaceDevsRepository: spaceDevsRepository,
-          exploreCubit: exploreCubit,
+          launchLibraryRepository: launchLibraryRepository,
+          launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           platform: TargetPlatform.iOS,
           const ExploreView(),

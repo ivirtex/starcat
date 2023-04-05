@@ -1,5 +1,7 @@
+// Dart imports:
 import 'dart:developer';
 
+// Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
@@ -22,6 +24,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
     try {
       final news = await _spaceflightNewsRepository.getNews();
+
       emit(state.copyWith(status: NewsStatus.success, news: news));
     } catch (err) {
       log('NewsBloc._onNewsFetchRequested: $err');

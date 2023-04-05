@@ -9,7 +9,7 @@ import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:falcon/constants.dart';
-import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/launches/launch_details.dart';
 import '../../helpers/helpers.dart';
 
 class MockCacheManager extends Mock implements DefaultCacheManager {}

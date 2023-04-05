@@ -4,16 +4,15 @@ import 'package:flutter/cupertino.dart';
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:mocktail/mocktail.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/launches/launches.dart';
 import '../../helpers/helpers.dart';
 
-class MockExploreCubit extends MockCubit<ExploreState>
-    implements ExploreCubit {}
+class MockLaunchesBloc extends MockCubit<LaunchesState>
+    implements LaunchesBloc {}
 
 void main() {
   initHydratedStorage();
@@ -51,18 +50,18 @@ void main() {
   );
 
   group('LaunchDetailsPage', () {
-    late ExploreCubit exploreCubit;
+    late LaunchesBloc launchesBloc;
 
     setUp(() {
-      exploreCubit = MockExploreCubit();
-      when(() => exploreCubit.state).thenReturn(
-        const ExploreState(launches: [launch]),
+      launchesBloc = MockLaunchesBloc();
+      when(() => launchesBloc.state).thenReturn(
+        const LaunchesState(launches: [launch]),
       );
     });
 
     testWidgets('renders LaunchDetailsPage', (tester) async {
       await tester.pumpApp(
-        exploreCubit: exploreCubit,
+        launchesBloc: launchesBloc,
         LaunchDetailsPage(launchId: launch.id),
       );
 

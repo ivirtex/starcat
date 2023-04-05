@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:falcon/launch_details/launch_details.dart';
+import 'package:falcon/launches/launch_details.dart';
 
 void main() {
   group('LaunchDateCard', () {

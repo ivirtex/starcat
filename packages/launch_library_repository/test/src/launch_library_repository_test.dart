@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 // Project imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
 
-class MockSpaceDevsApiClient extends Mock
+class MockLaunchLibraryApiClient extends Mock
     implements api.LaunchLibraryApiClient {}
 
 void main() {
@@ -17,7 +17,7 @@ void main() {
     late LaunchLibraryRepository launchLibraryRepository;
 
     setUp(() {
-      launchLibraryApiClient = MockSpaceDevsApiClient();
+      launchLibraryApiClient = MockLaunchLibraryApiClient();
       launchLibraryRepository = LaunchLibraryRepository(
         launchLibraryApiClient: launchLibraryApiClient,
       );

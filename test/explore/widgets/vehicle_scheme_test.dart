@@ -4,7 +4,6 @@
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-
 import 'package:vector_graphics/vector_graphics.dart';
 
 // Project imports:

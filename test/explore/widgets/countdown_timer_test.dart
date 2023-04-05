@@ -10,11 +10,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/launches/launches.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
-class MockExploreCubit extends MockCubit<ExploreState>
-    implements ExploreCubit {}
+class MockLaunchesBloc extends MockCubit<LaunchesState>
+    implements LaunchesBloc {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 

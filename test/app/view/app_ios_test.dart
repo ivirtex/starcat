@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-
+import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/app/app.dart';
 import 'package:falcon/explore/explore.dart';
+import 'package:falcon/launches/launches.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
@@ -27,13 +27,13 @@ void main() {
   initHydratedStorage();
 
   group('AppView iOS', () {
-    late LaunchLibraryRepository spaceDevsRepository;
+    late LaunchLibraryRepository launchLibraryRepository;
 
     setUp(() {
-      spaceDevsRepository = MockLaunchLibraryRepository();
+      launchLibraryRepository = MockLaunchLibraryRepository();
 
       registerFallbackValue(LaunchTime.upcoming);
-      when(() => spaceDevsRepository.getLaunches(any()))
+      when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[]);
     });
 
@@ -50,8 +50,8 @@ void main() {
                 create: (context) => ThemeCubit(),
               ),
               BlocProvider(
-                create: (context) => ExploreCubit(
-                  spaceDevsRepository,
+                create: (context) => LaunchesBloc(
+                  launchLibraryRepository,
                 ),
               ),
             ],

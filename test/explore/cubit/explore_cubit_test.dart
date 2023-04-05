@@ -1,13 +1,12 @@
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-
+import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
+import 'package:falcon/launches/launches.dart';
 
 class MockLaunchLibraryRepository extends Mock
     implements LaunchLibraryRepository {}
@@ -18,67 +17,70 @@ class MockSpaceflightNewsRepository extends Mock
 class MockLaunch extends Mock implements Launch {}
 
 void main() {
-  group('ExploreCubit', () {
-    late LaunchLibraryRepository spaceDevsRepository;
+  group('LaunchesBloc', () {
+    late LaunchLibraryRepository launchLibraryRepository;
     late Launch launch;
-    late ExploreCubit exploreCubit;
+    late LaunchesBloc launchesBloc;
 
     setUp(() {
       registerFallbackValue(LaunchTime.upcoming);
 
-      spaceDevsRepository = MockLaunchLibraryRepository();
+      launchLibraryRepository = MockLaunchLibraryRepository();
       launch = MockLaunch();
 
       when(() => launch).thenReturn(launch);
-      when(() => spaceDevsRepository.getLaunches(any()))
+      when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[launch]);
 
-      exploreCubit = ExploreCubit(
-        spaceDevsRepository,
+      launchesBloc = LaunchesBloc(
+        launchLibraryRepository,
       );
     });
 
     test('initial state is correct', () {
-      final exploreCubit = ExploreCubit(
-        spaceDevsRepository,
+      final launchesBloc = LaunchesBloc(
+        launchLibraryRepository,
       );
 
-      expect(exploreCubit.state, const ExploreState());
+      expect(launchesBloc.state, const LaunchesState());
     });
 
     group('fetchLaunches', () {
-      blocTest<ExploreCubit, ExploreState>(
+      blocTest<LaunchesBloc, LaunchesState>(
         'calls getLaunches with correct time',
-        build: () => exploreCubit,
-        act: (cubit) => cubit.fetchLaunches(launchTime: LaunchTime.upcoming),
+        build: () => launchesBloc,
+        act: (bloc) =>
+            bloc.add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
         verify: (_) {
-          verify(() => spaceDevsRepository.getLaunches(LaunchTime.upcoming))
+          verify(() => launchLibraryRepository.getLaunches(LaunchTime.upcoming))
               .called(1);
         },
       );
 
-      blocTest<ExploreCubit, ExploreState>(
+      blocTest<LaunchesBloc, LaunchesState>(
         'emits [loading, success] when fetchLaunches returns launches',
-        build: () => exploreCubit,
-        act: (cubit) => cubit.fetchLaunches(launchTime: LaunchTime.upcoming),
+        build: () => launchesBloc,
+        act: (bloc) =>
+            bloc.add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
         expect: () => [
-          const ExploreState(status: ExploreStatus.loading),
-          isA<ExploreState>()
-              .having((w) => w.status, 'status', ExploreStatus.success)
+          const LaunchesState(status: LaunchesStatus.loading),
+          isA<LaunchesState>()
+              .having((w) => w.status, 'status', LaunchesStatus.success)
               .having((w) => w.launches, 'launches', <Launch>[]),
         ],
       );
 
-      blocTest<ExploreCubit, ExploreState>(
+      blocTest<LaunchesBloc, LaunchesState>(
         'emits [loading, failure] when fetchLaunches throws',
-        setUp: () => when(() => spaceDevsRepository.getLaunches(any()))
+        setUp: () => when(() => launchLibraryRepository.getLaunches(any()))
             .thenThrow(Exception()),
-        build: () => exploreCubit,
-        act: (cubit) => cubit.fetchLaunches(launchTime: LaunchTime.upcoming),
+        build: () => launchesBloc,
+        act: (bloc) =>
+            bloc.add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
         expect: () => [
-          const ExploreState(status: ExploreStatus.loading),
-          isA<ExploreState>()
-              .having((w) => w.status, 'status', ExploreStatus.failure)
+          const LaunchesState(status: LaunchesStatus.loading),
+          isA<LaunchesState>()
+              .having((w) => w.status, 'status', LaunchesStatus.failure)
         ],
       );
     });
