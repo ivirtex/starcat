@@ -111,7 +111,7 @@ class Body extends StatelessWidget {
                 case NewsStatus.failure:
                   return _buildError(context);
                 case NewsStatus.success:
-                  return ArticlesPreview(articles: state.news.articles);
+                  return ArticlesPreview(articles: state.news.latestArticles);
               }
             },
           ),

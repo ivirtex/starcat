@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -12,17 +13,20 @@ import 'package:falcon/constants.dart';
 import 'package:falcon/explore/explore.dart';
 import 'package:falcon/helpers/helpers.dart';
 import 'package:falcon/launches/launch_details.dart';
+import 'package:falcon/news/bloc/news_bloc.dart';
 import 'package:falcon/shared/shared.dart';
 
 class ArticleCard extends StatelessWidget {
   const ArticleCard({
-    super.key,
     required this.article,
+    this.isSaved = false,
     this.expandVertically = false,
     this.previewMode = false,
+    super.key,
   });
 
   final Article article;
+  final bool isSaved;
   final bool expandVertically;
   final bool previewMode;
 
@@ -66,17 +70,20 @@ class ArticleCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AutoSizeText(
-                    article.title,
-                    maxLines: 2,
-                    style: Theme.of(context).textTheme.titleMedium,
+                  Expanded(
+                    flex: 4,
+                    child: AutoSizeText(
+                      article.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
-                  const SizedBox(height: 10),
-                  Flexible(
+                  const Spacer(),
+                  Expanded(
+                    flex: 5,
                     child: Text(
                       article.summary,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 4,
+                      maxLines: 3,
                     ),
                   ),
                 ],
@@ -94,11 +101,22 @@ class ArticleCard extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      const IconToggleButton(
-                        icon: Icon(Icons.bookmark_outline_rounded),
-                        selectedIcon: Icon(Icons.bookmark_rounded),
-                        onToggle: print,
+                      IconToggleButton(
+                        icon: const Icon(Icons.bookmark_outline_rounded),
+                        selectedIcon: const Icon(Icons.bookmark_rounded),
                         getDefaultStyle: enabledFilledTonalButtonStyle,
+                        selected: isSaved,
+                        onToggle: (isToggled) {
+                          if (isToggled) {
+                            context
+                                .read<NewsBloc>()
+                                .add(NewsArticleSaveRequested(article));
+                          } else {
+                            context
+                                .read<NewsBloc>()
+                                .add(NewsArticleUnsaveRequested(article));
+                          }
+                        },
                       ),
                     ],
                   ),

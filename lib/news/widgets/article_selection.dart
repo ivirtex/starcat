@@ -1,7 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-enum ArticleType { latest, popular, saved }
+// Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
+import 'package:falcon/news/news.dart';
 
 class ArticleSelection extends StatefulWidget {
   const ArticleSelection({super.key});
@@ -11,24 +15,24 @@ class ArticleSelection extends StatefulWidget {
 }
 
 class _ArticleSelectionState extends State<ArticleSelection> {
-  ArticleType selected = ArticleType.latest;
+  SelectedNews selected = SelectedNews.latest;
 
   @override
   Widget build(BuildContext context) {
-    return SegmentedButton<ArticleType>(
+    return SegmentedButton<SelectedNews>(
       segments: const [
         ButtonSegment(
-          value: ArticleType.latest,
+          value: SelectedNews.latest,
           label: Text('Latest'),
           icon: Icon(Icons.new_releases),
         ),
         ButtonSegment(
-          value: ArticleType.popular,
+          value: SelectedNews.popular,
           label: Text('Popular'),
           icon: Icon(Icons.trending_up),
         ),
         ButtonSegment(
-          value: ArticleType.saved,
+          value: SelectedNews.saved,
           label: Text('Saved'),
           icon: Icon(Icons.bookmark),
         ),
@@ -38,6 +42,8 @@ class _ArticleSelectionState extends State<ArticleSelection> {
         setState(() {
           selected = newSelection.first;
         });
+
+        context.read<NewsBloc>().add(NewsSelectionChanged(selected));
       },
     );
   }

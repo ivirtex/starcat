@@ -10,7 +10,7 @@ class SpaceflightNewsRepository {
 
   final SpaceflightNewsApiClient _newsApiClient;
 
-  Future<News> getNews() async {
+  Future<List<Article>> getNews() async {
     final articles = await _newsApiClient.getArticles();
 
     final processedArticles = articles.results
@@ -31,6 +31,6 @@ class SpaceflightNewsRepository {
         )
         .toList();
 
-    return News(articles: processedArticles);
+    return processedArticles;
   }
 }

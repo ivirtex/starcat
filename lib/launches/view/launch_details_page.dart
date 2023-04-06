@@ -104,7 +104,7 @@ class Body extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(kBorderRadius),
                   child: MissionImage(
                     imageUrl: launch.image ?? '',
                   ),
@@ -131,7 +131,9 @@ class Body extends StatelessWidget {
           const SizedBox(height: 10),
           TargetOrbitCard(orbit: launch.mission.orbit),
           const SizedBox(height: 10),
-        ].animate(interval: 100.ms).fade(duration: 350.ms, delay: 100.ms),
+        ]
+            .animate(interval: kListAnimationIntervalDuration)
+            .fade(duration: kListAnimationFadeDuration, delay: 100.ms),
       ),
     );
   }

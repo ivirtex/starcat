@@ -7,6 +7,7 @@ class IconToggleButton extends StatefulWidget {
   const IconToggleButton({
     required this.icon,
     required this.selectedIcon,
+    required this.selected,
     required this.onToggle,
     this.isEnabled = true,
     this.getDefaultStyle,
@@ -15,9 +16,10 @@ class IconToggleButton extends StatefulWidget {
 
   final Icon icon;
   final Icon selectedIcon;
-  final void Function(bool toggled) onToggle;
+  final bool selected;
   final bool isEnabled;
   final ButtonStyle? Function(bool, ColorScheme)? getDefaultStyle;
+  final void Function(bool toggled) onToggle;
 
   @override
   State<IconToggleButton> createState() => _IconToggleButtonState();
@@ -28,6 +30,8 @@ class _IconToggleButtonState extends State<IconToggleButton> {
 
   @override
   Widget build(BuildContext context) {
+    selected = widget.selected;
+
     final colors = Theme.of(context).colorScheme;
     final onPressed = widget.isEnabled
         ? () {

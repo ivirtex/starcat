@@ -84,7 +84,7 @@ void main() {
 
         expect(
           await spaceflightNewsRepository.getNews(),
-          News(articles: [exampleArticle]),
+          [exampleArticle],
         );
       });
 
