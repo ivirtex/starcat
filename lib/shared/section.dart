@@ -29,7 +29,7 @@ class Section extends StatelessWidget {
                   children: [
                     icon!,
                     const SizedBox(width: 5),
-                    child,
+                    Expanded(child: child),
                   ],
                 )
               : child,

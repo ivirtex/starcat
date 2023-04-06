@@ -84,7 +84,6 @@ class ExploreCard extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surfaceVariant,
-                  // TODO(ivirtex): move borderRadius to constants
                   borderRadius: BorderRadius.circular(kBorderRadius),
                 ),
                 child: Column(
@@ -95,14 +94,17 @@ class ExploreCard extends StatelessWidget {
                       padding: slideOutPadding,
                       child: slideOut,
                     ),
-                    Card(
-                      margin: EdgeInsets.zero,
-                      shape: shape,
-                      child: InkWell(
-                        onTap: onTap,
-                        child: Padding(
-                          padding: padding,
-                          child: child,
+                    Expanded(
+                      flex: expandVertically ? 1 : 0,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        shape: shape,
+                        child: InkWell(
+                          onTap: onTap,
+                          child: Padding(
+                            padding: padding,
+                            child: child,
+                          ),
                         ),
                       ),
                     ),

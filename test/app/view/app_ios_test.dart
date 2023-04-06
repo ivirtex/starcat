@@ -12,7 +12,6 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/app/app.dart';
-import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launches/launches.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';

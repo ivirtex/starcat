@@ -75,13 +75,14 @@ class Launch extends Equatable {
           ),
         ),
         mission: Mission(
+          name: launch.mission?.name,
+          description: launch.mission?.description,
+          type: launch.mission?.type,
+          launchDesignator: launch.mission?.launchDesignator,
           orbit: Orbit(
             name: launch.mission?.orbit.name,
             abbrev: launch.mission?.orbit.abbrev,
           ),
-          description: launch.mission?.description,
-          type: launch.mission?.type,
-          launchDesignator: launch.mission?.launchDesignator,
         ),
         pad: Pad(
           url: launch.pad?.url,

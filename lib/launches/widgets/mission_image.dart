@@ -14,13 +14,15 @@ import 'package:falcon/constants.dart';
 
 class MissionImage extends StatelessWidget {
   const MissionImage({
-    super.key,
-    this.cacheManager,
     required this.imageUrl,
+    this.fit,
+    this.cacheManager,
+    super.key,
   });
 
-  final BaseCacheManager? cacheManager;
   final String imageUrl;
+  final BoxFit? fit;
+  final BaseCacheManager? cacheManager;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class MissionImage extends StatelessWidget {
       child: CachedNetworkImage(
         imageUrl: imageUrl,
         fadeOutDuration: 0.ms,
+        fit: fit,
         // TODO(ivirtex): comment out when compiling for production
         // cacheKey: GlobalKey().toString(),
         cacheManager: cacheManager,
