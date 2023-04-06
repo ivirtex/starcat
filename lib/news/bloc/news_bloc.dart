@@ -35,7 +35,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
           .where((article) => article.featured)
           .toList(growable: false);
 
-      print('no. of popularArticles: ${popularArticles.length}');
+      log('no. of popularArticles: ${popularArticles.length}');
 
       emit(
         state.copyWith(
