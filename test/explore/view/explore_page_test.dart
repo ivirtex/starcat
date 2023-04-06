@@ -7,6 +7,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/explore/explore.dart';
@@ -16,6 +17,9 @@ import '../../helpers/helpers.dart';
 
 class MockLaunchLibraryRepository extends Mock
     implements LaunchLibraryRepository {}
+
+class MockSpaceflightNewsRepository extends Mock
+    implements SpaceflightNewsRepository {}
 
 class MockLaunchesBloc extends MockCubit<LaunchesState>
     implements LaunchesBloc {}
@@ -27,12 +31,14 @@ class MockLaunch extends Mock implements Launch {}
 void main() {
   group('ExplorePage', () {
     late LaunchLibraryRepository launchLibraryRepository;
+    late SpaceflightNewsRepository spaceflightNewsRepository;
     late LaunchesBloc launchesBloc;
     late ThemeCubit themeCubit;
     late Launch launch;
 
     setUp(() {
       launchLibraryRepository = MockLaunchLibraryRepository();
+      spaceflightNewsRepository = MockSpaceflightNewsRepository();
       launchesBloc = MockLaunchesBloc();
       themeCubit = MockThemeCubit();
       launch = MockLaunch();
@@ -40,6 +46,8 @@ void main() {
       registerFallbackValue(LaunchTime.upcoming);
       when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[launch]);
+      when(() => spaceflightNewsRepository.getNews())
+          .thenAnswer((_) async => <Article>[]);
       when(
         () => launchesBloc
             .add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
@@ -53,6 +61,7 @@ void main() {
     testWidgets('renders ExplorePage', (WidgetTester tester) async {
       await tester.pumpApp(
         launchLibraryRepository: launchLibraryRepository,
+        spaceflightNewsRepository: spaceflightNewsRepository,
         launchesBloc: launchesBloc,
         themeCubit: themeCubit,
         const ExplorePage(),
@@ -64,12 +73,14 @@ void main() {
 
   group('ExploreView', () {
     late LaunchLibraryRepository launchLibraryRepository;
+    late SpaceflightNewsRepository spaceflightNewsRepository;
     late LaunchesBloc launchesBloc;
     late ThemeCubit themeCubit;
     late Launch launches;
 
     setUp(() {
       launchLibraryRepository = MockLaunchLibraryRepository();
+      spaceflightNewsRepository = MockSpaceflightNewsRepository();
       launchesBloc = MockLaunchesBloc();
       themeCubit = MockThemeCubit();
       launches = MockLaunch();
@@ -77,9 +88,11 @@ void main() {
       registerFallbackValue(LaunchTime.upcoming);
       when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[launches]);
+      when(() => spaceflightNewsRepository.getNews())
+          .thenAnswer((_) async => <Article>[]);
       when(
         () => launchesBloc
-            .add(LaunchesRequested(launchTime: any(named: 'launchTime'))),
+            .add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
       ).thenAnswer((_) async => launches);
       when(() => themeCubit.state).thenReturn(
         const ThemeState(ThemeMode.system),
@@ -95,6 +108,7 @@ void main() {
 
         await tester.pumpApp(
           launchLibraryRepository: launchLibraryRepository,
+          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           const ExploreView(),
@@ -115,6 +129,7 @@ void main() {
 
         await tester.pumpApp(
           launchLibraryRepository: launchLibraryRepository,
+          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           const ExploreView(),
@@ -135,6 +150,7 @@ void main() {
 
         await tester.pumpApp(
           launchLibraryRepository: launchLibraryRepository,
+          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           const ExploreView(),
@@ -158,6 +174,7 @@ void main() {
 
         await tester.pumpApp(
           launchLibraryRepository: launchLibraryRepository,
+          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           const ExploreView(),
@@ -181,6 +198,7 @@ void main() {
 
         await tester.pumpApp(
           launchLibraryRepository: launchLibraryRepository,
+          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
           themeCubit: themeCubit,
           platform: TargetPlatform.iOS,

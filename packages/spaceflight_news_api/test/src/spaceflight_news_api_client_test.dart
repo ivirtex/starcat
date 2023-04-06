@@ -1,4 +1,6 @@
 // Package imports:
+import 'dart:typed_data';
+
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -50,7 +52,7 @@ const String sampleResponse = '''
       "url": "https://spacenews.com/h3-failure-could-delay-japanese-science-missions/",
       "image_url": "https://i0.wp.com/spacenews.com/wp-content/uploads/2023/03/h3-firstlaunch-1.jpg",
       "news_site": "SpaceNews",
-      "summary": "The failure of Japan’s H3 rocket on its inaugural flight in March could delay several science missions, including two scheduled to launch on another rocket.",
+      "summary": "The failure of Japan`s H3 rocket on its inaugural flight in March could delay several science missions, including two scheduled to launch on another rocket.",
       "published_at": "2023-03-29T11:53:19+02:00",
       "updated_at": "2023-03-29T14:10:50.035000+02:00",
       "featured": false,
@@ -112,7 +114,8 @@ void main() {
       test('makes correct http request', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn(sampleResponse);
+        when(() => response.bodyBytes)
+            .thenReturn(Uint8List.fromList(sampleResponse.codeUnits));
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         await spaceflightNewsApi.getArticles();
@@ -141,7 +144,8 @@ void main() {
       test('throws NewsResultsNotFoundFailure on empty response', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn(emptyResponse);
+        when(() => response.bodyBytes)
+            .thenReturn(Uint8List.fromList(emptyResponse.codeUnits));
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         expect(
@@ -153,7 +157,8 @@ void main() {
       test('returns list of articles on valid response', () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.body).thenReturn(sampleResponse);
+        when(() => response.bodyBytes)
+            .thenReturn(Uint8List.fromList(sampleResponse.codeUnits));
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         final news = await spaceflightNewsApi.getArticles();

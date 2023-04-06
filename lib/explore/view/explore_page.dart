@@ -80,6 +80,7 @@ class Body extends StatelessWidget {
     return Padding(
       padding: kBodyPadding,
       child: ListView(
+        shrinkWrap: true,
         children: [
           const SizedBox(height: 10),
           BlocBuilder<LaunchesBloc, LaunchesState>(
@@ -93,7 +94,11 @@ class Body extends StatelessWidget {
                 case LaunchesStatus.success:
                   return Column(
                     children: [
-                      NextLaunchCard(launch: state.launches.first),
+                      NextLaunchCard(
+                        launch: state.launches.isNotEmpty
+                            ? state.launches.first
+                            : null,
+                      ),
                       const SizedBox(height: 20),
                       UpcomingLaunches(launches: state.launches),
                     ],

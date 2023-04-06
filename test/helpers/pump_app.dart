@@ -10,6 +10,7 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
 import 'package:falcon/launches/launches.dart';
+import 'package:falcon/news/news.dart';
 import 'package:falcon/theme/theme.dart';
 
 extension PumpApp on WidgetTester {
@@ -18,6 +19,7 @@ extension PumpApp on WidgetTester {
     LaunchLibraryRepository? launchLibraryRepository,
     SpaceflightNewsRepository? spaceflightNewsRepository,
     LaunchesBloc? launchesBloc,
+    NewsBloc? newsBloc,
     ThemeCubit? themeCubit,
     TargetPlatform platform = TargetPlatform.android,
   }) {
@@ -33,6 +35,12 @@ extension PumpApp on WidgetTester {
               value: launchesBloc ??
                   LaunchesBloc(
                     launchLibraryRepository ?? LaunchLibraryRepository(),
+                  ),
+            ),
+            BlocProvider.value(
+              value: newsBloc ??
+                  NewsBloc(
+                    spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                   ),
             ),
           ],

@@ -28,7 +28,6 @@ void main() {
       launchLibraryRepository = MockLaunchLibraryRepository();
       launch = MockLaunch();
 
-      when(() => launch).thenReturn(launch);
       when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[launch]);
 
@@ -64,9 +63,7 @@ void main() {
             bloc.add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
         expect: () => [
           const LaunchesState(status: LaunchesStatus.loading),
-          isA<LaunchesState>()
-              .having((w) => w.status, 'status', LaunchesStatus.success)
-              .having((w) => w.launches, 'launches', <Launch>[]),
+          LaunchesState(status: LaunchesStatus.success, launches: [launch]),
         ],
       );
 

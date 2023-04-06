@@ -13,6 +13,7 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 // Project imports:
 import 'package:falcon/app/app.dart';
 import 'package:falcon/launches/launches.dart';
+import 'package:falcon/news/news.dart';
 import 'package:falcon/theme/theme.dart';
 import '../../helpers/helpers.dart';
 
@@ -27,13 +28,17 @@ void main() {
 
   group('AppView iOS', () {
     late LaunchLibraryRepository launchLibraryRepository;
+    late SpaceflightNewsRepository spaceflightNewsRepository;
 
     setUp(() {
       launchLibraryRepository = MockLaunchLibraryRepository();
+      spaceflightNewsRepository = MockSpaceflightNewsRepository();
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[]);
+      when(() => spaceflightNewsRepository.getNews())
+          .thenAnswer((_) async => <Article>[]);
     });
 
     testWidgets('uses CupertinoApp on iOS', (tester) async {
@@ -53,6 +58,11 @@ void main() {
                   launchLibraryRepository,
                 ),
               ),
+              BlocProvider(
+                create: (context) => NewsBloc(
+                  spaceflightNewsRepository,
+                ),
+              )
             ],
             child: const AppView(),
           ),
