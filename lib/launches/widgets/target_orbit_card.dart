@@ -38,9 +38,9 @@ class TargetOrbitCard extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          ThemedButton(
-            onPressed: isAvailable ? () {} : null,
-            child: const Text('Details'),
+          const ThemedButton(
+            // onPressed: isAvailable ? () {} : null,
+            child: Text('Details'),
           ),
         ],
       ),

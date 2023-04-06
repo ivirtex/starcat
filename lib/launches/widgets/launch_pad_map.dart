@@ -43,6 +43,10 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
   }
 
   Future<void> _loadMapStyle(Future<GoogleMapController>? controller) async {
+    if (!_isDataValid()) {
+      return;
+    }
+
     _mapStyle = await rootBundle.loadString(
       isDarkMode(context)
           ? 'assets/map_styles/dark_mode.json'
@@ -69,6 +73,14 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
     }
   }
 
+  bool _isDataValid() {
+    return widget.pad != null &&
+        widget.pad!.latitude != null &&
+        widget.pad!.longitude != null &&
+        widget.pad!.latitude != '0' &&
+        widget.pad!.longitude != '0';
+  }
+
   @override
   Widget build(BuildContext context) {
     return ExploreCard(
@@ -90,7 +102,7 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
             ),
             child: SizedBox(
               height: 150,
-              child: widget.pad != null
+              child: _isDataValid()
                   ? GoogleMap(
                       zoomControlsEnabled: false,
                       gestureRecognizers: const <
@@ -119,7 +131,20 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
                         ),
                       ),
                     )
-                  : const Text('N/A'),
+                  : ColoredBox(
+                      color: isDarkMode(context) ? Colors.black : Colors.white,
+                      child: Center(
+                        child: Text(
+                          'N/A',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge!
+                              .copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
+                      ),
+                    ),
             ),
           ),
           Padding(
@@ -144,7 +169,7 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
                 ),
                 const Spacer(),
                 ThemedButton(
-                  onPressed: widget.pad != null ? _launchMapView : null,
+                  onPressed: _isDataValid() ? _launchMapView : null,
                   child: const Icon(Icons.map_rounded),
                 ),
               ],

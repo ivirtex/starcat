@@ -32,7 +32,8 @@ class SpaceflightNewsApiClient {
       throw ArticlesRequestFailure();
     }
 
-    final articlesJson = jsonDecode(response.body) as Map<String, dynamic>;
+    final articlesJson =
+        jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
 
     final articles = Articles.fromJson(articlesJson);
 
