@@ -12,7 +12,7 @@ import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launches/launches.dart';
 import 'package:falcon/shared/shared.dart';
 import 'package:falcon/theme/theme.dart';
-import '../../helpers/helpers.dart';
+import '../../test_helpers/test_helpers.dart';
 
 class MockLaunchesBloc extends MockCubit<LaunchesState>
     implements LaunchesBloc {}

@@ -12,6 +12,7 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:falcon/launches/launches.dart';
 import 'package:falcon/news/news.dart';
 import 'package:falcon/theme/theme.dart';
+import 'test_helpers.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
@@ -23,6 +24,8 @@ extension PumpApp on WidgetTester {
     ThemeCubit? themeCubit,
     TargetPlatform platform = TargetPlatform.android,
   }) {
+    initHydratedStorage();
+
     return pumpWidget(
       RepositoryProvider.value(
         value: LaunchLibraryRepository,
@@ -61,6 +64,7 @@ extension PumpApp on WidgetTester {
     SpaceflightNewsRepository? spaceflightNewsRepository,
     LaunchesBloc? launchesBloc,
     ThemeCubit? themeCubit,
+    NewsBloc? newsBloc,
     TargetPlatform platform = TargetPlatform.android,
   }) {
     return pumpWidget(
@@ -73,6 +77,12 @@ extension PumpApp on WidgetTester {
             value: launchesBloc ??
                 LaunchesBloc(
                   launchLibraryRepository ?? LaunchLibraryRepository(),
+                ),
+          ),
+          BlocProvider.value(
+            value: newsBloc ??
+                NewsBloc(
+                  spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                 ),
           ),
         ],
@@ -92,6 +102,10 @@ extension PumpApp on WidgetTester {
                     builder: (context, state) => LaunchDetailsPage(
                       launchId: state.params['id']!,
                     ),
+                  ),
+                  GoRoute(
+                    path: 'news',
+                    builder: (context, state) => const NewsPage(),
                   )
                 ],
               ),

@@ -21,10 +21,6 @@ class UpcomingLaunches extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (launches == null) {
-      return const SizedBox();
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,28 +30,34 @@ class UpcomingLaunches extends StatelessWidget {
         ),
         SizedBox(
           height: 140,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: launches!.length,
-            itemBuilder: (context, index) {
-              // We are not displaying the first launch because
-              // it is already displayed above this widget
-              if (index == 0) {
-                return const SizedBox.shrink();
-              }
+          child: launches != null && launches!.isNotEmpty
+              ? ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: launches!.length,
+                  itemBuilder: (context, index) {
+                    // We are not displaying the first launch because
+                    // it is already displayed above by NextLaunchCard
+                    if (index == 0) {
+                      return const SizedBox.shrink();
+                    }
 
-              final launch = launches![index];
-              final date = formatDate(launch.net!.toLocal());
+                    final launch = launches![index];
+                    final date = launch.net != null
+                        ? formatDate(launch.net!.toLocal())
+                        : 'No date';
 
-              return Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: UpcomingLaunchCard(
-                  launch: launch,
-                  date: date,
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: UpcomingLaunchCard(
+                        launch: launch,
+                        date: date,
+                      ),
+                    );
+                  },
+                )
+              : const Center(
+                  child: Text('No upcoming launches'),
                 ),
-              );
-            },
-          ),
         ),
       ],
     );
@@ -78,7 +80,6 @@ class UpcomingLaunchCard extends StatelessWidget {
       width: 250,
       child: ExploreCard(
         expandVertically: true,
-        // TODO(ivirtex): test this route
         onTap: () => context.go('/launch/${launch.id}'),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

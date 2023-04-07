@@ -172,6 +172,76 @@ class Launch extends Equatable {
 
   Map<String, dynamic> toJson() => _$LaunchToJson(this);
 
+  Launch copyWith({
+    String? id,
+    String? url,
+    String? slug,
+    String? name,
+    Status? status,
+    DateTime? net,
+    DateTime? windowEnd,
+    DateTime? windowStart,
+    int? probability,
+    String? holdreason,
+    String? failreason,
+    String? hashtag,
+    LaunchServiceProvider? launchServiceProvider,
+    Rocket? rocket,
+    Mission? mission,
+    Pad? pad,
+    bool? webcastLive,
+    String? image,
+    String? infographic,
+    List<Program>? program,
+    int? orbitalLaunchAttemptCount,
+    int? locationLaunchAttemptCount,
+    int? padLaunchAttemptCount,
+    int? agencyLaunchAttemptCount,
+    int? orbitalLaunchAttemptCountYear,
+    int? locationLaunchAttemptCountYear,
+    int? padLaunchAttemptCountYear,
+    int? agencyLaunchAttemptCountYear,
+  }) =>
+      Launch(
+        id: id ?? this.id,
+        url: url ?? this.url,
+        slug: slug ?? this.slug,
+        name: name ?? this.name,
+        status: status ?? this.status,
+        net: net ?? this.net,
+        windowEnd: windowEnd ?? this.windowEnd,
+        windowStart: windowStart ?? this.windowStart,
+        probability: probability ?? this.probability,
+        holdreason: holdreason ?? this.holdreason,
+        failreason: failreason ?? this.failreason,
+        hashtag: hashtag ?? this.hashtag,
+        launchServiceProvider:
+            launchServiceProvider ?? this.launchServiceProvider,
+        rocket: rocket ?? this.rocket,
+        mission: mission ?? this.mission,
+        pad: pad ?? this.pad,
+        webcastLive: webcastLive ?? this.webcastLive,
+        image: image ?? this.image,
+        infographic: infographic ?? this.infographic,
+        program: program ?? this.program,
+        orbitalLaunchAttemptCount:
+            orbitalLaunchAttemptCount ?? this.orbitalLaunchAttemptCount,
+        locationLaunchAttemptCount:
+            locationLaunchAttemptCount ?? this.locationLaunchAttemptCount,
+        padLaunchAttemptCount:
+            padLaunchAttemptCount ?? this.padLaunchAttemptCount,
+        agencyLaunchAttemptCount:
+            agencyLaunchAttemptCount ?? this.agencyLaunchAttemptCount,
+        orbitalLaunchAttemptCountYear:
+            orbitalLaunchAttemptCountYear ?? this.orbitalLaunchAttemptCountYear,
+        locationLaunchAttemptCountYear: locationLaunchAttemptCountYear ??
+            this.locationLaunchAttemptCountYear,
+        padLaunchAttemptCountYear:
+            padLaunchAttemptCountYear ?? this.padLaunchAttemptCountYear,
+        agencyLaunchAttemptCountYear:
+            agencyLaunchAttemptCountYear ?? this.agencyLaunchAttemptCountYear,
+      );
+
   @override
   List<Object?> get props => [
         id,

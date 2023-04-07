@@ -12,7 +12,7 @@ import 'package:falcon/explore/explore.dart';
 import 'package:falcon/launches/launches.dart';
 import 'package:falcon/news/news.dart';
 import 'package:falcon/theme/theme.dart';
-import '../../helpers/helpers.dart';
+import '../../test_helpers/test_helpers.dart';
 
 class MockLaunchLibraryRepository extends Mock
     implements LaunchLibraryRepository {}

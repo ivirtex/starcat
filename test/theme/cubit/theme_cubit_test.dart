@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
 import 'package:falcon/theme/theme.dart';
-import '../../helpers/helpers.dart';
+import '../../test_helpers/test_helpers.dart';
 
 void main() {
   initHydratedStorage();
