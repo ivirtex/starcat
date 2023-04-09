@@ -50,20 +50,25 @@ class MissionImage extends StatelessWidget {
         errorWidget: (context, error, stackTrace) {
           log(error);
 
-          return Center(
-            child: Column(
-              children: [
-                Icon(
-                  Icons.error,
-                  color: Theme.of(context).colorScheme.error,
-                ),
-                Text(
-                  kImageErrorText,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onError,
+          return SizedBox(
+            height: 150,
+            child: ColoredBox(
+              color: Theme.of(context).colorScheme.errorContainer,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error,
+                    color: Theme.of(context).colorScheme.onErrorContainer,
                   ),
-                ),
-              ],
+                  Text(
+                    kImageErrorText,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onErrorContainer,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },

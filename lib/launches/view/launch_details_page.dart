@@ -67,11 +67,13 @@ class LaunchDetailsView extends StatelessWidget {
         ),
       ),
       material: (_) => Scaffold(
-        appBar: AppBar(
-          title: Text(launch.mission.name ?? 'N/A'),
-        ),
-        body: ListView(
-          children: [
+        body: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverAppBar.medium(
+              stretch: true,
+              title: AutoSizeText(launch.mission.name ?? 'N/A'),
+            ),
             Body(
               launch: launch,
               isUpcoming: isUpcoming,
@@ -95,45 +97,46 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SliverPadding(
       padding: kBodyPadding,
-      child: Column(
-        children: [
-          if (launch.image != null)
-            Column(
-              children: [
-                const SizedBox(height: 10),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(kBorderRadius),
-                  child: MissionImage(
-                    imageUrl: launch.image ?? '',
+      sliver: SliverList(
+        delegate: SliverChildListDelegate(
+          [
+            if (launch.image != null)
+              Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(kBorderRadius),
+                    child: MissionImage(
+                      imageUrl: launch.image ?? '',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Text(
+                launch.mission.description ?? 'No description',
+              ),
             ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: Text(
-              launch.mission.description ?? 'No description',
+            const SizedBox(height: 10),
+            LaunchDateCard(
+              date: launch.net,
+              status: launch.status,
+              launchName: launch.name,
             ),
-          ),
-          const SizedBox(height: 10),
-          LaunchDateCard(
-            date: launch.net,
-            status: launch.status,
-            launchName: launch.name,
-          ),
-          const SizedBox(height: 10),
-          LaunchVehicleCard(vehicle: launch.rocket),
-          const SizedBox(height: 10),
-          LaunchPadMap(pad: launch.pad),
-          const SizedBox(height: 10),
-          TargetOrbitCard(orbit: launch.mission.orbit),
-          const SizedBox(height: 10),
-        ]
-            .animate(interval: kListAnimationIntervalDuration)
-            .fade(duration: kListAnimationFadeDuration, delay: 100.ms),
+            const SizedBox(height: 10),
+            LaunchVehicleCard(vehicle: launch.rocket),
+            const SizedBox(height: 10),
+            LaunchPadMap(pad: launch.pad),
+            const SizedBox(height: 10),
+            TargetOrbitCard(orbit: launch.mission.orbit),
+            const SizedBox(height: 10),
+          ]
+              .animate(interval: kListAnimationIntervalDuration)
+              .fade(duration: kListAnimationFadeDuration, delay: 100.ms),
+        ),
       ),
     );
   }
