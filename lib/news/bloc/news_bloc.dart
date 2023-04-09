@@ -57,7 +57,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     NewsSelectionChanged event,
     Emitter<NewsState> emit,
   ) {
-    emit(state.copyWith(selectedNews: event.selectedNews));
+    emit(state.copyWith(selection: event.selection));
   }
 
   FutureOr<void> _onNewsArticleSaveRequested(

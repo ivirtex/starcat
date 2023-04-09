@@ -2,22 +2,22 @@ part of 'news_bloc.dart';
 
 abstract class NewsEvent extends Equatable {
   const NewsEvent();
+}
+
+class NewsFetchRequested extends NewsEvent {
+  const NewsFetchRequested();
 
   @override
   List<Object> get props => [];
 }
 
-class NewsFetchRequested extends NewsEvent {
-  const NewsFetchRequested();
-}
-
 class NewsSelectionChanged extends NewsEvent {
-  const NewsSelectionChanged(this.selectedNews);
+  const NewsSelectionChanged(this.selection);
 
-  final SelectedNews selectedNews;
+  final SelectedNews selection;
 
   @override
-  List<Object> get props => [selectedNews];
+  List<Object> get props => [selection];
 }
 
 class NewsArticleSaveRequested extends NewsEvent {

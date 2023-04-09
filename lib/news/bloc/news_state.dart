@@ -17,12 +17,12 @@ class NewsState extends Equatable {
 
   NewsState copyWith({
     NewsStatus? status,
-    SelectedNews? selectedNews,
+    SelectedNews? selection,
     News? news,
   }) {
     return NewsState(
       status: status ?? this.status,
-      selection: selectedNews ?? selection,
+      selection: selection ?? this.selection,
       news: news ?? this.news,
     );
   }
