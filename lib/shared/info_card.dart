@@ -32,7 +32,9 @@ class InfoCard extends StatelessWidget {
           ],
           Flexible(
             child: DefaultTextStyle(
-              style: Theme.of(context).textTheme.labelSmall!,
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
               child: child,
             ),
           ),

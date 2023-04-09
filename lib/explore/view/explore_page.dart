@@ -60,11 +60,16 @@ class _ExploreViewState extends State<ExploreView> {
           ],
         ),
       ),
-      material: (context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Explore'),
+      material: (context) => const Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              title: Text('Explore'),
+            ),
+            Body(),
+          ],
         ),
-        body: const Body(),
       ),
     );
   }
@@ -77,50 +82,52 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SliverPadding(
       padding: kBodyPadding,
-      child: ListView(
-        children: [
-          const SizedBox(height: 10),
-          BlocBuilder<LaunchesBloc, LaunchesState>(
-            builder: (context, state) {
-              switch (state.status) {
-                case LaunchesStatus.initial:
-                case LaunchesStatus.loading:
-                  return _buildLoader(context);
-                case LaunchesStatus.failure:
-                  return _buildError(context);
-                case LaunchesStatus.success:
-                  return Column(
-                    children: [
-                      NextLaunchCard(
-                        launch: state.launches.isNotEmpty
-                            ? state.launches.first
-                            : null,
-                      ),
-                      const SizedBox(height: 20),
-                      UpcomingLaunches(launches: state.launches),
-                    ],
-                  );
-              }
-            },
-          ),
-          const SizedBox(height: 20),
-          BlocBuilder<NewsBloc, NewsState>(
-            builder: (context, state) {
-              switch (state.status) {
-                case NewsStatus.initial:
-                case NewsStatus.loading:
-                  return _buildLoader(context);
-                case NewsStatus.failure:
-                  return _buildError(context);
-                case NewsStatus.success:
-                  return ArticlesPreview(articles: state.news.latestArticles);
-              }
-            },
-          ),
-        ],
-      ).animate(delay: kStateChangeAnimationDuration).fadeIn(),
+      sliver: SliverList(
+        delegate: SliverChildListDelegate(
+          [
+            const SizedBox(height: 10),
+            BlocBuilder<LaunchesBloc, LaunchesState>(
+              builder: (context, state) {
+                switch (state.status) {
+                  case LaunchesStatus.initial:
+                  case LaunchesStatus.loading:
+                    return _buildLoader(context);
+                  case LaunchesStatus.failure:
+                    return _buildError(context);
+                  case LaunchesStatus.success:
+                    return Column(
+                      children: [
+                        NextLaunchCard(
+                          launch: state.launches.isNotEmpty
+                              ? state.launches.first
+                              : null,
+                        ),
+                        const SizedBox(height: 20),
+                        UpcomingLaunches(launches: state.launches),
+                      ],
+                    );
+                }
+              },
+            ),
+            const SizedBox(height: 20),
+            BlocBuilder<NewsBloc, NewsState>(
+              builder: (context, state) {
+                switch (state.status) {
+                  case NewsStatus.initial:
+                  case NewsStatus.loading:
+                    return _buildLoader(context);
+                  case NewsStatus.failure:
+                    return _buildError(context);
+                  case NewsStatus.success:
+                    return ArticlesPreview(articles: state.news.latestArticles);
+                }
+              },
+            ),
+          ].animate(interval: kStateChangeAnimationDuration).fadeIn(),
+        ),
+      ),
     );
   }
 

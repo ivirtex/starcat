@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:falcon/constants.dart';
 import 'package:falcon/news/news.dart';
 import 'package:falcon/shared/shared.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -25,17 +25,20 @@ class NewsPage extends StatelessWidget {
               border: null,
               largeTitle: Text('News'),
             ),
-            SliverToBoxAdapter(
-              child: Body(),
-            )
+            Body(),
           ],
         ),
       ),
-      material: (_) => Scaffold(
-        appBar: AppBar(
-          title: const Text('News'),
+      material: (_) => const Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              title: Text('News'),
+            ),
+            Body(),
+          ],
         ),
-        body: const Body(),
       ),
     );
   }
@@ -48,16 +51,16 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SliverPadding(
       padding: kBodyPadding,
-      child: CustomScrollView(
-        slivers: [
-          SliverList(
-            delegate: SliverChildListDelegate(
+      sliver: MultiSliver(
+        children: [
+          const SliverList(
+            delegate: SliverChildListDelegate.fixed(
               [
-                const SizedBox(height: 10),
-                const ArticleSelection(),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
+                ArticleSelection(),
+                SizedBox(height: 10),
               ],
             ),
           ),
@@ -95,7 +98,7 @@ class Body extends StatelessWidget {
             },
           ),
         ],
-      ).animate().fadeIn(duration: kListAnimationFadeDuration),
+      ),
     );
   }
 

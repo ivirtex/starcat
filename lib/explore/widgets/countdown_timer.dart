@@ -132,6 +132,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
                   Card(
                     color: Theme.of(context).colorScheme.surface,
                     margin: const EdgeInsets.only(right: 2),
+                    elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
