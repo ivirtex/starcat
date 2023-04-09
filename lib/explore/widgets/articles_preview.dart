@@ -44,7 +44,6 @@ class ArticlesPreview extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 10),
         SizedBox(
           height: 330,
           child: ListView.builder(

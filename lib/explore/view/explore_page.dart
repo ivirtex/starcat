@@ -80,7 +80,6 @@ class Body extends StatelessWidget {
     return Padding(
       padding: kBodyPadding,
       child: ListView(
-        shrinkWrap: true,
         children: [
           const SizedBox(height: 10),
           BlocBuilder<LaunchesBloc, LaunchesState>(
