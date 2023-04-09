@@ -88,7 +88,7 @@ class AppView extends StatelessWidget {
             useMaterial3: true,
             useMaterial3ErrorColors: true,
             swapLegacyOnMaterial3: true,
-            colorScheme: lightScheme,
+            colorScheme: lightScheme.copyWith(shadow: Colors.transparent),
             subThemesData: const FlexSubThemesData(
               useTextTheme: true,
             ),
@@ -97,7 +97,7 @@ class AppView extends StatelessWidget {
             useMaterial3: true,
             useMaterial3ErrorColors: true,
             swapLegacyOnMaterial3: true,
-            colorScheme: darkScheme,
+            colorScheme: darkScheme.copyWith(shadow: Colors.transparent),
             subThemesData: const FlexSubThemesData(
               useTextTheme: true,
             ),
