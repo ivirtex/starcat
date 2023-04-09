@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 // Project imports:
 import 'package:falcon/constants.dart';
 import 'package:falcon/news/news.dart';
 import 'package:falcon/shared/shared.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});

@@ -1,7 +1,10 @@
-import 'package:falcon/news/bloc/bloc.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
+
+// Project imports:
+import 'package:falcon/news/bloc/bloc.dart';
 
 class MockArticle extends Mock implements Article {}
 

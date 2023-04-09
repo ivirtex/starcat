@@ -1,5 +1,8 @@
-import 'package:falcon/news/news.dart';
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// Project imports:
+import 'package:falcon/news/news.dart';
 
 void main() {
   group('NewsState', () {

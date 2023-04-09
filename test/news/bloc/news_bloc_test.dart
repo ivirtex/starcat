@@ -1,10 +1,13 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-import 'package:falcon/news/news.dart';
-import 'package:flutter_test/flutter_test.dart';
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
+
+// Project imports:
+import 'package:falcon/news/news.dart';
 
 class MockSpaceflightRepository extends Mock
     implements SpaceflightNewsRepository {}
