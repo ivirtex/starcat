@@ -24,7 +24,7 @@ class _ArticleSelectionState extends State<ArticleSelection> {
         ButtonSegment(
           value: SelectedNews.latest,
           label: Text('Latest'),
-          icon: Icon(Icons.new_releases),
+          icon: Icon(Icons.newspaper_rounded),
         ),
         ButtonSegment(
           value: SelectedNews.popular,
@@ -41,9 +41,9 @@ class _ArticleSelectionState extends State<ArticleSelection> {
       onSelectionChanged: (newSelection) {
         setState(() {
           selected = newSelection.first;
-        });
 
-        context.read<NewsBloc>().add(NewsSelectionChanged(selected));
+          context.read<NewsBloc>().add(NewsSelectionChanged(selected));
+        });
       },
     );
   }

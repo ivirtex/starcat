@@ -71,7 +71,7 @@ class Body extends StatelessWidget {
                   if (state.news.latestArticles.isEmpty) {
                     return _buildEmpty(
                       context,
-                      'No articles found',
+                      kNoLatestArticlesText,
                     );
                   }
 
@@ -80,7 +80,7 @@ class Body extends StatelessWidget {
                   if (state.news.popularArticles.isEmpty) {
                     return _buildEmpty(
                       context,
-                      'No popular articles today',
+                      kNoPopularArticlesText,
                     );
                   }
 
@@ -89,7 +89,7 @@ class Body extends StatelessWidget {
                   if (state.news.savedArticles.isEmpty) {
                     return _buildEmpty(
                       context,
-                      'No saved articles',
+                      kNoSavedArticlesText,
                     );
                   }
 

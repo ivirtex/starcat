@@ -57,11 +57,9 @@ class LaunchDetailsView extends StatelessWidget {
               border: null,
               largeTitle: AutoSizeText(launch.mission.name ?? 'N/A'),
             ),
-            SliverToBoxAdapter(
-              child: Body(
-                launch: launch,
-                isUpcoming: isUpcoming,
-              ),
+            Body(
+              launch: launch,
+              isUpcoming: isUpcoming,
             ),
           ],
         ),

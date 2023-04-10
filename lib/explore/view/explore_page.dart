@@ -54,9 +54,7 @@ class _ExploreViewState extends State<ExploreView> {
               border: null,
               largeTitle: Text('Explore'),
             ),
-            SliverToBoxAdapter(
-              child: Body(),
-            )
+            Body(),
           ],
         ),
       ),
