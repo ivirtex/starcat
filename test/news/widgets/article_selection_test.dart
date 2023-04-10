@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Project imports:
-import 'package:falcon/news/news.dart';
+import 'package:starcat/news/news.dart';
 import '../../test_helpers/pump_app.dart';
 
 class MockNewsBloc extends MockBloc<NewsEvent, NewsState> implements NewsBloc {}

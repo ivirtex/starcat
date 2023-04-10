@@ -9,12 +9,12 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
-import 'package:falcon/constants.dart';
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/helpers/helpers.dart';
-import 'package:falcon/launches/launch_details.dart';
-import 'package:falcon/news/bloc/news_bloc.dart';
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/constants.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/launches/launch_details.dart';
+import 'package:starcat/news/bloc/news_bloc.dart';
+import 'package:starcat/shared/shared.dart';
 
 class ArticleCard extends StatelessWidget {
   const ArticleCard({

@@ -6,8 +6,8 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/shared/shared.dart';
 
 class TargetOrbitCard extends StatelessWidget {
   const TargetOrbitCard({

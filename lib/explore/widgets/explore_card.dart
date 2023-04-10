@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:falcon/constants.dart';
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/constants.dart';
+import 'package:starcat/shared/shared.dart';
 
 class ExploreCard extends StatelessWidget {
   const ExploreCard({

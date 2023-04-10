@@ -8,8 +8,8 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/shared/shared.dart';
 
 class LaunchDateCard extends StatelessWidget {
   const LaunchDateCard({
@@ -113,7 +113,7 @@ class LaunchDateCard extends StatelessWidget {
     const notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails(
         '0',
-        'dev.ivirtex.falcon.notifications',
+        'dev.ivirtex.starcat.notifications',
         visibility: NotificationVisibility.public,
       ),
       iOS: DarwinNotificationDetails(),

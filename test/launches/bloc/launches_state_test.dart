@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
-import 'package:falcon/launches/launches.dart';
+import 'package:starcat/launches/launches.dart';
 import '../../sample_launch.dart';
 
 void main() {

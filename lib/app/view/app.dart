@@ -11,11 +11,11 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launches/launches.dart';
-import 'package:falcon/news/news.dart';
-import 'package:falcon/shared/shared.dart';
-import 'package:falcon/theme/theme.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/launches/launches.dart';
+import 'package:starcat/news/news.dart';
+import 'package:starcat/shared/shared.dart';
+import 'package:starcat/theme/theme.dart';
 
 class App extends StatelessWidget {
   const App({

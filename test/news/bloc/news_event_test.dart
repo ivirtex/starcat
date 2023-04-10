@@ -4,7 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
-import 'package:falcon/news/bloc/bloc.dart';
+import 'package:starcat/news/bloc/bloc.dart';
 
 class MockArticle extends Mock implements Article {}
 

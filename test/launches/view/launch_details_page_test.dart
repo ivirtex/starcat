@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Project imports:
-import 'package:falcon/launches/launches.dart';
+import 'package:starcat/launches/launches.dart';
 import '../../sample_launch.dart';
 import '../../test_helpers/test_helpers.dart';
 

@@ -9,8 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Project imports:
-import 'package:falcon/constants.dart';
-import 'package:falcon/news/news.dart';
+import 'package:starcat/constants.dart';
+import 'package:starcat/news/news.dart';
 import '../../sample_article.dart';
 import '../../test_helpers/pump_app.dart';
 

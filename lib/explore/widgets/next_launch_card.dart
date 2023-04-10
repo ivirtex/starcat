@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/shared/shared.dart';
 
 class NextLaunchCard extends StatefulWidget {
   const NextLaunchCard({

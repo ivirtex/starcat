@@ -10,9 +10,9 @@ import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launches/launches.dart';
-import 'package:falcon/theme/theme.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/launches/launches.dart';
+import 'package:starcat/theme/theme.dart';
 import '../../test_helpers/test_helpers.dart';
 
 class MockLaunchLibraryRepository extends Mock

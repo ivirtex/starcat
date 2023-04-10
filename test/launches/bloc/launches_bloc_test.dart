@@ -5,7 +5,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Project imports:
-import 'package:falcon/launches/launches.dart';
+import 'package:starcat/launches/launches.dart';
 
 class MockLaunchLibraryRepository extends Mock
     implements LaunchLibraryRepository {}

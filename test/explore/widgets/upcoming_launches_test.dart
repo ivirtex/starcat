@@ -5,8 +5,8 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launches/launches.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/launches/launches.dart';
 import '../../sample_launch.dart';
 import '../../test_helpers/test_helpers.dart';
 

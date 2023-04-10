@@ -14,9 +14,9 @@ import 'package:maps_launcher/maps_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/helpers/helpers.dart';
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/shared/shared.dart';
 
 class LaunchPadMap extends StatefulWidget {
   const LaunchPadMap({

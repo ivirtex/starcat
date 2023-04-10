@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/shared/shared.dart';
 
 void main() {
   group('FilledCard', () {

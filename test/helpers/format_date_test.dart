@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/intl.dart';
 
 // Project imports:
-import 'package:falcon/helpers/helpers.dart';
+import 'package:starcat/helpers/helpers.dart';
 
 void main() {
   test('formatDate', () {

@@ -10,7 +10,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 // Project imports:
-import 'package:falcon/constants.dart';
+import 'package:starcat/constants.dart';
 
 class MissionImage extends StatelessWidget {
   const MissionImage({

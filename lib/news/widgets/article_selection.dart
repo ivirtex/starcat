@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import 'package:falcon/news/news.dart';
+import 'package:starcat/news/news.dart';
 
 class ArticleSelection extends StatefulWidget {
   const ArticleSelection({super.key});

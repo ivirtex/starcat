@@ -8,7 +8,7 @@ import 'package:equatable/equatable.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
-import 'package:falcon/news/news.dart';
+import 'package:starcat/news/news.dart';
 
 part 'news_event.dart';
 part 'news_state.dart';

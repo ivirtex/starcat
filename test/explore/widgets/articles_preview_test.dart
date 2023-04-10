@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/news/news.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/news/news.dart';
 import '../../sample_article.dart';
 import '../../test_helpers/test_helpers.dart';
 

@@ -8,11 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
-import 'package:falcon/constants.dart';
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/launches/launches.dart';
-import 'package:falcon/news/news.dart';
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/constants.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/launches/launches.dart';
+import 'package:starcat/news/news.dart';
+import 'package:starcat/shared/shared.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});

@@ -6,8 +6,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:falcon/explore/explore.dart';
-import 'package:falcon/theme/theme.dart';
+import 'package:starcat/explore/explore.dart';
+import 'package:starcat/theme/theme.dart';
 import '../../test_helpers/test_helpers.dart';
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}

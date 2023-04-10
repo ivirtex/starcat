@@ -2,7 +2,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
 // Project imports:
-import 'package:falcon/news/news.dart';
+import 'package:starcat/news/news.dart';
 
 void main() {
   group('NewsState', () {

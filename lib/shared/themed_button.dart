@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:falcon/shared/shared.dart';
+import 'package:starcat/shared/shared.dart';
 
 class ThemedButton extends StatelessWidget {
   const ThemedButton({
