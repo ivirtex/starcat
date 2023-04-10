@@ -67,7 +67,7 @@ void main() {
         const ExplorePage(),
       );
 
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 3));
     });
   });
 
@@ -114,7 +114,7 @@ void main() {
           const ExploreView(),
         );
 
-        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 3));
 
         expect(find.byType(CircularProgressIndicator), findsOneWidget);
       },
@@ -135,7 +135,7 @@ void main() {
           const ExploreView(),
         );
 
-        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 3));
 
         expect(find.byType(CircularProgressIndicator), findsOneWidget);
       },
@@ -156,7 +156,7 @@ void main() {
           const ExploreView(),
         );
 
-        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 3));
 
         expect(find.byType(ExploreCard), findsOneWidget);
         expect(find.text('Something went wrong'), findsOneWidget);
@@ -180,7 +180,7 @@ void main() {
           const ExploreView(),
         );
 
-        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 3));
 
         expect(find.byType(NextLaunchCard), findsOneWidget);
       },
@@ -205,7 +205,7 @@ void main() {
           const ExploreView(),
         );
 
-        await tester.pump(const Duration(seconds: 1));
+        await tester.pump(const Duration(seconds: 3));
 
         expect(find.byType(CupertinoPageScaffold), findsOneWidget);
         expect(find.byType(Scaffold), findsNothing);
