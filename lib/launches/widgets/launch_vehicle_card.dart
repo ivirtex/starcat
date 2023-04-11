@@ -10,8 +10,8 @@ import 'package:starcat/shared/shared.dart';
 
 class LaunchVehicleCard extends StatelessWidget {
   const LaunchVehicleCard({
-    super.key,
     required this.vehicle,
+    super.key,
   });
 
   final Rocket? vehicle;

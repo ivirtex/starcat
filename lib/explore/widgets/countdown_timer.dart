@@ -15,14 +15,14 @@ enum CountdownTimerMode {
 
 class CountdownTimer extends StatefulWidget {
   const CountdownTimer({
-    this.mode = CountdownTimerMode.daysHoursMinutes,
     required this.launchDate,
+    this.mode = CountdownTimerMode.daysHoursMinutes,
     this.clock = const Clock(),
     super.key,
   });
 
-  final CountdownTimerMode mode;
   final DateTime? launchDate;
+  final CountdownTimerMode mode;
   final Clock clock;
 
   @override

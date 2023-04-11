@@ -7,6 +7,7 @@ import 'package:starcat/shared/shared.dart';
 
 class ExploreCard extends StatelessWidget {
   const ExploreCard({
+    required this.child,
     this.title,
     this.trailing,
     this.slideOut,
@@ -18,7 +19,6 @@ class ExploreCard extends StatelessWidget {
     this.shape,
     this.expandVertically = false,
     this.onTap,
-    required this.child,
     super.key,
   });
 

@@ -11,8 +11,8 @@ import 'package:starcat/shared/shared.dart';
 
 class NextLaunchCard extends StatefulWidget {
   const NextLaunchCard({
-    super.key,
     required this.launch,
+    super.key,
   });
 
   final Launch? launch;

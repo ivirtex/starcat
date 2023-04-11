@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class DataLine extends StatelessWidget {
   const DataLine({
-    this.icon,
     required this.leftSide,
     required this.rightSide,
+    this.icon,
     super.key,
   });
 

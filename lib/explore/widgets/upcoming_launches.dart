@@ -66,9 +66,9 @@ class UpcomingLaunches extends StatelessWidget {
 
 class UpcomingLaunchCard extends StatelessWidget {
   const UpcomingLaunchCard({
-    super.key,
     required this.launch,
     required this.date,
+    super.key,
   });
 
   final Launch launch;

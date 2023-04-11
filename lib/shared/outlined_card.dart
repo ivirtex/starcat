@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class OutlinedCard extends StatelessWidget {
   const OutlinedCard({
+    required this.child,
     this.margin,
     this.shape,
     this.borderRadius,
-    required this.child,
     super.key,
   });
 

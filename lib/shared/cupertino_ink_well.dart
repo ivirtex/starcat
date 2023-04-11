@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 
 class CupertinoInkWell extends StatefulWidget {
   const CupertinoInkWell({
-    super.key,
     required this.onPressed,
     required this.child,
+    super.key,
   });
 
   final VoidCallback? onPressed;

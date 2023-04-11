@@ -7,9 +7,9 @@ import 'package:starcat/shared/shared.dart';
 
 class ThemedButton extends StatelessWidget {
   const ThemedButton({
+    required this.child,
     this.shouldCupertinoButtonBeFilled = false,
     this.onPressed,
-    required this.child,
     super.key,
   });
 

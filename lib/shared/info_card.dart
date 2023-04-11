@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class InfoCard extends StatelessWidget {
   const InfoCard({
+    required this.child,
     this.icon,
     this.padding = const EdgeInsets.all(5),
-    required this.child,
     super.key,
   });
 

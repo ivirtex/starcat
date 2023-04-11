@@ -11,8 +11,8 @@ import 'package:starcat/shared/shared.dart';
 
 class TargetOrbitCard extends StatelessWidget {
   const TargetOrbitCard({
-    super.key,
     required this.orbit,
+    super.key,
   });
 
   final Orbit? orbit;

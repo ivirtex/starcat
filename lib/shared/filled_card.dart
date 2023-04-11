@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class FilledCard extends StatelessWidget {
   const FilledCard({
+    required this.child,
     this.shape,
     this.margin,
-    required this.child,
     super.key,
   });
 
