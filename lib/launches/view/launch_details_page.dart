@@ -66,8 +66,8 @@ class LaunchDetailsView extends StatelessWidget {
       ),
       material: (_) => Scaffold(
         body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
           slivers: [
+            // TODO(ivirtex): think about showing mission image in flexibleSpace
             SliverAppBar.medium(
               stretch: true,
               title: AutoSizeText(launch.mission.name ?? 'N/A'),
