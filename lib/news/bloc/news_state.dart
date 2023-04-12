@@ -4,6 +4,7 @@ enum NewsStatus { initial, loading, success, failure }
 
 enum SelectedNews { latest, popular, saved }
 
+@JsonSerializable()
 class NewsState extends Equatable {
   const NewsState({
     this.status = NewsStatus.initial,
@@ -11,9 +12,14 @@ class NewsState extends Equatable {
     News? news,
   }) : news = news ?? const News();
 
+  factory NewsState.fromJson(Map<String, dynamic> json) =>
+      _$NewsStateFromJson(json);
+
   final NewsStatus status;
   final SelectedNews selection;
   final News news;
+
+  Map<String, dynamic> toJson() => _$NewsStateToJson(this);
 
   NewsState copyWith({
     NewsStatus? status,

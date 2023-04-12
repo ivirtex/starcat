@@ -3,8 +3,9 @@ import 'dart:async';
 import 'dart:developer';
 
 // Package imports:
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
@@ -12,8 +13,9 @@ import 'package:starcat/news/news.dart';
 
 part 'news_event.dart';
 part 'news_state.dart';
+part 'news_bloc.g.dart';
 
-class NewsBloc extends Bloc<NewsEvent, NewsState> {
+class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
   NewsBloc(this._spaceflightNewsRepository) : super(const NewsState()) {
     on<NewsFetchRequested>(_onNewsFetchRequested);
     on<NewsSelectionChanged>(_onNewsSelected);
@@ -22,6 +24,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   }
 
   final SpaceflightNewsRepository _spaceflightNewsRepository;
+
+  @override
+  NewsState? fromJson(Map<String, dynamic> json) => NewsState.fromJson(json);
+
+  @override
+  Map<String, dynamic>? toJson(NewsState state) => state.toJson();
 
   Future<void> _onNewsFetchRequested(
     NewsFetchRequested event,

@@ -28,6 +28,7 @@ dependencies:
   google_maps_flutter: ^2.2.5
   hydrated_bloc: ^9.1.0
   intl: ^0.18.0
+  json_annotation: ^4.8.0
   launch_library_repository:
     path: packages/launch_library_repository
   live_activities: ^1.7.2
@@ -43,10 +44,12 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^9.1.0
+  build_runner: ^2.3.3
   dart_code_metrics: ^5.7.1
   flutter_test:
     sdk: flutter
   import_sorter: ^4.6.0
+  json_serializable: ^6.6.1
   mocktail: ^0.3.0
   very_good_analysis: ^4.0.0+1
 
