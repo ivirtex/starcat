@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:starcat/constants.dart';
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
@@ -58,6 +59,9 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
         ExploreCard(
           title: const Text('Status'),
           trailing: LaunchStatus(_launchStatus),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(kBorderRadius),
+          ),
           slideOut: Row(
             children: [
               Text(

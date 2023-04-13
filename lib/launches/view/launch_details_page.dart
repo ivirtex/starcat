@@ -7,6 +7,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:share_plus/share_plus.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
@@ -71,6 +72,12 @@ class LaunchDetailsView extends StatelessWidget {
             SliverAppBar.medium(
               stretch: true,
               title: AutoSizeText(launch.mission.name ?? 'N/A'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.ios_share_rounded),
+                  onPressed: () => Share.share(launch.name),
+                ),
+              ],
             ),
             Body(
               launch: launch,

@@ -88,6 +88,7 @@ class Body extends StatelessWidget {
       padding: kBodyPadding,
       sliver: MultiSliver(
         children: [
+          // TODO(ivirtex): add a search bar
           const SliverList(
             delegate: SliverChildListDelegate.fixed(
               [

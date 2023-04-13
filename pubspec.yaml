@@ -35,6 +35,7 @@ dependencies:
   maps_launcher: ^2.2.0
   path_provider: ^2.0.14
   phosphor_flutter: ^2.0.0
+  share_plus: ^6.3.2
   sliver_tools: ^0.2.9
   spaceflight_news_repository:
     path: packages/spaceflight_news_repository
