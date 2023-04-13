@@ -9,6 +9,8 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 // Project imports:
 import 'package:starcat/news/news.dart';
 
+import '../../test_helpers/test_helpers.dart';
+
 class MockSpaceflightRepository extends Mock
     implements SpaceflightNewsRepository {}
 
@@ -21,10 +23,14 @@ void main() {
     late Article article;
 
     setUp(() {
+      initHydratedStorage();
+
       spaceflightNewsRepository = MockSpaceflightRepository();
       article = MockArticle();
 
       when(() => article.featured).thenReturn(false);
+      when(() => article.toJson()).thenReturn({});
+
       when(() => spaceflightNewsRepository.getNews()).thenAnswer(
         (_) async => [article],
       );
