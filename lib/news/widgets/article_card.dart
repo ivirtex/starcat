@@ -37,11 +37,6 @@ class ArticleCard extends StatelessWidget {
         padding: const EdgeInsets.only(right: 10, bottom: 10),
         child: ExploreCard(
           expandVertically: expandVertically,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(kBorderRadius),
-            ),
-          ),
           title: Text(article.newsSite),
           trailing: Text(
             formatDate(
@@ -68,7 +63,6 @@ class ArticleCard extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 flex: 4,

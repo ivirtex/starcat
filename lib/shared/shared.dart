@@ -5,6 +5,7 @@ export 'filled_tonal_icon_button.dart';
 export 'icon_toggle_button.dart';
 export 'info_card.dart';
 export 'launch_status.dart';
+export 'loading_placeholder.dart';
 export 'outlined_card.dart';
 export 'platform_widget.dart';
 export 'section.dart';

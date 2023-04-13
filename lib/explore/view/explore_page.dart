@@ -86,53 +86,72 @@ class Body extends StatelessWidget {
         delegate: SliverChildListDelegate(
           [
             const SizedBox(height: 10),
-            BlocBuilder<LaunchesBloc, LaunchesState>(
-              builder: (context, state) {
-                switch (state.status) {
-                  case LaunchesStatus.initial:
-                  case LaunchesStatus.loading:
-                    return _buildLoader(context);
-                  case LaunchesStatus.failure:
-                    return _buildError(context);
-                  case LaunchesStatus.success:
-                    return Column(
-                      children: [
-                        NextLaunchCard(
-                          launch: state.launches.isNotEmpty
-                              ? state.launches.first
-                              : null,
-                        ),
-                        const SizedBox(height: 20),
-                        UpcomingLaunches(launches: state.launches),
-                      ],
-                    );
-                }
-              },
+            AnimatedSize(
+              alignment: Alignment.topCenter,
+              duration: 1.seconds,
+              curve: Curves.easeInOut,
+              child: BlocBuilder<LaunchesBloc, LaunchesState>(
+                builder: (context, state) {
+                  switch (state.status) {
+                    case LaunchesStatus.initial:
+                    case LaunchesStatus.loading:
+                      return Column(
+                        children: const [
+                          NextLaunchCardPlaceholder(),
+                          SizedBox(height: 20),
+                          UpcomingLaunchesPlaceholder(
+                            delay: Duration(milliseconds: 500),
+                          ),
+                        ],
+                      );
+                    case LaunchesStatus.failure:
+                      return _buildError(context);
+                    case LaunchesStatus.success:
+                      return Column(
+                        children: [
+                          NextLaunchCard(
+                            launch: state.launches.isNotEmpty
+                                ? state.launches.first
+                                : null,
+                          ),
+                          const SizedBox(height: 20),
+                          UpcomingLaunches(launches: state.launches),
+                        ]
+                            .animate(interval: kListAnimationIntervalDuration)
+                            .fadeIn(duration: kStateChangeAnimationDuration),
+                      );
+                  }
+                },
+              ),
             ),
             const SizedBox(height: 20),
-            BlocBuilder<NewsBloc, NewsState>(
-              builder: (context, state) {
-                switch (state.status) {
-                  case NewsStatus.initial:
-                  case NewsStatus.loading:
-                    return _buildLoader(context);
-                  case NewsStatus.failure:
-                    return _buildError(context);
-                  case NewsStatus.success:
-                    return ArticlesPreview(articles: state.news.latestArticles);
-                }
-              },
+            AnimatedSize(
+              alignment: Alignment.topCenter,
+              duration: 1.seconds,
+              curve: Curves.easeInOut,
+              child: BlocBuilder<NewsBloc, NewsState>(
+                builder: (context, state) {
+                  switch (state.status) {
+                    case NewsStatus.initial:
+                    case NewsStatus.loading:
+                      return const ArticlesPreviewPlaceholder(
+                        delay: Duration(milliseconds: 1000),
+                      );
+                    case NewsStatus.failure:
+                      return _buildError(context);
+                    case NewsStatus.success:
+                      return ArticlesPreview(
+                        articles: state.news.latestArticles,
+                      )
+                          .animate()
+                          .fadeIn(duration: kStateChangeAnimationDuration);
+                  }
+                },
+              ),
             ),
-          ].animate(interval: kStateChangeAnimationDuration).fadeIn(),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget _buildLoader(BuildContext context) {
-    return const Center(
-      key: ValueKey('loading'),
-      child: CircularProgressIndicator.adaptive(),
     );
   }
 

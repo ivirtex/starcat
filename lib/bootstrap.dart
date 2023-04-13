@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:flutter/widgets.dart';
 
 // Package imports:
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -38,6 +39,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
+
+  Animate.restartOnHotReload = true;
 
   await initNotifications();
 
