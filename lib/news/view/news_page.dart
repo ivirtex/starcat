@@ -11,8 +11,30 @@ import 'package:starcat/constants.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/shared/shared.dart';
 
-class NewsPage extends StatelessWidget {
+class NewsPage extends StatefulWidget {
   const NewsPage({super.key});
+
+  @override
+  State<NewsPage> createState() => _NewsPageState();
+}
+
+class _NewsPageState extends State<NewsPage> {
+  final scrollController = ScrollController();
+
+  bool shouldShowFab = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollController.addListener(() {
+      if (scrollController.offset > 0) {
+        setState(() => shouldShowFab = true);
+      } else {
+        setState(() => shouldShowFab = false);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +51,20 @@ class NewsPage extends StatelessWidget {
           ],
         ),
       ),
-      material: (_) => const Scaffold(
+      material: (_) => Scaffold(
+        floatingActionButton: shouldShowFab
+            ? FloatingActionButton(
+                onPressed: () => scrollController.animateTo(
+                  0,
+                  duration: const Duration(seconds: 1),
+                  curve: Curves.easeInOut,
+                ),
+                child: const Icon(Icons.arrow_upward_rounded),
+              )
+            : null,
         body: CustomScrollView(
-          slivers: [
+          controller: scrollController,
+          slivers: const [
             SliverAppBar(
               pinned: true,
               title: Text('News'),

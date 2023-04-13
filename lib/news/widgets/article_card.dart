@@ -92,7 +92,7 @@ class ArticleCard extends StatelessWidget {
       );
     } else {
       return Padding(
-        padding: const EdgeInsets.only(right: 10, bottom: 10),
+        padding: const EdgeInsets.only(bottom: 10),
         child: ExploreCard(
           expandVertically: expandVertically,
           shape: const RoundedRectangleBorder(
