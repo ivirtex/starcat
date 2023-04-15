@@ -15,7 +15,14 @@ class ArticleSelection extends StatefulWidget {
 }
 
 class _ArticleSelectionState extends State<ArticleSelection> {
-  SelectedNews selected = SelectedNews.latest;
+  late SelectedNews selected;
+
+  @override
+  void initState() {
+    super.initState();
+
+    selected = context.read<NewsBloc>().state.selection;
+  }
 
   @override
   Widget build(BuildContext context) {

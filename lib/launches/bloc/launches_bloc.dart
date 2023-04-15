@@ -22,8 +22,6 @@ class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
   ) async {
     emit(state.copyWith(status: LaunchesStatus.loading));
 
-    await Future<void>.delayed(const Duration(seconds: 3));
-
     try {
       final launches =
           await _launchLibraryRepository.getLaunches(event.launchTime);

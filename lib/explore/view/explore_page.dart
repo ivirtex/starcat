@@ -58,18 +58,28 @@ class _ExploreViewState extends State<ExploreView> {
           ],
         ),
       ),
-      material: (context) => const Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              title: Text('Explore'),
-            ),
-            Body(),
-          ],
+      material: (context) => Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async => _onPullToRefresh(context),
+          child: const CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                title: Text('Explore'),
+              ),
+              Body(),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void _onPullToRefresh(BuildContext context) {
+    context
+        .read<LaunchesBloc>()
+        .add(const LaunchesRequested(launchTime: LaunchTime.upcoming));
+    context.read<NewsBloc>().add(const NewsFetchRequested());
   }
 }
 
@@ -90,7 +100,8 @@ class Body extends StatelessWidget {
               alignment: Alignment.topCenter,
               duration: 1.seconds,
               curve: Curves.easeInOut,
-              child: BlocBuilder<LaunchesBloc, LaunchesState>(
+              child: BlocConsumer<LaunchesBloc, LaunchesState>(
+                listener: _listenForLaunchesStateUpdates,
                 builder: (context, state) {
                   switch (state.status) {
                     case LaunchesStatus.initial:
@@ -159,5 +170,28 @@ class Body extends StatelessWidget {
     return const ExploreCard(
       child: Text('Something went wrong'),
     ).animate(delay: kStateChangeAnimationDuration).fadeIn();
+  }
+
+  void _listenForLaunchesStateUpdates(
+    BuildContext context,
+    LaunchesState state,
+  ) {
+    if (state.status == LaunchesStatus.failure) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          behavior: SnackBarBehavior.floating,
+          content: const Text('Something went wrong'),
+        ),
+      );
+    }
+
+    if (state.status == LaunchesStatus.success) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Launches updated'),
+        ),
+      );
+    }
   }
 }

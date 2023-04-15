@@ -37,8 +37,6 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
   ) async {
     emit(state.copyWith(status: NewsStatus.loading));
 
-    await Future<void>.delayed(const Duration(seconds: 3));
-
     try {
       final latestArticles = await _spaceflightNewsRepository.getNews();
       final popularArticles = latestArticles
