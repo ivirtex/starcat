@@ -24,6 +24,8 @@ class MissionPatch extends Equatable {
   final String? imageUrl;
   final LaunchServiceProvider agency;
 
+  Map<String, dynamic> toJson() => _$MissionPatchToJson(this);
+
   @override
   List<Object?> get props => [
         name,

@@ -19,6 +19,8 @@ class LaunchServiceProvider extends Equatable {
   final String? name;
   final String? type;
 
+  Map<String, dynamic> toJson() => _$LaunchServiceProviderToJson(this);
+
   @override
   List<Object?> get props => [
         url,

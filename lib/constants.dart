@@ -1,7 +1,15 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-const kImageErrorText = 'Error loading the image';
+const kImageErrorText = 'Whoops! Image failed to load';
+
+const kLaunchesUpdateErrorText =
+    'Something went wrong while fetching new launches, current data may be stale.';
+
+const kNewsUpdateErrorText =
+    'Something went wrong while fetching news, current data may be stale.';
 
 const kNoLatestArticlesText = 'No articles found';
 

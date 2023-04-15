@@ -16,6 +16,8 @@ class Orbit extends Equatable {
   final String? name;
   final String? abbrev;
 
+  Map<String, dynamic> toJson() => _$OrbitToJson(this);
+
   @override
   List<Object?> get props => [
         name,

@@ -36,6 +36,8 @@ class Program extends Equatable {
   final String? wikiUrl;
   final List<MissionPatch> missionPatches;
 
+  Map<String, dynamic> toJson() => _$ProgramToJson(this);
+
   @override
   List<Object?> get props => [
         url,

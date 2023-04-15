@@ -25,6 +25,8 @@ class Location extends Equatable {
   final int? totalLaunchCount;
   final int? totalLandingCount;
 
+  Map<String, dynamic> toJson() => _$LocationToJson(this);
+
   @override
   List<Object?> get props => [
         url,

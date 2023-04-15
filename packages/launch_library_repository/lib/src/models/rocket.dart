@@ -17,6 +17,8 @@ class Rocket extends Equatable {
 
   final Configuration configuration;
 
+  Map<String, dynamic> toJson() => _$RocketToJson(this);
+
   @override
   List<Object?> get props => [
         configuration,

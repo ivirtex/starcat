@@ -39,6 +39,8 @@ class Pad extends Equatable {
   final int? totalLaunchCount;
   final int? orbitalLaunchAttemptCount;
 
+  Map<String, dynamic> toJson() => _$PadToJson(this);
+
   @override
   List<Object?> get props => [
         url,

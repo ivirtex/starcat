@@ -42,7 +42,7 @@ class ArticleCard extends StatelessWidget {
             formatDate(
               article.publishedAt,
               dateFormat: DateFormat.yMMMd(),
-            ),
+            )!,
           ),
           slideOutPadding: EdgeInsets.zero,
           slideOut: ClipRRect(

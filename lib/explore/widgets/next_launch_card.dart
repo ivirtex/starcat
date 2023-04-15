@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:starcat/constants.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/shared/shared.dart';
 

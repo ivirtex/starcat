@@ -23,6 +23,8 @@ class Configuration extends Equatable {
   final String fullName;
   final String variant;
 
+  Map<String, dynamic> toJson() => _$ConfigurationToJson(this);
+
   @override
   List<Object?> get props => [
         url,

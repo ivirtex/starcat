@@ -26,6 +26,8 @@ class Mission extends Equatable {
   final String? type;
   final Orbit orbit;
 
+  Map<String, dynamic> toJson() => _$MissionToJson(this);
+
   @override
   List<Object?> get props => [
         name,

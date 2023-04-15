@@ -2,19 +2,28 @@
 import 'dart:developer';
 
 // Package imports:
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 part 'launches_event.dart';
 part 'launches_state.dart';
+part 'launches_bloc.g.dart';
 
-class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
+class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
   LaunchesBloc(this._launchLibraryRepository) : super(const LaunchesState()) {
     on<LaunchesRequested>(_onLaunchesRequested);
   }
 
   final LaunchLibraryRepository _launchLibraryRepository;
+
+  @override
+  LaunchesState? fromJson(Map<String, dynamic> json) =>
+      LaunchesState.fromJson(json);
+
+  @override
+  Map<String, dynamic>? toJson(LaunchesState state) => state.toJson();
 
   Future<void> _onLaunchesRequested(
     LaunchesRequested event,
@@ -30,12 +39,18 @@ class LaunchesBloc extends Bloc<LaunchesEvent, LaunchesState> {
         state.copyWith(
           status: LaunchesStatus.success,
           launches: launches,
+          lastSuccessfulUpdate: DateTime.now(),
         ),
       );
     } catch (err) {
       log('LaunchesBloc._onLaunchesRequested: $err');
 
-      emit(state.copyWith(status: LaunchesStatus.failure));
+      emit(
+        state.copyWith(
+          status: LaunchesStatus.failure,
+          launches: state.launches,
+        ),
+      );
     }
   }
 }

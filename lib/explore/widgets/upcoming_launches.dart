@@ -50,7 +50,7 @@ class UpcomingLaunches extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10),
                       child: UpcomingLaunchCard(
                         launch: launch,
-                        date: date,
+                        date: date!,
                       ),
                     );
                   },

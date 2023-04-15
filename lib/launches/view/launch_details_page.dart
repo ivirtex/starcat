@@ -11,6 +11,7 @@ import 'package:share_plus/share_plus.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
+import 'package:starcat/helpers/format_date.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 
@@ -75,7 +76,7 @@ class LaunchDetailsView extends StatelessWidget {
               actions: [
                 IconButton(
                   icon: const Icon(Icons.ios_share_rounded),
-                  onPressed: () => Share.share(launch.name),
+                  onPressed: () => Share.share(composeShareText(launch)),
                 ),
               ],
             ),
@@ -87,6 +88,15 @@ class LaunchDetailsView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String composeShareText(Launch launch) {
+    final net = formatDate(launch.net);
+    final launchName = launch.name;
+    final launchPad = launch.pad.name;
+
+    // ignore: lines_longer_than_80_chars
+    return '$launchName launch date is NET $net and will be launching from $launchPad.';
   }
 }
 
@@ -108,15 +118,9 @@ class Body extends StatelessWidget {
         delegate: SliverChildListDelegate(
           [
             if (launch.image != null)
-              Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(kBorderRadius),
-                    child: MissionImage(
-                      imageUrl: launch.image ?? '',
-                    ),
-                  ),
-                ],
+              ClipRRect(
+                borderRadius: BorderRadius.circular(kBorderRadius),
+                child: MissionImage(imageUrl: launch.image ?? ''),
               ),
             const SizedBox(height: 10),
             Padding(

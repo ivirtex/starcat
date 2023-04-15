@@ -60,7 +60,7 @@ class _ExploreViewState extends State<ExploreView> {
       ),
       material: (context) => Scaffold(
         body: RefreshIndicator(
-          onRefresh: () async => _onPullToRefresh(context),
+          onRefresh: () async => _onRefresh(context),
           child: const CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -75,7 +75,7 @@ class _ExploreViewState extends State<ExploreView> {
     );
   }
 
-  void _onPullToRefresh(BuildContext context) {
+  void _onRefresh(BuildContext context) {
     context
         .read<LaunchesBloc>()
         .add(const LaunchesRequested(launchTime: LaunchTime.upcoming));
@@ -90,6 +90,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO(ivirtex): add animated background patterns
     return SliverPadding(
       padding: kBodyPadding,
       sliver: SliverList(
@@ -98,7 +99,7 @@ class Body extends StatelessWidget {
             const SizedBox(height: 10),
             AnimatedSize(
               alignment: Alignment.topCenter,
-              duration: 1.seconds,
+              duration: kStateChangeAnimationDuration,
               curve: Curves.easeInOut,
               child: BlocConsumer<LaunchesBloc, LaunchesState>(
                 listener: _listenForLaunchesStateUpdates,
@@ -116,7 +117,6 @@ class Body extends StatelessWidget {
                         ],
                       );
                     case LaunchesStatus.failure:
-                      return _buildError(context);
                     case LaunchesStatus.success:
                       return Column(
                         children: [
@@ -138,9 +138,10 @@ class Body extends StatelessWidget {
             const SizedBox(height: 20),
             AnimatedSize(
               alignment: Alignment.topCenter,
-              duration: 1.seconds,
+              duration: kStateChangeAnimationDuration,
               curve: Curves.easeInOut,
-              child: BlocBuilder<NewsBloc, NewsState>(
+              child: BlocConsumer<NewsBloc, NewsState>(
+                listener: _listenForNewsStateUpdates,
                 builder: (context, state) {
                   switch (state.status) {
                     case NewsStatus.initial:
@@ -149,7 +150,6 @@ class Body extends StatelessWidget {
                         delay: Duration(milliseconds: 1000),
                       );
                     case NewsStatus.failure:
-                      return _buildError(context);
                     case NewsStatus.success:
                       return ArticlesPreview(
                         articles: state.news.latestArticles,
@@ -166,12 +166,6 @@ class Body extends StatelessWidget {
     );
   }
 
-  Widget _buildError(BuildContext context) {
-    return const ExploreCard(
-      child: Text('Something went wrong'),
-    ).animate(delay: kStateChangeAnimationDuration).fadeIn();
-  }
-
   void _listenForLaunchesStateUpdates(
     BuildContext context,
     LaunchesState state,
@@ -180,16 +174,31 @@ class Body extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          behavior: SnackBarBehavior.floating,
-          content: const Text('Something went wrong'),
+          content: Text(
+            kLaunchesUpdateErrorText,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onErrorContainer,
+            ),
+          ),
         ),
       );
     }
+  }
 
-    if (state.status == LaunchesStatus.success) {
+  void _listenForNewsStateUpdates(
+    BuildContext context,
+    NewsState state,
+  ) {
+    if (state.status == NewsStatus.failure) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Launches updated'),
+        SnackBar(
+          backgroundColor: Theme.of(context).colorScheme.errorContainer,
+          content: Text(
+            kNewsUpdateErrorText,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onErrorContainer,
+            ),
+          ),
         ),
       );
     }
