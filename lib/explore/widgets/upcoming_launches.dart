@@ -87,6 +87,7 @@ class UpcomingLaunchCard extends StatelessWidget {
             Expanded(
               child: ClipRect(
                 child: ShaderMask(
+                  blendMode: BlendMode.dstIn,
                   shaderCallback: (rect) {
                     return const LinearGradient(
                       colors: <Color>[
@@ -95,8 +96,8 @@ class UpcomingLaunchCard extends StatelessWidget {
                       ],
                     ).createShader(
                       Rect.fromLTRB(
-                        rect.width - 30,
-                        rect.height - 30,
+                        rect.width - 50,
+                        rect.height,
                         rect.width,
                         rect.height,
                       ),
@@ -140,6 +141,7 @@ class UpcomingLaunchCard extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(width: 10),
             VehicleScheme(
               vehicle: launch.rocket,
               mission: launch.mission,

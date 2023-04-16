@@ -80,9 +80,15 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                _launchName ?? 'No launch name',
-                style: Theme.of(context).textTheme.titleLarge,
+              Row(
+                children: [
+                  Text(
+                    _launchName ?? 'No launch name',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const Spacer(),
+                  MissonPatchImage(programs: widget.launch?.program ?? [])
+                ],
               ),
               const SizedBox(height: 10),
               Text(

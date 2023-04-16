@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -67,6 +68,8 @@ class AppView extends StatelessWidget {
   }
 
   Widget _createSchemedMaterialApp(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
         ColorScheme lightScheme;
@@ -82,28 +85,32 @@ class AppView extends StatelessWidget {
               FlexThemeData.dark(scheme: FlexScheme.brandBlue).colorScheme;
         }
 
-        return MaterialApp.router(
-          title: 'Falcon',
-          theme: FlexThemeData.light(
-            useMaterial3: true,
-            useMaterial3ErrorColors: true,
-            swapLegacyOnMaterial3: true,
-            colorScheme: lightScheme.copyWith(shadow: Colors.transparent),
-            subThemesData: const FlexSubThemesData(
-              useTextTheme: true,
-            ),
+        return AnnotatedRegion(
+          value: FlexColorScheme.themedSystemNavigationBar(
+            context,
+            systemNavBarStyle: FlexSystemNavBarStyle.transparent,
           ),
-          darkTheme: FlexThemeData.dark(
-            useMaterial3: true,
-            useMaterial3ErrorColors: true,
-            swapLegacyOnMaterial3: true,
-            colorScheme: darkScheme.copyWith(shadow: Colors.transparent),
-            subThemesData: const FlexSubThemesData(
-              useTextTheme: true,
+          child: MaterialApp.router(
+            title: 'Falcon',
+            theme: FlexThemeData.light(
+              useMaterial3: true,
+              useMaterial3ErrorColors: true,
+              colorScheme: lightScheme.copyWith(shadow: Colors.transparent),
+              subThemesData: const FlexSubThemesData(
+                useTextTheme: true,
+              ),
             ),
+            darkTheme: FlexThemeData.dark(
+              useMaterial3: true,
+              useMaterial3ErrorColors: true,
+              colorScheme: darkScheme.copyWith(shadow: Colors.transparent),
+              subThemesData: const FlexSubThemesData(
+                useTextTheme: true,
+              ),
+            ),
+            themeMode: context.read<ThemeCubit>().state.themeMode,
+            routerConfig: _router,
           ),
-          themeMode: context.read<ThemeCubit>().state.themeMode,
-          routerConfig: _router,
         );
       },
     );
