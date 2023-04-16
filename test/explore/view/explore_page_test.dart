@@ -8,21 +8,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
+import 'package:starcat/constants.dart';
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
+import 'package:starcat/news/news.dart';
 import 'package:starcat/theme/theme.dart';
 import '../../test_helpers/test_helpers.dart';
 
-class MockLaunchLibraryRepository extends Mock
-    implements LaunchLibraryRepository {}
-
-class MockSpaceflightNewsRepository extends Mock
-    implements SpaceflightNewsRepository {}
-
-class MockLaunchesBloc extends MockCubit<LaunchesState>
+class MockLaunchesBloc extends MockBloc<LaunchesEvent, LaunchesState>
     implements LaunchesBloc {}
+
+class MockNewsBloc extends MockBloc<NewsEvent, NewsState> implements NewsBloc {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
@@ -30,40 +28,30 @@ class MockLaunch extends Mock implements Launch {}
 
 void main() {
   group('ExplorePage', () {
-    late LaunchLibraryRepository launchLibraryRepository;
-    late SpaceflightNewsRepository spaceflightNewsRepository;
     late LaunchesBloc launchesBloc;
-    late ThemeCubit themeCubit;
+    late NewsBloc newsBloc;
     late Launch launch;
 
     setUp(() {
-      launchLibraryRepository = MockLaunchLibraryRepository();
-      spaceflightNewsRepository = MockSpaceflightNewsRepository();
       launchesBloc = MockLaunchesBloc();
-      themeCubit = MockThemeCubit();
+      newsBloc = MockNewsBloc();
       launch = MockLaunch();
 
-      registerFallbackValue(LaunchTime.upcoming);
-      when(() => launchLibraryRepository.getLaunches(any()))
-          .thenAnswer((_) async => <Launch>[launch]);
-      when(() => spaceflightNewsRepository.getNews())
-          .thenAnswer((_) async => <Article>[]);
       when(
         () => launchesBloc
             .add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
       ).thenAnswer((_) async => <Launch>[launch]);
       when(() => launchesBloc.state).thenReturn(const LaunchesState());
-      when(() => themeCubit.state).thenReturn(
-        const ThemeState(ThemeMode.system),
-      );
+
+      when(() => newsBloc.add(const NewsFetchRequested()))
+          .thenAnswer((_) async => <Article>[]);
+      when(() => newsBloc.state).thenReturn(const NewsState());
     });
 
     testWidgets('renders ExplorePage', (WidgetTester tester) async {
       await tester.pumpApp(
-        launchLibraryRepository: launchLibraryRepository,
-        spaceflightNewsRepository: spaceflightNewsRepository,
         launchesBloc: launchesBloc,
-        themeCubit: themeCubit,
+        newsBloc: newsBloc,
         const ExplorePage(),
       );
 
@@ -72,94 +60,95 @@ void main() {
   });
 
   group('ExploreView', () {
-    late LaunchLibraryRepository launchLibraryRepository;
-    late SpaceflightNewsRepository spaceflightNewsRepository;
     late LaunchesBloc launchesBloc;
-    late ThemeCubit themeCubit;
+    late NewsBloc newsBloc;
     late Launch launches;
 
     setUp(() {
-      launchLibraryRepository = MockLaunchLibraryRepository();
-      spaceflightNewsRepository = MockSpaceflightNewsRepository();
       launchesBloc = MockLaunchesBloc();
-      themeCubit = MockThemeCubit();
+      newsBloc = MockNewsBloc();
       launches = MockLaunch();
 
-      registerFallbackValue(LaunchTime.upcoming);
-      when(() => launchLibraryRepository.getLaunches(any()))
-          .thenAnswer((_) async => <Launch>[launches]);
-      when(() => spaceflightNewsRepository.getNews())
-          .thenAnswer((_) async => <Article>[]);
       when(
         () => launchesBloc
             .add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
       ).thenAnswer((_) async => launches);
-      when(() => themeCubit.state).thenReturn(
-        const ThemeState(ThemeMode.system),
-      );
+      when(() => launchesBloc.state).thenReturn(const LaunchesState());
+
+      when(() => newsBloc.add(const NewsFetchRequested()))
+          .thenAnswer((_) async => <Article>[]);
+      when(() => newsBloc.state).thenReturn(const NewsState());
     });
 
     testWidgets(
-      'renders CircularProgressIndicator for LaunchesStatus.initial',
+      'renders placeholders for LaunchesStatus.initial and NewsStatus.initial',
       (WidgetTester tester) async {
         when(() => launchesBloc.state).thenReturn(
           const LaunchesState(),
         );
 
         await tester.pumpApp(
-          launchLibraryRepository: launchLibraryRepository,
-          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
-          themeCubit: themeCubit,
+          newsBloc: newsBloc,
           const ExploreView(),
         );
 
         await tester.pump(const Duration(seconds: 3));
 
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        expect(find.byType(NextLaunchCardPlaceholder), findsOneWidget);
+        expect(find.byType(UpcomingLaunchesPlaceholder), findsOneWidget);
       },
     );
 
     testWidgets(
-      'renders CircularProgressIndicator for LaunchesStatus.loading',
+      'renders placeholders for LaunchesStatus.loading and NewsStatus.loading',
       (WidgetTester tester) async {
         when(() => launchesBloc.state).thenReturn(
           const LaunchesState(status: LaunchesStatus.loading),
         );
+        when(() => newsBloc.state).thenReturn(
+          const NewsState(status: NewsStatus.loading),
+        );
 
         await tester.pumpApp(
-          launchLibraryRepository: launchLibraryRepository,
-          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
-          themeCubit: themeCubit,
+          newsBloc: newsBloc,
           const ExploreView(),
         );
 
         await tester.pump(const Duration(seconds: 3));
 
-        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        expect(find.byType(NextLaunchCardPlaceholder), findsOneWidget);
+        expect(find.byType(UpcomingLaunchesPlaceholder), findsOneWidget);
       },
     );
 
     testWidgets(
-      'renders ExploreCard with failure message for LaunchesStatus.failure',
+      'dispatches snackbars with failure message for LaunchesStatus.failure and NewsStatus.failure',
       (WidgetTester tester) async {
-        when(() => launchesBloc.state).thenReturn(
+        final expectedLaunchesState = [
           const LaunchesState(status: LaunchesStatus.failure),
-        );
+        ];
+
+        final expectedNewsState = [
+          const NewsState(),
+          const NewsState(status: NewsStatus.failure),
+        ];
+
+        whenListen(launchesBloc, Stream.fromIterable(expectedLaunchesState));
+        whenListen(newsBloc, Stream.fromIterable(expectedNewsState));
 
         await tester.pumpApp(
-          launchLibraryRepository: launchLibraryRepository,
-          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
-          themeCubit: themeCubit,
+          newsBloc: newsBloc,
           const ExploreView(),
         );
 
         await tester.pump(const Duration(seconds: 3));
 
-        expect(find.byType(ExploreCard), findsOneWidget);
-        expect(find.text('Something went wrong'), findsOneWidget);
+        expect(find.text(kLaunchesUpdateErrorText), findsOneWidget);
+
+        await tester.pumpAndSettle();
       },
     );
 
@@ -171,12 +160,13 @@ void main() {
             status: LaunchesStatus.success,
           ),
         );
+        when(() => newsBloc.state).thenReturn(
+          const NewsState(status: NewsStatus.success),
+        );
 
         await tester.pumpApp(
-          launchLibraryRepository: launchLibraryRepository,
-          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
-          themeCubit: themeCubit,
+          newsBloc: newsBloc,
           const ExploreView(),
         );
 
@@ -195,12 +185,13 @@ void main() {
             status: LaunchesStatus.success,
           ),
         );
+        when(() => newsBloc.state).thenReturn(
+          const NewsState(status: NewsStatus.success),
+        );
 
         await tester.pumpApp(
-          launchLibraryRepository: launchLibraryRepository,
-          spaceflightNewsRepository: spaceflightNewsRepository,
           launchesBloc: launchesBloc,
-          themeCubit: themeCubit,
+          newsBloc: newsBloc,
           platform: TargetPlatform.iOS,
           const ExploreView(),
         );

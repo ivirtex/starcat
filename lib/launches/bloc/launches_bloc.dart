@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 // Package imports:
+import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -12,11 +13,15 @@ part 'launches_state.dart';
 part 'launches_bloc.g.dart';
 
 class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
-  LaunchesBloc(this._launchLibraryRepository) : super(const LaunchesState()) {
+  LaunchesBloc(
+    this._launchLibraryRepository, {
+    this.clock = const Clock(),
+  }) : super(const LaunchesState()) {
     on<LaunchesRequested>(_onLaunchesRequested);
   }
 
   final LaunchLibraryRepository _launchLibraryRepository;
+  final Clock clock;
 
   @override
   LaunchesState? fromJson(Map<String, dynamic> json) =>
@@ -39,7 +44,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
         state.copyWith(
           status: LaunchesStatus.success,
           launches: launches,
-          lastSuccessfulUpdate: DateTime.now(),
+          lastSuccessfulUpdate: clock.now(),
         ),
       );
     } catch (err) {

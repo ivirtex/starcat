@@ -28,7 +28,7 @@ extension PumpApp on WidgetTester {
 
     return pumpWidget(
       RepositoryProvider.value(
-        value: LaunchLibraryRepository,
+        value: launchLibraryRepository,
         child: MultiBlocProvider(
           providers: [
             BlocProvider.value(

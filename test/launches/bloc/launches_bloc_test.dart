@@ -1,11 +1,14 @@
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
+import 'package:clock/clock.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:starcat/launches/launches.dart';
+
+import '../../test_helpers/hydrated_bloc.dart';
 
 class MockLaunchLibraryRepository extends Mock
     implements LaunchLibraryRepository {}
@@ -19,6 +22,8 @@ void main() {
     late LaunchesBloc launchesBloc;
 
     setUp(() {
+      initHydratedStorage();
+
       registerFallbackValue(LaunchTime.upcoming);
 
       launchLibraryRepository = MockLaunchLibraryRepository();
@@ -27,8 +32,11 @@ void main() {
       when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[launch]);
 
+      when(() => launch.toJson()).thenReturn(<String, dynamic>{});
+
       launchesBloc = LaunchesBloc(
         launchLibraryRepository,
+        clock: Clock.fixed(DateTime(2023)),
       );
     });
 
@@ -54,7 +62,11 @@ void main() {
           bloc.add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
       expect: () => [
         const LaunchesState(status: LaunchesStatus.loading),
-        LaunchesState(status: LaunchesStatus.success, launches: [launch]),
+        LaunchesState(
+          status: LaunchesStatus.success,
+          launches: [launch],
+          lastSuccessfulUpdate: DateTime(2023),
+        ),
       ],
     );
 

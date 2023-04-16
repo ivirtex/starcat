@@ -18,6 +18,8 @@ void main() {
 
     setUp(() {
       newsBloc = MockNewsBloc();
+
+      when(() => newsBloc.state).thenReturn(const NewsState());
     });
 
     testWidgets('renders', (WidgetTester tester) async {
