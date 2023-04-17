@@ -1,11 +1,11 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -15,6 +15,7 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
+import 'package:starcat/settings/settings.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
 
@@ -70,12 +71,14 @@ class AppView extends StatelessWidget {
   Widget _createSchemedMaterialApp(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
+    final isMaterial3Enabled = context.read<ThemeCubit>().state.material3;
+
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
         ColorScheme lightScheme;
         ColorScheme darkScheme;
 
-        if (lightDynamic != null && darkDynamic != null) {
+        if (lightDynamic != null && darkDynamic != null && isMaterial3Enabled) {
           lightScheme = lightDynamic;
           darkScheme = darkDynamic;
         } else {
@@ -146,7 +149,11 @@ final _router = GoRouter(
         GoRoute(
           path: 'news',
           builder: (context, state) => const NewsPage(),
-        )
+        ),
+        GoRoute(
+          path: 'settings',
+          builder: (context, state) => const SettingsPage(),
+        ),
       ],
     ),
   ],

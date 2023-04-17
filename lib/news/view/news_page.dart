@@ -11,14 +11,23 @@ import 'package:starcat/constants.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/shared/shared.dart';
 
-class NewsPage extends StatefulWidget {
+class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
 
   @override
-  State<NewsPage> createState() => _NewsPageState();
+  Widget build(BuildContext context) {
+    return const NewsView();
+  }
 }
 
-class _NewsPageState extends State<NewsPage> {
+class NewsView extends StatefulWidget {
+  const NewsView({super.key});
+
+  @override
+  State<NewsView> createState() => _NewsViewState();
+}
+
+class _NewsViewState extends State<NewsView> {
   final scrollController = ScrollController();
 
   bool shouldShowFab = false;

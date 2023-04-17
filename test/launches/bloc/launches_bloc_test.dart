@@ -7,7 +7,6 @@ import 'package:mocktail/mocktail.dart';
 
 // Project imports:
 import 'package:starcat/launches/launches.dart';
-
 import '../../test_helpers/hydrated_bloc.dart';
 
 class MockLaunchLibraryRepository extends Mock

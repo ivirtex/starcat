@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
@@ -58,16 +59,24 @@ class _ExploreViewState extends State<ExploreView> {
           ],
         ),
       ),
+      // TODO(ivirtex): add navigation bar with
+      // upcoming and past launches and news tabs
       material: (context) => Scaffold(
         body: RefreshIndicator(
           onRefresh: () async => _onRefresh(context),
-          child: const CustomScrollView(
+          child: CustomScrollView(
             slivers: [
               SliverAppBar(
                 pinned: true,
-                title: Text('Explore'),
+                title: const Text('Explore'),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.settings_rounded),
+                    onPressed: () => context.go('/settings'),
+                  ),
+                ],
               ),
-              Body(),
+              const Body(),
             ],
           ),
         ),

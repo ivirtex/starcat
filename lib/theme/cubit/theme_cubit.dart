@@ -14,13 +14,25 @@ class ThemeCubit extends HydratedCubit<ThemeState> {
     emit(ThemeState(themeMode));
   }
 
+  void setMaterial3({required bool isEnabled}) {
+    emit(
+      ThemeState(state.themeMode, material3: isEnabled),
+    );
+  }
+
   @override
   ThemeState? fromJson(Map<String, dynamic> json) {
-    return ThemeState(ThemeMode.values[json['themeMode'] as int]);
+    return ThemeState(
+      ThemeMode.values[json['themeMode'] as int],
+      material3: json['material3'] as bool,
+    );
   }
 
   @override
   Map<String, dynamic>? toJson(ThemeState state) {
-    return {'themeMode': state.themeMode.index};
+    return {
+      'themeMode': state.themeMode.index,
+      'material3': state.material3,
+    };
   }
 }
