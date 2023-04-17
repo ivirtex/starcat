@@ -18,6 +18,7 @@ import 'package:starcat/news/news.dart';
 import 'package:starcat/settings/settings.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
+import 'package:wiredash/wiredash.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -93,26 +94,30 @@ class AppView extends StatelessWidget {
             context,
             systemNavBarStyle: FlexSystemNavBarStyle.transparent,
           ),
-          child: MaterialApp.router(
-            title: 'Falcon',
-            theme: FlexThemeData.light(
-              useMaterial3: true,
-              useMaterial3ErrorColors: true,
-              colorScheme: lightScheme.copyWith(shadow: Colors.transparent),
-              subThemesData: const FlexSubThemesData(
-                useTextTheme: true,
+          child: Wiredash(
+            projectId: 'starcat-w3mkxif',
+            secret: '8y10DEziectf1WRHc9DWrmnog2p_YHo8',
+            child: MaterialApp.router(
+              title: 'Falcon',
+              theme: FlexThemeData.light(
+                useMaterial3: true,
+                useMaterial3ErrorColors: true,
+                colorScheme: lightScheme.copyWith(shadow: Colors.transparent),
+                subThemesData: const FlexSubThemesData(
+                  useTextTheme: true,
+                ),
               ),
-            ),
-            darkTheme: FlexThemeData.dark(
-              useMaterial3: true,
-              useMaterial3ErrorColors: true,
-              colorScheme: darkScheme.copyWith(shadow: Colors.transparent),
-              subThemesData: const FlexSubThemesData(
-                useTextTheme: true,
+              darkTheme: FlexThemeData.dark(
+                useMaterial3: true,
+                useMaterial3ErrorColors: true,
+                colorScheme: darkScheme.copyWith(shadow: Colors.transparent),
+                subThemesData: const FlexSubThemesData(
+                  useTextTheme: true,
+                ),
               ),
+              themeMode: context.read<ThemeCubit>().state.themeMode,
+              routerConfig: _router,
             ),
-            themeMode: context.read<ThemeCubit>().state.themeMode,
-            routerConfig: _router,
           ),
         );
       },
@@ -120,16 +125,21 @@ class AppView extends StatelessWidget {
   }
 
   Widget _createCupertinoApp(BuildContext context) {
-    return CupertinoApp.router(
-      title: 'Falcon',
-      theme: CupertinoThemeData(
-        brightness: context.read<ThemeCubit>().state.themeMode == ThemeMode.dark
-            ? Brightness.dark
-            : context.read<ThemeCubit>().state.themeMode == ThemeMode.light
-                ? Brightness.light
-                : null,
+    return Wiredash(
+      projectId: 'starcat-w3mkxif',
+      secret: '8y10DEziectf1WRHc9DWrmnog2p_YHo8',
+      child: CupertinoApp.router(
+        title: 'Falcon',
+        theme: CupertinoThemeData(
+          brightness: context.read<ThemeCubit>().state.themeMode ==
+                  ThemeMode.dark
+              ? Brightness.dark
+              : context.read<ThemeCubit>().state.themeMode == ThemeMode.light
+                  ? Brightness.light
+                  : null,
+        ),
+        routerConfig: _router,
       ),
-      routerConfig: _router,
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
+import 'package:wiredash/wiredash.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -129,7 +130,11 @@ class _BodyState extends State<Body> {
             leading: const Icon(Icons.bug_report_rounded),
             title: const Text('Submit Feedback'),
             trailing: const Icon(Icons.chevron_right_rounded),
-            onTap: () {},
+            onTap: () {
+              Wiredash.of(context).show(
+                inheritMaterialTheme: true,
+              );
+            },
           ),
           Padding(
             padding: _textPadding,
