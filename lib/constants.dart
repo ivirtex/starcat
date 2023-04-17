@@ -26,3 +26,5 @@ const kListAnimationFadeDuration = Duration(milliseconds: 350);
 const kBorderRadius = 12.0;
 
 const kBodyPadding = EdgeInsets.symmetric(horizontal: 10);
+
+const kSourceCodeUrl = 'https://github.com/ivirtex/starcat';

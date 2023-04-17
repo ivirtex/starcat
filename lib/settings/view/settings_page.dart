@@ -1,13 +1,16 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:starcat/constants.dart';
 
 // Project imports:
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wiredash/wiredash.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -124,7 +127,7 @@ class _BodyState extends State<Body> {
             leading: const Icon(Icons.code_rounded),
             title: const Text('Source Code'),
             trailing: const Icon(Icons.chevron_right_rounded),
-            onTap: () {},
+            onTap: _launchSourceCodeUrl,
           ),
           ListTile(
             leading: const Icon(Icons.bug_report_rounded),
@@ -143,7 +146,9 @@ class _BodyState extends State<Body> {
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ),
-        ],
+        ]
+            .animate(interval: kListAnimationIntervalDuration)
+            .fadeIn(duration: kListAnimationFadeDuration),
       ),
     );
   }
@@ -152,5 +157,12 @@ class _BodyState extends State<Body> {
     return Theme.of(context).textTheme.labelMedium?.copyWith(
           color: Theme.of(context).colorScheme.primary,
         );
+  }
+
+  void _launchSourceCodeUrl() {
+    launchUrl(
+      Uri.parse(kSourceCodeUrl),
+      mode: LaunchMode.externalApplication,
+    );
   }
 }
