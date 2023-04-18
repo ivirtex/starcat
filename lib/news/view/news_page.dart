@@ -118,7 +118,10 @@ class Body extends StatelessWidget {
                     );
                   }
 
-                  return ArticleList(articles: state.news.latestArticles);
+                  return ArticleList(
+                    articles: state.news.latestArticles,
+                    key: const ValueKey('latest'),
+                  );
                 case SelectedNews.popular:
                   if (state.news.popularArticles.isEmpty) {
                     return _buildEmpty(
@@ -127,7 +130,10 @@ class Body extends StatelessWidget {
                     );
                   }
 
-                  return ArticleList(articles: state.news.popularArticles);
+                  return ArticleList(
+                    articles: state.news.popularArticles,
+                    key: const ValueKey('popular'),
+                  );
                 case SelectedNews.saved:
                   if (state.news.savedArticles.isEmpty) {
                     return _buildEmpty(
@@ -136,7 +142,10 @@ class Body extends StatelessWidget {
                     );
                   }
 
-                  return ArticleList(articles: state.news.savedArticles);
+                  return ArticleList(
+                    articles: state.news.savedArticles,
+                    key: const ValueKey('saved'),
+                  );
               }
             },
           ),

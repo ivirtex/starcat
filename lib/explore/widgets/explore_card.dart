@@ -86,34 +86,40 @@ class ExploreCard extends StatelessWidget {
                   color: Theme.of(context).colorScheme.surfaceVariant,
                   borderRadius: BorderRadius.circular(kBorderRadius),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // TODO(ivirtex): add slide out animation on scroll
-                    Padding(
-                      padding: slideOutPadding,
-                      child: slideOut,
-                    ),
-                    Expanded(
-                      flex: expandVertically ? 1 : 0,
-                      child: Card(
-                        margin: EdgeInsets.zero,
-                        shape: shape ??
-                            const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(kBorderRadius),
+                child: DefaultTextStyle(
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // TODO(ivirtex): add slide out animation on scroll
+                      Padding(
+                        padding: slideOutPadding,
+                        child: slideOut,
+                      ),
+                      Expanded(
+                        flex: expandVertically ? 1 : 0,
+                        child: Card(
+                          margin: EdgeInsets.zero,
+                          color: Theme.of(context).colorScheme.surface,
+                          shape: shape ??
+                              const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  bottom: Radius.circular(kBorderRadius),
+                                ),
                               ),
+                          child: InkWell(
+                            onTap: onTap,
+                            child: Padding(
+                              padding: padding,
+                              child: child,
                             ),
-                        child: InkWell(
-                          onTap: onTap,
-                          child: Padding(
-                            padding: padding,
-                            child: child,
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             )

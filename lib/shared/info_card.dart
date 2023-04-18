@@ -20,7 +20,10 @@ class InfoCard extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(5),
         ),
-        color: Theme.of(context).colorScheme.secondaryContainer,
+        border: Border.all(
+          color: Theme.of(context).colorScheme.secondary,
+          width: 1.5,
+        ),
       ),
       padding: padding,
       child: Row(
@@ -33,7 +36,7 @@ class InfoCard extends StatelessWidget {
           Flexible(
             child: DefaultTextStyle(
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
               child: child,
             ),

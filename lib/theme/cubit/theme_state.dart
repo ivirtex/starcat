@@ -1,11 +1,22 @@
 part of 'theme_cubit.dart';
 
 class ThemeState extends Equatable {
-  const ThemeState(this.themeMode, {this.material3 = true});
+  const ThemeState(this.themeMode, {this.isDynamicThemeEnabled = true});
 
   final ThemeMode themeMode;
-  final bool material3;
+  final bool isDynamicThemeEnabled;
+
+  ThemeState copyWith({
+    ThemeMode? themeMode,
+    bool? isDynamicThemeEnabled,
+  }) {
+    return ThemeState(
+      themeMode ?? this.themeMode,
+      isDynamicThemeEnabled:
+          isDynamicThemeEnabled ?? this.isDynamicThemeEnabled,
+    );
+  }
 
   @override
-  List<Object> get props => [themeMode, material3];
+  List<Object> get props => [themeMode, isDynamicThemeEnabled];
 }

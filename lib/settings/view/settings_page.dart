@@ -1,17 +1,17 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 // Package imports:
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:starcat/constants.dart';
-
-// Project imports:
-import 'package:starcat/shared/shared.dart';
-import 'package:starcat/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wiredash/wiredash.dart';
+
+// Project imports:
+import 'package:starcat/constants.dart';
+import 'package:starcat/shared/shared.dart';
+import 'package:starcat/theme/theme.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -72,7 +72,8 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
 
-    _isMaterial3Enabled = context.read<ThemeCubit>().state.material3 == true;
+    _isMaterial3Enabled =
+        context.read<ThemeCubit>().state.isDynamicThemeEnabled == true;
     _isDarkModeEnabled =
         context.read<ThemeCubit>().state.themeMode == ThemeMode.dark;
   }
@@ -141,9 +142,18 @@ class _BodyState extends State<Body> {
           ),
           Padding(
             padding: _textPadding,
-            child: Text(
-              'Made with ❤️ by ivirtex',
-              style: Theme.of(context).textTheme.labelSmall,
+            child: Column(
+              children: [
+                Text(
+                  'Made with ❤️ by ivirtex',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  'Specjalna wersja dla oposka <3',
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ],
             ),
           ),
         ]
@@ -155,7 +165,7 @@ class _BodyState extends State<Body> {
 
   TextStyle? _getSectionTextStyle(BuildContext context) {
     return Theme.of(context).textTheme.labelMedium?.copyWith(
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.tertiary,
         );
   }
 

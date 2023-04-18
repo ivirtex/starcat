@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
+import 'package:wiredash/wiredash.dart';
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
@@ -18,7 +19,6 @@ import 'package:starcat/news/news.dart';
 import 'package:starcat/settings/settings.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
-import 'package:wiredash/wiredash.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -72,21 +72,22 @@ class AppView extends StatelessWidget {
   Widget _createSchemedMaterialApp(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-    final isMaterial3Enabled = context.read<ThemeCubit>().state.material3;
+    final isDynamicThemeEnabled =
+        context.read<ThemeCubit>().state.isDynamicThemeEnabled;
 
     return DynamicColorBuilder(
       builder: (lightDynamic, darkDynamic) {
         ColorScheme lightScheme;
         ColorScheme darkScheme;
 
-        if (lightDynamic != null && darkDynamic != null && isMaterial3Enabled) {
+        if (lightDynamic != null &&
+            darkDynamic != null &&
+            isDynamicThemeEnabled) {
           lightScheme = lightDynamic;
           darkScheme = darkDynamic;
         } else {
-          lightScheme =
-              FlexThemeData.light(scheme: FlexScheme.brandBlue).colorScheme;
-          darkScheme =
-              FlexThemeData.dark(scheme: FlexScheme.brandBlue).colorScheme;
+          lightScheme = kDefaultLightScheme;
+          darkScheme = kDefaultDarkScheme;
         }
 
         return AnnotatedRegion(
@@ -111,6 +112,7 @@ class AppView extends StatelessWidget {
                 useMaterial3: true,
                 useMaterial3ErrorColors: true,
                 colorScheme: darkScheme.copyWith(shadow: Colors.transparent),
+                appBarStyle: FlexAppBarStyle.background,
                 subThemesData: const FlexSubThemesData(
                   useTextTheme: true,
                 ),

@@ -106,7 +106,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
             style: Theme.of(context)
                 .textTheme
                 .titleMedium
-                ?.copyWith(color: Theme.of(context).colorScheme.primary),
+                ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
           ),
           const SizedBox(width: 5),
           Text('N/A', style: numberTextStyle),
@@ -122,7 +122,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
             style: Theme.of(context)
                 .textTheme
                 .titleMedium
-                ?.copyWith(color: Theme.of(context).colorScheme.primary),
+                ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
           ),
           const SizedBox(width: 5),
           for (final timeUnit in _timeMap.entries)

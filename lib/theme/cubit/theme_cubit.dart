@@ -11,20 +11,18 @@ class ThemeCubit extends HydratedCubit<ThemeState> {
   ThemeCubit() : super(const ThemeState(ThemeMode.system));
 
   void setThemeMode(ThemeMode themeMode) {
-    emit(ThemeState(themeMode));
+    emit(state.copyWith(themeMode: themeMode));
   }
 
   void setMaterial3({required bool isEnabled}) {
-    emit(
-      ThemeState(state.themeMode, material3: isEnabled),
-    );
+    emit(state.copyWith(isDynamicThemeEnabled: isEnabled));
   }
 
   @override
   ThemeState? fromJson(Map<String, dynamic> json) {
     return ThemeState(
       ThemeMode.values[json['themeMode'] as int],
-      material3: json['material3'] as bool,
+      isDynamicThemeEnabled: json['material3'] as bool,
     );
   }
 
@@ -32,7 +30,7 @@ class ThemeCubit extends HydratedCubit<ThemeState> {
   Map<String, dynamic>? toJson(ThemeState state) {
     return {
       'themeMode': state.themeMode.index,
-      'material3': state.material3,
+      'material3': state.isDynamicThemeEnabled,
     };
   }
 }

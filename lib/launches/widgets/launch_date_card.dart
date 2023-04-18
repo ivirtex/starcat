@@ -58,7 +58,7 @@ class LaunchDateCard extends StatelessWidget {
                 Text(
                   localMMMd ?? 'N/A',
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.tertiary,
                     fontSize: 18,
                   ),
                 ),
@@ -70,12 +70,12 @@ class LaunchDateCard extends StatelessWidget {
                     if (localHm != null)
                       Text(
                         '$localHm ($utcTime UTC)',
-                        style: TextStyle(color: Colors.grey.shade600),
+                        style: Theme.of(context).textTheme.labelLarge,
                       )
                     else
                       Text(
                         'N/A',
-                        style: TextStyle(color: Colors.grey.shade600),
+                        style: Theme.of(context).textTheme.labelLarge,
                       ),
                   ],
                 ),

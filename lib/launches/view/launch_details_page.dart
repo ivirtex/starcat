@@ -118,9 +118,14 @@ class Body extends StatelessWidget {
         delegate: SliverChildListDelegate(
           [
             if (launch.image != null)
-              ClipRRect(
-                borderRadius: BorderRadius.circular(kBorderRadius),
-                child: MissionImage(imageUrl: launch.image ?? ''),
+              Column(
+                children: [
+                  const SizedBox(height: 10),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(kBorderRadius),
+                    child: MissionImage(imageUrl: launch.image ?? ''),
+                  ),
+                ],
               ),
             const SizedBox(height: 10),
             Padding(
