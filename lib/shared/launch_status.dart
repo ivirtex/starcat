@@ -37,7 +37,7 @@ class LaunchStatus extends StatelessWidget {
       case 'TBD':
         return Icons.access_time_rounded;
       default:
-        return Icons.event;
+        return Icons.error_rounded;
     }
   }
 
