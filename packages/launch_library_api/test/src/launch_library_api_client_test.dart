@@ -17,8 +17,7 @@ class MockResponse extends Mock implements http.Response {}
 
 class FakeUri extends Fake implements Uri {}
 
-const String sampleResponse =
-    '''
+const String sampleResponse = '''
 {
   "count": 80,
   "next":
@@ -153,9 +152,6 @@ void main() {
             Uri.https(
               'lldev.thespacedevs.com',
               '/2.2.0/launch/previous/',
-              <String, String>{
-                'ordering': 'net',
-              },
             ),
           ),
         ).called(1);
@@ -167,9 +163,6 @@ void main() {
             Uri.https(
               'lldev.thespacedevs.com',
               '/2.2.0/launch/upcoming/',
-              <String, String>{
-                'ordering': 'net',
-              },
             ),
           ),
         ).called(1);

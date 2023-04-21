@@ -21,10 +21,10 @@ class NextLaunchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nextLaunchData = launch;
-    final launchDate = nextLaunchData!.net;
-    final launchName = nextLaunchData.name;
-    final launchStatus = nextLaunchData.status;
-    var description = nextLaunchData.mission.description?.split('.').first;
+    final launchDate = nextLaunchData?.net;
+    final launchName = nextLaunchData?.name;
+    final launchStatus = nextLaunchData?.status;
+    var description = nextLaunchData?.mission.description?.split('.').first;
     description = description != null ? '$description.' : null;
 
     if (launch == null) {
@@ -53,7 +53,7 @@ class NextLaunchCard extends StatelessWidget {
               const Spacer(),
               CountdownTimer(
                 launchDate: launchDate,
-                mode: launchStatus.abbrev == 'Go'
+                mode: launchStatus?.abbrev == 'Go'
                     ? CountdownTimerMode.hoursMinutesSeconds
                     : CountdownTimerMode.daysHoursMinutes,
               ),
@@ -63,7 +63,7 @@ class NextLaunchCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                launchName,
+                launchName ?? 'Unknown',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 10),

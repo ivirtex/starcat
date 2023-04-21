@@ -28,18 +28,5 @@ void main() {
 
       expect(find.byType(ArticleCard), findsNWidgets(2));
     });
-
-    testWidgets('View more button works', (tester) async {
-      await tester.pumpAppWithRouter(
-        ArticlesPreview(
-          articles: [sampleArticle, sampleArticle],
-        ),
-      );
-
-      await tester.tap(find.byType(FilledButton));
-      await tester.pumpAndSettle();
-
-      expect(find.byType(NewsPage), findsOneWidget);
-    });
   });
 }

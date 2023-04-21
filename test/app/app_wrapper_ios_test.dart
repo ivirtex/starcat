@@ -1,21 +1,17 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
+import 'package:starcat/app/app.dart';
 import 'package:starcat/app/app_wrapper.dart';
-import 'package:starcat/launches/launches.dart';
-import 'package:starcat/news/news.dart';
-import 'package:starcat/theme/theme.dart';
-import '../../test_helpers/test_helpers.dart';
+import '../test_helpers/test_helpers.dart';
 
 class MockLaunchLibraryRepository extends Mock
     implements LaunchLibraryRepository {}
@@ -26,7 +22,7 @@ class MockSpaceflightNewsRepository extends Mock
 void main() {
   initHydratedStorage();
 
-  group('AppView iOS', () {
+  group('AppWrapper iOS', () {
     late LaunchLibraryRepository launchLibraryRepository;
     late SpaceflightNewsRepository spaceflightNewsRepository;
 
@@ -46,26 +42,9 @@ void main() {
 
       await tester.pumpWidget(
         //! Workaround for: https://github.com/flutter/flutter/issues/83788
-        Theme(
-          data: ThemeData(platform: TargetPlatform.iOS),
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (context) => ThemeCubit(),
-              ),
-              BlocProvider(
-                create: (context) => LaunchesBloc(
-                  launchLibraryRepository,
-                ),
-              ),
-              BlocProvider(
-                create: (context) => NewsBloc(
-                  spaceflightNewsRepository,
-                ),
-              )
-            ],
-            child: const App(),
-          ),
+        AppWrapper(
+          launchLibraryRepository: launchLibraryRepository,
+          spaceflightNewsRepository: spaceflightNewsRepository,
         ),
       );
 

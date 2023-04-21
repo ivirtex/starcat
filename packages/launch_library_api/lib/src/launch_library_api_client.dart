@@ -26,7 +26,7 @@ class LaunchLibraryApiClient {
       : _httpClient = httpClient ?? http.Client();
 
   // TODO(ivirtex): change url when production ready
-  static const _baseUrl = 'll.thespacedevs.com';
+  static const _baseUrl = 'lldev.thespacedevs.com';
 
   final http.Client _httpClient;
 

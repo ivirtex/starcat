@@ -28,8 +28,10 @@ void main() {
       launchLibraryRepository = MockLaunchLibraryRepository();
       launch = MockLaunch();
 
-      when(() => launchLibraryRepository.getLaunches(any()))
+      when(() => launchLibraryRepository.getLaunches(LaunchTime.upcoming))
           .thenAnswer((_) async => <Launch>[launch]);
+      when(() => launchLibraryRepository.getLaunches(LaunchTime.previous))
+          .thenAnswer((_) async => <Launch>[]);
 
       when(() => launch.toJson()).thenReturn(<String, dynamic>{});
 
