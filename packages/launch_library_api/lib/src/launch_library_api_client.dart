@@ -26,21 +26,16 @@ class LaunchLibraryApiClient {
       : _httpClient = httpClient ?? http.Client();
 
   // TODO(ivirtex): change url when production ready
-  static const _baseUrl = 'lldev.thespacedevs.com';
+  static const _baseUrl = 'll.thespacedevs.com';
 
   final http.Client _httpClient;
 
   Future<Launches> getLaunches(LaunchTime launchTime) async {
-    final query = <String, String>{
-      'ordering': 'net',
-    };
-
     final launchRequest = Uri.https(
       _baseUrl,
       launchTime == LaunchTime.previous
           ? '/2.2.0/launch/previous/'
           : '/2.2.0/launch/upcoming/',
-      query,
     );
 
     log('launchRequest: $launchRequest');

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 // Project imports:
@@ -73,12 +74,18 @@ class _NewsViewState extends State<NewsView> {
             : null,
         body: CustomScrollView(
           controller: scrollController,
-          slivers: const [
+          slivers: [
             SliverAppBar(
               pinned: true,
-              title: Text('News'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.settings_rounded),
+                  onPressed: () => context.go('/settings'),
+                ),
+              ],
+              title: const Text('News'),
             ),
-            Body(),
+            const Body(),
           ],
         ),
       ),

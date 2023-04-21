@@ -10,16 +10,29 @@ LaunchesState _$LaunchesStateFromJson(Map<String, dynamic> json) =>
     LaunchesState(
       status: $enumDecodeNullable(_$LaunchesStatusEnumMap, json['status']) ??
           LaunchesStatus.initial,
-      launches: (json['launches'] as List<dynamic>?)
+      upcomingLaunches: (json['upcomingLaunches'] as List<dynamic>?)
               ?.map((e) => Launch.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <Launch>[],
+      pastLaunches: (json['pastLaunches'] as List<dynamic>?)
+              ?.map((e) => Launch.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <Launch>[],
+      selectedLaunches: $enumDecodeNullable(
+              _$SelectedLaunchesEnumMap, json['selectedLaunches']) ??
+          SelectedLaunches.upcoming,
+      lastSuccessfulUpdate: json['lastSuccessfulUpdate'] == null
+          ? null
+          : DateTime.parse(json['lastSuccessfulUpdate'] as String),
     );
 
 Map<String, dynamic> _$LaunchesStateToJson(LaunchesState instance) =>
     <String, dynamic>{
       'status': _$LaunchesStatusEnumMap[instance.status]!,
-      'launches': instance.launches,
+      'upcomingLaunches': instance.upcomingLaunches,
+      'pastLaunches': instance.pastLaunches,
+      'selectedLaunches': _$SelectedLaunchesEnumMap[instance.selectedLaunches]!,
+      'lastSuccessfulUpdate': instance.lastSuccessfulUpdate?.toIso8601String(),
     };
 
 const _$LaunchesStatusEnumMap = {
@@ -27,4 +40,9 @@ const _$LaunchesStatusEnumMap = {
   LaunchesStatus.loading: 'loading',
   LaunchesStatus.success: 'success',
   LaunchesStatus.failure: 'failure',
+};
+
+const _$SelectedLaunchesEnumMap = {
+  SelectedLaunches.upcoming: 'upcoming',
+  SelectedLaunches.past: 'past',
 };

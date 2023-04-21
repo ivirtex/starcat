@@ -23,7 +23,7 @@ void main() {
     setUp(() {
       launchesBloc = MockLaunchesBloc();
       when(() => launchesBloc.state).thenReturn(
-        const LaunchesState(launches: [sampleLaunch]),
+        const LaunchesState(upcomingLaunches: [sampleLaunch]),
       );
     });
 

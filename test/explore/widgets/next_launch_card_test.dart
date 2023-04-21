@@ -85,7 +85,7 @@ void main() {
       when(() => launchesBloc.state).thenReturn(
         const LaunchesState(
           status: LaunchesStatus.success,
-          launches: [launch],
+          upcomingLaunches: [launch],
         ),
       );
 
@@ -106,7 +106,7 @@ void main() {
       when(() => launchesBloc.state).thenReturn(
         const LaunchesState(
           status: LaunchesStatus.success,
-          launches: [launch],
+          upcomingLaunches: [launch],
         ),
       );
 

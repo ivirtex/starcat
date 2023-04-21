@@ -141,7 +141,7 @@ void main() {
     testWidgets('goes to LaunchDetailsPage when card is clicked',
         (tester) async {
       when(() => launchesBloc.state)
-          .thenReturn(LaunchesState(launches: launches));
+          .thenReturn(LaunchesState(upcomingLaunches: launches));
 
       await tester.pumpAppWithRouter(
         UpcomingLaunches(

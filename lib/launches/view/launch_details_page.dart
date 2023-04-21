@@ -28,11 +28,11 @@ class LaunchDetailsPage extends StatelessWidget {
     final launch = context
         .read<LaunchesBloc>()
         .state
-        .launches
+        .upcomingLaunches
         .firstWhere((launch) => launch.id == launchId);
 
-    final isUpcoming =
-        launch.id == context.read<LaunchesBloc>().state.launches.first.id;
+    final isUpcoming = launch.id ==
+        context.read<LaunchesBloc>().state.upcomingLaunches.first.id;
 
     return LaunchDetailsView(launch: launch, isUpcoming: isUpcoming);
   }

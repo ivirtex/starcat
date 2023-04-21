@@ -1,4 +1,5 @@
 // Dart imports:
+import 'dart:async';
 import 'dart:developer';
 
 // Package imports:
@@ -18,6 +19,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     this.clock = const Clock(),
   }) : super(const LaunchesState()) {
     on<LaunchesRequested>(_onLaunchesRequested);
+    on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
   }
 
   final LaunchLibraryRepository _launchLibraryRepository;
@@ -37,13 +39,16 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     emit(state.copyWith(status: LaunchesStatus.loading));
 
     try {
-      final launches =
-          await _launchLibraryRepository.getLaunches(event.launchTime);
+      final upcomingLaunches =
+          await _launchLibraryRepository.getLaunches(LaunchTime.upcoming);
+      final pastLaunches =
+          await _launchLibraryRepository.getLaunches(LaunchTime.previous);
 
       emit(
         state.copyWith(
           status: LaunchesStatus.success,
-          launches: launches,
+          upcomingLaunches: upcomingLaunches,
+          pastLaunches: pastLaunches,
           lastSuccessfulUpdate: clock.now(),
         ),
       );
@@ -53,9 +58,17 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
       emit(
         state.copyWith(
           status: LaunchesStatus.failure,
-          launches: state.launches,
+          upcomingLaunches: state.upcomingLaunches,
+          pastLaunches: state.pastLaunches,
         ),
       );
     }
+  }
+
+  void _onLaunchesSelectionChanged(
+    LaunchesSelectionChanged event,
+    Emitter<LaunchesState> emit,
+  ) {
+    emit(state.copyWith(selectedLaunches: event.selectedLaunches));
   }
 }

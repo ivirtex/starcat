@@ -8,7 +8,7 @@ import 'package:starcat/bootstrap.dart';
 
 void main() {
   bootstrap(
-    () => App(
+    () => AppWrapper(
       launchLibraryRepository: LaunchLibraryRepository(),
       spaceflightNewsRepository: SpaceflightNewsRepository(),
     ),

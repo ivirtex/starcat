@@ -10,7 +10,7 @@ import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/shared/shared.dart';
 
-class NextLaunchCard extends StatefulWidget {
+class NextLaunchCard extends StatelessWidget {
   const NextLaunchCard({
     required this.launch,
     super.key,
@@ -19,33 +19,15 @@ class NextLaunchCard extends StatefulWidget {
   final Launch? launch;
 
   @override
-  State<NextLaunchCard> createState() => _NextLaunchCardState();
-}
-
-class _NextLaunchCardState extends State<NextLaunchCard> {
-  String? _launchName;
-  Status? _launchStatus;
-  String? _description;
-
-  DateTime? _launchDate;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.launch != null) {
-      final nextLaunchData = widget.launch;
-      _launchDate = nextLaunchData!.net;
-      _launchName = nextLaunchData.name;
-      _launchStatus = nextLaunchData.status;
-      _description = nextLaunchData.mission.description?.split('.').first;
-      _description = _description != null ? '$_description.' : null;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (widget.launch == null) {
+    final nextLaunchData = launch;
+    final launchDate = nextLaunchData!.net;
+    final launchName = nextLaunchData.name;
+    final launchStatus = nextLaunchData.status;
+    var description = nextLaunchData.mission.description?.split('.').first;
+    description = description != null ? '$description.' : null;
+
+    if (launch == null) {
       return const SizedBox.shrink();
     }
 
@@ -58,7 +40,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
         ),
         ExploreCard(
           title: const Text('Status'),
-          trailing: LaunchStatus(_launchStatus),
+          trailing: LaunchStatus(launchStatus),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(kBorderRadius),
           ),
@@ -70,8 +52,8 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
               ),
               const Spacer(),
               CountdownTimer(
-                launchDate: _launchDate,
-                mode: _launchStatus?.abbrev == 'Go'
+                launchDate: launchDate,
+                mode: launchStatus.abbrev == 'Go'
                     ? CountdownTimerMode.hoursMinutesSeconds
                     : CountdownTimerMode.daysHoursMinutes,
               ),
@@ -81,12 +63,12 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                _launchName ?? 'No launch name',
+                launchName,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 10),
               Text(
-                _description ?? 'No description',
+                description ?? 'No description',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: Theme.of(context).colorScheme.outline,
                     ),
@@ -94,7 +76,7 @@ class _NextLaunchCardState extends State<NextLaunchCard> {
               const SizedBox(height: 10),
               ThemedButton(
                 shouldCupertinoButtonBeFilled: true,
-                onPressed: () => context.go('/launch/${widget.launch!.id}'),
+                onPressed: () => context.go('/launch/${launch!.id}'),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [

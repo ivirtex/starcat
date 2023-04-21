@@ -130,12 +130,12 @@ class Body extends StatelessWidget {
                       return Column(
                         children: [
                           NextLaunchCard(
-                            launch: state.launches.isNotEmpty
-                                ? state.launches.first
+                            launch: state.upcomingLaunches.isNotEmpty
+                                ? state.upcomingLaunches.first
                                 : null,
                           ),
                           const SizedBox(height: 20),
-                          UpcomingLaunches(launches: state.launches),
+                          UpcomingLaunches(launches: state.upcomingLaunches),
                         ]
                             .animate(interval: kListAnimationIntervalDuration)
                             .fadeIn(duration: kStateChangeAnimationDuration),

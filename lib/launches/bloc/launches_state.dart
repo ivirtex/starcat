@@ -2,11 +2,18 @@ part of 'launches_bloc.dart';
 
 enum LaunchesStatus { initial, loading, success, failure }
 
+enum SelectedLaunches {
+  upcoming,
+  past,
+}
+
 @JsonSerializable()
 class LaunchesState extends Equatable {
   const LaunchesState({
     this.status = LaunchesStatus.initial,
-    this.launches = const <Launch>[],
+    this.upcomingLaunches = const <Launch>[],
+    this.pastLaunches = const <Launch>[],
+    this.selectedLaunches = SelectedLaunches.upcoming,
     this.lastSuccessfulUpdate,
   });
 
@@ -14,27 +21,35 @@ class LaunchesState extends Equatable {
       _$LaunchesStateFromJson(json);
 
   final LaunchesStatus status;
-  final List<Launch> launches;
+  final List<Launch> upcomingLaunches;
+  final List<Launch> pastLaunches;
+  final SelectedLaunches selectedLaunches;
   final DateTime? lastSuccessfulUpdate;
 
   Map<String, dynamic> toJson() => _$LaunchesStateToJson(this);
 
   LaunchesState copyWith({
     LaunchesStatus? status,
-    List<Launch>? launches,
+    List<Launch>? upcomingLaunches,
+    List<Launch>? pastLaunches,
+    SelectedLaunches? selectedLaunches,
     DateTime? lastSuccessfulUpdate,
   }) {
     return LaunchesState(
       status: status ?? this.status,
-      launches: launches ?? this.launches,
+      upcomingLaunches: upcomingLaunches ?? this.upcomingLaunches,
+      pastLaunches: pastLaunches ?? this.pastLaunches,
+      selectedLaunches: selectedLaunches ?? this.selectedLaunches,
       lastSuccessfulUpdate: lastSuccessfulUpdate ?? this.lastSuccessfulUpdate,
     );
   }
 
   @override
   List<Object?> get props => [
-        lastSuccessfulUpdate,
         status,
-        launches,
+        upcomingLaunches,
+        pastLaunches,
+        selectedLaunches,
+        lastSuccessfulUpdate,
       ];
 }

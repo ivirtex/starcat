@@ -142,18 +142,10 @@ class _BodyState extends State<Body> {
           ),
           Padding(
             padding: _textPadding,
-            child: Column(
-              children: [
-                Text(
-                  'Made with ❤️ by ivirtex',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  'Specjalna wersja dla oposka <3',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ],
+            child: Text(
+              'Made with ❤️ by ivirtex',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.labelSmall,
             ),
           ),
         ]

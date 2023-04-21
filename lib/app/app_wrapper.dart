@@ -13,15 +13,15 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:wiredash/wiredash.dart';
 
 // Project imports:
-import 'package:starcat/explore/explore.dart';
+import 'package:starcat/app/app.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/settings/settings.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
 
-class App extends StatelessWidget {
-  const App({
+class AppWrapper extends StatelessWidget {
+  const AppWrapper({
     required LaunchLibraryRepository launchLibraryRepository,
     required SpaceflightNewsRepository spaceflightNewsRepository,
     super.key,
@@ -49,13 +49,13 @@ class App extends StatelessWidget {
           ),
         )
       ],
-      child: const AppView(),
+      child: const App(),
     );
   }
 }
 
-class AppView extends StatelessWidget {
-  const AppView({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -147,20 +147,17 @@ class AppView extends StatelessWidget {
 }
 
 final _router = GoRouter(
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const ExplorePage(),
+      builder: (context, state) => const AppView(),
       routes: [
         GoRoute(
           path: 'launch/:id',
           builder: (context, state) => LaunchDetailsPage(
             launchId: state.params['id']!,
           ),
-        ),
-        GoRoute(
-          path: 'news',
-          builder: (context, state) => const NewsPage(),
         ),
         GoRoute(
           path: 'settings',

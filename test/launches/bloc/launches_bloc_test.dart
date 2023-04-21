@@ -63,7 +63,7 @@ void main() {
         const LaunchesState(status: LaunchesStatus.loading),
         LaunchesState(
           status: LaunchesStatus.success,
-          launches: [launch],
+          upcomingLaunches: [launch],
           lastSuccessfulUpdate: DateTime(2023),
         ),
       ],

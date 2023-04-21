@@ -12,3 +12,12 @@ class LaunchesRequested extends LaunchesEvent {
   @override
   List<Object> get props => [launchTime];
 }
+
+class LaunchesSelectionChanged extends LaunchesEvent {
+  const LaunchesSelectionChanged({required this.selectedLaunches});
+
+  final SelectedLaunches selectedLaunches;
+
+  @override
+  List<Object> get props => [selectedLaunches];
+}

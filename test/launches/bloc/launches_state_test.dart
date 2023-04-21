@@ -14,7 +14,7 @@ void main() {
 
     test('copyWith is working correctly', () {
       const state = LaunchesState();
-      final newState = state.copyWith(launches: <Launch>[sampleLaunch]);
+      final newState = state.copyWith(upcomingLaunches: <Launch>[sampleLaunch]);
 
       expect(newState, isNot(state));
     });

@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:go_router/go_router.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
@@ -29,20 +28,9 @@ class ArticlesPreview extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Section(
-          icon: const Icon(Icons.newspaper_rounded),
-          child: Row(
-            children: [
-              const Text('Latest News'),
-              const Spacer(),
-              FilledButton.tonal(
-                onPressed: () => context.go('/news'),
-                child: const Text(
-                  'View more',
-                ),
-              )
-            ],
-          ),
+        const Section(
+          icon: Icon(Icons.newspaper_rounded),
+          child: Text('Latest News'),
         ),
         SizedBox(
           height: 330,

@@ -7,7 +7,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
-import 'package:starcat/app/app.dart';
+import 'package:starcat/app/app_wrapper.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
@@ -40,7 +40,7 @@ void main() {
 
     testWidgets('renders AppView', (tester) async {
       await tester.pumpApp(
-        App(
+        AppWrapper(
           launchLibraryRepository: launchLibraryRepository,
           spaceflightNewsRepository: spaceflightNewsRepository,
         ),
@@ -48,7 +48,7 @@ void main() {
 
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
-      expect(find.byType(AppView), findsOneWidget);
+      expect(find.byType(App), findsOneWidget);
     });
   });
 
@@ -83,7 +83,7 @@ void main() {
               ),
             )
           ],
-          child: const AppView(),
+          child: const App(),
         ),
       );
 
