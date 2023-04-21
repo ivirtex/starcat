@@ -12,6 +12,17 @@ void main() {
         const LaunchesRequested(launchTime: LaunchTime.upcoming),
         isNot(const LaunchesRequested(launchTime: LaunchTime.previous)),
       );
+
+      expect(
+        const LaunchesSelectionChanged(
+          selectedLaunches: SelectedLaunches.upcoming,
+        ),
+        isNot(
+          const LaunchesSelectionChanged(
+            selectedLaunches: SelectedLaunches.past,
+          ),
+        ),
+      );
     });
   });
 }
