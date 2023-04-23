@@ -57,7 +57,7 @@ class NextLaunchCardPlaceholder extends StatelessWidget {
                   height: 30,
                   padding: EdgeInsets.only(right: 80),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: kListSpacing),
                 // Description
                 const LoadingPlaceholder.expandedWidth(height: 15),
                 const SizedBox(height: 5),
@@ -65,7 +65,7 @@ class NextLaunchCardPlaceholder extends StatelessWidget {
                   height: 15,
                   padding: EdgeInsets.only(right: 40),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: kListSpacing),
                 // Button
                 FilledButton.tonal(
                   onPressed: null,

@@ -103,7 +103,7 @@ class Body extends StatelessWidget {
       sliver: SliverList(
         delegate: SliverChildListDelegate(
           [
-            const SizedBox(height: 10),
+            const SizedBox(height: kListSpacing),
             AnimatedSize(
               alignment: Alignment.topCenter,
               duration: kStateChangeAnimationDuration,

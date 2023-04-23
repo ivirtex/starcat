@@ -65,9 +65,9 @@ class Body extends StatelessWidget {
           const SliverList(
             delegate: SliverChildListDelegate.fixed(
               [
-                SizedBox(height: 10),
+                SizedBox(height: kListSpacing),
                 LaunchesSelection(),
-                SizedBox(height: 10),
+                SizedBox(height: kListSpacing),
               ],
             ),
           ),

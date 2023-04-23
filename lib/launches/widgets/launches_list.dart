@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/format_date.dart';
 import 'package:starcat/shared/shared.dart';
@@ -28,7 +29,7 @@ class LaunchesList extends StatelessWidget {
           final launch = launches[index];
 
           return Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: kListSpacing),
             child: ExploreCard(
               title: const Text('Status'),
               trailing: LaunchStatus(launch.status),

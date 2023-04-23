@@ -127,33 +127,33 @@ class Body extends StatelessWidget {
             if (launch.image != null)
               Column(
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: kListSpacing),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(kBorderRadius),
                     child: MissionImage(imageUrl: launch.image ?? ''),
                   ),
                 ],
               ),
-            const SizedBox(height: 10),
+            const SizedBox(height: kListSpacing),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
                 launch.mission.description ?? 'No description',
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: kListSpacing),
             LaunchDateCard(
               date: launch.net,
               status: launch.status,
               launchName: launch.name,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: kListSpacing),
             LaunchVehicleCard(vehicle: launch.rocket),
-            const SizedBox(height: 10),
+            const SizedBox(height: kListSpacing),
             LaunchPadMap(pad: launch.pad),
-            const SizedBox(height: 10),
+            const SizedBox(height: kListSpacing),
             TargetOrbitCard(orbit: launch.mission.orbit),
-            const SizedBox(height: 10),
+            const SizedBox(height: kListSpacing),
           ]
               .animate(interval: kListAnimationIntervalDuration)
               .fade(duration: kListAnimationFadeDuration, delay: 100.ms),

@@ -116,7 +116,7 @@ class _BodyState extends State<Body> {
               });
             },
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: kListSpacing),
           Padding(
             padding: _textPadding,
             child: Text(

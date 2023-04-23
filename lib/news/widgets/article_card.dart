@@ -34,7 +34,7 @@ class ArticleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     if (previewMode) {
       return Padding(
-        padding: const EdgeInsets.only(right: 10, bottom: 10),
+        padding: const EdgeInsets.only(right: 10, bottom: kListSpacing),
         child: ExploreCard(
           expandVertically: expandVertically,
           title: Text(article.newsSite),
@@ -86,7 +86,7 @@ class ArticleCard extends StatelessWidget {
       );
     } else {
       return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: kListSpacing),
         child: ExploreCard(
           expandVertically: expandVertically,
           shape: const RoundedRectangleBorder(
@@ -149,7 +149,7 @@ class ArticleCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: kListSpacing),
               Text(article.summary),
             ],
           ),

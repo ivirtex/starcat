@@ -66,14 +66,14 @@ class NextLaunchCard extends StatelessWidget {
                 launchName ?? 'Unknown',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: kListSpacing),
               Text(
                 description ?? 'No description',
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       color: Theme.of(context).colorScheme.outline,
                     ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: kListSpacing),
               ThemedButton(
                 shouldCupertinoButtonBeFilled: true,
                 onPressed: () => context.go('/launch/${launch!.id}'),
