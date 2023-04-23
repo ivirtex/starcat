@@ -163,6 +163,9 @@ void main() {
             Uri.https(
               'lldev.thespacedevs.com',
               '/2.2.0/launch/upcoming/',
+              {
+                'hide_recent_previous': 'true',
+              },
             ),
           ),
         ).called(1);

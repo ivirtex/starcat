@@ -50,7 +50,7 @@ class Launch extends Equatable {
         name: launch.name,
         status: Status(
           name: launch.status.name,
-          abbrev: launch.status.abbrev,
+          abbrev: parseStatusAbbrev(launch.status.abbrev),
           description: launch.status.description,
         ),
         net: DateTime.tryParse(launch.net ?? ''),

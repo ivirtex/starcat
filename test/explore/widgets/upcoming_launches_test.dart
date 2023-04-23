@@ -25,7 +25,7 @@ void main() {
       webcastLive: false,
       status: Status(
         name: 'Status Name',
-        abbrev: 'Status Abbrev',
+        abbrev: StatusAbbrev.tbd,
       ),
       launchServiceProvider: LaunchServiceProvider(
         name: 'Launch Service Provider Name',

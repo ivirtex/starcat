@@ -31,3 +31,25 @@ class LaunchLibraryRepository {
     return apiLaunches.map(Launch.fromApi).toList();
   }
 }
+
+StatusAbbrev parseStatusAbbrev(String? statusAbbrev) {
+  switch (statusAbbrev) {
+    case 'Go':
+      return StatusAbbrev.go;
+    case 'TBC':
+      return StatusAbbrev.tbc;
+    case 'Success':
+      return StatusAbbrev.success;
+    case 'Failure':
+      return StatusAbbrev.failure;
+    case 'Hold':
+      return StatusAbbrev.hold;
+    case 'In Flight':
+      return StatusAbbrev.inFlight;
+    case 'Partial Failure':
+      return StatusAbbrev.partialFailure;
+    case 'TBD':
+    default:
+      return StatusAbbrev.tbd;
+  }
+}

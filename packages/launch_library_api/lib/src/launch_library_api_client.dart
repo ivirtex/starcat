@@ -31,12 +31,25 @@ class LaunchLibraryApiClient {
   final http.Client _httpClient;
 
   Future<Launches> getLaunches(LaunchTime launchTime) async {
-    final launchRequest = Uri.https(
-      _baseUrl,
-      launchTime == LaunchTime.previous
-          ? '/2.2.0/launch/previous/'
-          : '/2.2.0/launch/upcoming/',
-    );
+    late final Uri launchRequest;
+
+    switch (launchTime) {
+      case LaunchTime.previous:
+        launchRequest = Uri.https(
+          _baseUrl,
+          '/2.2.0/launch/previous/',
+        );
+        break;
+      case LaunchTime.upcoming:
+        launchRequest = Uri.https(
+          _baseUrl,
+          '/2.2.0/launch/upcoming/',
+          <String, String>{
+            'hide_recent_previous': 'true',
+          },
+        );
+        break;
+    }
 
     log('launchRequest: $launchRequest');
     final response = await _httpClient.get(launchRequest);

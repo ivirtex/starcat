@@ -34,7 +34,7 @@ void main() {
       webcastLive: false,
       status: Status(
         name: 'Status Name',
-        abbrev: 'Status Abbrev',
+        abbrev: StatusAbbrev.tbd,
       ),
       launchServiceProvider: LaunchServiceProvider(
         name: 'Launch Service Provider Name',
@@ -125,7 +125,7 @@ void main() {
     group('LaunchStatus', () {
       const launchStatus = Status(
         name: 'Go for launch',
-        abbrev: 'Go',
+        abbrev: StatusAbbrev.go,
       );
 
       testWidgets('renders status correctly', (WidgetTester tester) async {
@@ -136,20 +136,20 @@ void main() {
         expect(find.text(launchStatus.name!), findsOneWidget);
       });
 
-      testWidgets('renders with green color when aabrev is "Go"',
+      testWidgets('renders with green accent color when abbrev is "Go"',
           (WidgetTester tester) async {
         await tester.pumpApp(
           const LaunchStatus(launchStatus),
         );
 
         final statusWidgetIcon = tester.widget(find.byType(Icon)) as Icon;
-        expect(statusWidgetIcon.color, Colors.green);
+        expect(statusWidgetIcon.color, Colors.greenAccent.shade400);
       });
 
-      testWidgets('renders with green accent color when aabrev is "TBC"',
+      testWidgets('renders with light green color when abbrev is "TBC"',
           (WidgetTester tester) async {
         const launchStatus = Status(
-          abbrev: 'TBC',
+          abbrev: StatusAbbrev.tbc,
         );
 
         await tester.pumpApp(
@@ -157,13 +157,13 @@ void main() {
         );
 
         final statusWidgetIcon = tester.widget(find.byType(Icon)) as Icon;
-        expect(statusWidgetIcon.color, Colors.greenAccent[700]);
+        expect(statusWidgetIcon.color, Colors.lightGreen);
       });
 
-      testWidgets('renders with orange color when aabrev is "TBD"',
+      testWidgets('renders with grey color when abbrev is "TBD"',
           (WidgetTester tester) async {
         const launchStatus = Status(
-          abbrev: 'TBD',
+          abbrev: StatusAbbrev.tbd,
         );
 
         await tester.pumpApp(
@@ -171,7 +171,7 @@ void main() {
         );
 
         final statusWidgetIcon = tester.widget(find.byType(Icon)) as Icon;
-        expect(statusWidgetIcon.color, Colors.orange);
+        expect(statusWidgetIcon.color, Colors.grey);
       });
     });
   });

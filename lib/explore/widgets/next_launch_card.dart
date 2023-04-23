@@ -53,7 +53,7 @@ class NextLaunchCard extends StatelessWidget {
               const Spacer(),
               CountdownTimer(
                 launchDate: launchDate,
-                mode: launchStatus?.abbrev == 'Go'
+                mode: launchStatus?.abbrev == StatusAbbrev.go
                     ? CountdownTimerMode.hoursMinutesSeconds
                     : CountdownTimerMode.daysHoursMinutes,
               ),

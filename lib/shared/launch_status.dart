@@ -12,32 +12,45 @@ class LaunchStatus extends StatelessWidget {
 
   final Status? launchStatus;
 
-  Color? tryToGetColorForAbbrev(String? abbrev) {
+  Color getColorForAbbrev(StatusAbbrev abbrev) {
     switch (abbrev) {
-      case 'Success':
-      case 'Go':
+      case StatusAbbrev.go:
+        return Colors.greenAccent.shade400;
+      case StatusAbbrev.success:
         return Colors.green;
-      case 'TBC':
-        return Colors.greenAccent[700]!;
-      case 'TBD':
+      case StatusAbbrev.tbc:
+        return Colors.lightGreen;
+      case StatusAbbrev.hold:
         return Colors.orange;
-      default:
-        return null;
+      case StatusAbbrev.inFlight:
+        return Colors.blue;
+      case StatusAbbrev.partialFailure:
+        return Colors.orange;
+      case StatusAbbrev.failure:
+        return Colors.red;
+      case StatusAbbrev.tbd:
+        return Colors.grey;
     }
   }
 
-  IconData tryToGetIconForAbbrev(String? abbrev) {
+  IconData getIconForAbbrev(StatusAbbrev abbrev) {
     switch (abbrev) {
-      case 'Success':
+      case StatusAbbrev.go:
+        return Icons.check_circle_rounded;
+      case StatusAbbrev.success:
         return Icons.check_circle;
-      case 'Go':
-        return Icons.check_rounded;
-      case 'TBC':
-        return Icons.access_time_rounded;
-      case 'TBD':
-        return Icons.access_time_rounded;
-      default:
-        return Icons.error_rounded;
+      case StatusAbbrev.tbc:
+        return Icons.help_rounded;
+      case StatusAbbrev.hold:
+        return Icons.pause_circle_filled_rounded;
+      case StatusAbbrev.inFlight:
+        return Icons.flight_takeoff_rounded;
+      case StatusAbbrev.partialFailure:
+        return Icons.warning_rounded;
+      case StatusAbbrev.failure:
+        return Icons.cancel_rounded;
+      case StatusAbbrev.tbd:
+        return Icons.help_rounded;
     }
   }
 
@@ -46,15 +59,15 @@ class LaunchStatus extends StatelessWidget {
     return Row(
       children: [
         Icon(
-          tryToGetIconForAbbrev(launchStatus?.abbrev),
+          getIconForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
           size: 14,
-          color: tryToGetColorForAbbrev(launchStatus?.abbrev),
+          color: getColorForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
         ),
         const SizedBox(width: 3),
         Text(
           launchStatus?.name ?? '',
           style: TextStyle(
-            color: tryToGetColorForAbbrev(launchStatus?.abbrev),
+            color: getColorForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
           ),
         ),
       ],
