@@ -25,14 +25,21 @@ class LaunchDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final launch = context
-        .read<LaunchesBloc>()
-        .state
-        .upcomingLaunches
-        .firstWhere((launch) => launch.id == launchId);
+    late Launch launch;
+    late bool isUpcoming;
 
-    final isUpcoming = launch.id ==
-        context.read<LaunchesBloc>().state.upcomingLaunches.first.id;
+    final upcomingLaunches =
+        context.read<LaunchesBloc>().state.upcomingLaunches;
+    final pastLaunches = context.read<LaunchesBloc>().state.pastLaunches;
+
+    if (upcomingLaunches.any((element) => element.id == launchId)) {
+      launch = upcomingLaunches.firstWhere((element) => element.id == launchId);
+      isUpcoming = launch.id ==
+          context.read<LaunchesBloc>().state.upcomingLaunches.first.id;
+    } else {
+      launch = pastLaunches.firstWhere((element) => element.id == launchId);
+      isUpcoming = false;
+    }
 
     return LaunchDetailsView(launch: launch, isUpcoming: isUpcoming);
   }

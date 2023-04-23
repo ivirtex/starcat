@@ -93,7 +93,6 @@ class ExploreCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // TODO(ivirtex): add slide out animation on scroll
                       Padding(
                         padding: slideOutPadding,
                         child: slideOut,

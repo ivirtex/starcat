@@ -21,20 +21,9 @@ class ArticlesPreviewPlaceholder extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Section(
-          icon: const Icon(Icons.newspaper_rounded),
-          child: Row(
-            children: const [
-              Text('Latest News'),
-              Spacer(),
-              FilledButton.tonal(
-                onPressed: null,
-                child: Text(
-                  'View more',
-                ),
-              )
-            ],
-          ),
+        const Section(
+          icon: Icon(Icons.newspaper_rounded),
+          child: Text('Latest News'),
         ),
         SizedBox(
           height: 330,

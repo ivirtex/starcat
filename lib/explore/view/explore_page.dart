@@ -59,8 +59,6 @@ class _ExploreViewState extends State<ExploreView> {
           ],
         ),
       ),
-      // TODO(ivirtex): add navigation bar with
-      // upcoming and past launches and news tabs
       material: (context) => Scaffold(
         body: RefreshIndicator(
           onRefresh: () async => _onRefresh(context),

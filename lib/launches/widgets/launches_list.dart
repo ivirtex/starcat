@@ -2,10 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
+import 'package:starcat/helpers/format_date.dart';
 import 'package:starcat/shared/shared.dart';
 
 class LaunchesList extends StatelessWidget {
@@ -29,6 +32,7 @@ class LaunchesList extends StatelessWidget {
             child: ExploreCard(
               title: const Text('Status'),
               trailing: LaunchStatus(launch.status),
+              onTap: () => context.go('/launch/${launch.id}'),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -36,7 +40,17 @@ class LaunchesList extends StatelessWidget {
                     launch.name,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const SizedBox(height: 10),
+                  Text(
+                    formatDate(
+                          launch.net?.toLocal(),
+                          dateFormat: DateFormat.yMd().add_jm(),
+                        ) ??
+                        'N/A',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                  ),
+                  const SizedBox(height: 5),
                   Text(
                     launch.mission.description?.split('.').first ?? '',
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(

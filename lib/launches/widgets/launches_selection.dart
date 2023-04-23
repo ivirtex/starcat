@@ -15,7 +15,14 @@ class LaunchesSelection extends StatefulWidget {
 }
 
 class _LaunchesSelectionState extends State<LaunchesSelection> {
-  SelectedLaunches selected = SelectedLaunches.upcoming;
+  late SelectedLaunches selected;
+
+  @override
+  void initState() {
+    super.initState();
+
+    selected = context.read<LaunchesBloc>().state.selectedLaunches;
+  }
 
   @override
   Widget build(BuildContext context) {
