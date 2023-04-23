@@ -148,6 +148,12 @@ class Body extends StatelessWidget {
               launchName: launch.name,
             ),
             const SizedBox(height: kListSpacing),
+            if (launch.failreason != null && launch.failreason!.isNotEmpty) ...[
+              FailReasonCard(
+                failReason: launch.failreason!,
+              ),
+              const SizedBox(height: kListSpacing),
+            ],
             LaunchVehicleCard(vehicle: launch.rocket),
             const SizedBox(height: kListSpacing),
             LaunchPadMap(pad: launch.pad),

@@ -9,6 +9,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
+import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/shared/shared.dart';
 
 class LaunchDateCard extends StatelessWidget {
@@ -25,18 +26,20 @@ class LaunchDateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var isUpcoming = false;
+
     String? localMMMd;
     String? localEEEE;
     String? localHm;
-
     String? utcTime;
 
     if (date != null) {
-      localMMMd = DateFormat.MMMd().format(date!.toLocal());
-      localEEEE = DateFormat.EEEE().format(date!.toLocal());
-      localHm = DateFormat.Hm().format(date!.toLocal());
+      isUpcoming = date!.isAfter(DateTime.now());
 
-      utcTime = DateFormat.Hm().format(date!.toUtc());
+      localMMMd = formatDate(date, dateFormat: DateFormat.MMMd());
+      localEEEE = formatDate(date, dateFormat: DateFormat.EEEE());
+      localHm = formatDate(date, dateFormat: DateFormat.Hm());
+      utcTime = formatDate(date?.toUtc(), dateFormat: DateFormat.Hm());
     }
 
     return ExploreCard(
@@ -83,10 +86,11 @@ class LaunchDateCard extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          ThemedButton(
-            onPressed: date != null ? onNotifyMePressed : null,
-            child: const Text('Notify me'),
-          ),
+          if (isUpcoming)
+            ThemedButton(
+              onPressed: date != null ? onNotifyMePressed : null,
+              child: const Text('Notify me'),
+            )
         ],
       ),
     );
