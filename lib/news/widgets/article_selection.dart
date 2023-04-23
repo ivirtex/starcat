@@ -34,9 +34,9 @@ class _ArticleSelectionState extends State<ArticleSelection> {
           icon: Icon(Icons.newspaper_rounded),
         ),
         ButtonSegment(
-          value: SelectedNews.popular,
-          label: Text('Popular'),
-          icon: Icon(Icons.trending_up),
+          value: SelectedNews.featured,
+          label: Text('Featured'),
+          icon: Icon(Icons.star),
         ),
         ButtonSegment(
           value: SelectedNews.saved,

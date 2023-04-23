@@ -13,7 +13,7 @@ const kNewsUpdateErrorText =
 
 const kNoLatestArticlesText = 'No articles found';
 
-const kNoPopularArticlesText = 'No popular articles today';
+const kNoFeaturedArticlesText = 'No featured articles today';
 
 const kNoSavedArticlesText = 'No saved articles';
 

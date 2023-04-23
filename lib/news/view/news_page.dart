@@ -129,11 +129,11 @@ class Body extends StatelessWidget {
                     articles: state.news.latestArticles,
                     key: const ValueKey('latest'),
                   );
-                case SelectedNews.popular:
+                case SelectedNews.featured:
                   if (state.news.popularArticles.isEmpty) {
                     return _buildEmpty(
                       context,
-                      kNoPopularArticlesText,
+                      kNoFeaturedArticlesText,
                     );
                   }
 

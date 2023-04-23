@@ -2,7 +2,7 @@ part of 'news_bloc.dart';
 
 enum NewsStatus { initial, loading, success, failure }
 
-enum SelectedNews { latest, popular, saved }
+enum SelectedNews { latest, featured, saved }
 
 @JsonSerializable()
 class NewsState extends Equatable {

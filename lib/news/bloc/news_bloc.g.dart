@@ -32,6 +32,6 @@ const _$NewsStatusEnumMap = {
 
 const _$SelectedNewsEnumMap = {
   SelectedNews.latest: 'latest',
-  SelectedNews.popular: 'popular',
+  SelectedNews.featured: 'featured',
   SelectedNews.saved: 'saved',
 };

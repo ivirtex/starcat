@@ -100,9 +100,10 @@ void main() {
     blocTest<NewsBloc, NewsState>(
       'emits [selection] when NewsSelectionChanged is added',
       build: () => newsBloc,
-      act: (bloc) => bloc.add(const NewsSelectionChanged(SelectedNews.popular)),
+      act: (bloc) =>
+          bloc.add(const NewsSelectionChanged(SelectedNews.featured)),
       expect: () => [
-        const NewsState(selection: SelectedNews.popular),
+        const NewsState(selection: SelectedNews.featured),
       ],
     );
 

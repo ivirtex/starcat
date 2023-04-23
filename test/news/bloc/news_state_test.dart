@@ -12,7 +12,7 @@ void main() {
 
     test('copyWith is working correctly', () {
       const state = NewsState();
-      final newState = state.copyWith(selection: SelectedNews.popular);
+      final newState = state.copyWith(selection: SelectedNews.featured);
 
       expect(newState, isNot(state));
     });

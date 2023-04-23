@@ -67,7 +67,7 @@ void main() {
       when(() => newsBloc.state).thenReturn(
         NewsState(
           news: News(popularArticles: [sampleArticle]),
-          selection: SelectedNews.popular,
+          selection: SelectedNews.featured,
         ),
       );
 
@@ -128,7 +128,7 @@ void main() {
         (WidgetTester tester) async {
       when(() => newsBloc.state).thenReturn(
         const NewsState(
-          selection: SelectedNews.popular,
+          selection: SelectedNews.featured,
         ),
       );
 
@@ -139,7 +139,7 @@ void main() {
 
       await tester.pump(const Duration(seconds: 1));
 
-      expect(find.text(kNoPopularArticlesText), findsOneWidget);
+      expect(find.text(kNoFeaturedArticlesText), findsOneWidget);
     });
 
     testWidgets(

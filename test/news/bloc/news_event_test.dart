@@ -27,7 +27,7 @@ void main() {
       test('supports value comparisons', () {
         expect(
           const NewsSelectionChanged(SelectedNews.latest),
-          isNot(const NewsSelectionChanged(SelectedNews.popular)),
+          isNot(const NewsSelectionChanged(SelectedNews.featured)),
         );
       });
     });

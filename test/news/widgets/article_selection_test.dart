@@ -42,19 +42,19 @@ void main() {
       expect(segmentedButton.selected, {SelectedNews.latest});
     });
 
-    testWidgets('changes selection to popular', (tester) async {
+    testWidgets('changes selection to featured', (tester) async {
       await tester.pumpApp(
         const ArticleSelection(),
       );
 
-      await tester.tap(find.text('Popular'));
+      await tester.tap(find.text('Featured'));
       await tester.pumpAndSettle();
 
       final segmentedButton = tester.widget<SegmentedButton<SelectedNews>>(
         find.byType(SegmentedButton<SelectedNews>),
       );
 
-      expect(segmentedButton.selected, {SelectedNews.popular});
+      expect(segmentedButton.selected, {SelectedNews.featured});
     });
 
     testWidgets('changes selection to saved', (tester) async {
