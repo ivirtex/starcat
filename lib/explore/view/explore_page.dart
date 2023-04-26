@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -101,7 +102,7 @@ class Body extends StatelessWidget {
     return SliverPadding(
       padding: kBodyPadding,
       sliver: SliverList(
-        delegate: SliverChildListDelegate(
+        delegate: SliverChildListDelegate.fixed(
           [
             const SizedBox(height: kListSpacing),
             AnimatedSize(
@@ -117,7 +118,7 @@ class Body extends StatelessWidget {
                       return Column(
                         children: const [
                           NextLaunchCardPlaceholder(),
-                          SizedBox(height: 20),
+                          SizedBox(height: kListSpacing * 2),
                           UpcomingLaunchesPlaceholder(
                             delay: Duration(milliseconds: 500),
                           ),
@@ -132,7 +133,7 @@ class Body extends StatelessWidget {
                                 ? state.upcomingLaunches.first
                                 : null,
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: kListSpacing * 2),
                           UpcomingLaunches(launches: state.upcomingLaunches),
                         ]
                             .animate(interval: kListAnimationIntervalDuration)
@@ -142,7 +143,11 @@ class Body extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: kListSpacing * 2),
+            if (kDebugMode) ...[
+              const DebugMenu(),
+              const SizedBox(height: kListSpacing * 2)
+            ],
             AnimatedSize(
               alignment: Alignment.topCenter,
               duration: kStateChangeAnimationDuration,

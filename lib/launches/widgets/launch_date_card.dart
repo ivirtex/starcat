@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:developer';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -95,36 +92,37 @@ class LaunchDateCard extends StatelessWidget {
           if (isUpcoming)
             BlocBuilder<LaunchesBloc, LaunchesState>(
               builder: (context, state) {
-                if (state.launchesToTrack
-                    .contains(launchDataForNotifications)) {
-                  return ThemedButton(
-                    child: Row(
-                      children: const [
-                        Text('Notify me'),
-                        SizedBox(width: 5),
-                        Icon(Icons.check_circle_rounded),
-                      ],
-                    ),
-                  );
-                } else {
-                  return ThemedButton(
-                    onPressed:
-                        date != null ? () => onNotifyMePressed(context) : null,
-                    child: const Text('Notify me'),
-                  );
-                }
+                final isLaunchTracked =
+                    state.launchesToTrack.contains(launchDataForNotifications);
+
+                return IconToggleButton(
+                  isEnabled: isUpcoming,
+                  getDefaultStyle: isUpcoming
+                      ? enabledFilledTonalButtonStyle
+                      : disabledFilledTonalButtonStyle,
+                  icon: const Icon(Icons.notification_add_rounded),
+                  selectedIcon: const Icon(Icons.notifications_active_rounded),
+                  selected: isLaunchTracked,
+                  onToggle: (selected) {
+                    if (selected) {
+                      context.read<LaunchesBloc>().add(
+                            LaunchesToTrackAdded(
+                              launch: launchDataForNotifications!,
+                            ),
+                          );
+                    } else {
+                      context.read<LaunchesBloc>().add(
+                            LaunchesToTrackRemoved(
+                              launch: launchDataForNotifications!,
+                            ),
+                          );
+                    }
+                  },
+                );
               },
             )
         ],
       ),
     );
-  }
-
-  Future<void> onNotifyMePressed(BuildContext context) async {
-    log('onNotifyMePressed');
-
-    context
-        .read<LaunchesBloc>()
-        .add(LaunchesToTrackAdded(launch: launchDataForNotifications!));
   }
 }

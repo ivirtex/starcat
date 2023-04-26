@@ -51,13 +51,15 @@ class LaunchesList extends StatelessWidget {
                           color: Theme.of(context).colorScheme.outline,
                         ),
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                    launch.mission.description?.split('.').first ?? '',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Theme.of(context).colorScheme.outline,
-                        ),
-                  ),
+                  if (launch.mission.description != null) ...[
+                    const SizedBox(height: 5),
+                    Text(
+                      launch.mission.description!.split('.').first,
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.outline,
+                          ),
+                    ),
+                  ]
                 ],
               ),
             ),

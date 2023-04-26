@@ -1,5 +1,8 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+// Dart imports:
+import 'dart:developer';
+
 // Package imports:
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -37,10 +40,15 @@ Future<void> scheduleLaunchNotifications(
   final launchDateLocal = tz.TZDateTime.from(launchDate.toLocal(), tz.local);
   final timeLeft = launchDate.difference(DateTime.now());
 
+  log('Time left: $timeLeft');
+
   for (final notificationTime in _launchNotificationsSchedule) {
     if (timeLeft > notificationTime) {
+      log('Scheduling notification for $notificationTime before launch = '
+          '${launchDate.subtract(notificationTime)}, id: $notificationTime.inMinutes');
+
       await flutterLocalNotificationsPlugin.zonedSchedule(
-        launchName.hashCode,
+        launchName.hashCode + notificationTime.inMinutes,
         launchName,
         notificationTime > const Duration(hours: 1)
             ? 'T - ${notificationTime.inHours} hours left to launch from $padName'
@@ -52,5 +60,15 @@ Future<void> scheduleLaunchNotifications(
             UILocalNotificationDateInterpretation.absoluteTime,
       );
     }
+  }
+}
+
+void cancelLaunchNotifications(String launchName) {
+  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  for (final notificationTime in _launchNotificationsSchedule) {
+    flutterLocalNotificationsPlugin.cancel(
+      launchName.hashCode + notificationTime.inMinutes,
+    );
   }
 }

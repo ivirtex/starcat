@@ -25,6 +25,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     on<LaunchesRequested>(_onLaunchesRequested);
     on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
     on<LaunchesToTrackAdded>(_onLaunchesToTrackAdded);
+    on<LaunchesToTrackRemoved>(_onLaunchesToTrackRemoved);
   }
 
   final LaunchLibraryRepository _launchLibraryRepository;
@@ -112,6 +113,22 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     emit(
       state.copyWith(
         launchesToTrack: [...state.launchesToTrack, event.launch],
+      ),
+    );
+  }
+
+  void _onLaunchesToTrackRemoved(
+    LaunchesToTrackRemoved event,
+    Emitter<LaunchesState> emit,
+  ) {
+    cancelLaunchNotifications(event.launch.name);
+    cancelLaunchTimeCheckTask();
+
+    emit(
+      state.copyWith(
+        launchesToTrack: state.launchesToTrack
+            .where((launch) => launch.id != event.launch.id)
+            .toList(),
       ),
     );
   }

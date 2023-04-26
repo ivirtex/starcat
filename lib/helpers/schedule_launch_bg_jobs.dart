@@ -4,6 +4,8 @@ import 'dart:developer';
 // Package imports:
 import 'package:workmanager/workmanager.dart';
 
+String _launchTimeCheckTaskName = 'launchTimeCheck';
+
 Future<void> scheduleLaunchTimeCheckTask(
   DateTime launchDate,
   String launchName,
@@ -13,14 +15,13 @@ Future<void> scheduleLaunchTimeCheckTask(
   log('registering periodic launch time check task');
 
   await Workmanager().registerPeriodicTask(
-    'launchTimeCheck',
-    'launchTimeCheck',
+    _launchTimeCheckTaskName,
+    _launchTimeCheckTaskName,
     frequency: const Duration(hours: 1),
     initialDelay: const Duration(seconds: 3),
     constraints: Constraints(
       networkType: NetworkType.connected,
     ),
-    tag: launchName,
     inputData: <String, dynamic>{
       'launchName': launchName,
       'launchDate': launchDate.toIso8601String(),
@@ -28,4 +29,8 @@ Future<void> scheduleLaunchTimeCheckTask(
       'launchUpdateUri': launchUpdateUri.toString(),
     },
   );
+}
+
+Future<void> cancelLaunchTimeCheckTask() async {
+  await Workmanager().cancelByUniqueName(_launchTimeCheckTaskName);
 }
