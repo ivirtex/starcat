@@ -12,6 +12,7 @@ import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/format_date.dart';
 import 'package:starcat/shared/shared.dart';
 
+// TODO(ivirtex): add infinite scrolling
 class LaunchesList extends StatelessWidget {
   const LaunchesList({
     required this.launches,

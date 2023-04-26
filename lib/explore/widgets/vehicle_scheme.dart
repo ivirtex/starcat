@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:vector_graphics/vector_graphics.dart';
 
+// TODO(ivirtex): add more vehicle schemes
 class VehicleScheme extends StatelessWidget {
   const VehicleScheme({
     this.vehicle,

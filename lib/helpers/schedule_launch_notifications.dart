@@ -16,7 +16,6 @@ const _launchNotificationsSchedule = [
   Duration(hours: 24),
   Duration(hours: 6),
   Duration(hours: 1),
-  Duration(minutes: 30),
   Duration(minutes: 5),
 ];
 
@@ -63,11 +62,11 @@ Future<void> scheduleLaunchNotifications(
   }
 }
 
-void cancelLaunchNotifications(String launchName) {
+Future<void> cancelLaunchNotifications(String launchName) async {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   for (final notificationTime in _launchNotificationsSchedule) {
-    flutterLocalNotificationsPlugin.cancel(
+    await flutterLocalNotificationsPlugin.cancel(
       launchName.hashCode + notificationTime.inMinutes,
     );
   }
