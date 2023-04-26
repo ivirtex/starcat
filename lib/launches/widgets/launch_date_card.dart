@@ -1,15 +1,18 @@
+// Dart imports:
+import 'dart:developer';
+
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 
 class LaunchDateCard extends StatelessWidget {
@@ -18,11 +21,14 @@ class LaunchDateCard extends StatelessWidget {
     this.date,
     this.status,
     this.launchName,
+    this.launchDataForNotifications,
   });
 
   final DateTime? date;
   final Status? status;
   final String? launchName;
+
+  final Launch? launchDataForNotifications;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +60,7 @@ class LaunchDateCard extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            flex: 4,
+            flex: 5,
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
@@ -87,53 +93,38 @@ class LaunchDateCard extends StatelessWidget {
           ),
           const Spacer(),
           if (isUpcoming)
-            ThemedButton(
-              onPressed: date != null ? onNotifyMePressed : null,
-              child: const Text('Notify me'),
+            BlocBuilder<LaunchesBloc, LaunchesState>(
+              builder: (context, state) {
+                if (state.launchesToTrack
+                    .contains(launchDataForNotifications)) {
+                  return ThemedButton(
+                    child: Row(
+                      children: const [
+                        Text('Notify me'),
+                        SizedBox(width: 5),
+                        Icon(Icons.check_circle_rounded),
+                      ],
+                    ),
+                  );
+                } else {
+                  return ThemedButton(
+                    onPressed:
+                        date != null ? () => onNotifyMePressed(context) : null,
+                    child: const Text('Notify me'),
+                  );
+                }
+              },
             )
         ],
       ),
     );
   }
 
-  Future<void> onNotifyMePressed() async {
-    // TODO(ivirtex): implement notifications
-    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  Future<void> onNotifyMePressed(BuildContext context) async {
+    log('onNotifyMePressed');
 
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestPermission();
-
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-
-    const notificationDetails = NotificationDetails(
-      android: AndroidNotificationDetails(
-        '0',
-        'dev.ivirtex.starcat.notifications',
-        visibility: NotificationVisibility.public,
-      ),
-      iOS: DarwinNotificationDetails(),
-    );
-
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      launchName.hashCode,
-      launchName,
-      'T-5 minutes to the launch',
-      // tz.TZDateTime.from(date!.toLocal(), tz.local)
-      //     .subtract(const Duration(minutes: 5)),
-      tz.TZDateTime.now(tz.local).add(const Duration(seconds: 3)),
-      notificationDetails,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
+    context
+        .read<LaunchesBloc>()
+        .add(LaunchesToTrackAdded(launch: launchDataForNotifications!));
   }
 }

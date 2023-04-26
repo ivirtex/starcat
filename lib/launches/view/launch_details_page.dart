@@ -26,7 +26,6 @@ class LaunchDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late Launch launch;
-    late bool isUpcoming;
 
     final upcomingLaunches =
         context.read<LaunchesBloc>().state.upcomingLaunches;
@@ -34,26 +33,21 @@ class LaunchDetailsPage extends StatelessWidget {
 
     if (upcomingLaunches.any((element) => element.id == launchId)) {
       launch = upcomingLaunches.firstWhere((element) => element.id == launchId);
-      isUpcoming = launch.id ==
-          context.read<LaunchesBloc>().state.upcomingLaunches.first.id;
     } else {
       launch = pastLaunches.firstWhere((element) => element.id == launchId);
-      isUpcoming = false;
     }
 
-    return LaunchDetailsView(launch: launch, isUpcoming: isUpcoming);
+    return LaunchDetailsView(launch: launch);
   }
 }
 
 class LaunchDetailsView extends StatelessWidget {
   const LaunchDetailsView({
     required this.launch,
-    this.isUpcoming = false,
     super.key,
   });
 
   final Launch launch;
-  final bool isUpcoming;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +62,6 @@ class LaunchDetailsView extends StatelessWidget {
             ),
             Body(
               launch: launch,
-              isUpcoming: isUpcoming,
             ),
           ],
         ),
@@ -87,10 +80,7 @@ class LaunchDetailsView extends StatelessWidget {
                 ),
               ],
             ),
-            Body(
-              launch: launch,
-              isUpcoming: isUpcoming,
-            ),
+            Body(launch: launch),
           ],
         ),
       ),
@@ -110,12 +100,10 @@ class LaunchDetailsView extends StatelessWidget {
 class Body extends StatelessWidget {
   const Body({
     required this.launch,
-    required this.isUpcoming,
     super.key,
   });
 
   final Launch launch;
-  final bool isUpcoming;
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +134,7 @@ class Body extends StatelessWidget {
               date: launch.net,
               status: launch.status,
               launchName: launch.name,
+              launchDataForNotifications: launch,
             ),
             const SizedBox(height: kListSpacing),
             if (launch.failreason != null && launch.failreason!.isNotEmpty) ...[

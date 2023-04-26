@@ -14,6 +14,7 @@ class LaunchesState extends Equatable {
     this.upcomingLaunches = const <Launch>[],
     this.pastLaunches = const <Launch>[],
     this.selectedLaunches = SelectedLaunches.upcoming,
+    this.launchesToTrack = const <Launch>[],
     this.lastSuccessfulUpdate,
   });
 
@@ -24,6 +25,7 @@ class LaunchesState extends Equatable {
   final List<Launch> upcomingLaunches;
   final List<Launch> pastLaunches;
   final SelectedLaunches selectedLaunches;
+  final List<Launch> launchesToTrack;
   final DateTime? lastSuccessfulUpdate;
 
   Map<String, dynamic> toJson() => _$LaunchesStateToJson(this);
@@ -33,6 +35,7 @@ class LaunchesState extends Equatable {
     List<Launch>? upcomingLaunches,
     List<Launch>? pastLaunches,
     SelectedLaunches? selectedLaunches,
+    List<Launch>? launchesToTrack,
     DateTime? lastSuccessfulUpdate,
   }) {
     return LaunchesState(
@@ -40,6 +43,7 @@ class LaunchesState extends Equatable {
       upcomingLaunches: upcomingLaunches ?? this.upcomingLaunches,
       pastLaunches: pastLaunches ?? this.pastLaunches,
       selectedLaunches: selectedLaunches ?? this.selectedLaunches,
+      launchesToTrack: launchesToTrack ?? this.launchesToTrack,
       lastSuccessfulUpdate: lastSuccessfulUpdate ?? this.lastSuccessfulUpdate,
     );
   }
@@ -50,6 +54,7 @@ class LaunchesState extends Equatable {
         upcomingLaunches,
         pastLaunches,
         selectedLaunches,
+        launchesToTrack,
         lastSuccessfulUpdate,
       ];
 }

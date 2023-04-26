@@ -26,6 +26,7 @@ dependencies:
   go_router: ^6.5.7
   google_fonts: ^4.0.3
   google_maps_flutter: ^2.2.5
+  http: ^0.13.5
   hydrated_bloc: ^9.1.0
   intl: ^0.17.0
   json_annotation: ^4.8.0
@@ -43,6 +44,7 @@ dependencies:
   url_launcher: ^6.1.10
   vector_graphics: ^1.1.5
   wiredash: ^1.6.0
+  workmanager: ^0.5.1
 
 dev_dependencies:
   bloc_test: ^9.1.0

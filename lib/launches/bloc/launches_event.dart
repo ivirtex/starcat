@@ -21,3 +21,12 @@ class LaunchesSelectionChanged extends LaunchesEvent {
   @override
   List<Object> get props => [selectedLaunches];
 }
+
+class LaunchesToTrackAdded extends LaunchesEvent {
+  const LaunchesToTrackAdded({required this.launch});
+
+  final Launch launch;
+
+  @override
+  List<Object> get props => [launch];
+}
