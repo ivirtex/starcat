@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 // Package imports:
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:workmanager/workmanager.dart';
@@ -15,7 +16,8 @@ void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     log('Executing task $task');
 
-    await initNotifications();
+    final pluginInstance = FlutterLocalNotificationsPlugin();
+    await initNotifications(pluginInstance: pluginInstance);
 
     switch (task) {
       case 'launchTimeCheck':
@@ -32,13 +34,14 @@ void callbackDispatcher() {
         if (refreshedLaunch.net!.isAfter(launchDate)) {
           log('Launch $launchName has been delayed to ${refreshedLaunch.net}');
 
-          await cancelLaunchNotifications(launchName);
+          await cancelLaunchNotifications(launchName, pluginInstance);
           await cancelLaunchTimeCheckTask();
 
           await scheduleLaunchNotifications(
             refreshedLaunch.net!,
             launchName,
             launchPadName,
+            pluginInstance,
           );
           await scheduleLaunchTimeCheckTask(
             refreshedLaunch.net!,

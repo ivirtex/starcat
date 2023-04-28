@@ -14,6 +14,7 @@ import 'package:workmanager/workmanager.dart';
 import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
+import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/filled_card.dart';
 import 'package:starcat/shared/section.dart';
 
@@ -112,7 +113,7 @@ class _DebugMenuState extends State<DebugMenu> {
                   ],
                 );
               } else {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: Text('Loading...'));
               }
             },
           ),
@@ -130,7 +131,7 @@ class _DebugMenuState extends State<DebugMenu> {
     for (final launch in trackedLaunches) {
       log('Cancelling notification (id: ${launch.id.hashCode})');
 
-      context.read<LaunchesBloc>().add(LaunchesToTrackRemoved(launch: launch));
+      context.read<NotificationsCubit>().cancelTrackingLaunch(launch);
     }
 
     log('Cleared tracked launches');

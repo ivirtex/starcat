@@ -10,6 +10,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/launches/launches.dart';
+import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/shared.dart';
 
 class LaunchDateCard extends StatelessWidget {
@@ -105,17 +106,13 @@ class LaunchDateCard extends StatelessWidget {
                   selected: isLaunchTracked,
                   onToggle: (selected) {
                     if (selected) {
-                      context.read<LaunchesBloc>().add(
-                            LaunchesToTrackAdded(
-                              launch: launchDataForNotifications!,
-                            ),
-                          );
+                      context
+                          .read<NotificationsCubit>()
+                          .trackLaunch(launchDataForNotifications!);
                     } else {
-                      context.read<LaunchesBloc>().add(
-                            LaunchesToTrackRemoved(
-                              launch: launchDataForNotifications!,
-                            ),
-                          );
+                      context
+                          .read<NotificationsCubit>()
+                          .cancelTrackingLaunch(launchDataForNotifications!);
                     }
                   },
                 );

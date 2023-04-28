@@ -23,22 +23,20 @@ void main() {
     setUp(() {
       initHydratedStorage();
 
-      registerFallbackValue(LaunchTime.upcoming);
-
       launchLibraryRepository = MockLaunchLibraryRepository();
+      launchesBloc = LaunchesBloc(
+        launchLibraryRepository,
+        clock: Clock.fixed(DateTime(2023)),
+      );
       launch = MockLaunch();
+
+      registerFallbackValue(LaunchTime.upcoming);
 
       when(() => launchLibraryRepository.getLaunches(LaunchTime.upcoming))
           .thenAnswer((_) async => <Launch>[launch]);
       when(() => launchLibraryRepository.getLaunches(LaunchTime.previous))
           .thenAnswer((_) async => <Launch>[]);
-
       when(() => launch.toJson()).thenReturn(<String, dynamic>{});
-
-      launchesBloc = LaunchesBloc(
-        launchLibraryRepository,
-        clock: Clock.fixed(DateTime(2023)),
-      );
     });
 
     test('initial state is correct', () {
@@ -82,6 +80,19 @@ void main() {
         const LaunchesState(status: LaunchesStatus.loading),
         isA<LaunchesState>()
             .having((w) => w.status, 'status', LaunchesStatus.failure)
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'changes selectedLaunches when LaunchesSelectionChanged is added',
+      build: () => launchesBloc,
+      act: (bloc) => bloc.add(
+        const LaunchesSelectionChanged(selectedLaunches: SelectedLaunches.past),
+      ),
+      expect: () => [
+        const LaunchesState(
+          selectedLaunches: SelectedLaunches.past,
+        ),
       ],
     );
   });

@@ -12,3 +12,4 @@ jobs:
       flutter_channel: stable
       flutter_version: 3.7.10
       min_coverage: 80
+      coverage_excludes: "*.g.dart"

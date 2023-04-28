@@ -129,8 +129,8 @@ void main() {
 
     testWidgets('renders "No date" when launch date is null', (tester) async {
       await tester.pumpApp(
-        const UpcomingLaunches(
-          launches: [sampleLaunch, sampleLaunch],
+        UpcomingLaunches(
+          launches: [launches.first, sampleLaunch],
         ),
       );
 

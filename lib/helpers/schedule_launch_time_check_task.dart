@@ -10,11 +10,14 @@ Future<void> scheduleLaunchTimeCheckTask(
   DateTime launchDate,
   String launchName,
   String launchPadName,
-  Uri launchUpdateUri,
-) async {
+  Uri launchUpdateUri, {
+  Workmanager? workmanager,
+}) async {
+  workmanager ??= Workmanager();
+
   log('registering periodic launch time check task');
 
-  await Workmanager().registerPeriodicTask(
+  await workmanager.registerPeriodicTask(
     _launchTimeCheckTaskName,
     _launchTimeCheckTaskName,
     frequency: const Duration(hours: 1),

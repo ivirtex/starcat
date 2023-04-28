@@ -7,15 +7,18 @@ import 'package:flutter/services.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:wiredash/wiredash.dart';
+import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:starcat/app/app.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
+import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/settings/settings.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
@@ -47,6 +50,13 @@ class AppWrapper extends StatelessWidget {
           create: (context) => NewsBloc(
             _spaceflightNewsRepository,
           ),
+        ),
+        BlocProvider(
+          create: (context) => NotificationsCubit(
+            FlutterLocalNotificationsPlugin(),
+            Workmanager(),
+          ),
+          child: Container(),
         )
       ],
       child: const App(),

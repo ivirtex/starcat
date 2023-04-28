@@ -3,6 +3,9 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 const kImageErrorText = 'Whoops! Image failed to load';
 
 const kLaunchesUpdateErrorText =
@@ -30,3 +33,26 @@ const kBorderRadius = 12.0;
 const kBodyPadding = EdgeInsets.symmetric(horizontal: 10);
 
 const kSourceCodeUrl = 'https://github.com/ivirtex/starcat';
+
+// Notifications
+const kLaunchNotificationsSchedule = [
+  Duration(hours: 24),
+  Duration(hours: 6),
+  Duration(hours: 1),
+  Duration(minutes: 5),
+];
+
+const kAndroidNotificationChannelId = '0';
+const kAndroidNotificationChannelName = 'dev.ivirtex.starcat.notifications';
+const kAndroidNotificationChannelDescription =
+    'Notifications about upcoming launches';
+
+const kNotificationDetails = NotificationDetails(
+  android: AndroidNotificationDetails(
+    kAndroidNotificationChannelId,
+    kAndroidNotificationChannelName,
+    channelDescription: kAndroidNotificationChannelDescription,
+    visibility: NotificationVisibility.public,
+  ),
+  iOS: DarwinNotificationDetails(),
+);

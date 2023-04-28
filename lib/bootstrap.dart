@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 
 // Package imports:
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
@@ -42,7 +43,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Animate.restartOnHotReload = true;
 
-  await initNotifications();
+  await initNotifications(pluginInstance: FlutterLocalNotificationsPlugin());
 
   await Workmanager().initialize(
     callbackDispatcher,

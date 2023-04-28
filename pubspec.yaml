@@ -34,6 +34,7 @@ dependencies:
     path: packages/launch_library_repository
   live_activities: ^1.7.3
   maps_launcher: ^2.2.0
+  mockito: ^5.4.0
   path_provider: ^2.0.14
   phosphor_flutter: ^2.0.0
   share_plus: ^6.3.2

@@ -4,10 +4,12 @@ import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-Future<void> initNotifications() async {
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+Future<void> initNotifications({
+  required FlutterLocalNotificationsPlugin pluginInstance,
+  String? locationForTimeZone,
+}) async {
   const initializationSettingsAndroid =
-      AndroidInitializationSettings('@drawable/ic_stat_name');
+      AndroidInitializationSettings('@drawable/ic_launch_image');
   const initializationSettingsDarwin = DarwinInitializationSettings(
     // These will be requested when user
     // schedules a first launch notification
@@ -15,17 +17,17 @@ Future<void> initNotifications() async {
     requestBadgePermission: false,
     requestSoundPermission: false,
   );
-
   const initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
     iOS: initializationSettingsDarwin,
   );
-  await flutterLocalNotificationsPlugin.initialize(
-    initializationSettings,
-  );
+
+  await pluginInstance.initialize(initializationSettings);
 
   tz.initializeTimeZones();
   tz.setLocalLocation(
-    tz.getLocation(await FlutterNativeTimezone.getLocalTimezone()),
+    tz.getLocation(
+      locationForTimeZone ?? await FlutterNativeTimezone.getLocalTimezone(),
+    ),
   );
 }

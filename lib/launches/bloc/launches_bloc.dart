@@ -5,13 +5,9 @@ import 'dart:developer';
 // Package imports:
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-
-// Project imports:
-import 'package:starcat/helpers/helpers.dart';
 
 part 'launches_event.dart';
 part 'launches_state.dart';
@@ -24,8 +20,6 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
   }) : super(const LaunchesState()) {
     on<LaunchesRequested>(_onLaunchesRequested);
     on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
-    on<LaunchesToTrackAdded>(_onLaunchesToTrackAdded);
-    on<LaunchesToTrackRemoved>(_onLaunchesToTrackRemoved);
   }
 
   final LaunchLibraryRepository _launchLibraryRepository;
@@ -76,60 +70,5 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     Emitter<LaunchesState> emit,
   ) {
     emit(state.copyWith(selectedLaunches: event.selectedLaunches));
-  }
-
-  Future<void> _onLaunchesToTrackAdded(
-    LaunchesToTrackAdded event,
-    Emitter<LaunchesState> emit,
-  ) async {
-    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestPermission();
-
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-
-    await scheduleLaunchTimeCheckTask(
-      event.launch.net!,
-      event.launch.name,
-      event.launch.pad.name!,
-      Uri.parse(event.launch.url),
-    );
-    await scheduleLaunchNotifications(
-      event.launch.net!,
-      event.launch.name,
-      event.launch.pad.name!,
-    );
-
-    emit(
-      state.copyWith(
-        launchesToTrack: [...state.launchesToTrack, event.launch],
-      ),
-    );
-  }
-
-  void _onLaunchesToTrackRemoved(
-    LaunchesToTrackRemoved event,
-    Emitter<LaunchesState> emit,
-  ) {
-    cancelLaunchNotifications(event.launch.name);
-    cancelLaunchTimeCheckTask();
-
-    emit(
-      state.copyWith(
-        launchesToTrack: state.launchesToTrack
-            .where((launch) => launch.id != event.launch.id)
-            .toList(),
-      ),
-    );
   }
 }
