@@ -8,6 +8,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 // Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
+import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/shared/shared.dart';
 
 class NextLaunchCard extends StatelessWidget {
@@ -24,8 +25,8 @@ class NextLaunchCard extends StatelessWidget {
     final launchDate = nextLaunchData?.net;
     final launchName = nextLaunchData?.name;
     final launchStatus = nextLaunchData?.status;
-    var description = nextLaunchData?.mission.description?.split('.').first;
-    description = description != null ? '$description.' : null;
+    final description =
+        createShortDescription(nextLaunchData?.mission.description);
 
     if (launch == null) {
       return const SizedBox.shrink();

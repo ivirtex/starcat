@@ -11,6 +11,7 @@ import 'package:timezone/timezone.dart' as tz;
 // Project imports:
 import 'package:starcat/constants.dart';
 
+// TODO(ivirtex): add push notifications
 Future<void> scheduleLaunchNotifications(
   DateTime launchDate,
   String launchName,

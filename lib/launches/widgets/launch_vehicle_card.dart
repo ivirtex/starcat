@@ -35,6 +35,7 @@ class LaunchVehicleCard extends StatelessWidget {
             ),
           ),
           const Spacer(),
+          // TODO(ivirtex): add vehicle details page
           const ThemedButton(
             child: Text('Learn more'),
           ),
