@@ -43,7 +43,7 @@ void main() {
         any(),
         uiLocalNotificationDateInterpretation:
             any(named: 'uiLocalNotificationDateInterpretation'),
-        androidAllowWhileIdle: any(named: 'androidAllowWhileIdle'),
+        androidScheduleMode: any(named: 'androidScheduleMode'),
       ),
     ).thenAnswer((invocation) => Future.value());
 
@@ -78,7 +78,7 @@ void main() {
           'T - 6 hours left to launch from $padName',
           launchDateLocal.subtract(const Duration(hours: 6)),
           kNotificationDetails,
-          androidAllowWhileIdle: true,
+          androidScheduleMode: any(named: 'androidScheduleMode'),
           uiLocalNotificationDateInterpretation:
               UILocalNotificationDateInterpretation.absoluteTime,
         ),
@@ -92,7 +92,7 @@ void main() {
           'T - 1 hours left to launch from $padName',
           launchDateLocal.subtract(const Duration(hours: 1)),
           kNotificationDetails,
-          androidAllowWhileIdle: true,
+          androidScheduleMode: any(named: 'androidScheduleMode'),
           uiLocalNotificationDateInterpretation:
               UILocalNotificationDateInterpretation.absoluteTime,
         ),
@@ -106,7 +106,7 @@ void main() {
           'T - 5 minutes left to launch from $padName',
           launchDateLocal.subtract(const Duration(minutes: 5)),
           kNotificationDetails,
-          androidAllowWhileIdle: true,
+          androidScheduleMode: any(named: 'androidScheduleMode'),
           uiLocalNotificationDateInterpretation:
               UILocalNotificationDateInterpretation.absoluteTime,
         ),

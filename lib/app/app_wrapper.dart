@@ -166,7 +166,7 @@ final _router = GoRouter(
         GoRoute(
           path: 'launch/:id',
           builder: (context, state) => LaunchDetailsPage(
-            launchId: state.params['id']!,
+            launchId: state.pathParameters['id']!,
           ),
         ),
         GoRoute(

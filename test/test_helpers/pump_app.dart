@@ -120,7 +120,7 @@ extension PumpApp on WidgetTester {
                     name: 'launch',
                     path: 'launch/:id',
                     builder: (context, state) => LaunchDetailsPage(
-                      launchId: state.params['id']!,
+                      launchId: state.pathParameters['id']!,
                     ),
                   ),
                   GoRoute(

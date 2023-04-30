@@ -37,7 +37,7 @@ Future<void> scheduleLaunchNotifications(
             : 'T - ${notificationTime.inMinutes} minutes left to launch from $padName',
         launchDateLocal.subtract(notificationTime),
         kNotificationDetails,
-        androidAllowWhileIdle: true,
+        androidScheduleMode: AndroidScheduleMode.exact,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
       );
