@@ -49,6 +49,11 @@ void callbackDispatcher() {
             launchPadName,
             launchUpdateUri,
           );
+        } else if (DateTime.now().isAfter(launchDate)) {
+          log('Launch $launchName has already happened');
+
+          await cancelLaunchNotifications(launchName, pluginInstance);
+          await cancelLaunchTimeCheckTask();
         } else {
           log('Launch $launchName is still scheduled for $launchDate');
         }

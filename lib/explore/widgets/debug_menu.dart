@@ -13,7 +13,6 @@ import 'package:workmanager/workmanager.dart';
 // Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
-import 'package:starcat/launches/launches.dart';
 import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/filled_card.dart';
 import 'package:starcat/shared/section.dart';
@@ -28,7 +27,8 @@ class DebugMenu extends StatefulWidget {
 class _DebugMenuState extends State<DebugMenu> {
   @override
   Widget build(BuildContext context) {
-    final trackedLaunches = context.watch<LaunchesBloc>().state.launchesToTrack;
+    final trackedLaunches =
+        context.watch<NotificationsCubit>().state.trackedLaunches;
     final activeNotifications =
         FlutterLocalNotificationsPlugin().pendingNotificationRequests();
 

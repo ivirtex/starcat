@@ -2,14 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/helpers.dart';
-import 'package:starcat/launches/launches.dart';
 import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/shared.dart';
 
@@ -90,34 +88,11 @@ class LaunchDateCard extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          if (isUpcoming)
-            BlocBuilder<LaunchesBloc, LaunchesState>(
-              builder: (context, state) {
-                final isLaunchTracked =
-                    state.launchesToTrack.contains(launchDataForNotifications);
-
-                return IconToggleButton(
-                  isEnabled: isUpcoming,
-                  getDefaultStyle: isUpcoming
-                      ? enabledFilledTonalButtonStyle
-                      : disabledFilledTonalButtonStyle,
-                  icon: const Icon(Icons.notification_add_rounded),
-                  selectedIcon: const Icon(Icons.notifications_active_rounded),
-                  selected: isLaunchTracked,
-                  onToggle: (selected) {
-                    if (selected) {
-                      context
-                          .read<NotificationsCubit>()
-                          .trackLaunch(launchDataForNotifications!);
-                    } else {
-                      context
-                          .read<NotificationsCubit>()
-                          .cancelTrackingLaunch(launchDataForNotifications!);
-                    }
-                  },
-                );
-              },
-            )
+          if (launchDataForNotifications != null)
+            NotifyAboutLaunchButton(
+              launch: launchDataForNotifications!,
+              isUpcoming: isUpcoming,
+            ),
         ],
       ),
     );
