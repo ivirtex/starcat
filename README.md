@@ -1,6 +1,7 @@
 # Starcat
 
 ![GitHub CI](https://github.com/ivirtex/starcat/.github/workflows/main.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/ivirtex/starcat/branch/master/graph/badge.svg?token=924YWTBVPS)](https://codecov.io/gh/ivirtex/starcat)
 
 ---
 
