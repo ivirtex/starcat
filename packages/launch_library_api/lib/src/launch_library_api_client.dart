@@ -54,6 +54,7 @@ class LaunchLibraryApiClient {
     log('launchRequest: $launchRequest');
     final response = await _httpClient.get(launchRequest);
 
+    // TODO(ivirtex): handle rate limit (429)
     if (response.statusCode != HttpStatus.ok) {
       log('Request failed with status: ${response.statusCode}.');
 

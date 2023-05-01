@@ -1,11 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-// Dart imports:
-import 'dart:developer';
-
 // Package imports:
 import 'package:clock/clock.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:logger/logger.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
@@ -22,11 +20,12 @@ Future<void> scheduleLaunchNotifications(
   final launchDateLocal = tz.TZDateTime.from(launchDate.toLocal(), tz.local);
   final timeLeft = launchDate.difference(clock.now());
 
-  log('Time left: $timeLeft');
+  Logger().i('Time left: $timeLeft');
 
   for (final notificationTime in kLaunchNotificationsSchedule) {
     if (timeLeft > notificationTime) {
-      log('Scheduling notification for $notificationTime before launch = '
+      Logger().i(
+          'Scheduling notification for $notificationTime before launch = '
           '${launchDate.subtract(notificationTime)}, id: $notificationTime.inMinutes');
 
       await pluginInstance.zonedSchedule(

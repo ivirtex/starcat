@@ -1,39 +1,37 @@
-// Dart imports:
-import 'dart:developer';
-
 // Package imports:
+import 'package:logger/logger.dart';
 import 'package:workmanager/workmanager.dart';
 
 String _launchTimeCheckTaskName = 'launchTimeCheck';
 
 Future<void> scheduleLaunchTimeCheckTask(
   DateTime launchDate,
-  String launchName,
-  String launchPadName,
   Uri launchUpdateUri, {
+  Duration? checkFrequency = const Duration(hours: 1),
   Workmanager? workmanager,
 }) async {
   workmanager ??= Workmanager();
 
-  log('registering periodic launch time check task');
+  Logger()
+      .i('scheduling launch time check task with frequency $checkFrequency');
 
   await workmanager.registerPeriodicTask(
+    launchUpdateUri.toString(),
     _launchTimeCheckTaskName,
-    _launchTimeCheckTaskName,
-    frequency: const Duration(hours: 1),
+    frequency: checkFrequency,
     initialDelay: const Duration(seconds: 3),
     constraints: Constraints(
       networkType: NetworkType.connected,
     ),
+    existingWorkPolicy: ExistingWorkPolicy.replace,
     inputData: <String, dynamic>{
-      'launchName': launchName,
       'launchDate': launchDate.toIso8601String(),
-      'launchPadName': launchPadName,
       'launchUpdateUri': launchUpdateUri.toString(),
+      'frequency': checkFrequency!.inSeconds,
     },
   );
 }
 
-Future<void> cancelLaunchTimeCheckTask() async {
-  await Workmanager().cancelByUniqueName(_launchTimeCheckTaskName);
+Future<void> cancelLaunchTimeCheckTask(String launchName) async {
+  await Workmanager().cancelByUniqueName(launchName);
 }

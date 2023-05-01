@@ -22,5 +22,8 @@ class NotificationsState extends Equatable {
   }
 
   @override
+  bool? get stringify => false;
+
+  @override
   List<Object> get props => [trackedLaunches];
 }

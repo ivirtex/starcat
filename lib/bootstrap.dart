@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 // Dart imports:
 import 'dart:async';
 import 'dart:developer';
@@ -9,6 +11,8 @@ import 'package:flutter/widgets.dart';
 // Package imports:
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
+import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
@@ -49,6 +53,14 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     callbackDispatcher,
     isInDebugMode: kDebugMode,
   );
+
+  // Empty string since we don't know the upcoming launch URI yet
+  await scheduleUpcomingLaunchCheck('');
+
+  final mapsImplementation = GoogleMapsFlutterPlatform.instance;
+  if (mapsImplementation is GoogleMapsFlutterAndroid) {
+    mapsImplementation.useAndroidViewSurface = false;
+  }
 
   await runZonedGuarded(
     () async => runApp(await builder()),

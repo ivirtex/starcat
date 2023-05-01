@@ -48,9 +48,8 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
 
     await scheduleLaunchTimeCheckTask(
       launch.net!,
-      launch.name,
-      launch.pad.name!,
       Uri.parse(launch.url),
+      checkFrequency: getNewCheckFrequency(launch.net!, clock.now().toLocal()),
       workmanager: _workmanager,
     );
     await scheduleLaunchNotifications(
