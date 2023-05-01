@@ -16,7 +16,7 @@ import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
-import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/notifications/notifications.dart';
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {

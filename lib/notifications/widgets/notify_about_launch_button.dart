@@ -25,14 +25,15 @@ class NotifyAboutLaunchButton extends StatelessWidget {
     final notificationsCubit = context.watch<NotificationsCubit>();
 
     final isLaunchTracked =
-        notificationsCubit.state.trackedLaunches.contains(launch) ||
-            notificationsCubit.state.areNotificationsContinuous;
+        notificationsCubit.state.trackedLaunches.contains(launch);
+    final areNotificationsContinuous =
+        notificationsCubit.state.areNotificationsContinuous;
 
     return PlatformWidget(
       material: (context) {
         return IconToggleButton(
-          isEnabled: isUpcoming && !isLaunchTracked,
-          getDefaultStyle: isUpcoming && !isLaunchTracked
+          isEnabled: isUpcoming && !areNotificationsContinuous,
+          getDefaultStyle: isUpcoming && !areNotificationsContinuous
               ? enabledFilledTonalButtonStyle
               : disabledFilledTonalButtonStyle,
           icon: const Icon(Icons.notification_add_rounded),

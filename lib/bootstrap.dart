@@ -18,7 +18,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
-import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/workmanager_callback_dispatcher.dart';
 
 class AppBlocObserver extends BlocObserver {

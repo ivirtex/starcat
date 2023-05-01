@@ -8,7 +8,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
-import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/notifications/notifications.dart';
 
 part 'notifications_state.dart';
 part 'notifications_cubit.g.dart';
@@ -32,19 +32,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
   Map<String, dynamic>? toJson(NotificationsState state) => state.toJson();
 
   Future<void> trackLaunch(Launch launch) async {
-    await _flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestPermission();
-
-    await _flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
+    await requestPermissions(_flutterLocalNotificationsPlugin);
 
     await scheduleLaunchTimeCheckTask(
       launch.net!,
@@ -89,6 +77,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     required bool isTrue,
   }) async {
     if (isTrue) {
+      await requestPermissions(_flutterLocalNotificationsPlugin);
       await scheduleUpcomingLaunchCheck('');
     } else {
       await cancelUpcomingLaunchCheck();

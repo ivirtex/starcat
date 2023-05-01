@@ -12,10 +12,9 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 // Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
-import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
-import 'package:starcat/notifications/cubit/notifications_cubit.dart';
+import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/shared.dart';
 
 class ExplorePage extends StatelessWidget {

@@ -12,7 +12,7 @@ import 'package:timezone/timezone.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
-import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/notifications/notifications.dart';
 
 class MockMethodChannel extends Mock implements MethodChannel {}
 
