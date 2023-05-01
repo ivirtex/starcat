@@ -6,12 +6,10 @@ String _launchTimeCheckTaskName = 'launchTimeCheck';
 
 Future<void> scheduleLaunchTimeCheckTask(
   DateTime launchDate,
-  Uri launchUpdateUri, {
+  Uri launchUpdateUri,
+  Workmanager workmanager, {
   Duration? checkFrequency = const Duration(hours: 1),
-  Workmanager? workmanager,
 }) async {
-  workmanager ??= Workmanager();
-
   Logger()
       .i('scheduling launch time check task with frequency $checkFrequency');
 
@@ -32,6 +30,9 @@ Future<void> scheduleLaunchTimeCheckTask(
   );
 }
 
-Future<void> cancelLaunchTimeCheckTask(String launchName) async {
-  await Workmanager().cancelByUniqueName(launchName);
+Future<void> cancelLaunchTimeCheckTask(
+  String launchName,
+  Workmanager workmanager,
+) async {
+  await workmanager.cancelByUniqueName(launchName);
 }

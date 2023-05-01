@@ -107,8 +107,13 @@ void main() {
         frequency: any(named: 'frequency'),
         initialDelay: any(named: 'initialDelay'),
         constraints: any(named: 'constraints'),
+        existingWorkPolicy: any(named: 'existingWorkPolicy'),
         inputData: any(named: 'inputData'),
       ),
+    ).thenAnswer((_) async => Future.value());
+
+    when(
+      () => workmanager.cancelByUniqueName(any()),
     ).thenAnswer((_) async => Future.value());
   });
 

@@ -58,11 +58,11 @@ void callbackDispatcher() {
             await scheduleLaunchTimeCheckTask(
               upcomingLaunch.net!.toLocal(),
               Uri.parse(upcomingLaunch.url),
+              workmanager,
               checkFrequency: getNewCheckFrequency(
                 upcomingLaunch.net!.toLocal(),
                 DateTime.now(),
               ),
-              workmanager: workmanager,
             );
             await scheduleLaunchNotifications(
               upcomingLaunch.net!.toLocal(),
@@ -111,8 +111,8 @@ void callbackDispatcher() {
             await scheduleLaunchTimeCheckTask(
               refreshedLaunch.net!.toLocal(),
               launchUpdateUri,
+              workmanager,
               checkFrequency: suggestedCheckFrequency,
-              workmanager: workmanager,
             );
           }
 
@@ -137,7 +137,7 @@ void callbackDispatcher() {
             Logger().i('$launchName has launched!');
 
             await cancelLaunchNotifications(launchName, pluginInstance);
-            await cancelLaunchTimeCheckTask(launchName);
+            await cancelLaunchTimeCheckTask(launchName, workmanager);
             await scheduleUpcomingLaunchCheck('');
           } else {
             Logger().i('Launch $launchName is still scheduled for $launchDate');

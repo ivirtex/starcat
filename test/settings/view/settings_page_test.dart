@@ -62,7 +62,7 @@ void main() {
       verify(() => themeCubit.setMaterial3(isEnabled: true)).called(1);
     });
 
-    testWidgets('Force Dark Mode SwitchListTile works', (tester) async {
+    testWidgets('ThemeMode selector works', (tester) async {
       await tester.pumpApp(
         themeCubit: themeCubit,
         const SettingsView(),
@@ -70,15 +70,20 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Force Dark Mode'));
+      await tester.tap(find.text('System'));
       await tester.pumpAndSettle();
 
       verify(() => themeCubit.setThemeMode(ThemeMode.system)).called(1);
 
-      await tester.tap(find.text('Force Dark Mode'));
+      await tester.tap(find.text('Dark'));
       await tester.pumpAndSettle();
 
       verify(() => themeCubit.setThemeMode(ThemeMode.dark)).called(1);
+
+      await tester.tap(find.text('Light'));
+      await tester.pumpAndSettle();
+
+      verify(() => themeCubit.setThemeMode(ThemeMode.light)).called(1);
     });
   });
 }
