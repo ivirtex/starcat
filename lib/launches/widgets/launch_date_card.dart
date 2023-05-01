@@ -40,7 +40,7 @@ class LaunchDateCard extends StatelessWidget {
 
       localMMMd = formatDate(date, dateFormat: DateFormat.MMMd());
       localEEEE = formatDate(date, dateFormat: DateFormat.EEEE());
-      localHm = formatDate(date, dateFormat: DateFormat.Hm());
+      localHm = formatDate(date?.toLocal(), dateFormat: DateFormat.Hm());
       utcTime = formatDate(date?.toUtc(), dateFormat: DateFormat.Hm());
     }
 
