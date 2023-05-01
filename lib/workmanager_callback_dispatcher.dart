@@ -1,6 +1,11 @@
+// ignore_for_file: avoid_dynamic_calls
+
 // Dart imports:
 import 'dart:convert';
 import 'dart:developer';
+
+// Flutter imports:
+import 'package:flutter/foundation.dart';
 
 // Package imports:
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -21,6 +26,12 @@ void callbackDispatcher() {
     final pluginInstance = FlutterLocalNotificationsPlugin();
     await initNotifications(pluginInstance: pluginInstance);
 
+    final workmanager = Workmanager();
+    await workmanager.initialize(
+      callbackDispatcher,
+      isInDebugMode: kDebugMode,
+    );
+
     switch (task) {
       // This task is scheduled on app startup
       // and it tracks the next upcoming launch,
@@ -40,6 +51,7 @@ void callbackDispatcher() {
 
           if (upcomingLaunch.url != currentUpcomingLaunchUrl) {
             Logger().i(
+              // ignore: lines_longer_than_80_chars
               'Upcoming launch has changed to ${upcomingLaunch.url}, scheduling new notifications and tasks',
             );
 
@@ -50,6 +62,7 @@ void callbackDispatcher() {
                 upcomingLaunch.net!.toLocal(),
                 DateTime.now(),
               ),
+              workmanager: workmanager,
             );
             await scheduleLaunchNotifications(
               upcomingLaunch.net!.toLocal(),
@@ -91,6 +104,7 @@ void callbackDispatcher() {
           );
           if (suggestedCheckFrequency != currentCheckFrequency) {
             Logger().i(
+              // ignore: lines_longer_than_80_chars
               'New check frequency suggested for $launchName is $suggestedCheckFrequency',
             );
 
@@ -98,6 +112,7 @@ void callbackDispatcher() {
               refreshedLaunch.net!.toLocal(),
               launchUpdateUri,
               checkFrequency: suggestedCheckFrequency,
+              workmanager: workmanager,
             );
           }
 

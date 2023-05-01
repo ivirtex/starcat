@@ -10,6 +10,8 @@ import 'package:wiredash/wiredash.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
+import 'package:starcat/notifications/cubit/notifications_cubit.dart';
+import 'package:starcat/settings/settings.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
 
@@ -64,7 +66,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late bool _isMaterial3Enabled;
-  late bool _isDarkModeEnabled;
+  late bool _areNotificationsSentContinuously;
 
   final _textPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
 
@@ -74,8 +76,8 @@ class _BodyState extends State<Body> {
 
     _isMaterial3Enabled =
         context.read<ThemeCubit>().state.isDynamicThemeEnabled == true;
-    _isDarkModeEnabled =
-        context.read<ThemeCubit>().state.themeMode == ThemeMode.dark;
+    _areNotificationsSentContinuously =
+        context.read<NotificationsCubit>().state.areNotificationsContinuous;
   }
 
   @override
@@ -90,6 +92,7 @@ class _BodyState extends State<Body> {
               style: _getSectionTextStyle(context),
             ),
           ),
+          const ThemeModeSelector(),
           SwitchListTile.adaptive(
             secondary: const Icon(Icons.color_lens_rounded),
             title: const Text('Material You'),
@@ -102,17 +105,25 @@ class _BodyState extends State<Body> {
               });
             },
           ),
+          const SizedBox(height: kListSpacing),
+          Padding(
+            padding: _textPadding,
+            child: Text(
+              'Notifications',
+              style: _getSectionTextStyle(context),
+            ),
+          ),
           SwitchListTile.adaptive(
-            secondary: const Icon(Icons.dark_mode_rounded),
-            title: const Text('Force Dark Mode'),
-            value: _isDarkModeEnabled,
+            secondary: const Icon(Icons.notifications_active_rounded),
+            title: const Text('Send notifications on every launch'),
+            value: _areNotificationsSentContinuously,
             onChanged: (isEnabled) {
               setState(() {
-                _isDarkModeEnabled = isEnabled;
+                _areNotificationsSentContinuously = isEnabled;
 
-                context.read<ThemeCubit>().setThemeMode(
-                      isEnabled ? ThemeMode.dark : ThemeMode.system,
-                    );
+                context
+                    .read<NotificationsCubit>()
+                    .setIfNotificationsAreSentContinuously(isTrue: isEnabled);
               });
             },
           ),

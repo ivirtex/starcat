@@ -54,9 +54,6 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     isInDebugMode: kDebugMode,
   );
 
-  // Empty string since we don't know the upcoming launch URI yet
-  await scheduleUpcomingLaunchCheck('');
-
   final mapsImplementation = GoogleMapsFlutterPlatform.instance;
   if (mapsImplementation is GoogleMapsFlutterAndroid) {
     mapsImplementation.useAndroidViewSurface = false;

@@ -12,9 +12,12 @@ NotificationsState _$NotificationsStateFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Launch.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <Launch>[],
+      areNotificationsContinuous:
+          json['areNotificationsContinuous'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$NotificationsStateToJson(NotificationsState instance) =>
     <String, dynamic>{
       'trackedLaunches': instance.trackedLaunches,
+      'areNotificationsContinuous': instance.areNotificationsContinuous,
     };

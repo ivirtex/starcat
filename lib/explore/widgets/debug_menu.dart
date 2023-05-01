@@ -118,6 +118,18 @@ class _DebugMenuState extends State<DebugMenu> {
             },
           ),
         ),
+        const SizedBox(height: kListSpacing),
+        ExploreCard(
+          title: const Text('Background tasks'),
+          child: FilledButton.tonal(
+            onPressed: () {
+              setState(() {
+                Workmanager().cancelAll();
+              });
+            },
+            child: const Text('Cancel all background tasks'),
+          ),
+        )
       ],
     );
   }

@@ -67,6 +67,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
   }
 
   Future<void> cancelTrackingLaunch(Launch launch) async {
+    await cancelLaunchTimeCheckTask(launch.name);
     await cancelLaunchNotifications(
       launch.name,
       _flutterLocalNotificationsPlugin,
@@ -78,6 +79,20 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
             .where((trackedLaunch) => trackedLaunch.id != launch.id)
             .toList(),
       ),
+    );
+  }
+
+  Future<void> setIfNotificationsAreSentContinuously({
+    required bool isTrue,
+  }) async {
+    if (isTrue) {
+      await scheduleUpcomingLaunchCheck('');
+    } else {
+      await cancelUpcomingLaunchCheck();
+    }
+
+    emit(
+      state.copyWith(areNotificationsContinuous: isTrue),
     );
   }
 }
