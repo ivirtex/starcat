@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 // Dart imports:
 import 'dart:async';
 import 'dart:developer';
@@ -7,7 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 // Package imports:
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,6 +17,8 @@ import 'package:workmanager/workmanager.dart';
 // Project imports:
 import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/workmanager_callback_dispatcher.dart';
+import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
+import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -41,14 +44,18 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
 
-  Animate.restartOnHotReload = true;
-
   await initNotifications(pluginInstance: FlutterLocalNotificationsPlugin());
 
   await Workmanager().initialize(
     callbackDispatcher,
     isInDebugMode: kDebugMode,
   );
+
+  final mapsImplementation = GoogleMapsFlutterPlatform.instance;
+  if (mapsImplementation is GoogleMapsFlutterAndroid) {
+    mapsImplementation.useAndroidViewSurface = false;
+    await mapsImplementation.initializeWithRenderer(AndroidMapRenderer.latest);
+  }
 
   await runZonedGuarded(
     () async => runApp(await builder()),
