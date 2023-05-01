@@ -45,6 +45,9 @@ class LaunchesState extends Equatable {
   }
 
   @override
+  bool? get stringify => false;
+
+  @override
   List<Object?> get props => [
         status,
         upcomingLaunches,
