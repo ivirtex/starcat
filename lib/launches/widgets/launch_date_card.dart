@@ -56,7 +56,7 @@ class LaunchDateCard extends StatelessWidget {
         ],
       ),
       slideOutColor: Theme.of(context).colorScheme.errorContainer,
-      slideOut: optionalFailReason != null
+      slideOut: optionalFailReason != null && optionalFailReason!.isNotEmpty
           ? Text(
               optionalFailReason!,
               style: TextStyle(
