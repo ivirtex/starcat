@@ -15,8 +15,10 @@ class ExploreCard extends StatelessWidget {
       horizontal: 10,
       vertical: 8,
     ),
+    this.slideOutColor,
     this.padding = const EdgeInsets.all(10),
     this.shape,
+    this.color,
     this.expandVertically = false,
     this.onTap,
     super.key,
@@ -26,8 +28,10 @@ class ExploreCard extends StatelessWidget {
   final Widget? trailing;
   final Widget? slideOut;
   final EdgeInsets slideOutPadding;
+  final Color? slideOutColor;
   final EdgeInsets padding;
   final ShapeBorder? shape;
+  final Color? color;
   final bool expandVertically;
   final VoidCallback? onTap;
   final Widget child;
@@ -67,6 +71,7 @@ class ExploreCard extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
+            color: color ?? Theme.of(context).colorScheme.surface,
           ),
           child: CupertinoInkWell(
             onPressed: onTap,
@@ -83,7 +88,8 @@ class ExploreCard extends StatelessWidget {
               padding: const EdgeInsets.only(top: 4),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: slideOutColor ??
+                      Theme.of(context).colorScheme.surfaceVariant,
                   borderRadius: BorderRadius.circular(kBorderRadius),
                 ),
                 child: DefaultTextStyle(
@@ -101,7 +107,7 @@ class ExploreCard extends StatelessWidget {
                         flex: expandVertically ? 1 : 0,
                         child: Card(
                           margin: EdgeInsets.zero,
-                          color: Theme.of(context).colorScheme.surface,
+                          color: color ?? Theme.of(context).colorScheme.surface,
                           shape: shape ??
                               const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
@@ -125,6 +131,7 @@ class ExploreCard extends StatelessWidget {
           : Card(
               shape: shape,
               margin: EdgeInsets.zero,
+              color: color,
               child: InkWell(
                 onTap: onTap,
                 child: Padding(

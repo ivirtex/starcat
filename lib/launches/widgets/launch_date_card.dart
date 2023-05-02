@@ -17,12 +17,14 @@ class LaunchDateCard extends StatelessWidget {
     this.date,
     this.status,
     this.launchName,
+    this.optionalFailReason,
     this.launchDataForNotifications,
   });
 
   final DateTime? date;
   final Status? status;
   final String? launchName;
+  final String? optionalFailReason;
 
   final Launch? launchDataForNotifications;
 
@@ -53,6 +55,15 @@ class LaunchDateCard extends StatelessWidget {
           Text('Launch Date'),
         ],
       ),
+      slideOutColor: Theme.of(context).colorScheme.errorContainer,
+      slideOut: optionalFailReason != null
+          ? Text(
+              optionalFailReason!,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onErrorContainer,
+              ),
+            )
+          : null,
       child: Row(
         children: [
           Expanded(

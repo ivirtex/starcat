@@ -134,15 +134,10 @@ class Body extends StatelessWidget {
               date: launch.net,
               status: launch.status,
               launchName: launch.name,
+              optionalFailReason: launch.failreason,
               launchDataForNotifications: launch,
             ),
             const SizedBox(height: kListSpacing),
-            if (launch.failreason != null && launch.failreason!.isNotEmpty) ...[
-              FailReasonCard(
-                failReason: launch.failreason!,
-              ),
-              const SizedBox(height: kListSpacing),
-            ],
             LaunchVehicleCard(vehicle: launch.rocket),
             const SizedBox(height: kListSpacing),
             LaunchPadMap(pad: launch.pad),
