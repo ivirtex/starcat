@@ -4,7 +4,7 @@ part of 'notifications_cubit.dart';
 class NotificationsState extends Equatable {
   const NotificationsState({
     this.trackedLaunches = const <Launch>[],
-    this.areNotificationsContinuous = true,
+    this.areNotificationsContinuous = false,
   });
 
   factory NotificationsState.fromJson(Map<String, dynamic> json) =>

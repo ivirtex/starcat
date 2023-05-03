@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_dynamic_calls
+// ignore_for_file: avoid_dynamic_calls, lines_longer_than_80_chars
 
 // Dart imports:
 import 'dart:convert';
@@ -33,117 +33,237 @@ void callbackDispatcher() {
     );
 
     switch (task) {
-      // This task is scheduled on app startup
-      // and it tracks the next upcoming launch,
-      // this allows for continuous delivery of
-      // notifications to the user about upcoming launches
-      case 'upcomingLaunchCheck':
+      // This task is scheduled when the user
+      // turns on continuous launch notifications feature
+      case 'autoNextLaunchCheck':
         final currentUpcomingLaunchUrl =
             inputData!['currentUpcomingLaunchUrl'] as String;
+        final currentUpcomingLaunchDate =
+            DateTime.tryParse(inputData['launchDate'] as String? ?? '');
+        final currentCheckFrequency = Duration(
+          seconds: inputData['currentCheckFrequency'] as int,
+        );
 
         try {
-          final actualUpcomingLaunchUri = Uri.parse(kUpcomingLaunchUrl);
-          final response = await http.get(actualUpcomingLaunchUri);
+          final request = Uri.parse(kUpcomingLaunchUrl);
+          final response = await http.get(request);
           final json = jsonDecode(response.body) as Map<String, dynamic>;
-          final upcomingLaunch =
-              // TODO(ivirtex): find a more reliable way to do this
+          final actualUpcomingLaunch =
               Launch.fromJson(json['results'][0] as Map<String, dynamic>);
 
-          if (upcomingLaunch.url != currentUpcomingLaunchUrl) {
+          // If these URLs are different, it means
+          // that the upcoming launch has changed
+          if (actualUpcomingLaunch.url != currentUpcomingLaunchUrl) {
             Logger().i(
-              // ignore: lines_longer_than_80_chars
-              'Upcoming launch has changed to ${upcomingLaunch.url}, scheduling new notifications and tasks',
+              '''
+              autoNextLaunchCheck:
+              Upcoming launch has changed to ${actualUpcomingLaunch.url}, scheduling new notifications and task
+              ''',
             );
 
-            await scheduleLaunchTimeCheckTask(
-              upcomingLaunch.net!.toLocal(),
-              Uri.parse(upcomingLaunch.url),
-              workmanager,
-              checkFrequency: getNewCheckFrequency(
-                upcomingLaunch.net!.toLocal(),
-                DateTime.now(),
-              ),
-            );
+            // Assuming there are no notifications
+            // scheduled for the old launch
             await scheduleLaunchNotifications(
-              upcomingLaunch.net!.toLocal(),
-              upcomingLaunch.name,
-              upcomingLaunch.pad.name!,
+              actualUpcomingLaunch.net!.toLocal(),
+              actualUpcomingLaunch.name,
+              actualUpcomingLaunch.pad.name!,
               pluginInstance,
             );
 
-            await scheduleUpcomingLaunchCheck(upcomingLaunch.url);
+            await scheduleAutoNextLaunchCheck(
+              currentUpcomingLaunchUrl: actualUpcomingLaunch.url,
+              launchDate: actualUpcomingLaunch.net!.toLocal(),
+              checkFrequency: getNewCheckFrequency(
+                actualUpcomingLaunch.net!.toLocal(),
+                DateTime.now(),
+              ),
+            );
+          } else if (actualUpcomingLaunch.net!
+              .isAfter(currentUpcomingLaunchDate!)) {
+            // Check if launch has been delayed
+            // We can safely assume that launch dates are not null
+            Logger().i(
+              '''
+              autoNextLaunchCheck:
+              Upcoming launch has been delayed to ${actualUpcomingLaunch.net}
+              ''',
+            );
+
+            await cancelLaunchNotifications(
+              actualUpcomingLaunch.name,
+              pluginInstance,
+            );
+            await scheduleLaunchNotifications(
+              actualUpcomingLaunch.net!,
+              actualUpcomingLaunch.name,
+              actualUpcomingLaunch.pad.name!,
+              pluginInstance,
+            );
+
+            await pluginInstance.show(
+              actualUpcomingLaunch.net.hashCode,
+              actualUpcomingLaunch.name,
+              '${actualUpcomingLaunch.name} has been delayed to ${actualUpcomingLaunch.net}',
+              null,
+            );
+
+            await cancelAutoNextLaunchCheck();
+            await scheduleAutoNextLaunchCheck(
+              currentUpcomingLaunchUrl: actualUpcomingLaunch.url,
+              launchDate: actualUpcomingLaunch.net!.toLocal(),
+              checkFrequency: getNewCheckFrequency(
+                actualUpcomingLaunch.net!.toLocal(),
+                DateTime.now(),
+              ),
+            );
+          } else {
+            // Launch has not been delayed
+
+            Logger().i(
+              '''
+              autoNextLaunchCheck:
+              Upcoming launch is still scheduled for $currentUpcomingLaunchDate
+              ''',
+            );
+
+            final suggestedCheckFrequency = getNewCheckFrequency(
+              actualUpcomingLaunch.net!.toLocal(),
+              DateTime.now(),
+            );
+            if (suggestedCheckFrequency != currentCheckFrequency) {
+              Logger().i(
+                '''
+                  autoNextLaunchCheck:
+                  New check frequency suggested for 
+                  ${actualUpcomingLaunch.name} is $suggestedCheckFrequency
+                  ''',
+              );
+
+              await cancelAutoNextLaunchCheck();
+              await scheduleAutoNextLaunchCheck(
+                currentUpcomingLaunchUrl: actualUpcomingLaunch.url,
+                launchDate: actualUpcomingLaunch.net!.toLocal(),
+                checkFrequency: suggestedCheckFrequency,
+              );
+            }
           }
         } catch (e) {
-          Logger().e('Error in upcomingLaunchCheck: $e');
+          Logger().e('Error in autoNextLaunchCheck: $e');
 
           return Future.value(false);
         }
 
         break;
-      // This task is scheduled by the task above OR by the user
-      // when they add a new launch to their watchlist
-      case 'launchTimeCheck':
+      // This task is scheduled by the user when
+      // they add a new launch to their watchlist
+      case 'userSpecifiedLaunchCheck':
         final launchDate = DateTime.parse(inputData!['launchDate'] as String);
-        final launchUpdateUri =
+        final launchUpdateUrl =
             Uri.parse(inputData['launchUpdateUri'] as String);
         final currentCheckFrequency =
             Duration(seconds: inputData['frequency'] as int);
 
         try {
-          final response = await http.get(launchUpdateUri);
+          final response = await http.get(launchUpdateUrl);
           final json = jsonDecode(response.body) as Map<String, dynamic>;
           final refreshedLaunch = Launch.fromJson(json);
-          final launchName = refreshedLaunch.name;
-          final launchPadName = refreshedLaunch.pad.name ?? 'unknown pad';
-
-          // Schedule new check task with new frequency
-          // based on the time left until launch
-          final suggestedCheckFrequency = getNewCheckFrequency(
-            refreshedLaunch.net!.toLocal(),
-            DateTime.now(),
-          );
-          if (suggestedCheckFrequency != currentCheckFrequency) {
-            Logger().i(
-              // ignore: lines_longer_than_80_chars
-              'New check frequency suggested for $launchName is $suggestedCheckFrequency',
-            );
-
-            await scheduleLaunchTimeCheckTask(
-              refreshedLaunch.net!.toLocal(),
-              launchUpdateUri,
-              workmanager,
-              checkFrequency: suggestedCheckFrequency,
-            );
-          }
 
           // Check if launch has been delayed, if so, we
           // cancel old notification and schedule new ones
           if (refreshedLaunch.net!.isAfter(launchDate)) {
             Logger().i(
-              'Launch $launchName has been delayed to ${refreshedLaunch.net}',
+              '''
+              userSpecifiedLaunchCheck:
+              Launch ${refreshedLaunch.name} has been delayed to ${refreshedLaunch.net}
+              ''',
             );
 
-            await cancelLaunchNotifications(launchName, pluginInstance);
+            await cancelLaunchNotifications(
+              refreshedLaunch.name,
+              pluginInstance,
+            );
             await scheduleLaunchNotifications(
               refreshedLaunch.net!,
-              launchName,
-              launchPadName,
+              refreshedLaunch.name,
+              refreshedLaunch.pad.name ?? 'unknown pad',
               pluginInstance,
+            );
+
+            // Dispatch notification to user about the delay
+            await pluginInstance.show(
+              refreshedLaunch.net.hashCode,
+              refreshedLaunch.name,
+              '${refreshedLaunch.name} has been delayed to ${refreshedLaunch.net}',
+              null,
+            );
+
+            await scheduleUserSpecifiedLaunchCheck(
+              launchDate: refreshedLaunch.net!.toLocal(),
+              launchUpdateUri: launchUpdateUrl,
+              workmanager: workmanager,
+              checkFrequency: getNewCheckFrequency(
+                refreshedLaunch.net!.toLocal(),
+                DateTime.now(),
+              ),
             );
           } else if (DateTime.now().isAfter(launchDate)) {
             // Check if launch has happened, then we can cancel
             // the check task and the notifications (technically there
             // should be no more notifications, but just in case)
-            Logger().i('$launchName has launched!');
+            Logger().i(
+              '''
+              userSpecifiedLaunchCheck:
+              Launch ${refreshedLaunch.name} has launched!
+              ''',
+            );
 
-            await cancelLaunchNotifications(launchName, pluginInstance);
-            await cancelLaunchTimeCheckTask(launchName, workmanager);
-            await scheduleUpcomingLaunchCheck('');
+            await cancelLaunchNotifications(
+              refreshedLaunch.name,
+              pluginInstance,
+            );
+            await cancelUserSpecifiedLaunchCheck(
+              refreshedLaunch.name,
+              workmanager,
+            );
+
+            return Future.value(true);
           } else {
-            Logger().i('Launch $launchName is still scheduled for $launchDate');
+            Logger().i(
+              '''
+              userSpecifiedLaunchCheck:
+              Launch ${refreshedLaunch.name} is still scheduled for $launchDate
+              ''',
+            );
+
+            // Schedule new check task with new frequency
+            // based on the time left until launch
+            final suggestedCheckFrequency = getNewCheckFrequency(
+              launchDate.toLocal(),
+              DateTime.now(),
+            );
+            if (suggestedCheckFrequency != currentCheckFrequency) {
+              Logger().i(
+                '''
+                userSpecifiedLaunchCheck:
+                New check frequency suggested for 
+                ${refreshedLaunch.name} is $suggestedCheckFrequency
+                ''',
+              );
+
+              await cancelUserSpecifiedLaunchCheck(
+                refreshedLaunch.name,
+                workmanager,
+              );
+              await scheduleUserSpecifiedLaunchCheck(
+                launchDate: refreshedLaunch.net!.toLocal(),
+                launchUpdateUri: launchUpdateUrl,
+                workmanager: workmanager,
+                checkFrequency: suggestedCheckFrequency,
+              );
+            }
           }
         } catch (e) {
-          Logger().e('Error in launchTimeCheck: $e');
+          Logger().e('Error in userSpecifiedLaunchCheck: $e');
 
           return Future.value(false);
         }

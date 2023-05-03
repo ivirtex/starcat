@@ -14,7 +14,6 @@ import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
-import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/shared.dart';
 
 class ExplorePage extends StatelessWidget {
@@ -42,11 +41,6 @@ class _ExploreViewState extends State<ExploreView> {
         .read<LaunchesBloc>()
         .add(const LaunchesRequested(launchTime: LaunchTime.upcoming));
     context.read<NewsBloc>().add(const NewsFetchRequested());
-
-    if (context.read<NotificationsCubit>().state.areNotificationsContinuous) {
-      // Empty string since we don't know the upcoming launch URI yet
-      scheduleUpcomingLaunchCheck('');
-    }
 
     super.initState();
   }
@@ -188,18 +182,24 @@ class Body extends StatelessWidget {
     BuildContext context,
     LaunchesState state,
   ) {
-    if (state.status == LaunchesStatus.failure) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: Text(
-            kLaunchesUpdateErrorText,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onErrorContainer,
+    switch (state.status) {
+      case LaunchesStatus.initial:
+      case LaunchesStatus.loading:
+      case LaunchesStatus.success:
+        break;
+      case LaunchesStatus.failure:
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+            content: Text(
+              kLaunchesUpdateErrorText,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onErrorContainer,
+              ),
             ),
           ),
-        ),
-      );
+        );
+        break;
     }
   }
 

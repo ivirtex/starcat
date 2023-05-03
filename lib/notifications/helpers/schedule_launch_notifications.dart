@@ -17,10 +17,13 @@ Future<void> scheduleLaunchNotifications(
   FlutterLocalNotificationsPlugin pluginInstance, {
   Clock clock = const Clock(),
 }) async {
+  assert(
+    launchDate == launchDate.toLocal(),
+    'launchDate must be in local time',
+  );
+
   final launchDateLocal = tz.TZDateTime.from(launchDate.toLocal(), tz.local);
   final timeLeft = launchDate.difference(clock.now());
-
-  Logger().i('Time left: $timeLeft');
 
   for (final notificationTime in kLaunchNotificationsSchedule) {
     if (timeLeft > notificationTime) {

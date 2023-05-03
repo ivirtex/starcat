@@ -1,21 +1,22 @@
 // Package imports:
-import 'package:logger/logger.dart';
 import 'package:workmanager/workmanager.dart';
 
-String _launchTimeCheckTaskName = 'launchTimeCheck';
+String _userSpecifiedCheckTaskName = 'userSpecifiedLaunchCheck';
 
-Future<void> scheduleLaunchTimeCheckTask(
-  DateTime launchDate,
-  Uri launchUpdateUri,
-  Workmanager workmanager, {
+Future<void> scheduleUserSpecifiedLaunchCheck({
+  required DateTime launchDate,
+  required Uri launchUpdateUri,
+  required Workmanager workmanager,
   Duration? checkFrequency = const Duration(hours: 1),
 }) async {
-  Logger()
-      .i('scheduling launch time check task with frequency $checkFrequency');
+  assert(
+    launchDate == launchDate.toLocal(),
+    'launchDate must be in local time',
+  );
 
   await workmanager.registerPeriodicTask(
     launchUpdateUri.toString(),
-    _launchTimeCheckTaskName,
+    _userSpecifiedCheckTaskName,
     frequency: checkFrequency,
     initialDelay: const Duration(seconds: 3),
     constraints: Constraints(
@@ -30,7 +31,7 @@ Future<void> scheduleLaunchTimeCheckTask(
   );
 }
 
-Future<void> cancelLaunchTimeCheckTask(
+Future<void> cancelUserSpecifiedLaunchCheck(
   String launchName,
   Workmanager workmanager,
 ) async {

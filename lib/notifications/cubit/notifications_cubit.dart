@@ -34,10 +34,10 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
   Future<void> trackLaunch(Launch launch) async {
     await requestPermissions(_flutterLocalNotificationsPlugin);
 
-    await scheduleLaunchTimeCheckTask(
-      launch.net!,
-      Uri.parse(launch.url),
-      _workmanager,
+    await scheduleUserSpecifiedLaunchCheck(
+      launchDate: launch.net!,
+      launchUpdateUri: Uri.parse(launch.url),
+      workmanager: _workmanager,
       checkFrequency: getNewCheckFrequency(launch.net!, clock.now().toLocal()),
     );
     await scheduleLaunchNotifications(
@@ -55,7 +55,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
   }
 
   Future<void> cancelTrackingLaunch(Launch launch) async {
-    await cancelLaunchTimeCheckTask(
+    await cancelUserSpecifiedLaunchCheck(
       launch.name,
       _workmanager,
     );
@@ -78,9 +78,11 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
   }) async {
     if (isTrue) {
       await requestPermissions(_flutterLocalNotificationsPlugin);
-      await scheduleUpcomingLaunchCheck('');
+      await scheduleAutoNextLaunchCheck(
+        checkFrequency: const Duration(hours: 3),
+      );
     } else {
-      await cancelUpcomingLaunchCheck();
+      await cancelAutoNextLaunchCheck();
     }
 
     emit(
