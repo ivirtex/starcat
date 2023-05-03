@@ -89,4 +89,12 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
       state.copyWith(areNotificationsContinuous: isTrue),
     );
   }
+
+  Future<void> setIfNotificationsPreferenceModalHasBeenShown({
+    required bool isTrue,
+  }) async {
+    emit(
+      state.copyWith(hasNotificationsPreferenceModalBeenShown: isTrue),
+    );
+  }
 }

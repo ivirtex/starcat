@@ -38,7 +38,7 @@ class NotifyAboutLaunchButton extends StatelessWidget {
               : disabledFilledTonalButtonStyle,
           icon: const Icon(Icons.notification_add_rounded),
           selectedIcon: const Icon(Icons.notifications_active_rounded),
-          selected: isLaunchTracked,
+          selected: isLaunchTracked || areNotificationsContinuous,
           onToggle: (selected) {
             if (selected) {
               context.read<NotificationsCubit>().trackLaunch(launch);

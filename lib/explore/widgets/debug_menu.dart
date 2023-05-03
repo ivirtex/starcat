@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 // Dart imports:
 import 'dart:developer';
 
@@ -129,7 +131,32 @@ class _DebugMenuState extends State<DebugMenu> {
             },
             child: const Text('Cancel all background tasks'),
           ),
-        )
+        ),
+        const SizedBox(height: kListSpacing),
+        ExploreCard(
+          title: const Text('Notifications preference'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'areNotificationsContinuous: ${context.watch<NotificationsCubit>().state.areNotificationsContinuous}',
+              ),
+              Text(
+                'hasNotificationsPreferenceModalBeenShown: ${context.watch<NotificationsCubit>().state.hasNotificationsPreferenceModalBeenShown}',
+              ),
+              FilledButton.tonal(
+                onPressed: () {
+                  context
+                      .read<NotificationsCubit>()
+                      .setIfNotificationsPreferenceModalHasBeenShown(
+                        isTrue: false,
+                      );
+                },
+                child: const Text('Unset notifications preference'),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

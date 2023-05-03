@@ -14,6 +14,7 @@ import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
+import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/shared.dart';
 
 class ExplorePage extends StatelessWidget {
@@ -41,6 +42,18 @@ class _ExploreViewState extends State<ExploreView> {
         .read<LaunchesBloc>()
         .add(const LaunchesRequested(launchTime: LaunchTime.upcoming));
     context.read<NewsBloc>().add(const NewsFetchRequested());
+
+    if (!context
+        .read<NotificationsCubit>()
+        .state
+        .hasNotificationsPreferenceModalBeenShown) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showModalBottomSheet<void>(
+          context: context,
+          builder: (context) => const NotificationsPreferenceModal(),
+        );
+      });
+    }
 
     super.initState();
   }
