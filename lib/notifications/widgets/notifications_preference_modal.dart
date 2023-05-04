@@ -20,14 +20,6 @@ class _NotificationsPreferenceModalState
   bool areNotificationsContinuous = true;
 
   @override
-  void initState() {
-    super.initState();
-
-    areNotificationsContinuous =
-        context.read<NotificationsCubit>().state.areNotificationsContinuous;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
