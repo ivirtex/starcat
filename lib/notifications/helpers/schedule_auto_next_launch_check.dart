@@ -1,7 +1,7 @@
 // Package imports:
 import 'package:workmanager/workmanager.dart';
 
-const String _upcomingLaunchCheckTaskName = 'autoNextLaunchCheck';
+const String _autoNextLaunchCheckTaskName = 'autoNextLaunchCheck';
 
 Future<void> scheduleAutoNextLaunchCheck({
   required Duration checkFrequency,
@@ -14,8 +14,8 @@ Future<void> scheduleAutoNextLaunchCheck({
   );
 
   await Workmanager().registerPeriodicTask(
-    _upcomingLaunchCheckTaskName,
-    _upcomingLaunchCheckTaskName,
+    _autoNextLaunchCheckTaskName,
+    _autoNextLaunchCheckTaskName,
     frequency: checkFrequency,
     initialDelay: const Duration(seconds: 5),
     constraints: Constraints(
@@ -31,5 +31,5 @@ Future<void> scheduleAutoNextLaunchCheck({
 }
 
 Future<void> cancelAutoNextLaunchCheck() async {
-  await Workmanager().cancelByUniqueName(_upcomingLaunchCheckTaskName);
+  await Workmanager().cancelByUniqueName(_autoNextLaunchCheckTaskName);
 }
