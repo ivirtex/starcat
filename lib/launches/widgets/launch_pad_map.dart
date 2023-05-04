@@ -87,6 +87,8 @@ class _LaunchPadMapState extends State<LaunchPadMap>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return ExploreCard(
       padding: EdgeInsets.zero,
       title: Row(

@@ -305,6 +305,7 @@ class FileOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
     for (final line in event.lines) {
+      // ignore: avoid_print
       print(line);
     }
 
