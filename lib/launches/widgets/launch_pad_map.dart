@@ -30,7 +30,8 @@ class LaunchPadMap extends StatefulWidget {
   State<LaunchPadMap> createState() => _LaunchPadMapState();
 }
 
-class _LaunchPadMapState extends State<LaunchPadMap> {
+class _LaunchPadMapState extends State<LaunchPadMap>
+    with AutomaticKeepAliveClientMixin {
   final Completer<GoogleMapController> _controller = Completer();
 
   late String _mapStyle;
@@ -41,6 +42,9 @@ class _LaunchPadMapState extends State<LaunchPadMap> {
 
     _loadMapStyle(_controller.future);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 
   Future<void> _loadMapStyle(Future<GoogleMapController>? controller) async {
     if (!_isDataValid()) {
