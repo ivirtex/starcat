@@ -2,6 +2,7 @@
 
 // Dart imports:
 import 'dart:developer';
+import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
@@ -153,6 +155,46 @@ class _DebugMenuState extends State<DebugMenu> {
                       );
                 },
                 child: const Text('Unset notifications preference'),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: kListSpacing),
+        ExploreCard(
+          title: const Text('Workmanager logs'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              FilledButton.tonal(
+                onPressed: () async {
+                  final directory = await getApplicationDocumentsDirectory();
+                  final logFile = File('${directory.path}/logs.txt');
+
+                  final logs = await logFile.readAsString();
+
+                  // ignore: use_build_context_synchronously
+                  await showModalBottomSheet<void>(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        padding: const EdgeInsets.all(10),
+                        child: SingleChildScrollView(
+                          child: Text(logs),
+                        ),
+                      );
+                    },
+                  );
+                },
+                child: const Text('Read logs'),
+              ),
+              FilledButton.tonal(
+                onPressed: () async {
+                  final directory = await getApplicationDocumentsDirectory();
+                  final logFile = File('${directory.path}/logs.txt');
+
+                  await logFile.writeAsString('');
+                },
+                child: const Text('Clear logs'),
               ),
             ],
           ),

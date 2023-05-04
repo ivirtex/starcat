@@ -29,7 +29,7 @@ Future<void> scheduleLaunchNotifications(
     if (timeLeft > notificationTime) {
       Logger().i(
           'Scheduling notification for $notificationTime before launch = '
-          '${launchDate.subtract(notificationTime)}, id: $notificationTime.inMinutes');
+          '${launchDate.subtract(notificationTime)}, id: ${notificationTime.inMinutes}');
 
       await pluginInstance.zonedSchedule(
         launchName.hashCode + notificationTime.inMinutes,

@@ -13,10 +13,12 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:logger/logger.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
+import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/notifications/notifications.dart';
 
 @pragma('vm:entry-point')
@@ -33,10 +35,12 @@ void callbackDispatcher() {
       isInDebugMode: kDebugMode,
     );
 
+    final directory = await getApplicationDocumentsDirectory();
+    final logFile = File('${directory.path}/logs.txt');
+
     final logger = Logger(
-      output: FileOutput(
-        File('logs.txt'),
-      ),
+      output: FileOutput(logFile),
+      printer: SimplePrinter(printTime: true),
     );
 
     switch (task) {
@@ -85,7 +89,8 @@ void callbackDispatcher() {
             logger.i(
               '''
               autoNextLaunchCheck:
-              Scheduling new task with frequency $newCheckFrequency
+              Scheduling new task with frequency of ${formatDuration(newCheckFrequency)}
+              Time left: ${formatDuration(actualUpcomingLaunch.net!.toLocal().difference(DateTime.now()))}
               ''',
             );
 
@@ -150,7 +155,7 @@ void callbackDispatcher() {
                 '''
                   autoNextLaunchCheck:
                   New check frequency suggested for 
-                  ${actualUpcomingLaunch.name} is $suggestedCheckFrequency
+                  ${actualUpcomingLaunch.name} is ${formatDuration(suggestedCheckFrequency)}
                   ''',
               );
 
@@ -304,8 +309,8 @@ class FileOutput extends LogOutput {
     }
 
     file.writeAsStringSync(
-      event.lines.join('\n'),
-      mode: FileMode.append,
+      '${event.lines.join('\n')}\n',
+      mode: FileMode.writeOnlyAppend,
     );
   }
 }
