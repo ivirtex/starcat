@@ -48,10 +48,12 @@ class _ExploreViewState extends State<ExploreView> {
         .state
         .hasNotificationsPreferenceModalBeenShown) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        showModalBottomSheet<void>(
-          context: context,
-          builder: (context) => const NotificationsPreferenceModal(),
-        );
+        Future.delayed(const Duration(seconds: 1), () {
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (context) => const NotificationsPreferenceModal(),
+          );
+        });
       });
     }
 
