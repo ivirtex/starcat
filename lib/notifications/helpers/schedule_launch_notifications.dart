@@ -2,6 +2,7 @@
 
 // Package imports:
 import 'package:clock/clock.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -34,9 +35,9 @@ Future<void> scheduleLaunchNotifications(
       await pluginInstance.zonedSchedule(
         launchName.hashCode + notificationTime.inMinutes,
         launchName,
-        notificationTime >= const Duration(hours: 1)
-            ? 'T - ${notificationTime.inHours} hours left to launch from $padName'
-            : 'T - ${notificationTime.inMinutes} minutes left to launch from $padName',
+        notificationTime >= 1.hours
+            ? 'L - ${notificationTime.inHours} ${notificationTime == 1.hours ? 'hour' : 'hours'} left to launch from $padName'
+            : 'L - ${notificationTime.inMinutes} minutes left to launch from $padName',
         launchDateLocal.subtract(notificationTime),
         kNotificationDetails,
         androidScheduleMode: AndroidScheduleMode.exact,

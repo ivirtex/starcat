@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 // Package imports:
 import 'package:go_router/go_router.dart';
@@ -21,16 +22,15 @@ class NextLaunchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final nextLaunchData = launch;
-    final launchDate = nextLaunchData?.net;
-    final launchName = nextLaunchData?.name;
-    final launchStatus = nextLaunchData?.status;
-    final description =
-        createShortDescription(nextLaunchData?.mission.description);
-
     if (launch == null) {
       return const SizedBox.shrink();
     }
+
+    final launchDate = launch?.net;
+    final timeLeft = launch?.net?.difference(DateTime.now());
+    final launchName = launch?.name;
+    final launchStatus = launch?.status;
+    final description = createShortDescription(launch?.mission.description);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +54,8 @@ class NextLaunchCard extends StatelessWidget {
               const Spacer(),
               CountdownTimer(
                 launchDate: launchDate,
-                mode: launchStatus?.abbrev == StatusAbbrev.go
+                mode: launchStatus?.abbrev == StatusAbbrev.go &&
+                        timeLeft! < 24.hours
                     ? CountdownTimerMode.hoursMinutesSeconds
                     : CountdownTimerMode.daysHoursMinutes,
               ),
