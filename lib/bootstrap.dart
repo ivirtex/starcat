@@ -6,6 +6,7 @@ import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 // Package imports:
@@ -57,6 +58,13 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   final mapsImplementation = GoogleMapsFlutterPlatform.instance;
   if (mapsImplementation is GoogleMapsFlutterAndroid) {
     mapsImplementation.useAndroidViewSurface = false;
+
+    try {
+      await mapsImplementation
+          .initializeWithRenderer(AndroidMapRenderer.latest);
+    } on PlatformException catch (e) {
+      log(e.toString());
+    }
   }
 
   await runZonedGuarded(
