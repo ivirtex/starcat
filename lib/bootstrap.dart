@@ -57,7 +57,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   final mapsImplementation = GoogleMapsFlutterPlatform.instance;
   if (mapsImplementation is GoogleMapsFlutterAndroid) {
     mapsImplementation.useAndroidViewSurface = false;
-    
+
     try {
       await mapsImplementation
           .initializeWithRenderer(AndroidMapRenderer.latest);
