@@ -20,8 +20,6 @@ import 'package:workmanager/workmanager.dart';
 // Project imports:
 import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/workmanager_callback_dispatcher.dart';
-import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
-import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
