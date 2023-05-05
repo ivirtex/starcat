@@ -12,7 +12,7 @@ import 'package:timezone/timezone.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
-import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/notifications/notifications.dart';
 
 class MockMethodChannel extends Mock implements MethodChannel {}
 
@@ -75,7 +75,7 @@ void main() {
         () => flutterLocalNotificationsPlugin.zonedSchedule(
           launchName.hashCode + const Duration(hours: 6).inMinutes,
           launchName,
-          'T - 6 hours left to launch from $padName',
+          'L - 6 hours left to launch from $padName',
           launchDateLocal.subtract(const Duration(hours: 6)),
           kNotificationDetails,
           androidScheduleMode: any(named: 'androidScheduleMode'),
@@ -89,7 +89,7 @@ void main() {
         () => flutterLocalNotificationsPlugin.zonedSchedule(
           launchName.hashCode + const Duration(hours: 1).inMinutes,
           launchName,
-          'T - 1 hours left to launch from $padName',
+          'L - 1 hour left to launch from $padName',
           launchDateLocal.subtract(const Duration(hours: 1)),
           kNotificationDetails,
           androidScheduleMode: any(named: 'androidScheduleMode'),
@@ -103,7 +103,7 @@ void main() {
         () => flutterLocalNotificationsPlugin.zonedSchedule(
           launchName.hashCode + const Duration(minutes: 5).inMinutes,
           launchName,
-          'T - 5 minutes left to launch from $padName',
+          'L - 5 minutes left to launch from $padName',
           launchDateLocal.subtract(const Duration(minutes: 5)),
           kNotificationDetails,
           androidScheduleMode: any(named: 'androidScheduleMode'),

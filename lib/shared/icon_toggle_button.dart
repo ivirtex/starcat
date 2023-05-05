@@ -29,17 +29,22 @@ class _IconToggleButtonState extends State<IconToggleButton> {
   bool selected = false;
 
   @override
-  Widget build(BuildContext context) {
-    selected = widget.selected;
+  void initState() {
+    super.initState();
 
+    selected = widget.selected;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final onPressed = widget.isEnabled
         ? () {
             setState(() {
               selected = !selected;
-
-              widget.onToggle(selected);
             });
+
+            widget.onToggle(selected);
           }
         : null;
     ButtonStyle? style;

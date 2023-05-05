@@ -33,8 +33,6 @@ class MissionImage extends StatelessWidget {
         imageUrl: imageUrl,
         fadeOutDuration: 0.ms,
         fit: fit,
-        // TODO(ivirtex): comment out when compiling for production
-        // cacheKey: GlobalKey().toString(),
         cacheManager: cacheManager,
         progressIndicatorBuilder: (context, child, _) {
           return SizedBox(

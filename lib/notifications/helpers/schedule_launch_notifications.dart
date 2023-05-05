@@ -1,11 +1,10 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-// Dart imports:
-import 'dart:developer';
-
 // Package imports:
 import 'package:clock/clock.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:logger/logger.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
@@ -19,22 +18,26 @@ Future<void> scheduleLaunchNotifications(
   FlutterLocalNotificationsPlugin pluginInstance, {
   Clock clock = const Clock(),
 }) async {
+  assert(
+    launchDate == launchDate.toLocal(),
+    'launchDate must be in local time',
+  );
+
   final launchDateLocal = tz.TZDateTime.from(launchDate.toLocal(), tz.local);
   final timeLeft = launchDate.difference(clock.now());
 
-  log('Time left: $timeLeft');
-
   for (final notificationTime in kLaunchNotificationsSchedule) {
     if (timeLeft > notificationTime) {
-      log('Scheduling notification for $notificationTime before launch = '
-          '${launchDate.subtract(notificationTime)}, id: $notificationTime.inMinutes');
+      Logger().i(
+          'Scheduling notification for $notificationTime before launch = '
+          '${launchDate.subtract(notificationTime)}, id: ${notificationTime.inMinutes}');
 
       await pluginInstance.zonedSchedule(
         launchName.hashCode + notificationTime.inMinutes,
         launchName,
-        notificationTime >= const Duration(hours: 1)
-            ? 'T - ${notificationTime.inHours} hours left to launch from $padName'
-            : 'T - ${notificationTime.inMinutes} minutes left to launch from $padName',
+        notificationTime >= 1.hours
+            ? 'L - ${notificationTime.inHours} ${notificationTime == 1.hours ? 'hour' : 'hours'} left to launch from $padName'
+            : 'L - ${notificationTime.inMinutes} minutes left to launch from $padName',
         launchDateLocal.subtract(notificationTime),
         kNotificationDetails,
         androidScheduleMode: AndroidScheduleMode.exact,

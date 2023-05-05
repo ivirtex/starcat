@@ -8,7 +8,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
-import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/notifications/notifications.dart';
 
 part 'notifications_state.dart';
 part 'notifications_cubit.g.dart';
@@ -32,26 +32,13 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
   Map<String, dynamic>? toJson(NotificationsState state) => state.toJson();
 
   Future<void> trackLaunch(Launch launch) async {
-    await _flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestPermission();
+    await requestPermissions(_flutterLocalNotificationsPlugin);
 
-    await _flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-        );
-
-    await scheduleLaunchTimeCheckTask(
-      launch.net!,
-      launch.name,
-      launch.pad.name!,
-      Uri.parse(launch.url),
+    await scheduleUserSpecifiedLaunchCheck(
+      launchDate: launch.net!,
+      launchUpdateUri: Uri.parse(launch.url),
       workmanager: _workmanager,
+      checkFrequency: getNewCheckFrequency(launch.net!, clock.now().toLocal()),
     );
     await scheduleLaunchNotifications(
       launch.net!,
@@ -68,6 +55,10 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
   }
 
   Future<void> cancelTrackingLaunch(Launch launch) async {
+    await cancelUserSpecifiedLaunchCheck(
+      launch.name,
+      _workmanager,
+    );
     await cancelLaunchNotifications(
       launch.name,
       _flutterLocalNotificationsPlugin,
@@ -79,6 +70,31 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
             .where((trackedLaunch) => trackedLaunch.id != launch.id)
             .toList(),
       ),
+    );
+  }
+
+  Future<void> setIfNotificationsAreSentContinuously({
+    required bool isTrue,
+  }) async {
+    if (isTrue) {
+      await requestPermissions(_flutterLocalNotificationsPlugin);
+      await scheduleAutoNextLaunchCheck(
+        checkFrequency: const Duration(hours: 3),
+      );
+    } else {
+      await cancelAutoNextLaunchCheck();
+    }
+
+    emit(
+      state.copyWith(areNotificationsContinuous: isTrue),
+    );
+  }
+
+  Future<void> setIfNotificationsPreferenceModalHasBeenShown({
+    required bool isTrue,
+  }) async {
+    emit(
+      state.copyWith(hasNotificationsPreferenceModalBeenShown: isTrue),
     );
   }
 }

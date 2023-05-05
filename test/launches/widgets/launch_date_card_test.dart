@@ -31,5 +31,33 @@ void main() {
 
       expect(find.text('N/A'), findsNWidgets(3));
     });
+
+    testWidgets('renders error slideOut when there is a fail reason',
+        (WidgetTester tester) async {
+      late BuildContext capturedContext;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Builder(
+            builder: (context) {
+              capturedContext = context;
+
+              return const LaunchDateCard(
+                optionalFailReason: 'Fail reason',
+              );
+            },
+          ),
+        ),
+      );
+
+      expect(find.text('Fail reason'), findsOneWidget);
+
+      // check texts color
+      final text = tester.widget<Text>(find.text('Fail reason'));
+      expect(
+        text.style?.color,
+        Theme.of(capturedContext).colorScheme.onErrorContainer,
+      );
+    });
   });
 }

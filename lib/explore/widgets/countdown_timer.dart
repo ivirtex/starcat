@@ -102,7 +102,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'T -',
+            'L -',
             style: Theme.of(context)
                 .textTheme
                 .titleMedium
@@ -118,7 +118,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
       child: Row(
         children: [
           Text(
-            _isNegative ? 'T +' : 'T -',
+            _isNegative ? 'L +' : 'L -',
             style: Theme.of(context)
                 .textTheme
                 .titleMedium
