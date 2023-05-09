@@ -2,13 +2,14 @@
 
 // Package imports:
 import 'package:clock/clock.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:duration/duration.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logger/logger.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
 import 'package:starcat/constants.dart';
+import 'package:starcat/helpers/format_duration.dart';
 
 // TODO(ivirtex): add push notifications
 Future<void> scheduleLaunchNotifications(
@@ -23,23 +24,40 @@ Future<void> scheduleLaunchNotifications(
     'launchDate must be in local time',
   );
 
-  final launchDateLocal = tz.TZDateTime.from(launchDate.toLocal(), tz.local);
+  final launchDateLocal = tz.TZDateTime.from(launchDate, tz.local);
   final timeLeft = launchDate.difference(clock.now());
 
-  for (final notificationTime in kLaunchNotificationsSchedule) {
-    if (timeLeft > notificationTime) {
+  for (final notificationTimeOffset in kLaunchNotificationsSchedule) {
+    if (timeLeft > notificationTimeOffset) {
       Logger().i(
-          'Scheduling notification for $notificationTime before launch = '
-          '${launchDate.subtract(notificationTime)}, id: ${notificationTime.inMinutes}');
+          'Scheduling notification for ${formatDuration(notificationTimeOffset)} before launch = '
+          '${launchDate.subtract(notificationTimeOffset)}, id: ${launchName.hashCode + notificationTimeOffset.inMinutes}');
+
+      final formattedOffset = prettyDuration(
+        notificationTimeOffset,
+        upperTersity: DurationTersity.hour,
+      );
+
+      final channelId = '${notificationTimeOffset.inMinutes}';
+      final channelName = 'L - $formattedOffset';
+      final channelDesc =
+          'Notification that will be shown $formattedOffset before launch';
+
+      final notificationBody =
+          'L - $formattedOffset left to launch from $padName';
 
       await pluginInstance.zonedSchedule(
-        launchName.hashCode + notificationTime.inMinutes,
+        launchName.hashCode + notificationTimeOffset.inMinutes,
         launchName,
-        notificationTime >= 1.hours
-            ? 'L - ${notificationTime.inHours} ${notificationTime == 1.hours ? 'hour' : 'hours'} left to launch from $padName'
-            : 'L - ${notificationTime.inMinutes} minutes left to launch from $padName',
-        launchDateLocal.subtract(notificationTime),
-        kNotificationDetails,
+        notificationBody,
+        launchDateLocal.subtract(notificationTimeOffset),
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            channelId,
+            channelName,
+            channelDescription: channelDesc,
+          ),
+        ),
         androidScheduleMode: AndroidScheduleMode.exact,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,

@@ -4,9 +4,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 const kImageErrorText = 'Whoops! Image failed to load';
 
 const kLaunchesUpdateErrorText =
@@ -39,25 +36,10 @@ const kUpcomingLaunchUrl = kDebugMode
     ? 'https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?hide_recent_previous=true&limit=1'
     : 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?hide_recent_previous=true&limit=1';
 
-// Notifications
+// TODO(ivirtex): make it customizable
+// Notifications schedule
 const kLaunchNotificationsSchedule = [
   Duration(hours: 24),
-  Duration(hours: 6),
   Duration(hours: 1),
   Duration(minutes: 5),
 ];
-
-const kAndroidNotificationChannelId = '0';
-const kAndroidNotificationChannelName = 'dev.ivirtex.starcat.notifications';
-const kAndroidNotificationChannelDescription =
-    'Notifications about upcoming launches';
-
-const kNotificationDetails = NotificationDetails(
-  android: AndroidNotificationDetails(
-    kAndroidNotificationChannelId,
-    kAndroidNotificationChannelName,
-    channelDescription: kAndroidNotificationChannelDescription,
-    visibility: NotificationVisibility.public,
-  ),
-  iOS: DarwinNotificationDetails(),
-);

@@ -68,7 +68,8 @@ void callbackDispatcher() {
             logger.i(
               '''
               autoNextLaunchCheck:
-              Upcoming launch has changed to ${actualUpcomingLaunch.url}, scheduling new notifications and task
+              Upcoming launch URL has changed to ${actualUpcomingLaunch.url}, scheduling new notifications and task
+              Name: ${actualUpcomingLaunch.name}
               ''',
             );
 
@@ -89,7 +90,7 @@ void callbackDispatcher() {
             logger.i(
               '''
               autoNextLaunchCheck:
-              Scheduling new task with frequency of ${formatDuration(newCheckFrequency)}
+              Scheduling new task with frequency of ${formatDuration(newCheckFrequency)} for ${actualUpcomingLaunch.name}
               Time left: ${formatDuration(actualUpcomingLaunch.net!.toLocal().difference(DateTime.now()))}
               ''',
             );
@@ -106,7 +107,7 @@ void callbackDispatcher() {
             logger.i(
               '''
               autoNextLaunchCheck:
-              Upcoming launch has been delayed to ${actualUpcomingLaunch.net}
+              ${actualUpcomingLaunch.name} has been delayed to ${actualUpcomingLaunch.net}
               ''',
             );
 
@@ -142,7 +143,7 @@ void callbackDispatcher() {
             logger.i(
               '''
               autoNextLaunchCheck:
-              Upcoming launch is still scheduled for $currentUpcomingLaunchDate
+              ${actualUpcomingLaunch.name} is still scheduled for $currentUpcomingLaunchDate
               ''',
             );
 

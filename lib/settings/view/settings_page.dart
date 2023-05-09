@@ -115,7 +115,7 @@ class _BodyState extends State<Body> {
           ),
           SwitchListTile.adaptive(
             secondary: const Icon(Icons.notifications_active_rounded),
-            title: const Text('Send notifications on every launch'),
+            title: const Text('Send notifications before every launch'),
             value: _areNotificationsSentContinuously,
             onChanged: (isEnabled) {
               setState(() {
