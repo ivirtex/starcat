@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app_settings/app_settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wiredash/wiredash.dart';
 
@@ -126,6 +127,11 @@ class _BodyState extends State<Body> {
                     .setIfNotificationsAreSentContinuously(isTrue: isEnabled);
               });
             },
+          ),
+          const ListTile(
+            leading: Icon(Icons.edit_notifications_rounded),
+            title: Text('Customize notifications'),
+            onTap: AppSettings.openNotificationSettings,
           ),
           const SizedBox(height: kListSpacing),
           Padding(

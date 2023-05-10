@@ -93,7 +93,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
   @override
   Widget build(BuildContext context) {
     final numberTextStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
-          fontFamily: GoogleFonts.firaMono().fontFamily,
+          fontFamily: GoogleFonts.ptMono().fontFamily,
           fontWeight: FontWeight.bold,
         );
 
