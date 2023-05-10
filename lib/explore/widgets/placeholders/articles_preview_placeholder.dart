@@ -31,16 +31,16 @@ class ArticlesPreviewPlaceholder extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: 3,
             itemBuilder: (context, index) {
-              return RepaintBoundary(
+              return const RepaintBoundary(
                 child: SizedBox(
                   width: 300,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 10, bottom: 10),
+                    padding: EdgeInsets.only(right: 10, bottom: 10),
                     child: ExploreCard(
                       expandVertically: true,
-                      title: const LoadingPlaceholder(),
-                      trailing: const LoadingPlaceholder(width: 70),
-                      slideOut: const SizedBox(
+                      title: LoadingPlaceholder(),
+                      trailing: LoadingPlaceholder(width: 70),
+                      slideOut: SizedBox(
                         height: 150,
                       ),
                       slideOutPadding: EdgeInsets.zero,
@@ -50,7 +50,7 @@ class ArticlesPreviewPlaceholder extends StatelessWidget {
                           Expanded(
                             flex: 4,
                             child: Column(
-                              children: const [
+                              children: [
                                 LoadingPlaceholder.expandedWidth(),
                                 SizedBox(height: 5),
                                 LoadingPlaceholder.expandedWidth(
@@ -59,11 +59,11 @@ class ArticlesPreviewPlaceholder extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const Spacer(),
+                          Spacer(),
                           Expanded(
                             flex: 5,
                             child: Column(
-                              children: const [
+                              children: [
                                 LoadingPlaceholder.expandedWidth(height: 15),
                                 SizedBox(height: 5),
                                 LoadingPlaceholder.expandedWidth(height: 15),

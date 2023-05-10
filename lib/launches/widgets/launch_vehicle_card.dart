@@ -19,8 +19,8 @@ class LaunchVehicleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ExploreCard(
-      title: Row(
-        children: const [
+      title: const Row(
+        children: [
           Icon(Icons.rocket_launch_rounded, size: 14),
           SizedBox(width: 5),
           Text('Launch Vehicle'),

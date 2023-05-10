@@ -48,8 +48,8 @@ class LaunchDateCard extends StatelessWidget {
 
     return ExploreCard(
       trailing: LaunchStatus(status),
-      title: Row(
-        children: const [
+      title: const Row(
+        children: [
           Icon(Icons.calendar_month_rounded, size: 14),
           SizedBox(width: 5),
           Text('Launch Date'),

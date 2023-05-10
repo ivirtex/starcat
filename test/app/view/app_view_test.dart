@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -13,6 +14,7 @@ import 'package:starcat/app/app.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
+import 'package:starcat/notifications/notifications.dart';
 import '../../test_helpers/test_helpers.dart';
 
 class MockLaunchLibraryRepository extends Mock
@@ -21,26 +23,39 @@ class MockLaunchLibraryRepository extends Mock
 class MockSpaceflightNewsRepository extends Mock
     implements SpaceflightNewsRepository {}
 
+class MockNotificationsCubit extends MockCubit<NotificationsState>
+    implements NotificationsCubit {}
+
 void main() {
   group('AppView', () {
     late LaunchLibraryRepository launchLibraryRepository;
     late SpaceflightNewsRepository spaceflightNewsRepository;
+    late NotificationsCubit notificationsCubit;
 
     setUp(() {
       launchLibraryRepository = MockLaunchLibraryRepository();
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
+      notificationsCubit = MockNotificationsCubit();
 
       registerFallbackValue(LaunchTime.upcoming);
       when(() => launchLibraryRepository.getLaunches(any()))
           .thenAnswer((_) async => <Launch>[]);
       when(() => spaceflightNewsRepository.getNews())
           .thenAnswer((_) async => <Article>[]);
+      when(
+        () => notificationsCubit.state,
+      ).thenReturn(
+        const NotificationsState(
+          hasNotificationsPreferenceModalBeenShown: true,
+        ),
+      );
     });
 
     testWidgets('renders scaffolds with navigation bar', (tester) async {
       await tester.pumpApp(
         launchLibraryRepository: launchLibraryRepository,
         spaceflightNewsRepository: spaceflightNewsRepository,
+        notificationsCubit: notificationsCubit,
         const AppView(),
       );
 
@@ -48,14 +63,15 @@ void main() {
 
       expect(find.byType(NavigationBar), findsOneWidget);
 
-      // One scaffold for navigation bar + one for each tab
-      expect(find.byType(Scaffold), findsNWidgets(4));
+      // One scaffold for navigation bar + one for the current tab
+      expect(find.byType(Scaffold), findsNWidgets(2));
     });
 
     testWidgets('switches tabs', (tester) async {
       await tester.pumpApp(
         launchLibraryRepository: launchLibraryRepository,
         spaceflightNewsRepository: spaceflightNewsRepository,
+        notificationsCubit: notificationsCubit,
         const AppView(),
       );
 
@@ -78,6 +94,7 @@ void main() {
       await tester.pumpApp(
         launchLibraryRepository: launchLibraryRepository,
         spaceflightNewsRepository: spaceflightNewsRepository,
+        notificationsCubit: notificationsCubit,
         platform: TargetPlatform.iOS,
         const AppView(),
       );

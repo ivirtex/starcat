@@ -91,8 +91,8 @@ class _LaunchPadMapState extends State<LaunchPadMap>
 
     return ExploreCard(
       padding: EdgeInsets.zero,
-      title: Row(
-        children: const [
+      title: const Row(
+        children: [
           Icon(Icons.location_on_rounded, size: 14),
           SizedBox(width: 5),
           Text('Launch Pad'),

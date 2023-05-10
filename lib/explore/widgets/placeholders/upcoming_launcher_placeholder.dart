@@ -59,13 +59,13 @@ class UpcomingLaunchCardPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return const SizedBox(
       width: 250,
       child: ExploreCard(
         expandVertically: true,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             LoadingPlaceholder(width: 150),
             Spacer(),
             LoadingPlaceholder(width: 60),

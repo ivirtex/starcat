@@ -130,8 +130,8 @@ class Body extends StatelessWidget {
                   switch (state.status) {
                     case LaunchesStatus.initial:
                     case LaunchesStatus.loading:
-                      return Column(
-                        children: const [
+                      return const Column(
+                        children: [
                           NextLaunchCardPlaceholder(),
                           SizedBox(height: kListSpacing * 2),
                           UpcomingLaunchesPlaceholder(

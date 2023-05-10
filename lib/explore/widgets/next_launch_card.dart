@@ -79,9 +79,9 @@ class NextLaunchCard extends StatelessWidget {
               ThemedButton(
                 shouldCupertinoButtonBeFilled: true,
                 onPressed: () => context.go('/launch/${launch!.id}'),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text('Launch Details'),
                   ],
                 ),
