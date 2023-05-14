@@ -77,12 +77,12 @@ void main() {
   //     () => flutterLocalNotificationsPlugin.zonedSchedule(
   //       launchName.hashCode + const Duration(hours: 1).inMinutes,
   //       launchName,
-  //       'L - 1 hour left to launch from $padName',
+  //       'T - 1 hour left to launch from $padName',
   //       launchDateLocal.subtract(const Duration(hours: 1)),
   //       const NotificationDetails(
   //         android: AndroidNotificationDetails(
   //           '60',
-  //           'L - 1 hour',
+  //           'T - 1 hour',
   //           channelDescription:
   //               'Notification that will be shown 1 hour before launch',
   //         ),
@@ -98,12 +98,12 @@ void main() {
   //     () => flutterLocalNotificationsPlugin.zonedSchedule(
   //       launchName.hashCode + const Duration(minutes: 5).inMinutes,
   //       launchName,
-  //       'L - 5 minutes left to launch from $padName',
+  //       'T - 5 minutes left to launch from $padName',
   //       launchDateLocal.subtract(const Duration(minutes: 5)),
   //       const NotificationDetails(
   //         android: AndroidNotificationDetails(
   //           '5',
-  //           'L - 5 minutes',
+  //           'T - 5 minutes',
   //           channelDescription:
   //               'Notification that will be shown 5 minutes before launch',
   //         ),

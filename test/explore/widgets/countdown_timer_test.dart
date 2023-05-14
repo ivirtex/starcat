@@ -98,17 +98,17 @@ void main() {
       expect(find.text('s'), findsOneWidget);
     });
 
-    testWidgets('uses ColorScheme.tertiary for L -',
+    testWidgets('uses ColorScheme.tertiary for T -',
         (WidgetTester tester) async {
       await tester.pumpApp(
         CountdownTimer(launchDate: launchDate),
       );
 
-      final text = tester.widget<Text>(find.textContaining('L'));
+      final text = tester.widget<Text>(find.textContaining('T'));
       expect(text.style?.color, ThemeData().colorScheme.tertiary);
     });
 
-    testWidgets('does not render minuses for L +', (WidgetTester tester) async {
+    testWidgets('does not render minuses for T +', (WidgetTester tester) async {
       await tester.pumpApp(
         CountdownTimer(
           launchDate: launchDate,
@@ -116,7 +116,7 @@ void main() {
         ),
       );
 
-      expect(find.textContaining('L +'), findsOneWidget);
+      expect(find.textContaining('T +'), findsOneWidget);
       expect(find.textContaining('-'), findsNothing);
     });
   });

@@ -39,12 +39,12 @@ Future<void> scheduleLaunchNotifications(
       );
 
       final channelId = '${notificationTimeOffset.inMinutes}';
-      final channelName = 'L - $formattedOffset';
+      final channelName = 'T - $formattedOffset';
       final channelDesc =
           'Notification that will be shown $formattedOffset before launch';
 
       final notificationBody =
-          'L - $formattedOffset left to launch from $padName';
+          'T - $formattedOffset left to launch from $padName';
 
       await pluginInstance.zonedSchedule(
         launchName.hashCode + notificationTimeOffset.inMinutes,
