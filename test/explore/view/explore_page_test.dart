@@ -40,8 +40,7 @@ void main() {
       launch = MockLaunch();
 
       when(
-        () => launchesBloc
-            .add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
+        () => launchesBloc.add(const LaunchesRequested()),
       ).thenAnswer((_) async => <Launch>[launch]);
       when(() => launchesBloc.state).thenReturn(const LaunchesState());
 
@@ -72,8 +71,7 @@ void main() {
       launches = MockLaunch();
 
       when(
-        () => launchesBloc
-            .add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
+        () => launchesBloc.add(const LaunchesRequested()),
       ).thenAnswer((_) async => launches);
       when(() => launchesBloc.state).thenReturn(const LaunchesState());
 

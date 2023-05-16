@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
@@ -38,9 +37,7 @@ class ExploreView extends StatefulWidget {
 class _ExploreViewState extends State<ExploreView> {
   @override
   void initState() {
-    context
-        .read<LaunchesBloc>()
-        .add(const LaunchesRequested(launchTime: LaunchTime.upcoming));
+    context.read<LaunchesBloc>().add(const LaunchesRequested());
     context.read<NewsBloc>().add(const NewsFetchRequested());
 
     if (!context
@@ -99,9 +96,7 @@ class _ExploreViewState extends State<ExploreView> {
   }
 
   void _onRefresh(BuildContext context) {
-    context
-        .read<LaunchesBloc>()
-        .add(const LaunchesRequested(launchTime: LaunchTime.upcoming));
+    context.read<LaunchesBloc>().add(const LaunchesRequested());
     context.read<NewsBloc>().add(const NewsFetchRequested());
   }
 }

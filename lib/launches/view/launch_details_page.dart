@@ -112,16 +112,15 @@ class Body extends StatelessWidget {
       sliver: SliverList(
         delegate: SliverChildListDelegate(
           [
-            if (launch.image != null)
-              Column(
-                children: [
-                  const SizedBox(height: kListSpacing),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(kBorderRadius),
-                    child: MissionImage(imageUrl: launch.image ?? ''),
-                  ),
-                ],
-              ),
+            Column(
+              children: [
+                const SizedBox(height: kListSpacing),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(kBorderRadius),
+                  child: MissionImage(imageUrl: launch.image),
+                ),
+              ],
+            ),
             const SizedBox(height: kListSpacing),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),

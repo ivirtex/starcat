@@ -17,50 +17,7 @@ void main() {
   initHydratedStorage();
 
   final launches = [
-    const Launch(
-      id: '0',
-      url: 'sampleURL',
-      slug: 'sampleSlug',
-      name: 'Name',
-      webcastLive: false,
-      status: Status(
-        name: 'Status Name',
-        abbrev: StatusAbbrev.tbd,
-      ),
-      launchServiceProvider: LaunchServiceProvider(
-        name: 'Launch Service Provider Name',
-      ),
-      mission: Mission(
-        name: 'Mission Name',
-        description: 'Mission Description.',
-        orbit: Orbit(
-          name: 'Orbit Name',
-        ),
-      ),
-      program: [
-        Program(
-          agencies: [],
-          missionPatches: [],
-        )
-      ],
-      pad: Pad(
-        name: 'Pad Name',
-        latitude: '0',
-        longitude: '1',
-        location: Location(
-          name: 'Location Name',
-        ),
-      ),
-      rocket: Rocket(
-        configuration: Configuration(
-          url: '',
-          name: 'name',
-          family: 'family',
-          fullName: 'fullName',
-          variant: 'variant',
-        ),
-      ),
-    ),
+    sampleLaunch,
     sampleLaunch.copyWith(
       id: '1',
       mission: const Mission(

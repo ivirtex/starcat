@@ -37,8 +37,7 @@ void main() {
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
       notificationsCubit = MockNotificationsCubit();
 
-      registerFallbackValue(LaunchTime.upcoming);
-      when(() => launchLibraryRepository.getLaunches(any()))
+      when(() => launchLibraryRepository.getLaunches())
           .thenAnswer((_) async => <Launch>[]);
       when(() => spaceflightNewsRepository.getNews())
           .thenAnswer((_) async => <Article>[]);

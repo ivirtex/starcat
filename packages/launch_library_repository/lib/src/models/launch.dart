@@ -1,7 +1,7 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:launch_library_api/launch_library_api.dart' as api;
+import 'package:launch_library_api/api.dart' as api;
 
 // Project imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -13,17 +13,20 @@ class Launch extends Equatable {
   const Launch({
     required this.id,
     required this.url,
-    required this.slug,
     required this.name,
+    required this.slug,
     required this.status,
+    required this.netPrecision,
     required this.launchServiceProvider,
     required this.rocket,
     required this.mission,
     required this.pad,
     required this.webcastLive,
+    required this.image,
+    required this.infographic,
     required this.program,
-    this.image,
-    this.infographic,
+    this.flightclubUrl,
+    this.rSpacexApiId,
     this.net,
     this.windowEnd,
     this.windowStart,
@@ -31,6 +34,8 @@ class Launch extends Equatable {
     this.holdreason,
     this.failreason,
     this.hashtag,
+    this.infoURLs,
+    this.vidURLs,
     this.orbitalLaunchAttemptCount,
     this.locationLaunchAttemptCount,
     this.padLaunchAttemptCount,
@@ -39,114 +44,58 @@ class Launch extends Equatable {
     this.locationLaunchAttemptCountYear,
     this.padLaunchAttemptCountYear,
     this.agencyLaunchAttemptCountYear,
+    this.missionPatches,
   });
 
   factory Launch.fromJson(Map<String, dynamic> json) => _$LaunchFromJson(json);
 
-  factory Launch.fromApi(api.Launch launch) => Launch(
-        id: launch.id,
-        url: launch.url,
-        slug: launch.slug,
-        name: launch.name,
-        status: Status(
-          name: launch.status.name,
-          abbrev: parseStatusAbbrev(launch.status.abbrev),
-          description: launch.status.description,
-        ),
-        net: DateTime.tryParse(launch.net ?? ''),
-        windowEnd: DateTime.tryParse(launch.windowEnd ?? ''),
-        windowStart: DateTime.tryParse(launch.windowStart ?? ''),
-        probability: launch.probability,
-        holdreason: launch.holdreason,
-        failreason: launch.failreason,
-        hashtag: launch.hashtag,
-        launchServiceProvider: LaunchServiceProvider(
-          url: launch.launchServiceProvider?.url,
-          name: launch.launchServiceProvider?.name,
-          type: launch.launchServiceProvider?.type,
-        ),
-        rocket: Rocket(
-          configuration: Configuration(
-            url: launch.rocket?.configuration.url ?? '',
-            name: launch.rocket?.configuration.name ?? 'N/A',
-            family: launch.rocket?.configuration.family ?? 'N/A',
-            fullName: launch.rocket?.configuration.fullName ?? 'N/A',
-            variant: launch.rocket?.configuration.variant ?? 'N/A',
-          ),
-        ),
-        mission: Mission(
-          name: launch.mission?.name,
-          description: launch.mission?.description,
-          type: launch.mission?.type,
-          launchDesignator: launch.mission?.launchDesignator,
-          orbit: Orbit(
-            name: launch.mission?.orbit.name,
-            abbrev: launch.mission?.orbit.abbrev,
-          ),
-        ),
-        pad: Pad(
-          url: launch.pad?.url,
-          name: launch.pad?.name,
-          latitude: launch.pad?.latitude,
-          longitude: launch.pad?.longitude,
-          location: Location(
-            name: launch.pad?.location.name ?? 'N/A',
-          ),
-        ),
-        webcastLive: launch.webcastLive,
-        image: launch.image,
-        infographic: launch.infographic,
-        program: launch.program
-                ?.map(
-                  (program) => Program(
-                    agencies: program.agencies
-                        .map(
-                          (agency) => LaunchServiceProvider(
-                            url: agency.url,
-                            name: agency.name,
-                            type: agency.type,
-                          ),
-                        )
-                        .toList(),
-                    missionPatches: program.missionPatches
-                        .map(
-                          (patch) => MissionPatch(
-                            agency: LaunchServiceProvider(
-                              url: patch.agency.url,
-                              name: patch.agency.name,
-                              type: patch.agency.type,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                    url: program.url,
-                    name: program.name,
-                    description: program.description,
-                    imageUrl: program.imageUrl,
-                    startDate: DateTime.tryParse(program.startDate ?? ''),
-                    endDate: DateTime.tryParse(program.endDate ?? ''),
-                    infoUrl: program.infoUrl,
-                    wikiUrl: program.wikiUrl,
-                  ),
-                )
-                .toList() ??
-            <Program>[],
-        orbitalLaunchAttemptCount: launch.orbitalLaunchAttemptCount,
-        locationLaunchAttemptCount: launch.locationLaunchAttemptCount,
-        padLaunchAttemptCount: launch.padLaunchAttemptCount,
-        agencyLaunchAttemptCount: launch.agencyLaunchAttemptCount,
-        orbitalLaunchAttemptCountYear: launch.orbitalLaunchAttemptCountYear,
-        locationLaunchAttemptCountYear: launch.locationLaunchAttemptCountYear,
-        padLaunchAttemptCountYear: launch.padLaunchAttemptCountYear,
-        agencyLaunchAttemptCountYear: launch.agencyLaunchAttemptCountYear,
-      );
+  factory Launch.fromApi(api.LaunchSerializerCommon apiLaunchModel) {
+    return Launch(
+      id: apiLaunchModel.id,
+      url: apiLaunchModel.url,
+      slug: apiLaunchModel.slug,
+      name: apiLaunchModel.name ?? 'N/A',
+      status: Status.fromApi(apiLaunchModel.status),
+      net: apiLaunchModel.net,
+      netPrecision: NetPrecision.fromApi(apiLaunchModel.netPrecision),
+      windowEnd: apiLaunchModel.windowEnd,
+      windowStart: apiLaunchModel.windowStart,
+      probability: apiLaunchModel.probability,
+      holdreason: apiLaunchModel.holdreason,
+      failreason: apiLaunchModel.failreason,
+      hashtag: apiLaunchModel.hashtag,
+      launchServiceProvider: LaunchServiceProvider.fromApiMini(
+        apiLaunchModel.launchServiceProvider,
+      ),
+      rocket: Rocket.fromApi(apiLaunchModel.rocket),
+      mission: Mission.fromApi(apiLaunchModel.mission),
+      pad: Pad.fromApi(apiLaunchModel.pad),
+      webcastLive: apiLaunchModel.webcastLive ?? false,
+      image: apiLaunchModel.image,
+      infographic: apiLaunchModel.infographic,
+      program: apiLaunchModel.program.map(Program.fromApi).toList(),
+      orbitalLaunchAttemptCount: apiLaunchModel.orbitalLaunchAttemptCount,
+      locationLaunchAttemptCount: apiLaunchModel.locationLaunchAttemptCount,
+      padLaunchAttemptCount: apiLaunchModel.padLaunchAttemptCount,
+      agencyLaunchAttemptCount: apiLaunchModel.agencyLaunchAttemptCount,
+      orbitalLaunchAttemptCountYear:
+          apiLaunchModel.orbitalLaunchAttemptCountYear,
+      locationLaunchAttemptCountYear:
+          apiLaunchModel.locationLaunchAttemptCountYear,
+      padLaunchAttemptCountYear: apiLaunchModel.padLaunchAttemptCountYear,
+      agencyLaunchAttemptCountYear: apiLaunchModel.agencyLaunchAttemptCountYear,
+    );
+  }
 
   final String id;
   final String url;
   final String slug;
+  final String? flightclubUrl;
+  final String? rSpacexApiId;
   final String name;
   final Status status;
   final DateTime? net;
+  final NetPrecision netPrecision;
   final DateTime? windowEnd;
   final DateTime? windowStart;
   final int? probability;
@@ -157,9 +106,11 @@ class Launch extends Equatable {
   final Rocket rocket;
   final Mission mission;
   final Pad pad;
+  final List<InfoURL>? infoURLs;
+  final List<VideoURL>? vidURLs;
   final bool webcastLive;
-  final String? image;
-  final String? infographic;
+  final String image;
+  final String infographic;
   final List<Program> program;
   final int? orbitalLaunchAttemptCount;
   final int? locationLaunchAttemptCount;
@@ -169,16 +120,21 @@ class Launch extends Equatable {
   final int? locationLaunchAttemptCountYear;
   final int? padLaunchAttemptCountYear;
   final int? agencyLaunchAttemptCountYear;
+  final List<MissionPatch>? missionPatches;
 
   Map<String, dynamic> toJson() => _$LaunchToJson(this);
 
+  // create copyWith
   Launch copyWith({
     String? id,
     String? url,
     String? slug,
+    String? flightclubUrl,
+    String? rSpacexApiId,
     String? name,
     Status? status,
     DateTime? net,
+    NetPrecision? netPrecision,
     DateTime? windowEnd,
     DateTime? windowStart,
     int? probability,
@@ -189,6 +145,8 @@ class Launch extends Equatable {
     Rocket? rocket,
     Mission? mission,
     Pad? pad,
+    List<InfoURL>? infoURLs,
+    List<VideoURL>? vidURLs,
     bool? webcastLive,
     String? image,
     String? infographic,
@@ -201,46 +159,54 @@ class Launch extends Equatable {
     int? locationLaunchAttemptCountYear,
     int? padLaunchAttemptCountYear,
     int? agencyLaunchAttemptCountYear,
-  }) =>
-      Launch(
-        id: id ?? this.id,
-        url: url ?? this.url,
-        slug: slug ?? this.slug,
-        name: name ?? this.name,
-        status: status ?? this.status,
-        net: net ?? this.net,
-        windowEnd: windowEnd ?? this.windowEnd,
-        windowStart: windowStart ?? this.windowStart,
-        probability: probability ?? this.probability,
-        holdreason: holdreason ?? this.holdreason,
-        failreason: failreason ?? this.failreason,
-        hashtag: hashtag ?? this.hashtag,
-        launchServiceProvider:
-            launchServiceProvider ?? this.launchServiceProvider,
-        rocket: rocket ?? this.rocket,
-        mission: mission ?? this.mission,
-        pad: pad ?? this.pad,
-        webcastLive: webcastLive ?? this.webcastLive,
-        image: image ?? this.image,
-        infographic: infographic ?? this.infographic,
-        program: program ?? this.program,
-        orbitalLaunchAttemptCount:
-            orbitalLaunchAttemptCount ?? this.orbitalLaunchAttemptCount,
-        locationLaunchAttemptCount:
-            locationLaunchAttemptCount ?? this.locationLaunchAttemptCount,
-        padLaunchAttemptCount:
-            padLaunchAttemptCount ?? this.padLaunchAttemptCount,
-        agencyLaunchAttemptCount:
-            agencyLaunchAttemptCount ?? this.agencyLaunchAttemptCount,
-        orbitalLaunchAttemptCountYear:
-            orbitalLaunchAttemptCountYear ?? this.orbitalLaunchAttemptCountYear,
-        locationLaunchAttemptCountYear: locationLaunchAttemptCountYear ??
-            this.locationLaunchAttemptCountYear,
-        padLaunchAttemptCountYear:
-            padLaunchAttemptCountYear ?? this.padLaunchAttemptCountYear,
-        agencyLaunchAttemptCountYear:
-            agencyLaunchAttemptCountYear ?? this.agencyLaunchAttemptCountYear,
-      );
+    List<MissionPatch>? missionPatches,
+  }) {
+    return Launch(
+      id: id ?? this.id,
+      url: url ?? this.url,
+      slug: slug ?? this.slug,
+      flightclubUrl: flightclubUrl ?? this.flightclubUrl,
+      rSpacexApiId: rSpacexApiId ?? this.rSpacexApiId,
+      name: name ?? this.name,
+      status: status ?? this.status,
+      net: net ?? this.net,
+      netPrecision: netPrecision ?? this.netPrecision,
+      windowEnd: windowEnd ?? this.windowEnd,
+      windowStart: windowStart ?? this.windowStart,
+      probability: probability ?? this.probability,
+      holdreason: holdreason ?? this.holdreason,
+      failreason: failreason ?? this.failreason,
+      hashtag: hashtag ?? this.hashtag,
+      launchServiceProvider:
+          launchServiceProvider ?? this.launchServiceProvider,
+      rocket: rocket ?? this.rocket,
+      mission: mission ?? this.mission,
+      pad: pad ?? this.pad,
+      infoURLs: infoURLs ?? this.infoURLs,
+      vidURLs: vidURLs ?? this.vidURLs,
+      webcastLive: webcastLive ?? this.webcastLive,
+      image: image ?? this.image,
+      infographic: infographic ?? this.infographic,
+      program: program ?? this.program,
+      orbitalLaunchAttemptCount:
+          orbitalLaunchAttemptCount ?? this.orbitalLaunchAttemptCount,
+      locationLaunchAttemptCount:
+          locationLaunchAttemptCount ?? this.locationLaunchAttemptCount,
+      padLaunchAttemptCount:
+          padLaunchAttemptCount ?? this.padLaunchAttemptCount,
+      agencyLaunchAttemptCount:
+          agencyLaunchAttemptCount ?? this.agencyLaunchAttemptCount,
+      orbitalLaunchAttemptCountYear:
+          orbitalLaunchAttemptCountYear ?? this.orbitalLaunchAttemptCountYear,
+      locationLaunchAttemptCountYear:
+          locationLaunchAttemptCountYear ?? this.locationLaunchAttemptCountYear,
+      padLaunchAttemptCountYear:
+          padLaunchAttemptCountYear ?? this.padLaunchAttemptCountYear,
+      agencyLaunchAttemptCountYear:
+          agencyLaunchAttemptCountYear ?? this.agencyLaunchAttemptCountYear,
+      missionPatches: missionPatches ?? this.missionPatches,
+    );
+  }
 
   @override
   List<Object?> get props => [

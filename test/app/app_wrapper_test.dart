@@ -29,8 +29,7 @@ void main() {
       launchLibraryRepository = MockLaunchLibraryRepository();
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
 
-      registerFallbackValue(LaunchTime.upcoming);
-      when(() => launchLibraryRepository.getLaunches(any()))
+      when(() => launchLibraryRepository.getLaunches())
           .thenAnswer((_) async => <Launch>[]);
     });
 

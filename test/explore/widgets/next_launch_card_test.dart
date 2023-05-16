@@ -12,6 +12,7 @@ import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
+import '../../sample_launch.dart';
 import '../../test_helpers/test_helpers.dart';
 
 class MockLaunchesBloc extends MockCubit<LaunchesState>
@@ -25,51 +26,6 @@ void main() {
   group('NextLaunchCard', () {
     late LaunchesBloc launchesBloc;
     late ThemeCubit themeCubit;
-
-    const launch = Launch(
-      id: 'sampleID',
-      url: 'sampleURL',
-      slug: 'sampleSlug',
-      name: 'Name',
-      webcastLive: false,
-      status: Status(
-        name: 'Status Name',
-        abbrev: StatusAbbrev.tbd,
-      ),
-      launchServiceProvider: LaunchServiceProvider(
-        name: 'Launch Service Provider Name',
-      ),
-      mission: Mission(
-        name: 'Mission Name',
-        description: 'Mission Description.',
-        orbit: Orbit(
-          name: 'Orbit Name',
-        ),
-      ),
-      program: [
-        Program(
-          agencies: [],
-          missionPatches: [],
-        )
-      ],
-      pad: Pad(
-        name: 'Pad Name',
-        latitude: '0',
-        longitude: '1',
-        location: Location(
-          name: 'Location Name',
-        ),
-      ),
-      rocket: Rocket(
-        configuration: Configuration(
-          url: '',
-          name: 'name',
-          family: 'family',
-          fullName: 'fullName',
-          variant: 'variant',
-        ),
-      ),
-    );
 
     setUp(() {
       launchesBloc = MockLaunchesBloc();
@@ -85,19 +41,19 @@ void main() {
       when(() => launchesBloc.state).thenReturn(
         const LaunchesState(
           status: LaunchesStatus.success,
-          upcomingLaunches: [launch],
+          upcomingLaunches: [sampleLaunch],
         ),
       );
 
       await tester.pumpApp(
         themeCubit: themeCubit,
         launchesBloc: launchesBloc,
-        const NextLaunchCard(launch: launch),
+        const NextLaunchCard(launch: sampleLaunch),
       );
 
       expect(find.byType(ExploreCard), findsOneWidget);
-      expect(find.text(launch.name), findsOneWidget);
-      expect(find.text(launch.mission.description!), findsOneWidget);
+      expect(find.text(sampleLaunch.name), findsOneWidget);
+      expect(find.text(sampleLaunch.mission.description!), findsOneWidget);
     });
 
     testWidgets(
@@ -106,14 +62,14 @@ void main() {
       when(() => launchesBloc.state).thenReturn(
         const LaunchesState(
           status: LaunchesStatus.success,
-          upcomingLaunches: [launch],
+          upcomingLaunches: [sampleLaunch],
         ),
       );
 
       await tester.pumpAppWithRouter(
         themeCubit: themeCubit,
         launchesBloc: launchesBloc,
-        const NextLaunchCard(launch: launch),
+        const NextLaunchCard(launch: sampleLaunch),
       );
 
       await tester.tap(find.text('Launch Details'));
@@ -124,6 +80,7 @@ void main() {
 
     group('LaunchStatus', () {
       const launchStatus = Status(
+        id: 0,
         name: 'Go for launch',
         abbrev: StatusAbbrev.go,
       );
@@ -149,6 +106,7 @@ void main() {
       testWidgets('renders with light green color when abbrev is "TBC"',
           (WidgetTester tester) async {
         const launchStatus = Status(
+          id: 0,
           abbrev: StatusAbbrev.tbc,
         );
 
@@ -163,6 +121,7 @@ void main() {
       testWidgets('renders with grey color when abbrev is "TBD"',
           (WidgetTester tester) async {
         const launchStatus = Status(
+          id: 0,
           abbrev: StatusAbbrev.tbd,
         );
 

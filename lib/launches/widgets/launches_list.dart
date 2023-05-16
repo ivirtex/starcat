@@ -44,7 +44,7 @@ class LaunchesList extends StatelessWidget {
                     SizedBox(
                       width: 100,
                       child: MissionImage(
-                        imageUrl: launch.image!,
+                        imageUrl: launch.image,
                         fit: BoxFit.cover,
                       ),
                     ),

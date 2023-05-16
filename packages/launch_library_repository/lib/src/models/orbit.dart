@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:launch_library_api/api.dart' as api;
 
 part 'orbit.g.dart';
 
@@ -12,6 +13,13 @@ class Orbit extends Equatable {
   });
 
   factory Orbit.fromJson(Map<String, dynamic> json) => _$OrbitFromJson(json);
+
+  factory Orbit.fromApi(api.Orbit apiOrbit) {
+    return Orbit(
+      name: apiOrbit.name,
+      abbrev: apiOrbit.abbrev,
+    );
+  }
 
   final String? name;
   final String? abbrev;
