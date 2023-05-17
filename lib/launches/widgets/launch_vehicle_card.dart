@@ -19,6 +19,7 @@ class LaunchVehicleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final serialNumber =
+        // ignore: lines_longer_than_80_chars
         'SN: ${vehicle?.launcherStage?.firstOrNull?.launcher.serialNumber ?? 'N/A'}';
 
     return ExploreCard(
