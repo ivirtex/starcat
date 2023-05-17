@@ -31,12 +31,12 @@ Launch _$LaunchFromJson(Map<String, dynamic> json) => $checkedCreate(
               'pad', (v) => Pad.fromJson(v as Map<String, dynamic>)),
           webcastLive: $checkedConvert('webcast_live', (v) => v as bool),
           image: $checkedConvert('image', (v) => v as String),
-          infographic: $checkedConvert('infographic', (v) => v as String),
           program: $checkedConvert(
               'program',
               (v) => (v as List<dynamic>)
                   .map((e) => Program.fromJson(e as Map<String, dynamic>))
                   .toList()),
+          infographic: $checkedConvert('infographic', (v) => v as String?),
           flightclubUrl: $checkedConvert('flightclub_url', (v) => v as String?),
           rSpacexApiId: $checkedConvert('r_spacex_api_id', (v) => v as String?),
           net: $checkedConvert(
