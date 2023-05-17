@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **profileImage** | **String** |  | [optional] 
 **profileImageThumbnail** | **String** |  | [optional] 
 **wiki** | **String** |  | [optional] 
-**flights** | [**List<LaunchSerializerCommon>**](LaunchSerializerCommon.md) |  | [readonly] [default to const []]
+**flights** | [**List<LaunchSerializerCommon>**](LaunchSerializerCommon.md) |  | [optional] [readonly] [default to const []]
 **landings** | [**List<SpacecraftFlight>**](SpacecraftFlight.md) |  | [readonly] [default to const []]
 **flightsCount** | **int** |  | [optional] 
 **landingsCount** | **int** |  | [optional] 

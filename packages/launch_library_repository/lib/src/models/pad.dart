@@ -11,7 +11,7 @@ part 'pad.g.dart';
 @JsonSerializable()
 class Pad extends Equatable {
   const Pad({
-    required this.location,
+     this.location,
     this.url,
     this.latitude,
     this.longitude,
@@ -37,7 +37,8 @@ class Pad extends Equatable {
       mapUrl: apiPad.mapUrl,
       latitude: apiPad.latitude,
       longitude: apiPad.longitude,
-      location: Location.fromApi(apiPad.location),
+      location:
+          apiPad.location != null ? Location.fromApi(apiPad.location!) : null,
       mapImage: apiPad.mapImage,
       totalLaunchCount: apiPad.totalLaunchCount,
       orbitalLaunchAttemptCount: apiPad.orbitalLaunchAttemptCount,
@@ -52,7 +53,7 @@ class Pad extends Equatable {
   final String? mapUrl;
   final String? latitude;
   final String? longitude;
-  final Location location;
+  final Location? location;
   final String? mapImage;
   final int? totalLaunchCount;
   final int? orbitalLaunchAttemptCount;

@@ -36,14 +36,14 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
 
     await scheduleUserSpecifiedLaunchCheck(
       launchDate: launch.net!,
-      launchUpdateUri: Uri.parse(launch.url),
+      launchUpdateUri: Uri.parse(launch.url!),
       workmanager: _workmanager,
       checkFrequency: getNewCheckFrequency(launch.net!, clock.now().toLocal()),
     );
     await scheduleLaunchNotifications(
       launch.net!,
       launch.name,
-      launch.pad.name!,
+      launch.pad!.name!,
       _flutterLocalNotificationsPlugin,
     );
 

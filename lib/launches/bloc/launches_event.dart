@@ -11,6 +11,15 @@ class LaunchesRequested extends LaunchesEvent {
   List<Object> get props => [];
 }
 
+class LaunchesDetailsRequested extends LaunchesEvent {
+  const LaunchesDetailsRequested({required this.launchId});
+
+  final String launchId;
+
+  @override
+  List<Object> get props => [launchId];
+}
+
 class LaunchesSelectionChanged extends LaunchesEvent {
   const LaunchesSelectionChanged({required this.selectedLaunches});
 

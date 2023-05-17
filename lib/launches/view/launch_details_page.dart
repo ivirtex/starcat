@@ -15,7 +15,7 @@ import 'package:starcat/helpers/format_date.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 
-class LaunchDetailsPage extends StatelessWidget {
+class LaunchDetailsPage extends StatefulWidget {
   const LaunchDetailsPage({
     required this.launchId,
     super.key,
@@ -24,19 +24,35 @@ class LaunchDetailsPage extends StatelessWidget {
   final String launchId;
 
   @override
-  Widget build(BuildContext context) {
-    late Launch launch;
+  State<LaunchDetailsPage> createState() => _LaunchDetailsPageState();
+}
+
+class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
+  late Launch launch;
+
+  @override
+  void initState() {
+    super.initState();
 
     final upcomingLaunches =
         context.read<LaunchesBloc>().state.upcomingLaunches;
     final pastLaunches = context.read<LaunchesBloc>().state.pastLaunches;
 
-    if (upcomingLaunches.any((element) => element.id == launchId)) {
-      launch = upcomingLaunches.firstWhere((element) => element.id == launchId);
+    if (upcomingLaunches.any((element) => element.id == widget.launchId)) {
+      launch = upcomingLaunches
+          .firstWhere((element) => element.id == widget.launchId);
     } else {
-      launch = pastLaunches.firstWhere((element) => element.id == launchId);
+      launch =
+          pastLaunches.firstWhere((element) => element.id == widget.launchId);
     }
 
+    context
+        .read<LaunchesBloc>()
+        .add(LaunchesDetailsRequested(launchId: launch.id));
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return LaunchDetailsView(launch: launch);
   }
 }
@@ -58,7 +74,7 @@ class LaunchDetailsView extends StatelessWidget {
             CupertinoSliverNavigationBar(
               stretch: true,
               border: null,
-              largeTitle: AutoSizeText(launch.mission.name ?? 'N/A'),
+              largeTitle: AutoSizeText(launch.mission?.name ?? 'N/A'),
             ),
             Body(
               launch: launch,
@@ -72,7 +88,7 @@ class LaunchDetailsView extends StatelessWidget {
             // TODO(ivirtex): consider showing mission image in flexibleSpace
             SliverAppBar.medium(
               stretch: true,
-              title: AutoSizeText(launch.mission.name ?? 'N/A'),
+              title: AutoSizeText(launch.mission?.name ?? 'N/A'),
               actions: [
                 IconButton(
                   icon: const Icon(Icons.ios_share_rounded),
@@ -90,7 +106,7 @@ class LaunchDetailsView extends StatelessWidget {
   String composeShareText(Launch launch) {
     final net = formatDate(launch.net);
     final launchName = launch.name;
-    final launchPad = launch.pad.name;
+    final launchPad = launch.pad?.name;
 
     // ignore: lines_longer_than_80_chars
     return '$launchName launch date is NET $net and will be launching from $launchPad.';
@@ -117,7 +133,7 @@ class Body extends StatelessWidget {
                 const SizedBox(height: kListSpacing),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(kBorderRadius),
-                  child: MissionImage(imageUrl: launch.image),
+                  child: MissionImage(imageUrl: launch.image ?? ''),
                 ),
               ],
             ),
@@ -125,7 +141,7 @@ class Body extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
-                launch.mission.description ?? 'No description',
+                launch.mission?.description ?? 'No description',
               ),
             ),
             const SizedBox(height: kListSpacing),
@@ -141,7 +157,7 @@ class Body extends StatelessWidget {
             const SizedBox(height: kListSpacing),
             LaunchPadMap(pad: launch.pad),
             const SizedBox(height: kListSpacing),
-            TargetOrbitCard(orbit: launch.mission.orbit),
+            TargetOrbitCard(orbit: launch.mission?.orbit),
             const SizedBox(height: kListSpacing),
           ]
               .animate(interval: kListAnimationIntervalDuration)

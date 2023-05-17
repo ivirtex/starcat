@@ -16,7 +16,7 @@ class MissionPatch {
     required this.id,
     required this.name,
     this.priority,
-    required this.imageUrl,
+    this.imageUrl,
     required this.agency,
   });
 
@@ -34,7 +34,13 @@ class MissionPatch {
   ///
   int? priority;
 
-  String imageUrl;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? imageUrl;
 
   AgencySerializerMini agency;
 
@@ -52,7 +58,7 @@ class MissionPatch {
     (id.hashCode) +
     (name.hashCode) +
     (priority == null ? 0 : priority!.hashCode) +
-    (imageUrl.hashCode) +
+    (imageUrl == null ? 0 : imageUrl!.hashCode) +
     (agency.hashCode);
 
   @override
@@ -67,7 +73,11 @@ class MissionPatch {
     } else {
       json[r'priority'] = null;
     }
+    if (this.imageUrl != null) {
       json[r'image_url'] = this.imageUrl;
+    } else {
+      json[r'image_url'] = null;
+    }
       json[r'agency'] = this.agency;
     return json;
   }
@@ -94,7 +104,7 @@ class MissionPatch {
         id: mapValueOfType<int>(json, r'id')!,
         name: mapValueOfType<String>(json, r'name')!,
         priority: mapValueOfType<int>(json, r'priority'),
-        imageUrl: mapValueOfType<String>(json, r'image_url')!,
+        imageUrl: mapValueOfType<String>(json, r'image_url'),
         agency: AgencySerializerMini.fromJson(json[r'agency'])!,
       );
     }
@@ -145,7 +155,6 @@ class MissionPatch {
   static const requiredKeys = <String>{
     'id',
     'name',
-    'image_url',
     'agency',
   };
 }

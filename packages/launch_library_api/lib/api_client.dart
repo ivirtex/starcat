@@ -12,7 +12,6 @@ part of launch_library_api;
 
 class ApiClient {
   ApiClient({
-    // TODO(ivirtex): change in production
     this.basePath = 'https://lldev.thespacedevs.com',
     this.authentication,
   });

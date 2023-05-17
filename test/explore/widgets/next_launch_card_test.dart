@@ -53,7 +53,7 @@ void main() {
 
       expect(find.byType(ExploreCard), findsOneWidget);
       expect(find.text(sampleLaunch.name), findsOneWidget);
-      expect(find.text(sampleLaunch.mission.description!), findsOneWidget);
+      expect(find.text(sampleLaunch.mission!.description!), findsOneWidget);
     });
 
     testWidgets(

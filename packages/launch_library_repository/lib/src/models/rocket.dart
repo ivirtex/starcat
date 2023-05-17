@@ -26,6 +26,19 @@ class Rocket extends Equatable {
     );
   }
 
+  factory Rocket.fromApiDetailed(api.RocketDetailed apiRocketModel) {
+    return Rocket(
+      id: apiRocketModel.id,
+      configuration:
+          Configuration.fromApiDetailed(apiRocketModel.configuration),
+      launcherStage:
+          apiRocketModel.launcherStage.map(FirstStage.fromApi).toList(),
+      spacecraftStage: apiRocketModel.spacecraftStage != null
+          ? SpacecraftStage.fromApi(apiRocketModel.spacecraftStage!)
+          : null,
+    );
+  }
+
   final int id;
   final Configuration configuration;
   final List<FirstStage>? launcherStage;

@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **landing** | [**Landing**](Landing.md) |  | [readonly] 
 **previousFlightDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **turnAroundTimeDays** | **int** |  | [optional] 
-**previousFlight** | [**LaunchSerializerMini**](LaunchSerializerMini.md) |  | [readonly] 
+**previousFlight** | [**LaunchSerializerMini**](LaunchSerializerMini.md) |  | [optional] [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

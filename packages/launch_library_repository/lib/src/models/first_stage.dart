@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:launch_library_api/api.dart' as api;
 
 // Project imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -23,6 +24,22 @@ class FirstStage extends Equatable {
 
   factory FirstStage.fromJson(Map<String, dynamic> json) =>
       _$FirstStageFromJson(json);
+
+  factory FirstStage.fromApi(api.FirstStage apiFirstStage) {
+    return FirstStage(
+      id: apiFirstStage.id,
+      type: apiFirstStage.type,
+      launcher: Launcher.fromApiDetailed(apiFirstStage.launcher),
+      landing: Landing.fromApi(apiFirstStage.landing),
+      reused: apiFirstStage.reused,
+      launcherFlightNumber: apiFirstStage.launcherFlightNumber,
+      previousFlightDate: apiFirstStage.previousFlightDate,
+      turnAroundTimeDays: apiFirstStage.turnAroundTimeDays,
+      previousFlight: apiFirstStage.previousFlight != null
+          ? Launch.fromApiMini(apiFirstStage.previousFlight!)
+          : null,
+    );
+  }
 
   final int id;
   final String type;

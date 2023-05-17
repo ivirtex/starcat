@@ -18,7 +18,7 @@ class Program {
     required this.name,
     this.description,
     this.agencies = const [],
-    required this.imageUrl,
+    this.imageUrl,
     this.startDate,
     this.endDate,
     this.infoUrl,
@@ -36,7 +36,13 @@ class Program {
 
   List<AgencySerializerMini> agencies;
 
-  String imageUrl;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? imageUrl;
 
   DateTime? startDate;
 
@@ -70,7 +76,7 @@ class Program {
     (name.hashCode) +
     (description == null ? 0 : description!.hashCode) +
     (agencies.hashCode) +
-    (imageUrl.hashCode) +
+    (imageUrl == null ? 0 : imageUrl!.hashCode) +
     (startDate == null ? 0 : startDate!.hashCode) +
     (endDate == null ? 0 : endDate!.hashCode) +
     (infoUrl == null ? 0 : infoUrl!.hashCode) +
@@ -91,7 +97,11 @@ class Program {
       json[r'description'] = null;
     }
       json[r'agencies'] = this.agencies;
+    if (this.imageUrl != null) {
       json[r'image_url'] = this.imageUrl;
+    } else {
+      json[r'image_url'] = null;
+    }
     if (this.startDate != null) {
       json[r'start_date'] = this.startDate!.toUtc().toIso8601String();
     } else {
@@ -140,7 +150,7 @@ class Program {
         name: mapValueOfType<String>(json, r'name')!,
         description: mapValueOfType<String>(json, r'description'),
         agencies: AgencySerializerMini.listFromJson(json[r'agencies']),
-        imageUrl: mapValueOfType<String>(json, r'image_url')!,
+        imageUrl: mapValueOfType<String>(json, r'image_url'),
         startDate: mapDateTime(json, r'start_date', ''),
         endDate: mapDateTime(json, r'end_date', ''),
         infoUrl: mapValueOfType<String>(json, r'info_url'),
@@ -197,7 +207,6 @@ class Program {
     'url',
     'name',
     'agencies',
-    'image_url',
     'mission_patches',
   };
 }

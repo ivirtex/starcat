@@ -12,18 +12,18 @@ part 'launch.g.dart';
 class Launch extends Equatable {
   const Launch({
     required this.id,
-    required this.url,
     required this.name,
-    required this.slug,
-    required this.status,
-    required this.netPrecision,
-    required this.launchServiceProvider,
-    required this.rocket,
-    required this.mission,
-    required this.pad,
-    required this.webcastLive,
-    required this.image,
-    required this.program,
+    this.url,
+    this.slug,
+    this.status,
+    this.netPrecision,
+    this.launchServiceProvider,
+    this.rocket,
+    this.mission,
+    this.pad,
+    this.webcastLive,
+    this.image,
+    this.program,
     this.infographic,
     this.flightclubUrl,
     this.rSpacexApiId,
@@ -48,6 +48,13 @@ class Launch extends Equatable {
   });
 
   factory Launch.fromJson(Map<String, dynamic> json) => _$LaunchFromJson(json);
+
+  factory Launch.fromApiMini(api.LaunchSerializerMini apiLaunchModelMini) {
+    return Launch(
+      id: apiLaunchModelMini.id,
+      name: apiLaunchModelMini.name ?? 'N/A',
+    );
+  }
 
   factory Launch.fromApi(api.LaunchSerializerCommon apiLaunchModel) {
     return Launch(
@@ -86,31 +93,72 @@ class Launch extends Equatable {
     );
   }
 
+  factory Launch.fromApiDetailed(api.LaunchDetailed apiDetailedLaunchModel) {
+    return Launch(
+      id: apiDetailedLaunchModel.id,
+      url: apiDetailedLaunchModel.url,
+      slug: apiDetailedLaunchModel.slug,
+      name: apiDetailedLaunchModel.name,
+      status: Status.fromApi(apiDetailedLaunchModel.status),
+      net: apiDetailedLaunchModel.net,
+      netPrecision: NetPrecision.fromApi(apiDetailedLaunchModel.netPrecision),
+      windowEnd: apiDetailedLaunchModel.windowEnd,
+      windowStart: apiDetailedLaunchModel.windowStart,
+      probability: apiDetailedLaunchModel.probability,
+      holdreason: apiDetailedLaunchModel.holdreason,
+      failreason: apiDetailedLaunchModel.failreason,
+      hashtag: apiDetailedLaunchModel.hashtag,
+      launchServiceProvider: LaunchServiceProvider.fromApi(
+        apiDetailedLaunchModel.launchServiceProvider,
+      ),
+      rocket: Rocket.fromApiDetailed(apiDetailedLaunchModel.rocket),
+      mission: Mission.fromApi(apiDetailedLaunchModel.mission),
+      pad: Pad.fromApi(apiDetailedLaunchModel.pad),
+      webcastLive: apiDetailedLaunchModel.webcastLive,
+      image: apiDetailedLaunchModel.image,
+      program: apiDetailedLaunchModel.program.map(Program.fromApi).toList(),
+      orbitalLaunchAttemptCount:
+          apiDetailedLaunchModel.orbitalLaunchAttemptCount,
+      locationLaunchAttemptCount:
+          apiDetailedLaunchModel.locationLaunchAttemptCount,
+      padLaunchAttemptCount: apiDetailedLaunchModel.padLaunchAttemptCount,
+      agencyLaunchAttemptCount: apiDetailedLaunchModel.agencyLaunchAttemptCount,
+      orbitalLaunchAttemptCountYear:
+          apiDetailedLaunchModel.orbitalLaunchAttemptCountYear,
+      locationLaunchAttemptCountYear:
+          apiDetailedLaunchModel.locationLaunchAttemptCountYear,
+      padLaunchAttemptCountYear:
+          apiDetailedLaunchModel.padLaunchAttemptCountYear,
+      agencyLaunchAttemptCountYear:
+          apiDetailedLaunchModel.agencyLaunchAttemptCountYear,
+    );
+  }
+
   final String id;
-  final String url;
-  final String slug;
+  final String? url;
+  final String? slug;
   final String? flightclubUrl;
   final String? rSpacexApiId;
   final String name;
-  final Status status;
+  final Status? status;
   final DateTime? net;
-  final NetPrecision netPrecision;
+  final NetPrecision? netPrecision;
   final DateTime? windowEnd;
   final DateTime? windowStart;
   final int? probability;
   final String? holdreason;
   final String? failreason;
   final String? hashtag;
-  final LaunchServiceProvider launchServiceProvider;
-  final Rocket rocket;
-  final Mission mission;
-  final Pad pad;
+  final LaunchServiceProvider? launchServiceProvider;
+  final Rocket? rocket;
+  final Mission? mission;
+  final Pad? pad;
   final List<InfoURL>? infoURLs;
   final List<VideoURL>? vidURLs;
-  final bool webcastLive;
-  final String image;
+  final bool? webcastLive;
+  final String? image;
   final String? infographic;
-  final List<Program> program;
+  final List<Program>? program;
   final int? orbitalLaunchAttemptCount;
   final int? locationLaunchAttemptCount;
   final int? padLaunchAttemptCount;

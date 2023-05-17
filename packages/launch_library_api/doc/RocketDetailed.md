@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | [readonly] 
 **configuration** | [**LauncherConfigDetail**](LauncherConfigDetail.md) |  | [readonly] 
 **launcherStage** | [**List<FirstStage>**](FirstStage.md) |  | [readonly] [default to const []]
-**spacecraftStage** | [**SpacecraftFlightDetailedSerializerForLaunch**](SpacecraftFlightDetailedSerializerForLaunch.md) |  | [readonly] 
+**spacecraftStage** | [**SpacecraftFlightDetailedSerializerForLaunch**](SpacecraftFlightDetailedSerializerForLaunch.md) |  | [optional] [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

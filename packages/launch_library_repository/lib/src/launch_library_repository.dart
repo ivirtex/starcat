@@ -29,4 +29,18 @@ class LaunchLibraryRepository {
 
     return apiLaunches.map(Launch.fromApi).toList();
   }
+
+  Future<Launch> getLaunchDetails(String id) async {
+    LaunchDetailed? apiResponse;
+
+    try {
+      apiResponse = await _launchApiClient.launchRetrieve(id);
+    } catch (e) {
+      log('LaunchLibraryRepository.getLaunchDetails: $e');
+
+      rethrow;
+    }
+
+    return Launch.fromApiDetailed(apiResponse!);
+  }
 }

@@ -66,11 +66,11 @@ class _LaunchPadMapState extends State<LaunchPadMap>
           widget.pad!.name != null && widget.pad!.name != 'Unknown Pad';
 
       MapsLauncher.launchQuery(
-        launchByName ? widget.pad!.name! : widget.pad!.location.name ?? 'N/A',
+        launchByName ? widget.pad!.name! : widget.pad!.location!.name ?? 'N/A',
       );
     } catch (e) {
       final url = Uri.parse(
-        'https://www.google.com/maps/search/?api=1&query=${widget.pad!.location.name}',
+        'https://www.google.com/maps/search/?api=1&query=${widget.pad!.location!.name}',
       );
 
       launchUrl(url);
@@ -111,8 +111,8 @@ class _LaunchPadMapState extends State<LaunchPadMap>
               child: _isDataValid()
                   ? GoogleMap(
                       zoomControlsEnabled: false,
-                      gestureRecognizers: const <
-                          Factory<OneSequenceGestureRecognizer>>{
+                      gestureRecognizers: const <Factory<
+                          OneSequenceGestureRecognizer>>{
                         Factory<OneSequenceGestureRecognizer>(
                           EagerGestureRecognizer.new,
                         ),
@@ -169,7 +169,7 @@ class _LaunchPadMapState extends State<LaunchPadMap>
                         ),
                       ),
                       const SizedBox(height: 5),
-                      Text(widget.pad?.location.name ?? 'N/A'),
+                      Text(widget.pad?.location?.name ?? 'N/A'),
                     ],
                   ),
                 ),

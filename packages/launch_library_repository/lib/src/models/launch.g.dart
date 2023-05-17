@@ -14,27 +14,44 @@ Launch _$LaunchFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = Launch(
           id: $checkedConvert('id', (v) => v as String),
-          url: $checkedConvert('url', (v) => v as String),
           name: $checkedConvert('name', (v) => v as String),
-          slug: $checkedConvert('slug', (v) => v as String),
+          url: $checkedConvert('url', (v) => v as String?),
+          slug: $checkedConvert('slug', (v) => v as String?),
           status: $checkedConvert(
-              'status', (v) => Status.fromJson(v as Map<String, dynamic>)),
-          netPrecision: $checkedConvert('net_precision',
-              (v) => NetPrecision.fromJson(v as Map<String, dynamic>)),
-          launchServiceProvider: $checkedConvert('launch_service_provider',
-              (v) => LaunchServiceProvider.fromJson(v as Map<String, dynamic>)),
+              'status',
+              (v) => v == null
+                  ? null
+                  : Status.fromJson(v as Map<String, dynamic>)),
+          netPrecision: $checkedConvert(
+              'net_precision',
+              (v) => v == null
+                  ? null
+                  : NetPrecision.fromJson(v as Map<String, dynamic>)),
+          launchServiceProvider: $checkedConvert(
+              'launch_service_provider',
+              (v) => v == null
+                  ? null
+                  : LaunchServiceProvider.fromJson(v as Map<String, dynamic>)),
           rocket: $checkedConvert(
-              'rocket', (v) => Rocket.fromJson(v as Map<String, dynamic>)),
+              'rocket',
+              (v) => v == null
+                  ? null
+                  : Rocket.fromJson(v as Map<String, dynamic>)),
           mission: $checkedConvert(
-              'mission', (v) => Mission.fromJson(v as Map<String, dynamic>)),
+              'mission',
+              (v) => v == null
+                  ? null
+                  : Mission.fromJson(v as Map<String, dynamic>)),
           pad: $checkedConvert(
-              'pad', (v) => Pad.fromJson(v as Map<String, dynamic>)),
-          webcastLive: $checkedConvert('webcast_live', (v) => v as bool),
-          image: $checkedConvert('image', (v) => v as String),
+              'pad',
+              (v) =>
+                  v == null ? null : Pad.fromJson(v as Map<String, dynamic>)),
+          webcastLive: $checkedConvert('webcast_live', (v) => v as bool?),
+          image: $checkedConvert('image', (v) => v as String?),
           program: $checkedConvert(
               'program',
-              (v) => (v as List<dynamic>)
-                  .map((e) => Program.fromJson(e as Map<String, dynamic>))
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => Program.fromJson(e as Map<String, dynamic>))
                   .toList()),
           infographic: $checkedConvert('infographic', (v) => v as String?),
           flightclubUrl: $checkedConvert('flightclub_url', (v) => v as String?),

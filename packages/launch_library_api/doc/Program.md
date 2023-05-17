@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **name** | **String** |  | 
 **description** | **String** |  | [optional] 
 **agencies** | [**List<AgencySerializerMini>**](AgencySerializerMini.md) |  | [readonly] [default to const []]
-**imageUrl** | **String** |  | 
+**imageUrl** | **String** |  | [optional] 
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **endDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **infoUrl** | **String** |  | [optional] 

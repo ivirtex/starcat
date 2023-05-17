@@ -108,7 +108,7 @@ class UpcomingLaunchCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AutoSizeText(
-                        launch.mission.name ?? 'No name',
+                        launch.mission?.name ?? 'No name',
                         style: Theme.of(context).textTheme.titleMedium,
                         maxLines: 2,
                       ),
@@ -131,7 +131,7 @@ class UpcomingLaunchCard extends StatelessWidget {
                               vertical: 2,
                             ),
                             child: Text(
-                              launch.pad.name ?? 'No pad',
+                              launch.pad?.name ?? 'No pad',
                             ),
                           ),
                         ],

@@ -30,7 +30,7 @@ class NextLaunchCard extends StatelessWidget {
     final timeLeft = launch?.net?.difference(DateTime.now());
     final launchName = launch?.name;
     final launchStatus = launch?.status;
-    final description = createShortDescription(launch?.mission.description);
+    final description = createShortDescription(launch?.mission?.description);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

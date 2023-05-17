@@ -66,12 +66,12 @@ void main() {
 
       for (final launch in launches.skip(1)) {
         await tester.scrollUntilVisible(
-          find.text(launch.mission.name!),
+          find.text(launch.mission!.name!),
           10,
         );
 
-        expect(find.text(launch.mission.name!), findsOneWidget);
-        expect(find.text(launch.pad.name!), findsOneWidget);
+        expect(find.text(launch.mission!.name!), findsOneWidget);
+        expect(find.text(launch.pad!.name!), findsOneWidget);
       }
     });
 

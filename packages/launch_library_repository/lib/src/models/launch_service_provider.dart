@@ -49,6 +49,41 @@ class LaunchServiceProvider extends Equatable {
     );
   }
 
+  factory LaunchServiceProvider.fromApi(
+    api.AgencySerializerDetailedCommon apiLaunchServiceProvider,
+  ) {
+    return LaunchServiceProvider(
+      id: apiLaunchServiceProvider.id,
+      url: apiLaunchServiceProvider.url,
+      name: apiLaunchServiceProvider.name,
+      featured: apiLaunchServiceProvider.featured,
+      type: apiLaunchServiceProvider.type,
+      countryCode: apiLaunchServiceProvider.countryCode,
+      abbrev: apiLaunchServiceProvider.abbrev,
+      description: apiLaunchServiceProvider.description,
+      administrator: apiLaunchServiceProvider.administrator,
+      foundingYear: apiLaunchServiceProvider.foundingYear,
+      launchers: apiLaunchServiceProvider.launchers,
+      spacecraft: apiLaunchServiceProvider.spacecraft,
+      totalLaunchCount: apiLaunchServiceProvider.totalLaunchCount,
+      consecutiveSuccessfulLaunches:
+          apiLaunchServiceProvider.consecutiveSuccessfulLaunches,
+      successfulLaunches: apiLaunchServiceProvider.successfulLaunches,
+      failedLaunches: apiLaunchServiceProvider.failedLaunches,
+      pendingLaunches: apiLaunchServiceProvider.pendingLaunches,
+      consecutiveSuccessfulLandings:
+          apiLaunchServiceProvider.consecutiveSuccessfulLandings,
+      successfulLandings: apiLaunchServiceProvider.successfulLandings,
+      failedLandings: apiLaunchServiceProvider.failedLandings,
+      attemptedLandings: apiLaunchServiceProvider.attemptedLandings,
+      infoUrl: apiLaunchServiceProvider.infoUrl,
+      wikiUrl: apiLaunchServiceProvider.wikiUrl,
+      logoUrl: apiLaunchServiceProvider.logoUrl,
+      imageUrl: apiLaunchServiceProvider.imageUrl,
+      nationUrl: apiLaunchServiceProvider.nationUrl,
+    );
+  }
+
   final int id;
   final String url;
   final String name;

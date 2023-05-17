@@ -44,7 +44,7 @@ class LaunchesList extends StatelessWidget {
                     SizedBox(
                       width: 100,
                       child: MissionImage(
-                        imageUrl: launch.image,
+                        imageUrl: launch.image ?? '',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -75,7 +75,7 @@ class LaunchesList extends StatelessWidget {
                             const SizedBox(height: 5),
                             Text(
                               createShortDescription(
-                                    launch.mission.description,
+                                    launch.mission?.description,
                                   ) ??
                                   'No description',
                               style: Theme.of(context)

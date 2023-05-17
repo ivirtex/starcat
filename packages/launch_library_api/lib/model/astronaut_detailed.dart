@@ -365,7 +365,6 @@ class AstronautDetailed {
     'agency',
     'nationality',
     'bio',
-    'flights',
     'landings',
     'spacewalks',
   };

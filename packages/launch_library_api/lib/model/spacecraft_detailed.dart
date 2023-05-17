@@ -162,7 +162,6 @@ class SpacecraftDetailed {
     'status',
     'description',
     'spacecraft_config',
-    'flights',
   };
 }
 

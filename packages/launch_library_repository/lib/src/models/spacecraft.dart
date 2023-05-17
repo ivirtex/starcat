@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:launch_library_api/api.dart' as api;
 
 part 'spacecraft.g.dart';
 
@@ -16,6 +17,18 @@ class Spacecraft extends Equatable {
 
   factory Spacecraft.fromJson(Map<String, dynamic> json) =>
       _$SpacecraftFromJson(json);
+
+  factory Spacecraft.fromApiDetailed(
+    api.SpacecraftDetailedNoFlights apiSpacecraft,
+  ) {
+    return Spacecraft(
+      id: apiSpacecraft.id,
+      url: apiSpacecraft.url,
+      name: apiSpacecraft.name,
+      description: apiSpacecraft.description,
+      serialNumber: apiSpacecraft.serialNumber,
+    );
+  }
 
   final int id;
   final String url;

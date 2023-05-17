@@ -59,6 +59,47 @@ class Configuration extends Equatable {
     );
   }
 
+  factory Configuration.fromApiDetailed(
+    api.LauncherConfigDetail apiDetailedConfiguration,
+  ) {
+    return Configuration(
+      id: apiDetailedConfiguration.id,
+      url: apiDetailedConfiguration.url,
+      name: apiDetailedConfiguration.name,
+      active: apiDetailedConfiguration.active,
+      reusable: apiDetailedConfiguration.reusable,
+      description: apiDetailedConfiguration.description,
+      family: apiDetailedConfiguration.family,
+      fullName: apiDetailedConfiguration.fullName,
+      manufacturer:
+          LaunchServiceProvider.fromApi(apiDetailedConfiguration.manufacturer),
+      program: apiDetailedConfiguration.program.map(Program.fromApi).toList(),
+      variant: apiDetailedConfiguration.variant,
+      alias: apiDetailedConfiguration.alias,
+      minStage: apiDetailedConfiguration.minStage,
+      maxStage: apiDetailedConfiguration.maxStage,
+      length: apiDetailedConfiguration.length,
+      diameter: apiDetailedConfiguration.diameter,
+      maidenFlight: apiDetailedConfiguration.maidenFlight,
+      launchCost: apiDetailedConfiguration.launchCost,
+      launchMass: apiDetailedConfiguration.launchMass,
+      leoCapacity: apiDetailedConfiguration.leoCapacity,
+      gtoCapacity: apiDetailedConfiguration.gtoCapacity,
+      toThrust: apiDetailedConfiguration.toThrust,
+      apogee: apiDetailedConfiguration.apogee,
+      vehicleRange: apiDetailedConfiguration.vehicleRange,
+      imageUrl: apiDetailedConfiguration.imageUrl,
+      infoUrl: apiDetailedConfiguration.infoUrl,
+      wikiUrl: apiDetailedConfiguration.wikiUrl,
+      totalLaunchCount: apiDetailedConfiguration.totalLaunchCount,
+      consecutiveSuccessfulLaunches:
+          apiDetailedConfiguration.consecutiveSuccessfulLaunches,
+      successfulLaunches: apiDetailedConfiguration.successfulLaunches,
+      failedLaunches: apiDetailedConfiguration.failedLaunches,
+      pendingLaunches: apiDetailedConfiguration.pendingLaunches,
+    );
+  }
+
   final int id;
   final String url;
   final String name;

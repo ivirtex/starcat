@@ -17,7 +17,7 @@ class Landing {
     this.attempt,
     this.success,
     this.description,
-    required this.location,
+    this.location,
     required this.type,
   });
 
@@ -41,7 +41,13 @@ class Landing {
   ///
   String? description;
 
-  LandingLocation location;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  LandingLocation? location;
 
   LandingType type;
 
@@ -61,7 +67,7 @@ class Landing {
     (attempt == null ? 0 : attempt!.hashCode) +
     (success == null ? 0 : success!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
-    (location.hashCode) +
+    (location == null ? 0 : location!.hashCode) +
     (type.hashCode);
 
   @override
@@ -85,7 +91,11 @@ class Landing {
     } else {
       json[r'description'] = null;
     }
+    if (this.location != null) {
       json[r'location'] = this.location;
+    } else {
+      json[r'location'] = null;
+    }
       json[r'type'] = this.type;
     return json;
   }
@@ -113,7 +123,7 @@ class Landing {
         attempt: mapValueOfType<bool>(json, r'attempt'),
         success: mapValueOfType<bool>(json, r'success'),
         description: mapValueOfType<String>(json, r'description'),
-        location: LandingLocation.fromJson(json[r'location'])!,
+        location: LandingLocation.fromJson(json[r'location']),
         type: LandingType.fromJson(json[r'type'])!,
       );
     }
@@ -163,7 +173,6 @@ class Landing {
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
     'id',
-    'location',
     'type',
   };
 }

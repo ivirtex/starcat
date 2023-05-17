@@ -14,9 +14,16 @@ Landing _$LandingFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = Landing(
           id: $checkedConvert('id', (v) => v as int),
-          name: $checkedConvert('name', (v) => v as String),
-          success: $checkedConvert('success', (v) => v as bool),
-          description: $checkedConvert('description', (v) => v as String),
+          type: $checkedConvert(
+              'type', (v) => LandingType.fromJson(v as Map<String, dynamic>)),
+          location: $checkedConvert(
+              'location',
+              (v) => v == null
+                  ? null
+                  : LandingLocation.fromJson(v as Map<String, dynamic>)),
+          attempt: $checkedConvert('attempt', (v) => v as bool?),
+          success: $checkedConvert('success', (v) => v as bool?),
+          description: $checkedConvert('description', (v) => v as String?),
         );
         return val;
       },
@@ -24,7 +31,9 @@ Landing _$LandingFromJson(Map<String, dynamic> json) => $checkedCreate(
 
 Map<String, dynamic> _$LandingToJson(Landing instance) => <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'attempt': instance.attempt,
       'success': instance.success,
       'description': instance.description,
+      'location': instance.location,
+      'type': instance.type,
     };

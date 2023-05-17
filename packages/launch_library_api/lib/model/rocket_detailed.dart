@@ -16,7 +16,7 @@ class RocketDetailed {
     required this.id,
     required this.configuration,
     this.launcherStage = const [],
-    required this.spacecraftStage,
+    this.spacecraftStage,
   });
 
   int id;
@@ -25,7 +25,13 @@ class RocketDetailed {
 
   List<FirstStage> launcherStage;
 
-  SpacecraftFlightDetailedSerializerForLaunch spacecraftStage;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  SpacecraftFlightDetailedSerializerForLaunch? spacecraftStage;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RocketDetailed &&
@@ -40,7 +46,7 @@ class RocketDetailed {
     (id.hashCode) +
     (configuration.hashCode) +
     (launcherStage.hashCode) +
-    (spacecraftStage.hashCode);
+    (spacecraftStage == null ? 0 : spacecraftStage!.hashCode);
 
   @override
   String toString() => 'RocketDetailed[id=$id, configuration=$configuration, launcherStage=$launcherStage, spacecraftStage=$spacecraftStage]';
@@ -50,7 +56,11 @@ class RocketDetailed {
       json[r'id'] = this.id;
       json[r'configuration'] = this.configuration;
       json[r'launcher_stage'] = this.launcherStage;
+    if (this.spacecraftStage != null) {
       json[r'spacecraft_stage'] = this.spacecraftStage;
+    } else {
+      json[r'spacecraft_stage'] = null;
+    }
     return json;
   }
 
@@ -76,7 +86,7 @@ class RocketDetailed {
         id: mapValueOfType<int>(json, r'id')!,
         configuration: LauncherConfigDetail.fromJson(json[r'configuration'])!,
         launcherStage: FirstStage.listFromJson(json[r'launcher_stage']),
-        spacecraftStage: SpacecraftFlightDetailedSerializerForLaunch.fromJson(json[r'spacecraft_stage'])!,
+        spacecraftStage: SpacecraftFlightDetailedSerializerForLaunch.fromJson(json[r'spacecraft_stage']),
       );
     }
     return null;
@@ -127,7 +137,6 @@ class RocketDetailed {
     'id',
     'configuration',
     'launcher_stage',
-    'spacecraft_stage',
   };
 }
 

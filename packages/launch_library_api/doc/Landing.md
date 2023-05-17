@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **attempt** | **bool** |  | [optional] 
 **success** | **bool** |  | [optional] 
 **description** | **String** |  | [optional] 
-**location** | [**LandingLocation**](LandingLocation.md) |  | [readonly] 
+**location** | [**LandingLocation**](LandingLocation.md) |  | [optional] [readonly] 
 **type** | [**LandingType**](LandingType.md) |  | [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

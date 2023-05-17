@@ -2,6 +2,8 @@ export 'configuration.dart';
 export 'first_stage.dart';
 export 'info_url.dart';
 export 'landing.dart';
+export 'landing_location.dart';
+export 'landing_type.dart';
 export 'launch.dart';
 export 'launch_service_provider.dart';
 export 'launcher.dart';

@@ -30,8 +30,19 @@ class LaunchVehicleCard extends StatelessWidget {
         children: [
           Expanded(
             flex: 4,
-            child: Text(
-              vehicle?.configuration.fullName ?? 'N/A',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  vehicle?.configuration.fullName ?? 'N/A',
+                ),
+                Text(
+                  vehicle?.launcherStage?.first.launcher.serialNumber ?? 'N/A',
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
+                ),
+              ],
             ),
           ),
           const Spacer(),

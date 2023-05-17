@@ -78,7 +78,7 @@ void callbackDispatcher() {
             await scheduleLaunchNotifications(
               actualUpcomingLaunch.net!.toLocal(),
               actualUpcomingLaunch.name,
-              actualUpcomingLaunch.pad.name!,
+              actualUpcomingLaunch.pad!.name!,
               pluginInstance,
             );
 
@@ -118,7 +118,7 @@ void callbackDispatcher() {
             await scheduleLaunchNotifications(
               actualUpcomingLaunch.net!,
               actualUpcomingLaunch.name,
-              actualUpcomingLaunch.pad.name!,
+              actualUpcomingLaunch.pad!.name!,
               pluginInstance,
             );
 
@@ -206,7 +206,7 @@ void callbackDispatcher() {
             await scheduleLaunchNotifications(
               refreshedLaunch.net!,
               refreshedLaunch.name,
-              refreshedLaunch.pad.name ?? 'unknown pad',
+              refreshedLaunch.pad!.name ?? 'unknown pad',
               pluginInstance,
             );
 

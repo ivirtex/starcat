@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **mapUrl** | **String** |  | [optional] 
 **latitude** | **String** |  | [optional] 
 **longitude** | **String** |  | [optional] 
-**location** | [**Location**](Location.md) |  | 
+**location** | [**Location**](Location.md) |  | [optional] 
 **countryCode** | **String** |  | [optional] 
 **mapImage** | **String** |  | [optional] 
 **totalLaunchCount** | **int** |  | [optional] 

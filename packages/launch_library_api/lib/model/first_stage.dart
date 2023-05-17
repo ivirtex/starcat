@@ -21,7 +21,7 @@ class FirstStage {
     required this.landing,
     this.previousFlightDate,
     this.turnAroundTimeDays,
-    required this.previousFlight,
+    this.previousFlight,
   });
 
   int id;
@@ -44,7 +44,13 @@ class FirstStage {
   /// Maximum value: 2147483647
   int? turnAroundTimeDays;
 
-  LaunchSerializerMini previousFlight;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  LaunchSerializerMini? previousFlight;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is FirstStage &&
@@ -69,7 +75,7 @@ class FirstStage {
     (landing.hashCode) +
     (previousFlightDate == null ? 0 : previousFlightDate!.hashCode) +
     (turnAroundTimeDays == null ? 0 : turnAroundTimeDays!.hashCode) +
-    (previousFlight.hashCode);
+    (previousFlight == null ? 0 : previousFlight!.hashCode);
 
   @override
   String toString() => 'FirstStage[id=$id, type=$type, reused=$reused, launcherFlightNumber=$launcherFlightNumber, launcher=$launcher, landing=$landing, previousFlightDate=$previousFlightDate, turnAroundTimeDays=$turnAroundTimeDays, previousFlight=$previousFlight]';
@@ -100,7 +106,11 @@ class FirstStage {
     } else {
       json[r'turn_around_time_days'] = null;
     }
+    if (this.previousFlight != null) {
       json[r'previous_flight'] = this.previousFlight;
+    } else {
+      json[r'previous_flight'] = null;
+    }
     return json;
   }
 
@@ -131,7 +141,7 @@ class FirstStage {
         landing: Landing.fromJson(json[r'landing'])!,
         previousFlightDate: mapDateTime(json, r'previous_flight_date', ''),
         turnAroundTimeDays: mapValueOfType<int>(json, r'turn_around_time_days'),
-        previousFlight: LaunchSerializerMini.fromJson(json[r'previous_flight'])!,
+        previousFlight: LaunchSerializerMini.fromJson(json[r'previous_flight']),
       );
     }
     return null;
@@ -183,7 +193,6 @@ class FirstStage {
     'type',
     'launcher',
     'landing',
-    'previous_flight',
   };
 }
 

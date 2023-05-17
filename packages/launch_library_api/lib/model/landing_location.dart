@@ -17,8 +17,8 @@ class LandingLocation {
     this.name,
     this.abbrev,
     this.description,
-    required this.location,
-    required this.successfulLandings,
+    this.location,
+    this.successfulLandings,
   });
 
   int id;
@@ -41,9 +41,21 @@ class LandingLocation {
 
   String? description;
 
-  Location location;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  Location? location;
 
-  int successfulLandings;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? successfulLandings;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is LandingLocation &&
@@ -61,8 +73,8 @@ class LandingLocation {
     (name == null ? 0 : name!.hashCode) +
     (abbrev == null ? 0 : abbrev!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
-    (location.hashCode) +
-    (successfulLandings.hashCode);
+    (location == null ? 0 : location!.hashCode) +
+    (successfulLandings == null ? 0 : successfulLandings!.hashCode);
 
   @override
   String toString() => 'LandingLocation[id=$id, name=$name, abbrev=$abbrev, description=$description, location=$location, successfulLandings=$successfulLandings]';
@@ -85,8 +97,16 @@ class LandingLocation {
     } else {
       json[r'description'] = null;
     }
+    if (this.location != null) {
       json[r'location'] = this.location;
+    } else {
+      json[r'location'] = null;
+    }
+    if (this.successfulLandings != null) {
       json[r'successful_landings'] = this.successfulLandings;
+    } else {
+      json[r'successful_landings'] = null;
+    }
     return json;
   }
 
@@ -113,8 +133,8 @@ class LandingLocation {
         name: mapValueOfType<String>(json, r'name'),
         abbrev: mapValueOfType<String>(json, r'abbrev'),
         description: mapValueOfType<String>(json, r'description'),
-        location: Location.fromJson(json[r'location'])!,
-        successfulLandings: mapValueOfType<int>(json, r'successful_landings')!,
+        location: Location.fromJson(json[r'location']),
+        successfulLandings: mapValueOfType<int>(json, r'successful_landings'),
       );
     }
     return null;
@@ -163,8 +183,6 @@ class LandingLocation {
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
     'id',
-    'location',
-    'successful_landings',
   };
 }
 

@@ -22,7 +22,7 @@ class Pad {
     this.mapUrl,
     this.latitude,
     this.longitude,
-    required this.location,
+    this.location,
     this.countryCode,
     this.mapImage,
     this.totalLaunchCount,
@@ -55,7 +55,13 @@ class Pad {
 
   String? longitude;
 
-  Location location;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  Location? location;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -104,7 +110,7 @@ class Pad {
     (mapUrl == null ? 0 : mapUrl!.hashCode) +
     (latitude == null ? 0 : latitude!.hashCode) +
     (longitude == null ? 0 : longitude!.hashCode) +
-    (location.hashCode) +
+    (location == null ? 0 : location!.hashCode) +
     (countryCode == null ? 0 : countryCode!.hashCode) +
     (mapImage == null ? 0 : mapImage!.hashCode) +
     (totalLaunchCount == null ? 0 : totalLaunchCount!.hashCode) +
@@ -152,7 +158,11 @@ class Pad {
     } else {
       json[r'longitude'] = null;
     }
+    if (this.location != null) {
       json[r'location'] = this.location;
+    } else {
+      json[r'location'] = null;
+    }
     if (this.countryCode != null) {
       json[r'country_code'] = this.countryCode;
     } else {
@@ -204,7 +214,7 @@ class Pad {
         mapUrl: mapValueOfType<String>(json, r'map_url'),
         latitude: mapValueOfType<String>(json, r'latitude'),
         longitude: mapValueOfType<String>(json, r'longitude'),
-        location: Location.fromJson(json[r'location'])!,
+        location: Location.fromJson(json[r'location']),
         countryCode: mapValueOfType<String>(json, r'country_code'),
         mapImage: mapValueOfType<String>(json, r'map_image'),
         totalLaunchCount: mapValueOfType<int>(json, r'total_launch_count'),
@@ -258,7 +268,6 @@ class Pad {
   static const requiredKeys = <String>{
     'id',
     'url',
-    'location',
   };
 }
 
