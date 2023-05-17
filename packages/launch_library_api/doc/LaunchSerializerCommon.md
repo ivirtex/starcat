@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **net** | [**DateTime**](DateTime.md) |  | [optional] 
 **windowEnd** | [**DateTime**](DateTime.md) |  | [optional] 
 **windowStart** | [**DateTime**](DateTime.md) |  | [optional] 
-**netPrecision** | [**NetPrecision**](NetPrecision.md) |  | [readonly] 
+**netPrecision** | [**NetPrecision**](NetPrecision.md) |  | [optional] [readonly] 
 **probability** | **int** |  | [optional] 
 **holdreason** | **String** |  | [optional] 
 **failreason** | **String** |  | [optional] 

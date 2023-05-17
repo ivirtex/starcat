@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **foundingYear** | **String** |  | [optional] 
 **launchers** | **String** |  | [optional] 
 **spacecraft** | **String** |  | [optional] 
-**parent** | **String** |  | [readonly] 
+**parent** | **String** |  | [optional] [readonly] 
 **launchLibraryUrl** | **String** |  | [readonly] 
 **totalLaunchCount** | **int** |  | [optional] 
 **successfulLaunches** | **int** |  | [optional] 

@@ -25,7 +25,7 @@ class AgencySerializerDetailed {
     this.foundingYear,
     this.launchers,
     this.spacecraft,
-    required this.parent,
+    this.parent,
     required this.launchLibraryUrl,
     this.totalLaunchCount,
     this.successfulLaunches,
@@ -99,7 +99,13 @@ class AgencySerializerDetailed {
   ///
   String? spacecraft;
 
-  String parent;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? parent;
 
   String launchLibraryUrl;
 
@@ -201,7 +207,7 @@ class AgencySerializerDetailed {
     (foundingYear == null ? 0 : foundingYear!.hashCode) +
     (launchers == null ? 0 : launchers!.hashCode) +
     (spacecraft == null ? 0 : spacecraft!.hashCode) +
-    (parent.hashCode) +
+    (parent == null ? 0 : parent!.hashCode) +
     (launchLibraryUrl.hashCode) +
     (totalLaunchCount == null ? 0 : totalLaunchCount!.hashCode) +
     (successfulLaunches == null ? 0 : successfulLaunches!.hashCode) +
@@ -273,7 +279,11 @@ class AgencySerializerDetailed {
     } else {
       json[r'spacecraft'] = null;
     }
+    if (this.parent != null) {
       json[r'parent'] = this.parent;
+    } else {
+      json[r'parent'] = null;
+    }
       json[r'launch_library_url'] = this.launchLibraryUrl;
     if (this.totalLaunchCount != null) {
       json[r'total_launch_count'] = this.totalLaunchCount;
@@ -381,7 +391,7 @@ class AgencySerializerDetailed {
         foundingYear: mapValueOfType<String>(json, r'founding_year'),
         launchers: mapValueOfType<String>(json, r'launchers'),
         spacecraft: mapValueOfType<String>(json, r'spacecraft'),
-        parent: mapValueOfType<String>(json, r'parent')!,
+        parent: mapValueOfType<String>(json, r'parent'),
         launchLibraryUrl: mapValueOfType<String>(json, r'launch_library_url')!,
         totalLaunchCount: mapValueOfType<int>(json, r'total_launch_count'),
         successfulLaunches: mapValueOfType<int>(json, r'successful_launches'),
@@ -449,7 +459,6 @@ class AgencySerializerDetailed {
     'id',
     'url',
     'name',
-    'parent',
     'launch_library_url',
     'launcher_list',
     'spacecraft_list',

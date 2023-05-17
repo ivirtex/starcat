@@ -64,7 +64,9 @@ class Launch extends Equatable {
       name: apiLaunchModel.name ?? 'N/A',
       status: Status.fromApi(apiLaunchModel.status),
       net: apiLaunchModel.net,
-      netPrecision: NetPrecision.fromApi(apiLaunchModel.netPrecision),
+      netPrecision: apiLaunchModel.netPrecision != null
+          ? NetPrecision.fromApi(apiLaunchModel.netPrecision!)
+          : null,
       windowEnd: apiLaunchModel.windowEnd,
       windowStart: apiLaunchModel.windowStart,
       probability: apiLaunchModel.probability,
@@ -101,7 +103,9 @@ class Launch extends Equatable {
       name: apiDetailedLaunchModel.name,
       status: Status.fromApi(apiDetailedLaunchModel.status),
       net: apiDetailedLaunchModel.net,
-      netPrecision: NetPrecision.fromApi(apiDetailedLaunchModel.netPrecision),
+      netPrecision: apiDetailedLaunchModel.netPrecision != null
+          ? NetPrecision.fromApi(apiDetailedLaunchModel.netPrecision!)
+          : null,
       windowEnd: apiDetailedLaunchModel.windowEnd,
       windowStart: apiDetailedLaunchModel.windowStart,
       probability: apiDetailedLaunchModel.probability,

@@ -37,7 +37,7 @@ void main() {
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
       notificationsCubit = MockNotificationsCubit();
 
-      when(() => launchLibraryRepository.getLaunches())
+      when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenAnswer((_) async => <Launch>[]);
       when(() => spaceflightNewsRepository.getNews())
           .thenAnswer((_) async => <Article>[]);

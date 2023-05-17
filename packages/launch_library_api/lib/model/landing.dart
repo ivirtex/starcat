@@ -18,7 +18,7 @@ class Landing {
     this.success,
     this.description,
     this.location,
-    required this.type,
+    this.type,
   });
 
   int id;
@@ -49,7 +49,13 @@ class Landing {
   ///
   LandingLocation? location;
 
-  LandingType type;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  LandingType? type;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Landing &&
@@ -68,7 +74,7 @@ class Landing {
     (success == null ? 0 : success!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
     (location == null ? 0 : location!.hashCode) +
-    (type.hashCode);
+    (type == null ? 0 : type!.hashCode);
 
   @override
   String toString() => 'Landing[id=$id, attempt=$attempt, success=$success, description=$description, location=$location, type=$type]';
@@ -96,7 +102,11 @@ class Landing {
     } else {
       json[r'location'] = null;
     }
+    if (this.type != null) {
       json[r'type'] = this.type;
+    } else {
+      json[r'type'] = null;
+    }
     return json;
   }
 
@@ -124,7 +134,7 @@ class Landing {
         success: mapValueOfType<bool>(json, r'success'),
         description: mapValueOfType<String>(json, r'description'),
         location: LandingLocation.fromJson(json[r'location']),
-        type: LandingType.fromJson(json[r'type'])!,
+        type: LandingType.fromJson(json[r'type']),
       );
     }
     return null;
@@ -173,7 +183,6 @@ class Landing {
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
     'id',
-    'type',
   };
 }
 

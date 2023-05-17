@@ -25,7 +25,7 @@ class Agency {
     this.foundingYear,
     this.launchers,
     this.spacecraft,
-    required this.parent,
+    this.parent,
     this.imageUrl,
     this.logoUrl,
   });
@@ -84,7 +84,13 @@ class Agency {
   ///
   String? spacecraft;
 
-  String parent;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? parent;
 
   String? imageUrl;
 
@@ -123,7 +129,7 @@ class Agency {
     (foundingYear == null ? 0 : foundingYear!.hashCode) +
     (launchers == null ? 0 : launchers!.hashCode) +
     (spacecraft == null ? 0 : spacecraft!.hashCode) +
-    (parent.hashCode) +
+    (parent == null ? 0 : parent!.hashCode) +
     (imageUrl == null ? 0 : imageUrl!.hashCode) +
     (logoUrl == null ? 0 : logoUrl!.hashCode);
 
@@ -180,7 +186,11 @@ class Agency {
     } else {
       json[r'spacecraft'] = null;
     }
+    if (this.parent != null) {
       json[r'parent'] = this.parent;
+    } else {
+      json[r'parent'] = null;
+    }
     if (this.imageUrl != null) {
       json[r'image_url'] = this.imageUrl;
     } else {
@@ -225,7 +235,7 @@ class Agency {
         foundingYear: mapValueOfType<String>(json, r'founding_year'),
         launchers: mapValueOfType<String>(json, r'launchers'),
         spacecraft: mapValueOfType<String>(json, r'spacecraft'),
-        parent: mapValueOfType<String>(json, r'parent')!,
+        parent: mapValueOfType<String>(json, r'parent'),
         imageUrl: mapValueOfType<String>(json, r'image_url'),
         logoUrl: mapValueOfType<String>(json, r'logo_url'),
       );
@@ -278,7 +288,6 @@ class Agency {
     'id',
     'url',
     'name',
-    'parent',
   };
 }
 

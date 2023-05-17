@@ -29,7 +29,7 @@ void main() {
       launchLibraryRepository = MockLaunchLibraryRepository();
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
 
-      when(() => launchLibraryRepository.getLaunches())
+      when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenAnswer((_) async => <Launch>[]);
     });
 

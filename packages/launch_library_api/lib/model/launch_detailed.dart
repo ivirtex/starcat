@@ -23,7 +23,7 @@ class LaunchDetailed {
     required this.lastUpdated,
     this.updates = const [],
     required this.net,
-    required this.netPrecision,
+    this.netPrecision,
     required this.windowEnd,
     required this.windowStart,
     this.probability,
@@ -40,11 +40,11 @@ class LaunchDetailed {
     required this.image,
     this.infographic,
     this.program = const [],
-    required this.orbitalLaunchAttemptCount,
+    this.orbitalLaunchAttemptCount,
     required this.locationLaunchAttemptCount,
     required this.padLaunchAttemptCount,
     required this.agencyLaunchAttemptCount,
-    required this.orbitalLaunchAttemptCountYear,
+    this.orbitalLaunchAttemptCountYear,
     required this.locationLaunchAttemptCountYear,
     required this.padLaunchAttemptCountYear,
     required this.agencyLaunchAttemptCountYear,
@@ -71,7 +71,13 @@ class LaunchDetailed {
 
   DateTime? net;
 
-  NetPrecision netPrecision;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  NetPrecision? netPrecision;
 
   DateTime? windowEnd;
 
@@ -181,7 +187,7 @@ class LaunchDetailed {
     (lastUpdated.hashCode) +
     (updates.hashCode) +
     (net == null ? 0 : net!.hashCode) +
-    (netPrecision.hashCode) +
+    (netPrecision == null ? 0 : netPrecision!.hashCode) +
     (windowEnd == null ? 0 : windowEnd!.hashCode) +
     (windowStart == null ? 0 : windowStart!.hashCode) +
     (probability == null ? 0 : probability!.hashCode) +
@@ -235,7 +241,11 @@ class LaunchDetailed {
     } else {
       json[r'net'] = null;
     }
+    if (this.netPrecision != null) {
       json[r'net_precision'] = this.netPrecision;
+    } else {
+      json[r'net_precision'] = null;
+    }
     if (this.windowEnd != null) {
       json[r'window_end'] = this.windowEnd!.toUtc().toIso8601String();
     } else {
@@ -353,7 +363,7 @@ class LaunchDetailed {
         lastUpdated: mapDateTime(json, r'last_updated', '')!,
         updates: Update.listFromJson(json[r'updates']),
         net: mapDateTime(json, r'net', ''),
-        netPrecision: NetPrecision.fromJson(json[r'net_precision'])!,
+        netPrecision: NetPrecision.fromJson(json[r'net_precision']),
         windowEnd: mapDateTime(json, r'window_end', ''),
         windowStart: mapDateTime(json, r'window_start', ''),
         probability: mapValueOfType<int>(json, r'probability'),
@@ -434,7 +444,6 @@ class LaunchDetailed {
     'last_updated',
     'updates',
     'net',
-    'net_precision',
     'window_end',
     'window_start',
     'holdreason',
@@ -448,11 +457,9 @@ class LaunchDetailed {
     'webcast_live',
     'image',
     'program',
-    'orbital_launch_attempt_count',
     'location_launch_attempt_count',
     'pad_launch_attempt_count',
     'agency_launch_attempt_count',
-    'orbital_launch_attempt_count_year',
     'location_launch_attempt_count_year',
     'pad_launch_attempt_count_year',
     'agency_launch_attempt_count_year',

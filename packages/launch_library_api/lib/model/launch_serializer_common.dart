@@ -22,7 +22,7 @@ class LaunchSerializerCommon {
     this.net,
     this.windowEnd,
     this.windowStart,
-    required this.netPrecision,
+    this.netPrecision,
     this.probability,
     this.holdreason,
     this.failreason,
@@ -75,7 +75,13 @@ class LaunchSerializerCommon {
 
   DateTime? windowStart;
 
-  NetPrecision netPrecision;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  NetPrecision? netPrecision;
 
   /// Minimum value: -2147483648
   /// Maximum value: 2147483647
@@ -192,7 +198,7 @@ class LaunchSerializerCommon {
     (net == null ? 0 : net!.hashCode) +
     (windowEnd == null ? 0 : windowEnd!.hashCode) +
     (windowStart == null ? 0 : windowStart!.hashCode) +
-    (netPrecision.hashCode) +
+    (netPrecision == null ? 0 : netPrecision!.hashCode) +
     (probability == null ? 0 : probability!.hashCode) +
     (holdreason == null ? 0 : holdreason!.hashCode) +
     (failreason == null ? 0 : failreason!.hashCode) +
@@ -248,7 +254,11 @@ class LaunchSerializerCommon {
     } else {
       json[r'window_start'] = null;
     }
+    if (this.netPrecision != null) {
       json[r'net_precision'] = this.netPrecision;
+    } else {
+      json[r'net_precision'] = null;
+    }
     if (this.probability != null) {
       json[r'probability'] = this.probability;
     } else {
@@ -356,7 +366,7 @@ class LaunchSerializerCommon {
         net: mapDateTime(json, r'net', ''),
         windowEnd: mapDateTime(json, r'window_end', ''),
         windowStart: mapDateTime(json, r'window_start', ''),
-        netPrecision: NetPrecision.fromJson(json[r'net_precision'])!,
+        netPrecision: NetPrecision.fromJson(json[r'net_precision']),
         probability: mapValueOfType<int>(json, r'probability'),
         holdreason: mapValueOfType<String>(json, r'holdreason'),
         failreason: mapValueOfType<String>(json, r'failreason'),
@@ -428,7 +438,6 @@ class LaunchSerializerCommon {
     'url',
     'slug',
     'status',
-    'net_precision',
     'launch_service_provider',
     'rocket',
     'mission',

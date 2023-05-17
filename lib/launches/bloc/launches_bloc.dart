@@ -40,8 +40,9 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     emit(state.copyWith(status: LaunchesStatus.loading));
 
     try {
-      final upcomingLaunches = await _launchLibraryRepository.getLaunches();
-      final pastLaunches = await _launchLibraryRepository.getLaunches();
+      final upcomingLaunches =
+          await _launchLibraryRepository.getUpcomingLaunches();
+      final pastLaunches = await _launchLibraryRepository.getPastLaunches();
 
       emit(
         state.copyWith(

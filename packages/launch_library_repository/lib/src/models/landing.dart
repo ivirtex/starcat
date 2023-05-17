@@ -12,7 +12,7 @@ part 'landing.g.dart';
 class Landing extends Equatable {
   const Landing({
     required this.id,
-    required this.type,
+    this.type,
     this.location,
     this.attempt,
     this.success,
@@ -31,7 +31,9 @@ class Landing extends Equatable {
       location: apiLanding.location != null
           ? LandingLocation.fromApi(apiLanding.location!)
           : null,
-      type: LandingType.fromApi(apiLanding.type),
+      type: apiLanding.type != null
+          ? LandingType.fromApi(apiLanding.type!)
+          : null,
     );
   }
 
@@ -40,7 +42,7 @@ class Landing extends Equatable {
   final bool? success;
   final String? description;
   final LandingLocation? location;
-  final LandingType type;
+  final LandingType? type;
 
   Map<String, dynamic> toJson() => _$LandingToJson(this);
 

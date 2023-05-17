@@ -32,7 +32,7 @@ void main() {
     group('getLaunches', () {
       test('calls getLaunches with correct time option', () async {
         try {
-          await launchLibraryRepository.getLaunches();
+          await launchLibraryRepository.getUpcomingLaunches();
         } catch (_) {}
 
         verify(() => launchApiClient.launchUpcomingList()).called(1);
@@ -45,7 +45,7 @@ void main() {
             .thenAnswer((_) async => launches);
 
         expect(
-          await launchLibraryRepository.getLaunches(),
+          await launchLibraryRepository.getUpcomingLaunches(),
           <LaunchSerializerCommon>[],
         );
       });
@@ -55,7 +55,7 @@ void main() {
             .thenThrow(ApiException(404, ''));
 
         expect(
-          () => launchLibraryRepository.getLaunches(),
+          () => launchLibraryRepository.getUpcomingLaunches(),
           throwsA(isA<ApiException>()),
         );
       });

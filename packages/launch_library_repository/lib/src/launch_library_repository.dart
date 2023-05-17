@@ -14,11 +14,27 @@ class LaunchLibraryRepository {
 
   final LaunchApi _launchApiClient;
 
-  Future<List<Launch>> getLaunches() async {
+  Future<List<Launch>> getUpcomingLaunches() async {
     PaginatedLaunchSerializerCommonList? apiResponse;
 
     try {
       apiResponse = await _launchApiClient.launchUpcomingList();
+    } catch (e) {
+      log('LaunchLibraryRepository.getLaunches: $e');
+
+      rethrow;
+    }
+
+    final apiLaunches = apiResponse!.results;
+
+    return apiLaunches.map(Launch.fromApi).toList();
+  }
+
+  Future<List<Launch>> getPastLaunches() async {
+    PaginatedLaunchSerializerCommonList? apiResponse;
+
+    try {
+      apiResponse = await _launchApiClient.launchPreviousList();
     } catch (e) {
       log('LaunchLibraryRepository.getLaunches: $e');
 

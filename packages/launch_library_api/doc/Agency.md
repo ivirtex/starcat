@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **foundingYear** | **String** |  | [optional] 
 **launchers** | **String** |  | [optional] 
 **spacecraft** | **String** |  | [optional] 
-**parent** | **String** |  | [readonly] 
+**parent** | **String** |  | [optional] [readonly] 
 **imageUrl** | **String** |  | [optional] 
 **logoUrl** | **String** |  | [optional] 
 

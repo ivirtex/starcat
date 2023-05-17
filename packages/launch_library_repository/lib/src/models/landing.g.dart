@@ -15,7 +15,10 @@ Landing _$LandingFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = Landing(
           id: $checkedConvert('id', (v) => v as int),
           type: $checkedConvert(
-              'type', (v) => LandingType.fromJson(v as Map<String, dynamic>)),
+              'type',
+              (v) => v == null
+                  ? null
+                  : LandingType.fromJson(v as Map<String, dynamic>)),
           location: $checkedConvert(
               'location',
               (v) => v == null

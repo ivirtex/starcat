@@ -30,7 +30,7 @@ void main() {
       );
       launch = MockLaunch();
 
-      when(() => launchLibraryRepository.getLaunches())
+      when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenAnswer((_) async => <Launch>[launch]);
       when(() => launch.toJson()).thenReturn(<String, dynamic>{});
     });
@@ -44,7 +44,7 @@ void main() {
       build: () => launchesBloc,
       act: (bloc) => bloc.add(const LaunchesRequested()),
       verify: (_) {
-        verify(() => launchLibraryRepository.getLaunches()).called(1);
+        verify(() => launchLibraryRepository.getUpcomingLaunches()).called(1);
       },
     );
 
@@ -64,7 +64,7 @@ void main() {
 
     blocTest<LaunchesBloc, LaunchesState>(
       'emits [loading, failure] when fetchLaunches throws',
-      setUp: () => when(() => launchLibraryRepository.getLaunches())
+      setUp: () => when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenThrow(Exception()),
       build: () => launchesBloc,
       act: (bloc) => bloc.add(const LaunchesRequested()),

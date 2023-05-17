@@ -18,6 +18,9 @@ class LaunchVehicleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final serialNumber =
+        'SN: ${vehicle?.launcherStage?.firstOrNull?.launcher.serialNumber ?? 'N/A'}';
+
     return ExploreCard(
       title: const Row(
         children: [
@@ -37,7 +40,7 @@ class LaunchVehicleCard extends StatelessWidget {
                   vehicle?.configuration.fullName ?? 'N/A',
                 ),
                 Text(
-                  vehicle?.launcherStage?.first.launcher.serialNumber ?? 'N/A',
+                  serialNumber,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.outline,
                   ),

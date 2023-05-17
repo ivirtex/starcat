@@ -28,15 +28,22 @@ class LaunchDetailsPage extends StatefulWidget {
 }
 
 class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
-  late Launch launch;
-
   @override
   void initState() {
     super.initState();
 
+    context
+        .read<LaunchesBloc>()
+        .add(LaunchesDetailsRequested(launchId: widget.launchId));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    late Launch launch;
+
     final upcomingLaunches =
-        context.read<LaunchesBloc>().state.upcomingLaunches;
-    final pastLaunches = context.read<LaunchesBloc>().state.pastLaunches;
+        context.watch<LaunchesBloc>().state.upcomingLaunches;
+    final pastLaunches = context.watch<LaunchesBloc>().state.pastLaunches;
 
     if (upcomingLaunches.any((element) => element.id == widget.launchId)) {
       launch = upcomingLaunches
@@ -46,13 +53,6 @@ class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
           pastLaunches.firstWhere((element) => element.id == widget.launchId);
     }
 
-    context
-        .read<LaunchesBloc>()
-        .add(LaunchesDetailsRequested(launchId: launch.id));
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return LaunchDetailsView(launch: launch);
   }
 }
