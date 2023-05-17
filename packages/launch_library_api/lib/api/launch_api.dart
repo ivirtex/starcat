@@ -10,6 +10,7 @@
 
 part of launch_library_api;
 
+
 class LaunchApi {
   LaunchApi([ApiClient? apiClient]) : apiClient = apiClient ?? defaultApiClient;
 
@@ -225,98 +226,7 @@ class LaunchApi {
   ///
   /// * [DateTime] windowStartLte:
   ///   Window Start is less than or equal to
-  Future<Response> launchListWithHttpInfo({
-    int? agencyLaunchAttemptCount,
-    int? agencyLaunchAttemptCountGt,
-    int? agencyLaunchAttemptCountGte,
-    int? agencyLaunchAttemptCountLt,
-    int? agencyLaunchAttemptCountLte,
-    int? agencyLaunchAttemptCountYear,
-    int? agencyLaunchAttemptCountYearGt,
-    int? agencyLaunchAttemptCountYearGte,
-    int? agencyLaunchAttemptCountYearLt,
-    int? agencyLaunchAttemptCountYearLte,
-    List<String>? id,
-    bool? includeSuborbital,
-    bool? isCrewed,
-    DateTime? lastUpdatedGte,
-    DateTime? lastUpdatedLte,
-    List<int>? launcherConfigId,
-    int? limit,
-    List<int>? locationIds,
-    int? locationLaunchAttemptCount,
-    int? locationLaunchAttemptCountGt,
-    int? locationLaunchAttemptCountGte,
-    int? locationLaunchAttemptCountLt,
-    int? locationLaunchAttemptCountLte,
-    int? locationLaunchAttemptCountYear,
-    int? locationLaunchAttemptCountYearGt,
-    int? locationLaunchAttemptCountYearGte,
-    int? locationLaunchAttemptCountYearLt,
-    int? locationLaunchAttemptCountYearLte,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    String? missionOrbitName,
-    String? missionOrbitNameIcontains,
-    String? name,
-    DateTime? netGt,
-    DateTime? netGte,
-    DateTime? netLt,
-    DateTime? netLte,
-    int? offset,
-    int? orbitalLaunchAttemptCount,
-    int? orbitalLaunchAttemptCountGt,
-    int? orbitalLaunchAttemptCountGte,
-    int? orbitalLaunchAttemptCountLt,
-    int? orbitalLaunchAttemptCountLte,
-    int? orbitalLaunchAttemptCountYear,
-    int? orbitalLaunchAttemptCountYearGt,
-    int? orbitalLaunchAttemptCountYearGte,
-    int? orbitalLaunchAttemptCountYearLt,
-    int? orbitalLaunchAttemptCountYearLte,
-    String? ordering,
-    int? pad,
-    List<int>? padIds,
-    int? padLocation,
-    int? padLaunchAttemptCount,
-    int? padLaunchAttemptCountGt,
-    int? padLaunchAttemptCountGte,
-    int? padLaunchAttemptCountLt,
-    int? padLaunchAttemptCountLte,
-    int? padLaunchAttemptCountYear,
-    int? padLaunchAttemptCountYearGt,
-    int? padLaunchAttemptCountYearGte,
-    int? padLaunchAttemptCountYearLt,
-    int? padLaunchAttemptCountYearLte,
-    List<int>? program,
-    String? rSpacexApiId,
-    bool? related,
-    String? rocketConfigurationFullName,
-    String? rocketConfigurationFullNameIcontains,
-    int? rocketConfigurationId,
-    String? rocketConfigurationManufacturerName,
-    String? rocketConfigurationManufacturerNameIcontains,
-    String? rocketConfigurationName,
-    int? rocketSpacecraftflightSpacecraftId,
-    String? rocketSpacecraftflightSpacecraftName,
-    String? rocketSpacecraftflightSpacecraftNameIcontains,
-    String? search,
-    List<String>? serialNumber,
-    String? slug,
-    List<int>? spacecraftConfigIds,
-    int? status,
-    List<int>? statusIds,
-    bool? strictFiltering,
-    DateTime? windowEndGt,
-    DateTime? windowEndGte,
-    DateTime? windowEndLt,
-    DateTime? windowEndLte,
-    DateTime? windowStartGt,
-    DateTime? windowStartGte,
-    DateTime? windowStartLt,
-    DateTime? windowStartLte,
-  }) async {
+  Future<Response> launchListWithHttpInfo({ int? agencyLaunchAttemptCount, int? agencyLaunchAttemptCountGt, int? agencyLaunchAttemptCountGte, int? agencyLaunchAttemptCountLt, int? agencyLaunchAttemptCountLte, int? agencyLaunchAttemptCountYear, int? agencyLaunchAttemptCountYearGt, int? agencyLaunchAttemptCountYearGte, int? agencyLaunchAttemptCountYearLt, int? agencyLaunchAttemptCountYearLte, List<String>? id, bool? includeSuborbital, bool? isCrewed, DateTime? lastUpdatedGte, DateTime? lastUpdatedLte, List<int>? launcherConfigId, int? limit, List<int>? locationIds, int? locationLaunchAttemptCount, int? locationLaunchAttemptCountGt, int? locationLaunchAttemptCountGte, int? locationLaunchAttemptCountLt, int? locationLaunchAttemptCountLte, int? locationLaunchAttemptCountYear, int? locationLaunchAttemptCountYearGt, int? locationLaunchAttemptCountYearGte, int? locationLaunchAttemptCountYearLt, int? locationLaunchAttemptCountYearLte, int? lspId, List<int>? lspIds, String? lspName, String? missionOrbitName, String? missionOrbitNameIcontains, String? name, DateTime? netGt, DateTime? netGte, DateTime? netLt, DateTime? netLte, int? offset, int? orbitalLaunchAttemptCount, int? orbitalLaunchAttemptCountGt, int? orbitalLaunchAttemptCountGte, int? orbitalLaunchAttemptCountLt, int? orbitalLaunchAttemptCountLte, int? orbitalLaunchAttemptCountYear, int? orbitalLaunchAttemptCountYearGt, int? orbitalLaunchAttemptCountYearGte, int? orbitalLaunchAttemptCountYearLt, int? orbitalLaunchAttemptCountYearLte, String? ordering, int? pad, List<int>? padIds, int? padLocation, int? padLaunchAttemptCount, int? padLaunchAttemptCountGt, int? padLaunchAttemptCountGte, int? padLaunchAttemptCountLt, int? padLaunchAttemptCountLte, int? padLaunchAttemptCountYear, int? padLaunchAttemptCountYearGt, int? padLaunchAttemptCountYearGte, int? padLaunchAttemptCountYearLt, int? padLaunchAttemptCountYearLte, List<int>? program, String? rSpacexApiId, bool? related, String? rocketConfigurationFullName, String? rocketConfigurationFullNameIcontains, int? rocketConfigurationId, String? rocketConfigurationManufacturerName, String? rocketConfigurationManufacturerNameIcontains, String? rocketConfigurationName, int? rocketSpacecraftflightSpacecraftId, String? rocketSpacecraftflightSpacecraftName, String? rocketSpacecraftflightSpacecraftNameIcontains, String? search, List<String>? serialNumber, String? slug, List<int>? spacecraftConfigIds, int? status, List<int>? statusIds, bool? strictFiltering, DateTime? windowEndGt, DateTime? windowEndGte, DateTime? windowEndLt, DateTime? windowEndLte, DateTime? windowStartGt, DateTime? windowStartGte, DateTime? windowStartLt, DateTime? windowStartLte, }) async {
     // ignore: prefer_const_declarations
     final path = r'/2.2.0/launch/';
 
@@ -328,59 +238,40 @@ class LaunchApi {
     final formParams = <String, String>{};
 
     if (agencyLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count', agencyLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count', agencyLaunchAttemptCount));
     }
     if (agencyLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__gt', agencyLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__gt', agencyLaunchAttemptCountGt));
     }
     if (agencyLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__gte', agencyLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__gte', agencyLaunchAttemptCountGte));
     }
     if (agencyLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__lt', agencyLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__lt', agencyLaunchAttemptCountLt));
     }
     if (agencyLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__lte', agencyLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__lte', agencyLaunchAttemptCountLte));
     }
     if (agencyLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year',
-          agencyLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year', agencyLaunchAttemptCountYear));
     }
     if (agencyLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__gt',
-          agencyLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__gt', agencyLaunchAttemptCountYearGt));
     }
     if (agencyLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__gte',
-          agencyLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__gte', agencyLaunchAttemptCountYearGte));
     }
     if (agencyLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__lt',
-          agencyLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__lt', agencyLaunchAttemptCountYearLt));
     }
     if (agencyLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__lte',
-          agencyLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__lte', agencyLaunchAttemptCountYearLte));
     }
     if (id != null) {
       queryParams.addAll(_queryParams('csv', 'id', id));
     }
     if (includeSuborbital != null) {
-      queryParams
-          .addAll(_queryParams('', 'include_suborbital', includeSuborbital));
+      queryParams.addAll(_queryParams('', 'include_suborbital', includeSuborbital));
     }
     if (isCrewed != null) {
       queryParams.addAll(_queryParams('', 'is_crewed', isCrewed));
@@ -392,8 +283,7 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'last_updated__lte', lastUpdatedLte));
     }
     if (launcherConfigId != null) {
-      queryParams
-          .addAll(_queryParams('csv', 'launcher_config__id', launcherConfigId));
+      queryParams.addAll(_queryParams('csv', 'launcher_config__id', launcherConfigId));
     }
     if (limit != null) {
       queryParams.addAll(_queryParams('', 'limit', limit));
@@ -402,52 +292,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('multi', 'location__ids', locationIds));
     }
     if (locationLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'location_launch_attempt_count', locationLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count', locationLaunchAttemptCount));
     }
     if (locationLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gt',
-          locationLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gt', locationLaunchAttemptCountGt));
     }
     if (locationLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gte',
-          locationLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gte', locationLaunchAttemptCountGte));
     }
     if (locationLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lt',
-          locationLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lt', locationLaunchAttemptCountLt));
     }
     if (locationLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lte',
-          locationLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lte', locationLaunchAttemptCountLte));
     }
     if (locationLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year',
-          locationLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year', locationLaunchAttemptCountYear));
     }
     if (locationLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__gt',
-          locationLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__gt', locationLaunchAttemptCountYearGt));
     }
     if (locationLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__gte',
-          locationLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__gte', locationLaunchAttemptCountYearGte));
     }
     if (locationLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__lt',
-          locationLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__lt', locationLaunchAttemptCountYearLt));
     }
     if (locationLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__lte',
-          locationLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__lte', locationLaunchAttemptCountYearLte));
     }
     if (lspId != null) {
       queryParams.addAll(_queryParams('', 'lsp__id', lspId));
@@ -459,12 +331,10 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'lsp__name', lspName));
     }
     if (missionOrbitName != null) {
-      queryParams
-          .addAll(_queryParams('', 'mission__orbit__name', missionOrbitName));
+      queryParams.addAll(_queryParams('', 'mission__orbit__name', missionOrbitName));
     }
     if (missionOrbitNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '', 'mission__orbit__name__icontains', missionOrbitNameIcontains));
+      queryParams.addAll(_queryParams('', 'mission__orbit__name__icontains', missionOrbitNameIcontains));
     }
     if (name != null) {
       queryParams.addAll(_queryParams('', 'name', name));
@@ -485,52 +355,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'offset', offset));
     }
     if (orbitalLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count', orbitalLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count', orbitalLaunchAttemptCount));
     }
     if (orbitalLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count__gt', orbitalLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gt', orbitalLaunchAttemptCountGt));
     }
     if (orbitalLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gte',
-          orbitalLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gte', orbitalLaunchAttemptCountGte));
     }
     if (orbitalLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count__lt', orbitalLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lt', orbitalLaunchAttemptCountLt));
     }
     if (orbitalLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lte',
-          orbitalLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lte', orbitalLaunchAttemptCountLte));
     }
     if (orbitalLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year',
-          orbitalLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year', orbitalLaunchAttemptCountYear));
     }
     if (orbitalLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__gt',
-          orbitalLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__gt', orbitalLaunchAttemptCountYearGt));
     }
     if (orbitalLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__gte',
-          orbitalLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__gte', orbitalLaunchAttemptCountYearGte));
     }
     if (orbitalLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__lt',
-          orbitalLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__lt', orbitalLaunchAttemptCountYearLt));
     }
     if (orbitalLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__lte',
-          orbitalLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__lte', orbitalLaunchAttemptCountYearLte));
     }
     if (ordering != null) {
       queryParams.addAll(_queryParams('', 'ordering', ordering));
@@ -545,44 +397,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'pad__location', padLocation));
     }
     if (padLaunchAttemptCount != null) {
-      queryParams.addAll(
-          _queryParams('', 'pad_launch_attempt_count', padLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count', padLaunchAttemptCount));
     }
     if (padLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__gt', padLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__gt', padLaunchAttemptCountGt));
     }
     if (padLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__gte', padLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__gte', padLaunchAttemptCountGte));
     }
     if (padLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__lt', padLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__lt', padLaunchAttemptCountLt));
     }
     if (padLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__lte', padLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__lte', padLaunchAttemptCountLte));
     }
     if (padLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count_year', padLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year', padLaunchAttemptCountYear));
     }
     if (padLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gt',
-          padLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gt', padLaunchAttemptCountYearGt));
     }
     if (padLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gte',
-          padLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gte', padLaunchAttemptCountYearGte));
     }
     if (padLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lt',
-          padLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lt', padLaunchAttemptCountYearLt));
     }
     if (padLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lte',
-          padLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lte', padLaunchAttemptCountYearLte));
     }
     if (program != null) {
       queryParams.addAll(_queryParams('multi', 'program', program));
@@ -594,52 +436,31 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'related', related));
     }
     if (rocketConfigurationFullName != null) {
-      queryParams.addAll(_queryParams(
-          '', 'rocket__configuration__full_name', rocketConfigurationFullName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__full_name', rocketConfigurationFullName));
     }
     if (rocketConfigurationFullNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__full_name__icontains',
-          rocketConfigurationFullNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__full_name__icontains', rocketConfigurationFullNameIcontains));
     }
     if (rocketConfigurationId != null) {
-      queryParams.addAll(
-          _queryParams('', 'rocket__configuration__id', rocketConfigurationId));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__id', rocketConfigurationId));
     }
     if (rocketConfigurationManufacturerName != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__manufacturer__name',
-          rocketConfigurationManufacturerName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__manufacturer__name', rocketConfigurationManufacturerName));
     }
     if (rocketConfigurationManufacturerNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__manufacturer__name__icontains',
-          rocketConfigurationManufacturerNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__manufacturer__name__icontains', rocketConfigurationManufacturerNameIcontains));
     }
     if (rocketConfigurationName != null) {
-      queryParams.addAll(_queryParams(
-          '', 'rocket__configuration__name', rocketConfigurationName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__name', rocketConfigurationName));
     }
     if (rocketSpacecraftflightSpacecraftId != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__id',
-          rocketSpacecraftflightSpacecraftId));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__id', rocketSpacecraftflightSpacecraftId));
     }
     if (rocketSpacecraftflightSpacecraftName != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__name',
-          rocketSpacecraftflightSpacecraftName));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__name', rocketSpacecraftflightSpacecraftName));
     }
     if (rocketSpacecraftflightSpacecraftNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__name__icontains',
-          rocketSpacecraftflightSpacecraftNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__name__icontains', rocketSpacecraftflightSpacecraftNameIcontains));
     }
     if (search != null) {
       queryParams.addAll(_queryParams('', 'search', search));
@@ -651,8 +472,7 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'slug', slug));
     }
     if (spacecraftConfigIds != null) {
-      queryParams.addAll(
-          _queryParams('csv', 'spacecraft_config__ids', spacecraftConfigIds));
+      queryParams.addAll(_queryParams('csv', 'spacecraft_config__ids', spacecraftConfigIds));
     }
     if (status != null) {
       queryParams.addAll(_queryParams('', 'status', status));
@@ -689,6 +509,7 @@ class LaunchApi {
     }
 
     const contentTypes = <String>[];
+
 
     return apiClient.invokeAPI(
       path,
@@ -909,206 +730,17 @@ class LaunchApi {
   ///
   /// * [DateTime] windowStartLte:
   ///   Window Start is less than or equal to
-  Future<PaginatedLaunchSerializerCommonList?> launchList({
-    int? agencyLaunchAttemptCount,
-    int? agencyLaunchAttemptCountGt,
-    int? agencyLaunchAttemptCountGte,
-    int? agencyLaunchAttemptCountLt,
-    int? agencyLaunchAttemptCountLte,
-    int? agencyLaunchAttemptCountYear,
-    int? agencyLaunchAttemptCountYearGt,
-    int? agencyLaunchAttemptCountYearGte,
-    int? agencyLaunchAttemptCountYearLt,
-    int? agencyLaunchAttemptCountYearLte,
-    List<String>? id,
-    bool? includeSuborbital,
-    bool? isCrewed,
-    DateTime? lastUpdatedGte,
-    DateTime? lastUpdatedLte,
-    List<int>? launcherConfigId,
-    int? limit,
-    List<int>? locationIds,
-    int? locationLaunchAttemptCount,
-    int? locationLaunchAttemptCountGt,
-    int? locationLaunchAttemptCountGte,
-    int? locationLaunchAttemptCountLt,
-    int? locationLaunchAttemptCountLte,
-    int? locationLaunchAttemptCountYear,
-    int? locationLaunchAttemptCountYearGt,
-    int? locationLaunchAttemptCountYearGte,
-    int? locationLaunchAttemptCountYearLt,
-    int? locationLaunchAttemptCountYearLte,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    String? missionOrbitName,
-    String? missionOrbitNameIcontains,
-    String? name,
-    DateTime? netGt,
-    DateTime? netGte,
-    DateTime? netLt,
-    DateTime? netLte,
-    int? offset,
-    int? orbitalLaunchAttemptCount,
-    int? orbitalLaunchAttemptCountGt,
-    int? orbitalLaunchAttemptCountGte,
-    int? orbitalLaunchAttemptCountLt,
-    int? orbitalLaunchAttemptCountLte,
-    int? orbitalLaunchAttemptCountYear,
-    int? orbitalLaunchAttemptCountYearGt,
-    int? orbitalLaunchAttemptCountYearGte,
-    int? orbitalLaunchAttemptCountYearLt,
-    int? orbitalLaunchAttemptCountYearLte,
-    String? ordering,
-    int? pad,
-    List<int>? padIds,
-    int? padLocation,
-    int? padLaunchAttemptCount,
-    int? padLaunchAttemptCountGt,
-    int? padLaunchAttemptCountGte,
-    int? padLaunchAttemptCountLt,
-    int? padLaunchAttemptCountLte,
-    int? padLaunchAttemptCountYear,
-    int? padLaunchAttemptCountYearGt,
-    int? padLaunchAttemptCountYearGte,
-    int? padLaunchAttemptCountYearLt,
-    int? padLaunchAttemptCountYearLte,
-    List<int>? program,
-    String? rSpacexApiId,
-    bool? related,
-    String? rocketConfigurationFullName,
-    String? rocketConfigurationFullNameIcontains,
-    int? rocketConfigurationId,
-    String? rocketConfigurationManufacturerName,
-    String? rocketConfigurationManufacturerNameIcontains,
-    String? rocketConfigurationName,
-    int? rocketSpacecraftflightSpacecraftId,
-    String? rocketSpacecraftflightSpacecraftName,
-    String? rocketSpacecraftflightSpacecraftNameIcontains,
-    String? search,
-    List<String>? serialNumber,
-    String? slug,
-    List<int>? spacecraftConfigIds,
-    int? status,
-    List<int>? statusIds,
-    bool? strictFiltering,
-    DateTime? windowEndGt,
-    DateTime? windowEndGte,
-    DateTime? windowEndLt,
-    DateTime? windowEndLte,
-    DateTime? windowStartGt,
-    DateTime? windowStartGte,
-    DateTime? windowStartLt,
-    DateTime? windowStartLte,
-  }) async {
-    final response = await launchListWithHttpInfo(
-      agencyLaunchAttemptCount: agencyLaunchAttemptCount,
-      agencyLaunchAttemptCountGt: agencyLaunchAttemptCountGt,
-      agencyLaunchAttemptCountGte: agencyLaunchAttemptCountGte,
-      agencyLaunchAttemptCountLt: agencyLaunchAttemptCountLt,
-      agencyLaunchAttemptCountLte: agencyLaunchAttemptCountLte,
-      agencyLaunchAttemptCountYear: agencyLaunchAttemptCountYear,
-      agencyLaunchAttemptCountYearGt: agencyLaunchAttemptCountYearGt,
-      agencyLaunchAttemptCountYearGte: agencyLaunchAttemptCountYearGte,
-      agencyLaunchAttemptCountYearLt: agencyLaunchAttemptCountYearLt,
-      agencyLaunchAttemptCountYearLte: agencyLaunchAttemptCountYearLte,
-      id: id,
-      includeSuborbital: includeSuborbital,
-      isCrewed: isCrewed,
-      lastUpdatedGte: lastUpdatedGte,
-      lastUpdatedLte: lastUpdatedLte,
-      launcherConfigId: launcherConfigId,
-      limit: limit,
-      locationIds: locationIds,
-      locationLaunchAttemptCount: locationLaunchAttemptCount,
-      locationLaunchAttemptCountGt: locationLaunchAttemptCountGt,
-      locationLaunchAttemptCountGte: locationLaunchAttemptCountGte,
-      locationLaunchAttemptCountLt: locationLaunchAttemptCountLt,
-      locationLaunchAttemptCountLte: locationLaunchAttemptCountLte,
-      locationLaunchAttemptCountYear: locationLaunchAttemptCountYear,
-      locationLaunchAttemptCountYearGt: locationLaunchAttemptCountYearGt,
-      locationLaunchAttemptCountYearGte: locationLaunchAttemptCountYearGte,
-      locationLaunchAttemptCountYearLt: locationLaunchAttemptCountYearLt,
-      locationLaunchAttemptCountYearLte: locationLaunchAttemptCountYearLte,
-      lspId: lspId,
-      lspIds: lspIds,
-      lspName: lspName,
-      missionOrbitName: missionOrbitName,
-      missionOrbitNameIcontains: missionOrbitNameIcontains,
-      name: name,
-      netGt: netGt,
-      netGte: netGte,
-      netLt: netLt,
-      netLte: netLte,
-      offset: offset,
-      orbitalLaunchAttemptCount: orbitalLaunchAttemptCount,
-      orbitalLaunchAttemptCountGt: orbitalLaunchAttemptCountGt,
-      orbitalLaunchAttemptCountGte: orbitalLaunchAttemptCountGte,
-      orbitalLaunchAttemptCountLt: orbitalLaunchAttemptCountLt,
-      orbitalLaunchAttemptCountLte: orbitalLaunchAttemptCountLte,
-      orbitalLaunchAttemptCountYear: orbitalLaunchAttemptCountYear,
-      orbitalLaunchAttemptCountYearGt: orbitalLaunchAttemptCountYearGt,
-      orbitalLaunchAttemptCountYearGte: orbitalLaunchAttemptCountYearGte,
-      orbitalLaunchAttemptCountYearLt: orbitalLaunchAttemptCountYearLt,
-      orbitalLaunchAttemptCountYearLte: orbitalLaunchAttemptCountYearLte,
-      ordering: ordering,
-      pad: pad,
-      padIds: padIds,
-      padLocation: padLocation,
-      padLaunchAttemptCount: padLaunchAttemptCount,
-      padLaunchAttemptCountGt: padLaunchAttemptCountGt,
-      padLaunchAttemptCountGte: padLaunchAttemptCountGte,
-      padLaunchAttemptCountLt: padLaunchAttemptCountLt,
-      padLaunchAttemptCountLte: padLaunchAttemptCountLte,
-      padLaunchAttemptCountYear: padLaunchAttemptCountYear,
-      padLaunchAttemptCountYearGt: padLaunchAttemptCountYearGt,
-      padLaunchAttemptCountYearGte: padLaunchAttemptCountYearGte,
-      padLaunchAttemptCountYearLt: padLaunchAttemptCountYearLt,
-      padLaunchAttemptCountYearLte: padLaunchAttemptCountYearLte,
-      program: program,
-      rSpacexApiId: rSpacexApiId,
-      related: related,
-      rocketConfigurationFullName: rocketConfigurationFullName,
-      rocketConfigurationFullNameIcontains:
-          rocketConfigurationFullNameIcontains,
-      rocketConfigurationId: rocketConfigurationId,
-      rocketConfigurationManufacturerName: rocketConfigurationManufacturerName,
-      rocketConfigurationManufacturerNameIcontains:
-          rocketConfigurationManufacturerNameIcontains,
-      rocketConfigurationName: rocketConfigurationName,
-      rocketSpacecraftflightSpacecraftId: rocketSpacecraftflightSpacecraftId,
-      rocketSpacecraftflightSpacecraftName:
-          rocketSpacecraftflightSpacecraftName,
-      rocketSpacecraftflightSpacecraftNameIcontains:
-          rocketSpacecraftflightSpacecraftNameIcontains,
-      search: search,
-      serialNumber: serialNumber,
-      slug: slug,
-      spacecraftConfigIds: spacecraftConfigIds,
-      status: status,
-      statusIds: statusIds,
-      strictFiltering: strictFiltering,
-      windowEndGt: windowEndGt,
-      windowEndGte: windowEndGte,
-      windowEndLt: windowEndLt,
-      windowEndLte: windowEndLte,
-      windowStartGt: windowStartGt,
-      windowStartGte: windowStartGte,
-      windowStartLt: windowStartLt,
-      windowStartLte: windowStartLte,
-    );
+  Future<PaginatedLaunchSerializerCommonList?> launchList({ int? agencyLaunchAttemptCount, int? agencyLaunchAttemptCountGt, int? agencyLaunchAttemptCountGte, int? agencyLaunchAttemptCountLt, int? agencyLaunchAttemptCountLte, int? agencyLaunchAttemptCountYear, int? agencyLaunchAttemptCountYearGt, int? agencyLaunchAttemptCountYearGte, int? agencyLaunchAttemptCountYearLt, int? agencyLaunchAttemptCountYearLte, List<String>? id, bool? includeSuborbital, bool? isCrewed, DateTime? lastUpdatedGte, DateTime? lastUpdatedLte, List<int>? launcherConfigId, int? limit, List<int>? locationIds, int? locationLaunchAttemptCount, int? locationLaunchAttemptCountGt, int? locationLaunchAttemptCountGte, int? locationLaunchAttemptCountLt, int? locationLaunchAttemptCountLte, int? locationLaunchAttemptCountYear, int? locationLaunchAttemptCountYearGt, int? locationLaunchAttemptCountYearGte, int? locationLaunchAttemptCountYearLt, int? locationLaunchAttemptCountYearLte, int? lspId, List<int>? lspIds, String? lspName, String? missionOrbitName, String? missionOrbitNameIcontains, String? name, DateTime? netGt, DateTime? netGte, DateTime? netLt, DateTime? netLte, int? offset, int? orbitalLaunchAttemptCount, int? orbitalLaunchAttemptCountGt, int? orbitalLaunchAttemptCountGte, int? orbitalLaunchAttemptCountLt, int? orbitalLaunchAttemptCountLte, int? orbitalLaunchAttemptCountYear, int? orbitalLaunchAttemptCountYearGt, int? orbitalLaunchAttemptCountYearGte, int? orbitalLaunchAttemptCountYearLt, int? orbitalLaunchAttemptCountYearLte, String? ordering, int? pad, List<int>? padIds, int? padLocation, int? padLaunchAttemptCount, int? padLaunchAttemptCountGt, int? padLaunchAttemptCountGte, int? padLaunchAttemptCountLt, int? padLaunchAttemptCountLte, int? padLaunchAttemptCountYear, int? padLaunchAttemptCountYearGt, int? padLaunchAttemptCountYearGte, int? padLaunchAttemptCountYearLt, int? padLaunchAttemptCountYearLte, List<int>? program, String? rSpacexApiId, bool? related, String? rocketConfigurationFullName, String? rocketConfigurationFullNameIcontains, int? rocketConfigurationId, String? rocketConfigurationManufacturerName, String? rocketConfigurationManufacturerNameIcontains, String? rocketConfigurationName, int? rocketSpacecraftflightSpacecraftId, String? rocketSpacecraftflightSpacecraftName, String? rocketSpacecraftflightSpacecraftNameIcontains, String? search, List<String>? serialNumber, String? slug, List<int>? spacecraftConfigIds, int? status, List<int>? statusIds, bool? strictFiltering, DateTime? windowEndGt, DateTime? windowEndGte, DateTime? windowEndLt, DateTime? windowEndLte, DateTime? windowStartGt, DateTime? windowStartGte, DateTime? windowStartLt, DateTime? windowStartLte, }) async {
+    final response = await launchListWithHttpInfo( agencyLaunchAttemptCount: agencyLaunchAttemptCount, agencyLaunchAttemptCountGt: agencyLaunchAttemptCountGt, agencyLaunchAttemptCountGte: agencyLaunchAttemptCountGte, agencyLaunchAttemptCountLt: agencyLaunchAttemptCountLt, agencyLaunchAttemptCountLte: agencyLaunchAttemptCountLte, agencyLaunchAttemptCountYear: agencyLaunchAttemptCountYear, agencyLaunchAttemptCountYearGt: agencyLaunchAttemptCountYearGt, agencyLaunchAttemptCountYearGte: agencyLaunchAttemptCountYearGte, agencyLaunchAttemptCountYearLt: agencyLaunchAttemptCountYearLt, agencyLaunchAttemptCountYearLte: agencyLaunchAttemptCountYearLte, id: id, includeSuborbital: includeSuborbital, isCrewed: isCrewed, lastUpdatedGte: lastUpdatedGte, lastUpdatedLte: lastUpdatedLte, launcherConfigId: launcherConfigId, limit: limit, locationIds: locationIds, locationLaunchAttemptCount: locationLaunchAttemptCount, locationLaunchAttemptCountGt: locationLaunchAttemptCountGt, locationLaunchAttemptCountGte: locationLaunchAttemptCountGte, locationLaunchAttemptCountLt: locationLaunchAttemptCountLt, locationLaunchAttemptCountLte: locationLaunchAttemptCountLte, locationLaunchAttemptCountYear: locationLaunchAttemptCountYear, locationLaunchAttemptCountYearGt: locationLaunchAttemptCountYearGt, locationLaunchAttemptCountYearGte: locationLaunchAttemptCountYearGte, locationLaunchAttemptCountYearLt: locationLaunchAttemptCountYearLt, locationLaunchAttemptCountYearLte: locationLaunchAttemptCountYearLte, lspId: lspId, lspIds: lspIds, lspName: lspName, missionOrbitName: missionOrbitName, missionOrbitNameIcontains: missionOrbitNameIcontains, name: name, netGt: netGt, netGte: netGte, netLt: netLt, netLte: netLte, offset: offset, orbitalLaunchAttemptCount: orbitalLaunchAttemptCount, orbitalLaunchAttemptCountGt: orbitalLaunchAttemptCountGt, orbitalLaunchAttemptCountGte: orbitalLaunchAttemptCountGte, orbitalLaunchAttemptCountLt: orbitalLaunchAttemptCountLt, orbitalLaunchAttemptCountLte: orbitalLaunchAttemptCountLte, orbitalLaunchAttemptCountYear: orbitalLaunchAttemptCountYear, orbitalLaunchAttemptCountYearGt: orbitalLaunchAttemptCountYearGt, orbitalLaunchAttemptCountYearGte: orbitalLaunchAttemptCountYearGte, orbitalLaunchAttemptCountYearLt: orbitalLaunchAttemptCountYearLt, orbitalLaunchAttemptCountYearLte: orbitalLaunchAttemptCountYearLte, ordering: ordering, pad: pad, padIds: padIds, padLocation: padLocation, padLaunchAttemptCount: padLaunchAttemptCount, padLaunchAttemptCountGt: padLaunchAttemptCountGt, padLaunchAttemptCountGte: padLaunchAttemptCountGte, padLaunchAttemptCountLt: padLaunchAttemptCountLt, padLaunchAttemptCountLte: padLaunchAttemptCountLte, padLaunchAttemptCountYear: padLaunchAttemptCountYear, padLaunchAttemptCountYearGt: padLaunchAttemptCountYearGt, padLaunchAttemptCountYearGte: padLaunchAttemptCountYearGte, padLaunchAttemptCountYearLt: padLaunchAttemptCountYearLt, padLaunchAttemptCountYearLte: padLaunchAttemptCountYearLte, program: program, rSpacexApiId: rSpacexApiId, related: related, rocketConfigurationFullName: rocketConfigurationFullName, rocketConfigurationFullNameIcontains: rocketConfigurationFullNameIcontains, rocketConfigurationId: rocketConfigurationId, rocketConfigurationManufacturerName: rocketConfigurationManufacturerName, rocketConfigurationManufacturerNameIcontains: rocketConfigurationManufacturerNameIcontains, rocketConfigurationName: rocketConfigurationName, rocketSpacecraftflightSpacecraftId: rocketSpacecraftflightSpacecraftId, rocketSpacecraftflightSpacecraftName: rocketSpacecraftflightSpacecraftName, rocketSpacecraftflightSpacecraftNameIcontains: rocketSpacecraftflightSpacecraftNameIcontains, search: search, serialNumber: serialNumber, slug: slug, spacecraftConfigIds: spacecraftConfigIds, status: status, statusIds: statusIds, strictFiltering: strictFiltering, windowEndGt: windowEndGt, windowEndGte: windowEndGte, windowEndLt: windowEndLt, windowEndLte: windowEndLte, windowStartGt: windowStartGt, windowStartGte: windowStartGte, windowStartLt: windowStartLt, windowStartLte: windowStartLte, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty &&
-        response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(
-        await _decodeBodyBytes(response),
-        'PaginatedLaunchSerializerCommonList',
-      ) as PaginatedLaunchSerializerCommonList;
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PaginatedLaunchSerializerCommonList',) as PaginatedLaunchSerializerCommonList;
+    
     }
     return null;
   }
@@ -1323,98 +955,7 @@ class LaunchApi {
   ///
   /// * [DateTime] windowStartLte:
   ///   Window Start is less than or equal to
-  Future<Response> launchPreviousListWithHttpInfo({
-    int? agencyLaunchAttemptCount,
-    int? agencyLaunchAttemptCountGt,
-    int? agencyLaunchAttemptCountGte,
-    int? agencyLaunchAttemptCountLt,
-    int? agencyLaunchAttemptCountLte,
-    int? agencyLaunchAttemptCountYear,
-    int? agencyLaunchAttemptCountYearGt,
-    int? agencyLaunchAttemptCountYearGte,
-    int? agencyLaunchAttemptCountYearLt,
-    int? agencyLaunchAttemptCountYearLte,
-    List<String>? id,
-    bool? includeSuborbital,
-    bool? isCrewed,
-    DateTime? lastUpdatedGte,
-    DateTime? lastUpdatedLte,
-    List<int>? launcherConfigId,
-    int? limit,
-    List<int>? locationIds,
-    int? locationLaunchAttemptCount,
-    int? locationLaunchAttemptCountGt,
-    int? locationLaunchAttemptCountGte,
-    int? locationLaunchAttemptCountLt,
-    int? locationLaunchAttemptCountLte,
-    int? locationLaunchAttemptCountYear,
-    int? locationLaunchAttemptCountYearGt,
-    int? locationLaunchAttemptCountYearGte,
-    int? locationLaunchAttemptCountYearLt,
-    int? locationLaunchAttemptCountYearLte,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    String? missionOrbitName,
-    String? missionOrbitNameIcontains,
-    String? name,
-    DateTime? netGt,
-    DateTime? netGte,
-    DateTime? netLt,
-    DateTime? netLte,
-    int? offset,
-    int? orbitalLaunchAttemptCount,
-    int? orbitalLaunchAttemptCountGt,
-    int? orbitalLaunchAttemptCountGte,
-    int? orbitalLaunchAttemptCountLt,
-    int? orbitalLaunchAttemptCountLte,
-    int? orbitalLaunchAttemptCountYear,
-    int? orbitalLaunchAttemptCountYearGt,
-    int? orbitalLaunchAttemptCountYearGte,
-    int? orbitalLaunchAttemptCountYearLt,
-    int? orbitalLaunchAttemptCountYearLte,
-    String? ordering,
-    int? pad,
-    List<int>? padIds,
-    int? padLocation,
-    int? padLaunchAttemptCount,
-    int? padLaunchAttemptCountGt,
-    int? padLaunchAttemptCountGte,
-    int? padLaunchAttemptCountLt,
-    int? padLaunchAttemptCountLte,
-    int? padLaunchAttemptCountYear,
-    int? padLaunchAttemptCountYearGt,
-    int? padLaunchAttemptCountYearGte,
-    int? padLaunchAttemptCountYearLt,
-    int? padLaunchAttemptCountYearLte,
-    List<int>? program,
-    String? rSpacexApiId,
-    bool? related,
-    String? rocketConfigurationFullName,
-    String? rocketConfigurationFullNameIcontains,
-    int? rocketConfigurationId,
-    String? rocketConfigurationManufacturerName,
-    String? rocketConfigurationManufacturerNameIcontains,
-    String? rocketConfigurationName,
-    int? rocketSpacecraftflightSpacecraftId,
-    String? rocketSpacecraftflightSpacecraftName,
-    String? rocketSpacecraftflightSpacecraftNameIcontains,
-    String? search,
-    List<String>? serialNumber,
-    String? slug,
-    List<int>? spacecraftConfigIds,
-    int? status,
-    List<int>? statusIds,
-    bool? strictFiltering,
-    DateTime? windowEndGt,
-    DateTime? windowEndGte,
-    DateTime? windowEndLt,
-    DateTime? windowEndLte,
-    DateTime? windowStartGt,
-    DateTime? windowStartGte,
-    DateTime? windowStartLt,
-    DateTime? windowStartLte,
-  }) async {
+  Future<Response> launchPreviousListWithHttpInfo({ int? agencyLaunchAttemptCount, int? agencyLaunchAttemptCountGt, int? agencyLaunchAttemptCountGte, int? agencyLaunchAttemptCountLt, int? agencyLaunchAttemptCountLte, int? agencyLaunchAttemptCountYear, int? agencyLaunchAttemptCountYearGt, int? agencyLaunchAttemptCountYearGte, int? agencyLaunchAttemptCountYearLt, int? agencyLaunchAttemptCountYearLte, List<String>? id, bool? includeSuborbital, bool? isCrewed, DateTime? lastUpdatedGte, DateTime? lastUpdatedLte, List<int>? launcherConfigId, int? limit, List<int>? locationIds, int? locationLaunchAttemptCount, int? locationLaunchAttemptCountGt, int? locationLaunchAttemptCountGte, int? locationLaunchAttemptCountLt, int? locationLaunchAttemptCountLte, int? locationLaunchAttemptCountYear, int? locationLaunchAttemptCountYearGt, int? locationLaunchAttemptCountYearGte, int? locationLaunchAttemptCountYearLt, int? locationLaunchAttemptCountYearLte, int? lspId, List<int>? lspIds, String? lspName, String? missionOrbitName, String? missionOrbitNameIcontains, String? name, DateTime? netGt, DateTime? netGte, DateTime? netLt, DateTime? netLte, int? offset, int? orbitalLaunchAttemptCount, int? orbitalLaunchAttemptCountGt, int? orbitalLaunchAttemptCountGte, int? orbitalLaunchAttemptCountLt, int? orbitalLaunchAttemptCountLte, int? orbitalLaunchAttemptCountYear, int? orbitalLaunchAttemptCountYearGt, int? orbitalLaunchAttemptCountYearGte, int? orbitalLaunchAttemptCountYearLt, int? orbitalLaunchAttemptCountYearLte, String? ordering, int? pad, List<int>? padIds, int? padLocation, int? padLaunchAttemptCount, int? padLaunchAttemptCountGt, int? padLaunchAttemptCountGte, int? padLaunchAttemptCountLt, int? padLaunchAttemptCountLte, int? padLaunchAttemptCountYear, int? padLaunchAttemptCountYearGt, int? padLaunchAttemptCountYearGte, int? padLaunchAttemptCountYearLt, int? padLaunchAttemptCountYearLte, List<int>? program, String? rSpacexApiId, bool? related, String? rocketConfigurationFullName, String? rocketConfigurationFullNameIcontains, int? rocketConfigurationId, String? rocketConfigurationManufacturerName, String? rocketConfigurationManufacturerNameIcontains, String? rocketConfigurationName, int? rocketSpacecraftflightSpacecraftId, String? rocketSpacecraftflightSpacecraftName, String? rocketSpacecraftflightSpacecraftNameIcontains, String? search, List<String>? serialNumber, String? slug, List<int>? spacecraftConfigIds, int? status, List<int>? statusIds, bool? strictFiltering, DateTime? windowEndGt, DateTime? windowEndGte, DateTime? windowEndLt, DateTime? windowEndLte, DateTime? windowStartGt, DateTime? windowStartGte, DateTime? windowStartLt, DateTime? windowStartLte, }) async {
     // ignore: prefer_const_declarations
     final path = r'/2.2.0/launch/previous/';
 
@@ -1426,59 +967,40 @@ class LaunchApi {
     final formParams = <String, String>{};
 
     if (agencyLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count', agencyLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count', agencyLaunchAttemptCount));
     }
     if (agencyLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__gt', agencyLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__gt', agencyLaunchAttemptCountGt));
     }
     if (agencyLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__gte', agencyLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__gte', agencyLaunchAttemptCountGte));
     }
     if (agencyLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__lt', agencyLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__lt', agencyLaunchAttemptCountLt));
     }
     if (agencyLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__lte', agencyLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__lte', agencyLaunchAttemptCountLte));
     }
     if (agencyLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year',
-          agencyLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year', agencyLaunchAttemptCountYear));
     }
     if (agencyLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__gt',
-          agencyLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__gt', agencyLaunchAttemptCountYearGt));
     }
     if (agencyLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__gte',
-          agencyLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__gte', agencyLaunchAttemptCountYearGte));
     }
     if (agencyLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__lt',
-          agencyLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__lt', agencyLaunchAttemptCountYearLt));
     }
     if (agencyLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__lte',
-          agencyLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__lte', agencyLaunchAttemptCountYearLte));
     }
     if (id != null) {
       queryParams.addAll(_queryParams('csv', 'id', id));
     }
     if (includeSuborbital != null) {
-      queryParams
-          .addAll(_queryParams('', 'include_suborbital', includeSuborbital));
+      queryParams.addAll(_queryParams('', 'include_suborbital', includeSuborbital));
     }
     if (isCrewed != null) {
       queryParams.addAll(_queryParams('', 'is_crewed', isCrewed));
@@ -1490,8 +1012,7 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'last_updated__lte', lastUpdatedLte));
     }
     if (launcherConfigId != null) {
-      queryParams
-          .addAll(_queryParams('csv', 'launcher_config__id', launcherConfigId));
+      queryParams.addAll(_queryParams('csv', 'launcher_config__id', launcherConfigId));
     }
     if (limit != null) {
       queryParams.addAll(_queryParams('', 'limit', limit));
@@ -1500,52 +1021,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('multi', 'location__ids', locationIds));
     }
     if (locationLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'location_launch_attempt_count', locationLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count', locationLaunchAttemptCount));
     }
     if (locationLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gt',
-          locationLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gt', locationLaunchAttemptCountGt));
     }
     if (locationLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gte',
-          locationLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gte', locationLaunchAttemptCountGte));
     }
     if (locationLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lt',
-          locationLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lt', locationLaunchAttemptCountLt));
     }
     if (locationLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lte',
-          locationLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lte', locationLaunchAttemptCountLte));
     }
     if (locationLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year',
-          locationLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year', locationLaunchAttemptCountYear));
     }
     if (locationLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__gt',
-          locationLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__gt', locationLaunchAttemptCountYearGt));
     }
     if (locationLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__gte',
-          locationLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__gte', locationLaunchAttemptCountYearGte));
     }
     if (locationLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__lt',
-          locationLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__lt', locationLaunchAttemptCountYearLt));
     }
     if (locationLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__lte',
-          locationLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__lte', locationLaunchAttemptCountYearLte));
     }
     if (lspId != null) {
       queryParams.addAll(_queryParams('', 'lsp__id', lspId));
@@ -1557,12 +1060,10 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'lsp__name', lspName));
     }
     if (missionOrbitName != null) {
-      queryParams
-          .addAll(_queryParams('', 'mission__orbit__name', missionOrbitName));
+      queryParams.addAll(_queryParams('', 'mission__orbit__name', missionOrbitName));
     }
     if (missionOrbitNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '', 'mission__orbit__name__icontains', missionOrbitNameIcontains));
+      queryParams.addAll(_queryParams('', 'mission__orbit__name__icontains', missionOrbitNameIcontains));
     }
     if (name != null) {
       queryParams.addAll(_queryParams('', 'name', name));
@@ -1583,52 +1084,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'offset', offset));
     }
     if (orbitalLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count', orbitalLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count', orbitalLaunchAttemptCount));
     }
     if (orbitalLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count__gt', orbitalLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gt', orbitalLaunchAttemptCountGt));
     }
     if (orbitalLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gte',
-          orbitalLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gte', orbitalLaunchAttemptCountGte));
     }
     if (orbitalLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count__lt', orbitalLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lt', orbitalLaunchAttemptCountLt));
     }
     if (orbitalLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lte',
-          orbitalLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lte', orbitalLaunchAttemptCountLte));
     }
     if (orbitalLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year',
-          orbitalLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year', orbitalLaunchAttemptCountYear));
     }
     if (orbitalLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__gt',
-          orbitalLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__gt', orbitalLaunchAttemptCountYearGt));
     }
     if (orbitalLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__gte',
-          orbitalLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__gte', orbitalLaunchAttemptCountYearGte));
     }
     if (orbitalLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__lt',
-          orbitalLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__lt', orbitalLaunchAttemptCountYearLt));
     }
     if (orbitalLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__lte',
-          orbitalLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__lte', orbitalLaunchAttemptCountYearLte));
     }
     if (ordering != null) {
       queryParams.addAll(_queryParams('', 'ordering', ordering));
@@ -1643,44 +1126,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'pad__location', padLocation));
     }
     if (padLaunchAttemptCount != null) {
-      queryParams.addAll(
-          _queryParams('', 'pad_launch_attempt_count', padLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count', padLaunchAttemptCount));
     }
     if (padLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__gt', padLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__gt', padLaunchAttemptCountGt));
     }
     if (padLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__gte', padLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__gte', padLaunchAttemptCountGte));
     }
     if (padLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__lt', padLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__lt', padLaunchAttemptCountLt));
     }
     if (padLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__lte', padLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__lte', padLaunchAttemptCountLte));
     }
     if (padLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count_year', padLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year', padLaunchAttemptCountYear));
     }
     if (padLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gt',
-          padLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gt', padLaunchAttemptCountYearGt));
     }
     if (padLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gte',
-          padLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gte', padLaunchAttemptCountYearGte));
     }
     if (padLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lt',
-          padLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lt', padLaunchAttemptCountYearLt));
     }
     if (padLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lte',
-          padLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lte', padLaunchAttemptCountYearLte));
     }
     if (program != null) {
       queryParams.addAll(_queryParams('multi', 'program', program));
@@ -1692,52 +1165,31 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'related', related));
     }
     if (rocketConfigurationFullName != null) {
-      queryParams.addAll(_queryParams(
-          '', 'rocket__configuration__full_name', rocketConfigurationFullName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__full_name', rocketConfigurationFullName));
     }
     if (rocketConfigurationFullNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__full_name__icontains',
-          rocketConfigurationFullNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__full_name__icontains', rocketConfigurationFullNameIcontains));
     }
     if (rocketConfigurationId != null) {
-      queryParams.addAll(
-          _queryParams('', 'rocket__configuration__id', rocketConfigurationId));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__id', rocketConfigurationId));
     }
     if (rocketConfigurationManufacturerName != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__manufacturer__name',
-          rocketConfigurationManufacturerName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__manufacturer__name', rocketConfigurationManufacturerName));
     }
     if (rocketConfigurationManufacturerNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__manufacturer__name__icontains',
-          rocketConfigurationManufacturerNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__manufacturer__name__icontains', rocketConfigurationManufacturerNameIcontains));
     }
     if (rocketConfigurationName != null) {
-      queryParams.addAll(_queryParams(
-          '', 'rocket__configuration__name', rocketConfigurationName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__name', rocketConfigurationName));
     }
     if (rocketSpacecraftflightSpacecraftId != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__id',
-          rocketSpacecraftflightSpacecraftId));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__id', rocketSpacecraftflightSpacecraftId));
     }
     if (rocketSpacecraftflightSpacecraftName != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__name',
-          rocketSpacecraftflightSpacecraftName));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__name', rocketSpacecraftflightSpacecraftName));
     }
     if (rocketSpacecraftflightSpacecraftNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__name__icontains',
-          rocketSpacecraftflightSpacecraftNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__name__icontains', rocketSpacecraftflightSpacecraftNameIcontains));
     }
     if (search != null) {
       queryParams.addAll(_queryParams('', 'search', search));
@@ -1749,8 +1201,7 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'slug', slug));
     }
     if (spacecraftConfigIds != null) {
-      queryParams.addAll(
-          _queryParams('csv', 'spacecraft_config__ids', spacecraftConfigIds));
+      queryParams.addAll(_queryParams('csv', 'spacecraft_config__ids', spacecraftConfigIds));
     }
     if (status != null) {
       queryParams.addAll(_queryParams('', 'status', status));
@@ -1787,6 +1238,7 @@ class LaunchApi {
     }
 
     const contentTypes = <String>[];
+
 
     return apiClient.invokeAPI(
       path,
@@ -2007,206 +1459,17 @@ class LaunchApi {
   ///
   /// * [DateTime] windowStartLte:
   ///   Window Start is less than or equal to
-  Future<PaginatedLaunchSerializerCommonList?> launchPreviousList({
-    int? agencyLaunchAttemptCount,
-    int? agencyLaunchAttemptCountGt,
-    int? agencyLaunchAttemptCountGte,
-    int? agencyLaunchAttemptCountLt,
-    int? agencyLaunchAttemptCountLte,
-    int? agencyLaunchAttemptCountYear,
-    int? agencyLaunchAttemptCountYearGt,
-    int? agencyLaunchAttemptCountYearGte,
-    int? agencyLaunchAttemptCountYearLt,
-    int? agencyLaunchAttemptCountYearLte,
-    List<String>? id,
-    bool? includeSuborbital,
-    bool? isCrewed,
-    DateTime? lastUpdatedGte,
-    DateTime? lastUpdatedLte,
-    List<int>? launcherConfigId,
-    int? limit,
-    List<int>? locationIds,
-    int? locationLaunchAttemptCount,
-    int? locationLaunchAttemptCountGt,
-    int? locationLaunchAttemptCountGte,
-    int? locationLaunchAttemptCountLt,
-    int? locationLaunchAttemptCountLte,
-    int? locationLaunchAttemptCountYear,
-    int? locationLaunchAttemptCountYearGt,
-    int? locationLaunchAttemptCountYearGte,
-    int? locationLaunchAttemptCountYearLt,
-    int? locationLaunchAttemptCountYearLte,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    String? missionOrbitName,
-    String? missionOrbitNameIcontains,
-    String? name,
-    DateTime? netGt,
-    DateTime? netGte,
-    DateTime? netLt,
-    DateTime? netLte,
-    int? offset,
-    int? orbitalLaunchAttemptCount,
-    int? orbitalLaunchAttemptCountGt,
-    int? orbitalLaunchAttemptCountGte,
-    int? orbitalLaunchAttemptCountLt,
-    int? orbitalLaunchAttemptCountLte,
-    int? orbitalLaunchAttemptCountYear,
-    int? orbitalLaunchAttemptCountYearGt,
-    int? orbitalLaunchAttemptCountYearGte,
-    int? orbitalLaunchAttemptCountYearLt,
-    int? orbitalLaunchAttemptCountYearLte,
-    String? ordering,
-    int? pad,
-    List<int>? padIds,
-    int? padLocation,
-    int? padLaunchAttemptCount,
-    int? padLaunchAttemptCountGt,
-    int? padLaunchAttemptCountGte,
-    int? padLaunchAttemptCountLt,
-    int? padLaunchAttemptCountLte,
-    int? padLaunchAttemptCountYear,
-    int? padLaunchAttemptCountYearGt,
-    int? padLaunchAttemptCountYearGte,
-    int? padLaunchAttemptCountYearLt,
-    int? padLaunchAttemptCountYearLte,
-    List<int>? program,
-    String? rSpacexApiId,
-    bool? related,
-    String? rocketConfigurationFullName,
-    String? rocketConfigurationFullNameIcontains,
-    int? rocketConfigurationId,
-    String? rocketConfigurationManufacturerName,
-    String? rocketConfigurationManufacturerNameIcontains,
-    String? rocketConfigurationName,
-    int? rocketSpacecraftflightSpacecraftId,
-    String? rocketSpacecraftflightSpacecraftName,
-    String? rocketSpacecraftflightSpacecraftNameIcontains,
-    String? search,
-    List<String>? serialNumber,
-    String? slug,
-    List<int>? spacecraftConfigIds,
-    int? status,
-    List<int>? statusIds,
-    bool? strictFiltering,
-    DateTime? windowEndGt,
-    DateTime? windowEndGte,
-    DateTime? windowEndLt,
-    DateTime? windowEndLte,
-    DateTime? windowStartGt,
-    DateTime? windowStartGte,
-    DateTime? windowStartLt,
-    DateTime? windowStartLte,
-  }) async {
-    final response = await launchPreviousListWithHttpInfo(
-      agencyLaunchAttemptCount: agencyLaunchAttemptCount,
-      agencyLaunchAttemptCountGt: agencyLaunchAttemptCountGt,
-      agencyLaunchAttemptCountGte: agencyLaunchAttemptCountGte,
-      agencyLaunchAttemptCountLt: agencyLaunchAttemptCountLt,
-      agencyLaunchAttemptCountLte: agencyLaunchAttemptCountLte,
-      agencyLaunchAttemptCountYear: agencyLaunchAttemptCountYear,
-      agencyLaunchAttemptCountYearGt: agencyLaunchAttemptCountYearGt,
-      agencyLaunchAttemptCountYearGte: agencyLaunchAttemptCountYearGte,
-      agencyLaunchAttemptCountYearLt: agencyLaunchAttemptCountYearLt,
-      agencyLaunchAttemptCountYearLte: agencyLaunchAttemptCountYearLte,
-      id: id,
-      includeSuborbital: includeSuborbital,
-      isCrewed: isCrewed,
-      lastUpdatedGte: lastUpdatedGte,
-      lastUpdatedLte: lastUpdatedLte,
-      launcherConfigId: launcherConfigId,
-      limit: limit,
-      locationIds: locationIds,
-      locationLaunchAttemptCount: locationLaunchAttemptCount,
-      locationLaunchAttemptCountGt: locationLaunchAttemptCountGt,
-      locationLaunchAttemptCountGte: locationLaunchAttemptCountGte,
-      locationLaunchAttemptCountLt: locationLaunchAttemptCountLt,
-      locationLaunchAttemptCountLte: locationLaunchAttemptCountLte,
-      locationLaunchAttemptCountYear: locationLaunchAttemptCountYear,
-      locationLaunchAttemptCountYearGt: locationLaunchAttemptCountYearGt,
-      locationLaunchAttemptCountYearGte: locationLaunchAttemptCountYearGte,
-      locationLaunchAttemptCountYearLt: locationLaunchAttemptCountYearLt,
-      locationLaunchAttemptCountYearLte: locationLaunchAttemptCountYearLte,
-      lspId: lspId,
-      lspIds: lspIds,
-      lspName: lspName,
-      missionOrbitName: missionOrbitName,
-      missionOrbitNameIcontains: missionOrbitNameIcontains,
-      name: name,
-      netGt: netGt,
-      netGte: netGte,
-      netLt: netLt,
-      netLte: netLte,
-      offset: offset,
-      orbitalLaunchAttemptCount: orbitalLaunchAttemptCount,
-      orbitalLaunchAttemptCountGt: orbitalLaunchAttemptCountGt,
-      orbitalLaunchAttemptCountGte: orbitalLaunchAttemptCountGte,
-      orbitalLaunchAttemptCountLt: orbitalLaunchAttemptCountLt,
-      orbitalLaunchAttemptCountLte: orbitalLaunchAttemptCountLte,
-      orbitalLaunchAttemptCountYear: orbitalLaunchAttemptCountYear,
-      orbitalLaunchAttemptCountYearGt: orbitalLaunchAttemptCountYearGt,
-      orbitalLaunchAttemptCountYearGte: orbitalLaunchAttemptCountYearGte,
-      orbitalLaunchAttemptCountYearLt: orbitalLaunchAttemptCountYearLt,
-      orbitalLaunchAttemptCountYearLte: orbitalLaunchAttemptCountYearLte,
-      ordering: ordering,
-      pad: pad,
-      padIds: padIds,
-      padLocation: padLocation,
-      padLaunchAttemptCount: padLaunchAttemptCount,
-      padLaunchAttemptCountGt: padLaunchAttemptCountGt,
-      padLaunchAttemptCountGte: padLaunchAttemptCountGte,
-      padLaunchAttemptCountLt: padLaunchAttemptCountLt,
-      padLaunchAttemptCountLte: padLaunchAttemptCountLte,
-      padLaunchAttemptCountYear: padLaunchAttemptCountYear,
-      padLaunchAttemptCountYearGt: padLaunchAttemptCountYearGt,
-      padLaunchAttemptCountYearGte: padLaunchAttemptCountYearGte,
-      padLaunchAttemptCountYearLt: padLaunchAttemptCountYearLt,
-      padLaunchAttemptCountYearLte: padLaunchAttemptCountYearLte,
-      program: program,
-      rSpacexApiId: rSpacexApiId,
-      related: related,
-      rocketConfigurationFullName: rocketConfigurationFullName,
-      rocketConfigurationFullNameIcontains:
-          rocketConfigurationFullNameIcontains,
-      rocketConfigurationId: rocketConfigurationId,
-      rocketConfigurationManufacturerName: rocketConfigurationManufacturerName,
-      rocketConfigurationManufacturerNameIcontains:
-          rocketConfigurationManufacturerNameIcontains,
-      rocketConfigurationName: rocketConfigurationName,
-      rocketSpacecraftflightSpacecraftId: rocketSpacecraftflightSpacecraftId,
-      rocketSpacecraftflightSpacecraftName:
-          rocketSpacecraftflightSpacecraftName,
-      rocketSpacecraftflightSpacecraftNameIcontains:
-          rocketSpacecraftflightSpacecraftNameIcontains,
-      search: search,
-      serialNumber: serialNumber,
-      slug: slug,
-      spacecraftConfigIds: spacecraftConfigIds,
-      status: status,
-      statusIds: statusIds,
-      strictFiltering: strictFiltering,
-      windowEndGt: windowEndGt,
-      windowEndGte: windowEndGte,
-      windowEndLt: windowEndLt,
-      windowEndLte: windowEndLte,
-      windowStartGt: windowStartGt,
-      windowStartGte: windowStartGte,
-      windowStartLt: windowStartLt,
-      windowStartLte: windowStartLte,
-    );
+  Future<PaginatedLaunchSerializerCommonList?> launchPreviousList({ int? agencyLaunchAttemptCount, int? agencyLaunchAttemptCountGt, int? agencyLaunchAttemptCountGte, int? agencyLaunchAttemptCountLt, int? agencyLaunchAttemptCountLte, int? agencyLaunchAttemptCountYear, int? agencyLaunchAttemptCountYearGt, int? agencyLaunchAttemptCountYearGte, int? agencyLaunchAttemptCountYearLt, int? agencyLaunchAttemptCountYearLte, List<String>? id, bool? includeSuborbital, bool? isCrewed, DateTime? lastUpdatedGte, DateTime? lastUpdatedLte, List<int>? launcherConfigId, int? limit, List<int>? locationIds, int? locationLaunchAttemptCount, int? locationLaunchAttemptCountGt, int? locationLaunchAttemptCountGte, int? locationLaunchAttemptCountLt, int? locationLaunchAttemptCountLte, int? locationLaunchAttemptCountYear, int? locationLaunchAttemptCountYearGt, int? locationLaunchAttemptCountYearGte, int? locationLaunchAttemptCountYearLt, int? locationLaunchAttemptCountYearLte, int? lspId, List<int>? lspIds, String? lspName, String? missionOrbitName, String? missionOrbitNameIcontains, String? name, DateTime? netGt, DateTime? netGte, DateTime? netLt, DateTime? netLte, int? offset, int? orbitalLaunchAttemptCount, int? orbitalLaunchAttemptCountGt, int? orbitalLaunchAttemptCountGte, int? orbitalLaunchAttemptCountLt, int? orbitalLaunchAttemptCountLte, int? orbitalLaunchAttemptCountYear, int? orbitalLaunchAttemptCountYearGt, int? orbitalLaunchAttemptCountYearGte, int? orbitalLaunchAttemptCountYearLt, int? orbitalLaunchAttemptCountYearLte, String? ordering, int? pad, List<int>? padIds, int? padLocation, int? padLaunchAttemptCount, int? padLaunchAttemptCountGt, int? padLaunchAttemptCountGte, int? padLaunchAttemptCountLt, int? padLaunchAttemptCountLte, int? padLaunchAttemptCountYear, int? padLaunchAttemptCountYearGt, int? padLaunchAttemptCountYearGte, int? padLaunchAttemptCountYearLt, int? padLaunchAttemptCountYearLte, List<int>? program, String? rSpacexApiId, bool? related, String? rocketConfigurationFullName, String? rocketConfigurationFullNameIcontains, int? rocketConfigurationId, String? rocketConfigurationManufacturerName, String? rocketConfigurationManufacturerNameIcontains, String? rocketConfigurationName, int? rocketSpacecraftflightSpacecraftId, String? rocketSpacecraftflightSpacecraftName, String? rocketSpacecraftflightSpacecraftNameIcontains, String? search, List<String>? serialNumber, String? slug, List<int>? spacecraftConfigIds, int? status, List<int>? statusIds, bool? strictFiltering, DateTime? windowEndGt, DateTime? windowEndGte, DateTime? windowEndLt, DateTime? windowEndLte, DateTime? windowStartGt, DateTime? windowStartGte, DateTime? windowStartLt, DateTime? windowStartLte, }) async {
+    final response = await launchPreviousListWithHttpInfo( agencyLaunchAttemptCount: agencyLaunchAttemptCount, agencyLaunchAttemptCountGt: agencyLaunchAttemptCountGt, agencyLaunchAttemptCountGte: agencyLaunchAttemptCountGte, agencyLaunchAttemptCountLt: agencyLaunchAttemptCountLt, agencyLaunchAttemptCountLte: agencyLaunchAttemptCountLte, agencyLaunchAttemptCountYear: agencyLaunchAttemptCountYear, agencyLaunchAttemptCountYearGt: agencyLaunchAttemptCountYearGt, agencyLaunchAttemptCountYearGte: agencyLaunchAttemptCountYearGte, agencyLaunchAttemptCountYearLt: agencyLaunchAttemptCountYearLt, agencyLaunchAttemptCountYearLte: agencyLaunchAttemptCountYearLte, id: id, includeSuborbital: includeSuborbital, isCrewed: isCrewed, lastUpdatedGte: lastUpdatedGte, lastUpdatedLte: lastUpdatedLte, launcherConfigId: launcherConfigId, limit: limit, locationIds: locationIds, locationLaunchAttemptCount: locationLaunchAttemptCount, locationLaunchAttemptCountGt: locationLaunchAttemptCountGt, locationLaunchAttemptCountGte: locationLaunchAttemptCountGte, locationLaunchAttemptCountLt: locationLaunchAttemptCountLt, locationLaunchAttemptCountLte: locationLaunchAttemptCountLte, locationLaunchAttemptCountYear: locationLaunchAttemptCountYear, locationLaunchAttemptCountYearGt: locationLaunchAttemptCountYearGt, locationLaunchAttemptCountYearGte: locationLaunchAttemptCountYearGte, locationLaunchAttemptCountYearLt: locationLaunchAttemptCountYearLt, locationLaunchAttemptCountYearLte: locationLaunchAttemptCountYearLte, lspId: lspId, lspIds: lspIds, lspName: lspName, missionOrbitName: missionOrbitName, missionOrbitNameIcontains: missionOrbitNameIcontains, name: name, netGt: netGt, netGte: netGte, netLt: netLt, netLte: netLte, offset: offset, orbitalLaunchAttemptCount: orbitalLaunchAttemptCount, orbitalLaunchAttemptCountGt: orbitalLaunchAttemptCountGt, orbitalLaunchAttemptCountGte: orbitalLaunchAttemptCountGte, orbitalLaunchAttemptCountLt: orbitalLaunchAttemptCountLt, orbitalLaunchAttemptCountLte: orbitalLaunchAttemptCountLte, orbitalLaunchAttemptCountYear: orbitalLaunchAttemptCountYear, orbitalLaunchAttemptCountYearGt: orbitalLaunchAttemptCountYearGt, orbitalLaunchAttemptCountYearGte: orbitalLaunchAttemptCountYearGte, orbitalLaunchAttemptCountYearLt: orbitalLaunchAttemptCountYearLt, orbitalLaunchAttemptCountYearLte: orbitalLaunchAttemptCountYearLte, ordering: ordering, pad: pad, padIds: padIds, padLocation: padLocation, padLaunchAttemptCount: padLaunchAttemptCount, padLaunchAttemptCountGt: padLaunchAttemptCountGt, padLaunchAttemptCountGte: padLaunchAttemptCountGte, padLaunchAttemptCountLt: padLaunchAttemptCountLt, padLaunchAttemptCountLte: padLaunchAttemptCountLte, padLaunchAttemptCountYear: padLaunchAttemptCountYear, padLaunchAttemptCountYearGt: padLaunchAttemptCountYearGt, padLaunchAttemptCountYearGte: padLaunchAttemptCountYearGte, padLaunchAttemptCountYearLt: padLaunchAttemptCountYearLt, padLaunchAttemptCountYearLte: padLaunchAttemptCountYearLte, program: program, rSpacexApiId: rSpacexApiId, related: related, rocketConfigurationFullName: rocketConfigurationFullName, rocketConfigurationFullNameIcontains: rocketConfigurationFullNameIcontains, rocketConfigurationId: rocketConfigurationId, rocketConfigurationManufacturerName: rocketConfigurationManufacturerName, rocketConfigurationManufacturerNameIcontains: rocketConfigurationManufacturerNameIcontains, rocketConfigurationName: rocketConfigurationName, rocketSpacecraftflightSpacecraftId: rocketSpacecraftflightSpacecraftId, rocketSpacecraftflightSpacecraftName: rocketSpacecraftflightSpacecraftName, rocketSpacecraftflightSpacecraftNameIcontains: rocketSpacecraftflightSpacecraftNameIcontains, search: search, serialNumber: serialNumber, slug: slug, spacecraftConfigIds: spacecraftConfigIds, status: status, statusIds: statusIds, strictFiltering: strictFiltering, windowEndGt: windowEndGt, windowEndGte: windowEndGte, windowEndLt: windowEndLt, windowEndLte: windowEndLte, windowStartGt: windowStartGt, windowStartGte: windowStartGte, windowStartLt: windowStartLt, windowStartLte: windowStartLte, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty &&
-        response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(
-        await _decodeBodyBytes(response),
-        'PaginatedLaunchSerializerCommonList',
-      ) as PaginatedLaunchSerializerCommonList;
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PaginatedLaunchSerializerCommonList',) as PaginatedLaunchSerializerCommonList;
+    
     }
     return null;
   }
@@ -2235,18 +1498,10 @@ class LaunchApi {
   ///
   /// * [bool] strictFiltering:
   ///   Enforce strict filtering for lsp__ids, location__ids, and pad__ids. False by default for backwards-compatibility.
-  Future<Response> launchPreviousRetrieveWithHttpInfo(
-    String id, {
-    List<int>? locationIds,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    List<int>? padIds,
-    bool? related,
-    bool? strictFiltering,
-  }) async {
+  Future<Response> launchPreviousRetrieveWithHttpInfo(String id, { List<int>? locationIds, int? lspId, List<int>? lspIds, String? lspName, List<int>? padIds, bool? related, bool? strictFiltering, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/2.2.0/launch/previous/{id}/'.replaceAll('{id}', id);
+    final path = r'/2.2.0/launch/previous/{id}/'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -2278,6 +1533,7 @@ class LaunchApi {
     }
 
     const contentTypes = <String>[];
+
 
     return apiClient.invokeAPI(
       path,
@@ -2312,38 +1568,17 @@ class LaunchApi {
   ///
   /// * [bool] strictFiltering:
   ///   Enforce strict filtering for lsp__ids, location__ids, and pad__ids. False by default for backwards-compatibility.
-  Future<LaunchDetailed?> launchPreviousRetrieve(
-    String id, {
-    List<int>? locationIds,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    List<int>? padIds,
-    bool? related,
-    bool? strictFiltering,
-  }) async {
-    final response = await launchPreviousRetrieveWithHttpInfo(
-      id,
-      locationIds: locationIds,
-      lspId: lspId,
-      lspIds: lspIds,
-      lspName: lspName,
-      padIds: padIds,
-      related: related,
-      strictFiltering: strictFiltering,
-    );
+  Future<LaunchDetailed?> launchPreviousRetrieve(String id, { List<int>? locationIds, int? lspId, List<int>? lspIds, String? lspName, List<int>? padIds, bool? related, bool? strictFiltering, }) async {
+    final response = await launchPreviousRetrieveWithHttpInfo(id,  locationIds: locationIds, lspId: lspId, lspIds: lspIds, lspName: lspName, padIds: padIds, related: related, strictFiltering: strictFiltering, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty &&
-        response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(
-        await _decodeBodyBytes(response),
-        'LaunchDetailed',
-      ) as LaunchDetailed;
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'LaunchDetailed',) as LaunchDetailed;
+    
     }
     return null;
   }
@@ -2372,18 +1607,10 @@ class LaunchApi {
   ///
   /// * [bool] strictFiltering:
   ///   Enforce strict filtering for lsp__ids, location__ids, and pad__ids. False by default for backwards-compatibility.
-  Future<Response> launchRetrieveWithHttpInfo(
-    String id, {
-    List<int>? locationIds,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    List<int>? padIds,
-    bool? related,
-    bool? strictFiltering,
-  }) async {
+  Future<Response> launchRetrieveWithHttpInfo(String id, { List<int>? locationIds, int? lspId, List<int>? lspIds, String? lspName, List<int>? padIds, bool? related, bool? strictFiltering, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/2.2.0/launch/{id}/'.replaceAll('{id}', id);
+    final path = r'/2.2.0/launch/{id}/'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -2415,6 +1642,7 @@ class LaunchApi {
     }
 
     const contentTypes = <String>[];
+
 
     return apiClient.invokeAPI(
       path,
@@ -2449,38 +1677,17 @@ class LaunchApi {
   ///
   /// * [bool] strictFiltering:
   ///   Enforce strict filtering for lsp__ids, location__ids, and pad__ids. False by default for backwards-compatibility.
-  Future<LaunchDetailed?> launchRetrieve(
-    String id, {
-    List<int>? locationIds,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    List<int>? padIds,
-    bool? related,
-    bool? strictFiltering,
-  }) async {
-    final response = await launchRetrieveWithHttpInfo(
-      id,
-      locationIds: locationIds,
-      lspId: lspId,
-      lspIds: lspIds,
-      lspName: lspName,
-      padIds: padIds,
-      related: related,
-      strictFiltering: strictFiltering,
-    );
+  Future<LaunchDetailed?> launchRetrieve(String id, { List<int>? locationIds, int? lspId, List<int>? lspIds, String? lspName, List<int>? padIds, bool? related, bool? strictFiltering, }) async {
+    final response = await launchRetrieveWithHttpInfo(id,  locationIds: locationIds, lspId: lspId, lspIds: lspIds, lspName: lspName, padIds: padIds, related: related, strictFiltering: strictFiltering, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty &&
-        response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(
-        await _decodeBodyBytes(response),
-        'LaunchDetailed',
-      ) as LaunchDetailed;
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'LaunchDetailed',) as LaunchDetailed;
+    
     }
     return null;
   }
@@ -2698,99 +1905,7 @@ class LaunchApi {
   ///
   /// * [DateTime] windowStartLte:
   ///   Window Start is less than or equal to
-  Future<Response> launchUpcomingListWithHttpInfo({
-    int? agencyLaunchAttemptCount,
-    int? agencyLaunchAttemptCountGt,
-    int? agencyLaunchAttemptCountGte,
-    int? agencyLaunchAttemptCountLt,
-    int? agencyLaunchAttemptCountLte,
-    int? agencyLaunchAttemptCountYear,
-    int? agencyLaunchAttemptCountYearGt,
-    int? agencyLaunchAttemptCountYearGte,
-    int? agencyLaunchAttemptCountYearLt,
-    int? agencyLaunchAttemptCountYearLte,
-    bool? hideRecentPrevious,
-    List<String>? id,
-    bool? includeSuborbital,
-    bool? isCrewed,
-    DateTime? lastUpdatedGte,
-    DateTime? lastUpdatedLte,
-    List<int>? launcherConfigId,
-    int? limit,
-    List<int>? locationIds,
-    int? locationLaunchAttemptCount,
-    int? locationLaunchAttemptCountGt,
-    int? locationLaunchAttemptCountGte,
-    int? locationLaunchAttemptCountLt,
-    int? locationLaunchAttemptCountLte,
-    int? locationLaunchAttemptCountYear,
-    int? locationLaunchAttemptCountYearGt,
-    int? locationLaunchAttemptCountYearGte,
-    int? locationLaunchAttemptCountYearLt,
-    int? locationLaunchAttemptCountYearLte,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    String? missionOrbitName,
-    String? missionOrbitNameIcontains,
-    String? name,
-    DateTime? netGt,
-    DateTime? netGte,
-    DateTime? netLt,
-    DateTime? netLte,
-    int? offset,
-    int? orbitalLaunchAttemptCount,
-    int? orbitalLaunchAttemptCountGt,
-    int? orbitalLaunchAttemptCountGte,
-    int? orbitalLaunchAttemptCountLt,
-    int? orbitalLaunchAttemptCountLte,
-    int? orbitalLaunchAttemptCountYear,
-    int? orbitalLaunchAttemptCountYearGt,
-    int? orbitalLaunchAttemptCountYearGte,
-    int? orbitalLaunchAttemptCountYearLt,
-    int? orbitalLaunchAttemptCountYearLte,
-    String? ordering,
-    int? pad,
-    List<int>? padIds,
-    int? padLocation,
-    int? padLaunchAttemptCount,
-    int? padLaunchAttemptCountGt,
-    int? padLaunchAttemptCountGte,
-    int? padLaunchAttemptCountLt,
-    int? padLaunchAttemptCountLte,
-    int? padLaunchAttemptCountYear,
-    int? padLaunchAttemptCountYearGt,
-    int? padLaunchAttemptCountYearGte,
-    int? padLaunchAttemptCountYearLt,
-    int? padLaunchAttemptCountYearLte,
-    List<int>? program,
-    String? rSpacexApiId,
-    bool? related,
-    String? rocketConfigurationFullName,
-    String? rocketConfigurationFullNameIcontains,
-    int? rocketConfigurationId,
-    String? rocketConfigurationManufacturerName,
-    String? rocketConfigurationManufacturerNameIcontains,
-    String? rocketConfigurationName,
-    int? rocketSpacecraftflightSpacecraftId,
-    String? rocketSpacecraftflightSpacecraftName,
-    String? rocketSpacecraftflightSpacecraftNameIcontains,
-    String? search,
-    List<String>? serialNumber,
-    String? slug,
-    List<int>? spacecraftConfigIds,
-    int? status,
-    List<int>? statusIds,
-    bool? strictFiltering,
-    DateTime? windowEndGt,
-    DateTime? windowEndGte,
-    DateTime? windowEndLt,
-    DateTime? windowEndLte,
-    DateTime? windowStartGt,
-    DateTime? windowStartGte,
-    DateTime? windowStartLt,
-    DateTime? windowStartLte,
-  }) async {
+  Future<Response> launchUpcomingListWithHttpInfo({ int? agencyLaunchAttemptCount, int? agencyLaunchAttemptCountGt, int? agencyLaunchAttemptCountGte, int? agencyLaunchAttemptCountLt, int? agencyLaunchAttemptCountLte, int? agencyLaunchAttemptCountYear, int? agencyLaunchAttemptCountYearGt, int? agencyLaunchAttemptCountYearGte, int? agencyLaunchAttemptCountYearLt, int? agencyLaunchAttemptCountYearLte, bool? hideRecentPrevious, List<String>? id, bool? includeSuborbital, bool? isCrewed, DateTime? lastUpdatedGte, DateTime? lastUpdatedLte, List<int>? launcherConfigId, int? limit, List<int>? locationIds, int? locationLaunchAttemptCount, int? locationLaunchAttemptCountGt, int? locationLaunchAttemptCountGte, int? locationLaunchAttemptCountLt, int? locationLaunchAttemptCountLte, int? locationLaunchAttemptCountYear, int? locationLaunchAttemptCountYearGt, int? locationLaunchAttemptCountYearGte, int? locationLaunchAttemptCountYearLt, int? locationLaunchAttemptCountYearLte, int? lspId, List<int>? lspIds, String? lspName, String? missionOrbitName, String? missionOrbitNameIcontains, String? name, DateTime? netGt, DateTime? netGte, DateTime? netLt, DateTime? netLte, int? offset, int? orbitalLaunchAttemptCount, int? orbitalLaunchAttemptCountGt, int? orbitalLaunchAttemptCountGte, int? orbitalLaunchAttemptCountLt, int? orbitalLaunchAttemptCountLte, int? orbitalLaunchAttemptCountYear, int? orbitalLaunchAttemptCountYearGt, int? orbitalLaunchAttemptCountYearGte, int? orbitalLaunchAttemptCountYearLt, int? orbitalLaunchAttemptCountYearLte, String? ordering, int? pad, List<int>? padIds, int? padLocation, int? padLaunchAttemptCount, int? padLaunchAttemptCountGt, int? padLaunchAttemptCountGte, int? padLaunchAttemptCountLt, int? padLaunchAttemptCountLte, int? padLaunchAttemptCountYear, int? padLaunchAttemptCountYearGt, int? padLaunchAttemptCountYearGte, int? padLaunchAttemptCountYearLt, int? padLaunchAttemptCountYearLte, List<int>? program, String? rSpacexApiId, bool? related, String? rocketConfigurationFullName, String? rocketConfigurationFullNameIcontains, int? rocketConfigurationId, String? rocketConfigurationManufacturerName, String? rocketConfigurationManufacturerNameIcontains, String? rocketConfigurationName, int? rocketSpacecraftflightSpacecraftId, String? rocketSpacecraftflightSpacecraftName, String? rocketSpacecraftflightSpacecraftNameIcontains, String? search, List<String>? serialNumber, String? slug, List<int>? spacecraftConfigIds, int? status, List<int>? statusIds, bool? strictFiltering, DateTime? windowEndGt, DateTime? windowEndGte, DateTime? windowEndLt, DateTime? windowEndLte, DateTime? windowStartGt, DateTime? windowStartGte, DateTime? windowStartLt, DateTime? windowStartLte, }) async {
     // ignore: prefer_const_declarations
     final path = r'/2.2.0/launch/upcoming/';
 
@@ -2802,63 +1917,43 @@ class LaunchApi {
     final formParams = <String, String>{};
 
     if (agencyLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count', agencyLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count', agencyLaunchAttemptCount));
     }
     if (agencyLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__gt', agencyLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__gt', agencyLaunchAttemptCountGt));
     }
     if (agencyLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__gte', agencyLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__gte', agencyLaunchAttemptCountGte));
     }
     if (agencyLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__lt', agencyLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__lt', agencyLaunchAttemptCountLt));
     }
     if (agencyLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'agency_launch_attempt_count__lte', agencyLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count__lte', agencyLaunchAttemptCountLte));
     }
     if (agencyLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year',
-          agencyLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year', agencyLaunchAttemptCountYear));
     }
     if (agencyLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__gt',
-          agencyLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__gt', agencyLaunchAttemptCountYearGt));
     }
     if (agencyLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__gte',
-          agencyLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__gte', agencyLaunchAttemptCountYearGte));
     }
     if (agencyLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__lt',
-          agencyLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__lt', agencyLaunchAttemptCountYearLt));
     }
     if (agencyLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'agency_launch_attempt_count_year__lte',
-          agencyLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'agency_launch_attempt_count_year__lte', agencyLaunchAttemptCountYearLte));
     }
     if (hideRecentPrevious != null) {
-      queryParams
-          .addAll(_queryParams('', 'hide_recent_previous', hideRecentPrevious));
+      queryParams.addAll(_queryParams('', 'hide_recent_previous', hideRecentPrevious));
     }
     if (id != null) {
       queryParams.addAll(_queryParams('csv', 'id', id));
     }
     if (includeSuborbital != null) {
-      queryParams
-          .addAll(_queryParams('', 'include_suborbital', includeSuborbital));
+      queryParams.addAll(_queryParams('', 'include_suborbital', includeSuborbital));
     }
     if (isCrewed != null) {
       queryParams.addAll(_queryParams('', 'is_crewed', isCrewed));
@@ -2870,8 +1965,7 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'last_updated__lte', lastUpdatedLte));
     }
     if (launcherConfigId != null) {
-      queryParams
-          .addAll(_queryParams('csv', 'launcher_config__id', launcherConfigId));
+      queryParams.addAll(_queryParams('csv', 'launcher_config__id', launcherConfigId));
     }
     if (limit != null) {
       queryParams.addAll(_queryParams('', 'limit', limit));
@@ -2880,52 +1974,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('multi', 'location__ids', locationIds));
     }
     if (locationLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'location_launch_attempt_count', locationLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count', locationLaunchAttemptCount));
     }
     if (locationLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gt',
-          locationLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gt', locationLaunchAttemptCountGt));
     }
     if (locationLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gte',
-          locationLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__gte', locationLaunchAttemptCountGte));
     }
     if (locationLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lt',
-          locationLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lt', locationLaunchAttemptCountLt));
     }
     if (locationLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lte',
-          locationLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count__lte', locationLaunchAttemptCountLte));
     }
     if (locationLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year',
-          locationLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year', locationLaunchAttemptCountYear));
     }
     if (locationLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__gt',
-          locationLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__gt', locationLaunchAttemptCountYearGt));
     }
     if (locationLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__gte',
-          locationLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__gte', locationLaunchAttemptCountYearGte));
     }
     if (locationLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__lt',
-          locationLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__lt', locationLaunchAttemptCountYearLt));
     }
     if (locationLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'location_launch_attempt_count_year__lte',
-          locationLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'location_launch_attempt_count_year__lte', locationLaunchAttemptCountYearLte));
     }
     if (lspId != null) {
       queryParams.addAll(_queryParams('', 'lsp__id', lspId));
@@ -2937,12 +2013,10 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'lsp__name', lspName));
     }
     if (missionOrbitName != null) {
-      queryParams
-          .addAll(_queryParams('', 'mission__orbit__name', missionOrbitName));
+      queryParams.addAll(_queryParams('', 'mission__orbit__name', missionOrbitName));
     }
     if (missionOrbitNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '', 'mission__orbit__name__icontains', missionOrbitNameIcontains));
+      queryParams.addAll(_queryParams('', 'mission__orbit__name__icontains', missionOrbitNameIcontains));
     }
     if (name != null) {
       queryParams.addAll(_queryParams('', 'name', name));
@@ -2963,52 +2037,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'offset', offset));
     }
     if (orbitalLaunchAttemptCount != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count', orbitalLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count', orbitalLaunchAttemptCount));
     }
     if (orbitalLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count__gt', orbitalLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gt', orbitalLaunchAttemptCountGt));
     }
     if (orbitalLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gte',
-          orbitalLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__gte', orbitalLaunchAttemptCountGte));
     }
     if (orbitalLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'orbital_launch_attempt_count__lt', orbitalLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lt', orbitalLaunchAttemptCountLt));
     }
     if (orbitalLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lte',
-          orbitalLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count__lte', orbitalLaunchAttemptCountLte));
     }
     if (orbitalLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year',
-          orbitalLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year', orbitalLaunchAttemptCountYear));
     }
     if (orbitalLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__gt',
-          orbitalLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__gt', orbitalLaunchAttemptCountYearGt));
     }
     if (orbitalLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__gte',
-          orbitalLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__gte', orbitalLaunchAttemptCountYearGte));
     }
     if (orbitalLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__lt',
-          orbitalLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__lt', orbitalLaunchAttemptCountYearLt));
     }
     if (orbitalLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'orbital_launch_attempt_count_year__lte',
-          orbitalLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'orbital_launch_attempt_count_year__lte', orbitalLaunchAttemptCountYearLte));
     }
     if (ordering != null) {
       queryParams.addAll(_queryParams('', 'ordering', ordering));
@@ -3023,44 +2079,34 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'pad__location', padLocation));
     }
     if (padLaunchAttemptCount != null) {
-      queryParams.addAll(
-          _queryParams('', 'pad_launch_attempt_count', padLaunchAttemptCount));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count', padLaunchAttemptCount));
     }
     if (padLaunchAttemptCountGt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__gt', padLaunchAttemptCountGt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__gt', padLaunchAttemptCountGt));
     }
     if (padLaunchAttemptCountGte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__gte', padLaunchAttemptCountGte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__gte', padLaunchAttemptCountGte));
     }
     if (padLaunchAttemptCountLt != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__lt', padLaunchAttemptCountLt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__lt', padLaunchAttemptCountLt));
     }
     if (padLaunchAttemptCountLte != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count__lte', padLaunchAttemptCountLte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count__lte', padLaunchAttemptCountLte));
     }
     if (padLaunchAttemptCountYear != null) {
-      queryParams.addAll(_queryParams(
-          '', 'pad_launch_attempt_count_year', padLaunchAttemptCountYear));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year', padLaunchAttemptCountYear));
     }
     if (padLaunchAttemptCountYearGt != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gt',
-          padLaunchAttemptCountYearGt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gt', padLaunchAttemptCountYearGt));
     }
     if (padLaunchAttemptCountYearGte != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gte',
-          padLaunchAttemptCountYearGte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__gte', padLaunchAttemptCountYearGte));
     }
     if (padLaunchAttemptCountYearLt != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lt',
-          padLaunchAttemptCountYearLt));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lt', padLaunchAttemptCountYearLt));
     }
     if (padLaunchAttemptCountYearLte != null) {
-      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lte',
-          padLaunchAttemptCountYearLte));
+      queryParams.addAll(_queryParams('', 'pad_launch_attempt_count_year__lte', padLaunchAttemptCountYearLte));
     }
     if (program != null) {
       queryParams.addAll(_queryParams('multi', 'program', program));
@@ -3072,52 +2118,31 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'related', related));
     }
     if (rocketConfigurationFullName != null) {
-      queryParams.addAll(_queryParams(
-          '', 'rocket__configuration__full_name', rocketConfigurationFullName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__full_name', rocketConfigurationFullName));
     }
     if (rocketConfigurationFullNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__full_name__icontains',
-          rocketConfigurationFullNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__full_name__icontains', rocketConfigurationFullNameIcontains));
     }
     if (rocketConfigurationId != null) {
-      queryParams.addAll(
-          _queryParams('', 'rocket__configuration__id', rocketConfigurationId));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__id', rocketConfigurationId));
     }
     if (rocketConfigurationManufacturerName != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__manufacturer__name',
-          rocketConfigurationManufacturerName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__manufacturer__name', rocketConfigurationManufacturerName));
     }
     if (rocketConfigurationManufacturerNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__configuration__manufacturer__name__icontains',
-          rocketConfigurationManufacturerNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__manufacturer__name__icontains', rocketConfigurationManufacturerNameIcontains));
     }
     if (rocketConfigurationName != null) {
-      queryParams.addAll(_queryParams(
-          '', 'rocket__configuration__name', rocketConfigurationName));
+      queryParams.addAll(_queryParams('', 'rocket__configuration__name', rocketConfigurationName));
     }
     if (rocketSpacecraftflightSpacecraftId != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__id',
-          rocketSpacecraftflightSpacecraftId));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__id', rocketSpacecraftflightSpacecraftId));
     }
     if (rocketSpacecraftflightSpacecraftName != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__name',
-          rocketSpacecraftflightSpacecraftName));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__name', rocketSpacecraftflightSpacecraftName));
     }
     if (rocketSpacecraftflightSpacecraftNameIcontains != null) {
-      queryParams.addAll(_queryParams(
-          '',
-          'rocket__spacecraftflight__spacecraft__name__icontains',
-          rocketSpacecraftflightSpacecraftNameIcontains));
+      queryParams.addAll(_queryParams('', 'rocket__spacecraftflight__spacecraft__name__icontains', rocketSpacecraftflightSpacecraftNameIcontains));
     }
     if (search != null) {
       queryParams.addAll(_queryParams('', 'search', search));
@@ -3129,8 +2154,7 @@ class LaunchApi {
       queryParams.addAll(_queryParams('', 'slug', slug));
     }
     if (spacecraftConfigIds != null) {
-      queryParams.addAll(
-          _queryParams('csv', 'spacecraft_config__ids', spacecraftConfigIds));
+      queryParams.addAll(_queryParams('csv', 'spacecraft_config__ids', spacecraftConfigIds));
     }
     if (status != null) {
       queryParams.addAll(_queryParams('', 'status', status));
@@ -3167,6 +2191,7 @@ class LaunchApi {
     }
 
     const contentTypes = <String>[];
+
 
     return apiClient.invokeAPI(
       path,
@@ -3390,208 +2415,17 @@ class LaunchApi {
   ///
   /// * [DateTime] windowStartLte:
   ///   Window Start is less than or equal to
-  Future<PaginatedLaunchSerializerCommonList?> launchUpcomingList({
-    int? agencyLaunchAttemptCount,
-    int? agencyLaunchAttemptCountGt,
-    int? agencyLaunchAttemptCountGte,
-    int? agencyLaunchAttemptCountLt,
-    int? agencyLaunchAttemptCountLte,
-    int? agencyLaunchAttemptCountYear,
-    int? agencyLaunchAttemptCountYearGt,
-    int? agencyLaunchAttemptCountYearGte,
-    int? agencyLaunchAttemptCountYearLt,
-    int? agencyLaunchAttemptCountYearLte,
-    bool? hideRecentPrevious,
-    List<String>? id,
-    bool? includeSuborbital,
-    bool? isCrewed,
-    DateTime? lastUpdatedGte,
-    DateTime? lastUpdatedLte,
-    List<int>? launcherConfigId,
-    int? limit,
-    List<int>? locationIds,
-    int? locationLaunchAttemptCount,
-    int? locationLaunchAttemptCountGt,
-    int? locationLaunchAttemptCountGte,
-    int? locationLaunchAttemptCountLt,
-    int? locationLaunchAttemptCountLte,
-    int? locationLaunchAttemptCountYear,
-    int? locationLaunchAttemptCountYearGt,
-    int? locationLaunchAttemptCountYearGte,
-    int? locationLaunchAttemptCountYearLt,
-    int? locationLaunchAttemptCountYearLte,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    String? missionOrbitName,
-    String? missionOrbitNameIcontains,
-    String? name,
-    DateTime? netGt,
-    DateTime? netGte,
-    DateTime? netLt,
-    DateTime? netLte,
-    int? offset,
-    int? orbitalLaunchAttemptCount,
-    int? orbitalLaunchAttemptCountGt,
-    int? orbitalLaunchAttemptCountGte,
-    int? orbitalLaunchAttemptCountLt,
-    int? orbitalLaunchAttemptCountLte,
-    int? orbitalLaunchAttemptCountYear,
-    int? orbitalLaunchAttemptCountYearGt,
-    int? orbitalLaunchAttemptCountYearGte,
-    int? orbitalLaunchAttemptCountYearLt,
-    int? orbitalLaunchAttemptCountYearLte,
-    String? ordering,
-    int? pad,
-    List<int>? padIds,
-    int? padLocation,
-    int? padLaunchAttemptCount,
-    int? padLaunchAttemptCountGt,
-    int? padLaunchAttemptCountGte,
-    int? padLaunchAttemptCountLt,
-    int? padLaunchAttemptCountLte,
-    int? padLaunchAttemptCountYear,
-    int? padLaunchAttemptCountYearGt,
-    int? padLaunchAttemptCountYearGte,
-    int? padLaunchAttemptCountYearLt,
-    int? padLaunchAttemptCountYearLte,
-    List<int>? program,
-    String? rSpacexApiId,
-    bool? related,
-    String? rocketConfigurationFullName,
-    String? rocketConfigurationFullNameIcontains,
-    int? rocketConfigurationId,
-    String? rocketConfigurationManufacturerName,
-    String? rocketConfigurationManufacturerNameIcontains,
-    String? rocketConfigurationName,
-    int? rocketSpacecraftflightSpacecraftId,
-    String? rocketSpacecraftflightSpacecraftName,
-    String? rocketSpacecraftflightSpacecraftNameIcontains,
-    String? search,
-    List<String>? serialNumber,
-    String? slug,
-    List<int>? spacecraftConfigIds,
-    int? status,
-    List<int>? statusIds,
-    bool? strictFiltering,
-    DateTime? windowEndGt,
-    DateTime? windowEndGte,
-    DateTime? windowEndLt,
-    DateTime? windowEndLte,
-    DateTime? windowStartGt,
-    DateTime? windowStartGte,
-    DateTime? windowStartLt,
-    DateTime? windowStartLte,
-  }) async {
-    final response = await launchUpcomingListWithHttpInfo(
-      agencyLaunchAttemptCount: agencyLaunchAttemptCount,
-      agencyLaunchAttemptCountGt: agencyLaunchAttemptCountGt,
-      agencyLaunchAttemptCountGte: agencyLaunchAttemptCountGte,
-      agencyLaunchAttemptCountLt: agencyLaunchAttemptCountLt,
-      agencyLaunchAttemptCountLte: agencyLaunchAttemptCountLte,
-      agencyLaunchAttemptCountYear: agencyLaunchAttemptCountYear,
-      agencyLaunchAttemptCountYearGt: agencyLaunchAttemptCountYearGt,
-      agencyLaunchAttemptCountYearGte: agencyLaunchAttemptCountYearGte,
-      agencyLaunchAttemptCountYearLt: agencyLaunchAttemptCountYearLt,
-      agencyLaunchAttemptCountYearLte: agencyLaunchAttemptCountYearLte,
-      hideRecentPrevious: hideRecentPrevious,
-      id: id,
-      includeSuborbital: includeSuborbital,
-      isCrewed: isCrewed,
-      lastUpdatedGte: lastUpdatedGte,
-      lastUpdatedLte: lastUpdatedLte,
-      launcherConfigId: launcherConfigId,
-      limit: limit,
-      locationIds: locationIds,
-      locationLaunchAttemptCount: locationLaunchAttemptCount,
-      locationLaunchAttemptCountGt: locationLaunchAttemptCountGt,
-      locationLaunchAttemptCountGte: locationLaunchAttemptCountGte,
-      locationLaunchAttemptCountLt: locationLaunchAttemptCountLt,
-      locationLaunchAttemptCountLte: locationLaunchAttemptCountLte,
-      locationLaunchAttemptCountYear: locationLaunchAttemptCountYear,
-      locationLaunchAttemptCountYearGt: locationLaunchAttemptCountYearGt,
-      locationLaunchAttemptCountYearGte: locationLaunchAttemptCountYearGte,
-      locationLaunchAttemptCountYearLt: locationLaunchAttemptCountYearLt,
-      locationLaunchAttemptCountYearLte: locationLaunchAttemptCountYearLte,
-      lspId: lspId,
-      lspIds: lspIds,
-      lspName: lspName,
-      missionOrbitName: missionOrbitName,
-      missionOrbitNameIcontains: missionOrbitNameIcontains,
-      name: name,
-      netGt: netGt,
-      netGte: netGte,
-      netLt: netLt,
-      netLte: netLte,
-      offset: offset,
-      orbitalLaunchAttemptCount: orbitalLaunchAttemptCount,
-      orbitalLaunchAttemptCountGt: orbitalLaunchAttemptCountGt,
-      orbitalLaunchAttemptCountGte: orbitalLaunchAttemptCountGte,
-      orbitalLaunchAttemptCountLt: orbitalLaunchAttemptCountLt,
-      orbitalLaunchAttemptCountLte: orbitalLaunchAttemptCountLte,
-      orbitalLaunchAttemptCountYear: orbitalLaunchAttemptCountYear,
-      orbitalLaunchAttemptCountYearGt: orbitalLaunchAttemptCountYearGt,
-      orbitalLaunchAttemptCountYearGte: orbitalLaunchAttemptCountYearGte,
-      orbitalLaunchAttemptCountYearLt: orbitalLaunchAttemptCountYearLt,
-      orbitalLaunchAttemptCountYearLte: orbitalLaunchAttemptCountYearLte,
-      ordering: ordering,
-      pad: pad,
-      padIds: padIds,
-      padLocation: padLocation,
-      padLaunchAttemptCount: padLaunchAttemptCount,
-      padLaunchAttemptCountGt: padLaunchAttemptCountGt,
-      padLaunchAttemptCountGte: padLaunchAttemptCountGte,
-      padLaunchAttemptCountLt: padLaunchAttemptCountLt,
-      padLaunchAttemptCountLte: padLaunchAttemptCountLte,
-      padLaunchAttemptCountYear: padLaunchAttemptCountYear,
-      padLaunchAttemptCountYearGt: padLaunchAttemptCountYearGt,
-      padLaunchAttemptCountYearGte: padLaunchAttemptCountYearGte,
-      padLaunchAttemptCountYearLt: padLaunchAttemptCountYearLt,
-      padLaunchAttemptCountYearLte: padLaunchAttemptCountYearLte,
-      program: program,
-      rSpacexApiId: rSpacexApiId,
-      related: related,
-      rocketConfigurationFullName: rocketConfigurationFullName,
-      rocketConfigurationFullNameIcontains:
-          rocketConfigurationFullNameIcontains,
-      rocketConfigurationId: rocketConfigurationId,
-      rocketConfigurationManufacturerName: rocketConfigurationManufacturerName,
-      rocketConfigurationManufacturerNameIcontains:
-          rocketConfigurationManufacturerNameIcontains,
-      rocketConfigurationName: rocketConfigurationName,
-      rocketSpacecraftflightSpacecraftId: rocketSpacecraftflightSpacecraftId,
-      rocketSpacecraftflightSpacecraftName:
-          rocketSpacecraftflightSpacecraftName,
-      rocketSpacecraftflightSpacecraftNameIcontains:
-          rocketSpacecraftflightSpacecraftNameIcontains,
-      search: search,
-      serialNumber: serialNumber,
-      slug: slug,
-      spacecraftConfigIds: spacecraftConfigIds,
-      status: status,
-      statusIds: statusIds,
-      strictFiltering: strictFiltering,
-      windowEndGt: windowEndGt,
-      windowEndGte: windowEndGte,
-      windowEndLt: windowEndLt,
-      windowEndLte: windowEndLte,
-      windowStartGt: windowStartGt,
-      windowStartGte: windowStartGte,
-      windowStartLt: windowStartLt,
-      windowStartLte: windowStartLte,
-    );
+  Future<PaginatedLaunchSerializerCommonList?> launchUpcomingList({ int? agencyLaunchAttemptCount, int? agencyLaunchAttemptCountGt, int? agencyLaunchAttemptCountGte, int? agencyLaunchAttemptCountLt, int? agencyLaunchAttemptCountLte, int? agencyLaunchAttemptCountYear, int? agencyLaunchAttemptCountYearGt, int? agencyLaunchAttemptCountYearGte, int? agencyLaunchAttemptCountYearLt, int? agencyLaunchAttemptCountYearLte, bool? hideRecentPrevious, List<String>? id, bool? includeSuborbital, bool? isCrewed, DateTime? lastUpdatedGte, DateTime? lastUpdatedLte, List<int>? launcherConfigId, int? limit, List<int>? locationIds, int? locationLaunchAttemptCount, int? locationLaunchAttemptCountGt, int? locationLaunchAttemptCountGte, int? locationLaunchAttemptCountLt, int? locationLaunchAttemptCountLte, int? locationLaunchAttemptCountYear, int? locationLaunchAttemptCountYearGt, int? locationLaunchAttemptCountYearGte, int? locationLaunchAttemptCountYearLt, int? locationLaunchAttemptCountYearLte, int? lspId, List<int>? lspIds, String? lspName, String? missionOrbitName, String? missionOrbitNameIcontains, String? name, DateTime? netGt, DateTime? netGte, DateTime? netLt, DateTime? netLte, int? offset, int? orbitalLaunchAttemptCount, int? orbitalLaunchAttemptCountGt, int? orbitalLaunchAttemptCountGte, int? orbitalLaunchAttemptCountLt, int? orbitalLaunchAttemptCountLte, int? orbitalLaunchAttemptCountYear, int? orbitalLaunchAttemptCountYearGt, int? orbitalLaunchAttemptCountYearGte, int? orbitalLaunchAttemptCountYearLt, int? orbitalLaunchAttemptCountYearLte, String? ordering, int? pad, List<int>? padIds, int? padLocation, int? padLaunchAttemptCount, int? padLaunchAttemptCountGt, int? padLaunchAttemptCountGte, int? padLaunchAttemptCountLt, int? padLaunchAttemptCountLte, int? padLaunchAttemptCountYear, int? padLaunchAttemptCountYearGt, int? padLaunchAttemptCountYearGte, int? padLaunchAttemptCountYearLt, int? padLaunchAttemptCountYearLte, List<int>? program, String? rSpacexApiId, bool? related, String? rocketConfigurationFullName, String? rocketConfigurationFullNameIcontains, int? rocketConfigurationId, String? rocketConfigurationManufacturerName, String? rocketConfigurationManufacturerNameIcontains, String? rocketConfigurationName, int? rocketSpacecraftflightSpacecraftId, String? rocketSpacecraftflightSpacecraftName, String? rocketSpacecraftflightSpacecraftNameIcontains, String? search, List<String>? serialNumber, String? slug, List<int>? spacecraftConfigIds, int? status, List<int>? statusIds, bool? strictFiltering, DateTime? windowEndGt, DateTime? windowEndGte, DateTime? windowEndLt, DateTime? windowEndLte, DateTime? windowStartGt, DateTime? windowStartGte, DateTime? windowStartLt, DateTime? windowStartLte, }) async {
+    final response = await launchUpcomingListWithHttpInfo( agencyLaunchAttemptCount: agencyLaunchAttemptCount, agencyLaunchAttemptCountGt: agencyLaunchAttemptCountGt, agencyLaunchAttemptCountGte: agencyLaunchAttemptCountGte, agencyLaunchAttemptCountLt: agencyLaunchAttemptCountLt, agencyLaunchAttemptCountLte: agencyLaunchAttemptCountLte, agencyLaunchAttemptCountYear: agencyLaunchAttemptCountYear, agencyLaunchAttemptCountYearGt: agencyLaunchAttemptCountYearGt, agencyLaunchAttemptCountYearGte: agencyLaunchAttemptCountYearGte, agencyLaunchAttemptCountYearLt: agencyLaunchAttemptCountYearLt, agencyLaunchAttemptCountYearLte: agencyLaunchAttemptCountYearLte, hideRecentPrevious: hideRecentPrevious, id: id, includeSuborbital: includeSuborbital, isCrewed: isCrewed, lastUpdatedGte: lastUpdatedGte, lastUpdatedLte: lastUpdatedLte, launcherConfigId: launcherConfigId, limit: limit, locationIds: locationIds, locationLaunchAttemptCount: locationLaunchAttemptCount, locationLaunchAttemptCountGt: locationLaunchAttemptCountGt, locationLaunchAttemptCountGte: locationLaunchAttemptCountGte, locationLaunchAttemptCountLt: locationLaunchAttemptCountLt, locationLaunchAttemptCountLte: locationLaunchAttemptCountLte, locationLaunchAttemptCountYear: locationLaunchAttemptCountYear, locationLaunchAttemptCountYearGt: locationLaunchAttemptCountYearGt, locationLaunchAttemptCountYearGte: locationLaunchAttemptCountYearGte, locationLaunchAttemptCountYearLt: locationLaunchAttemptCountYearLt, locationLaunchAttemptCountYearLte: locationLaunchAttemptCountYearLte, lspId: lspId, lspIds: lspIds, lspName: lspName, missionOrbitName: missionOrbitName, missionOrbitNameIcontains: missionOrbitNameIcontains, name: name, netGt: netGt, netGte: netGte, netLt: netLt, netLte: netLte, offset: offset, orbitalLaunchAttemptCount: orbitalLaunchAttemptCount, orbitalLaunchAttemptCountGt: orbitalLaunchAttemptCountGt, orbitalLaunchAttemptCountGte: orbitalLaunchAttemptCountGte, orbitalLaunchAttemptCountLt: orbitalLaunchAttemptCountLt, orbitalLaunchAttemptCountLte: orbitalLaunchAttemptCountLte, orbitalLaunchAttemptCountYear: orbitalLaunchAttemptCountYear, orbitalLaunchAttemptCountYearGt: orbitalLaunchAttemptCountYearGt, orbitalLaunchAttemptCountYearGte: orbitalLaunchAttemptCountYearGte, orbitalLaunchAttemptCountYearLt: orbitalLaunchAttemptCountYearLt, orbitalLaunchAttemptCountYearLte: orbitalLaunchAttemptCountYearLte, ordering: ordering, pad: pad, padIds: padIds, padLocation: padLocation, padLaunchAttemptCount: padLaunchAttemptCount, padLaunchAttemptCountGt: padLaunchAttemptCountGt, padLaunchAttemptCountGte: padLaunchAttemptCountGte, padLaunchAttemptCountLt: padLaunchAttemptCountLt, padLaunchAttemptCountLte: padLaunchAttemptCountLte, padLaunchAttemptCountYear: padLaunchAttemptCountYear, padLaunchAttemptCountYearGt: padLaunchAttemptCountYearGt, padLaunchAttemptCountYearGte: padLaunchAttemptCountYearGte, padLaunchAttemptCountYearLt: padLaunchAttemptCountYearLt, padLaunchAttemptCountYearLte: padLaunchAttemptCountYearLte, program: program, rSpacexApiId: rSpacexApiId, related: related, rocketConfigurationFullName: rocketConfigurationFullName, rocketConfigurationFullNameIcontains: rocketConfigurationFullNameIcontains, rocketConfigurationId: rocketConfigurationId, rocketConfigurationManufacturerName: rocketConfigurationManufacturerName, rocketConfigurationManufacturerNameIcontains: rocketConfigurationManufacturerNameIcontains, rocketConfigurationName: rocketConfigurationName, rocketSpacecraftflightSpacecraftId: rocketSpacecraftflightSpacecraftId, rocketSpacecraftflightSpacecraftName: rocketSpacecraftflightSpacecraftName, rocketSpacecraftflightSpacecraftNameIcontains: rocketSpacecraftflightSpacecraftNameIcontains, search: search, serialNumber: serialNumber, slug: slug, spacecraftConfigIds: spacecraftConfigIds, status: status, statusIds: statusIds, strictFiltering: strictFiltering, windowEndGt: windowEndGt, windowEndGte: windowEndGte, windowEndLt: windowEndLt, windowEndLte: windowEndLte, windowStartGt: windowStartGt, windowStartGte: windowStartGte, windowStartLt: windowStartLt, windowStartLte: windowStartLte, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty &&
-        response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(
-        await _decodeBodyBytes(response),
-        'PaginatedLaunchSerializerCommonList',
-      ) as PaginatedLaunchSerializerCommonList;
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PaginatedLaunchSerializerCommonList',) as PaginatedLaunchSerializerCommonList;
+    
     }
     return null;
   }
@@ -3620,18 +2454,10 @@ class LaunchApi {
   ///
   /// * [bool] strictFiltering:
   ///   Enforce strict filtering for lsp__ids, location__ids, and pad__ids. False by default for backwards-compatibility.
-  Future<Response> launchUpcomingRetrieveWithHttpInfo(
-    String id, {
-    List<int>? locationIds,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    List<int>? padIds,
-    bool? related,
-    bool? strictFiltering,
-  }) async {
+  Future<Response> launchUpcomingRetrieveWithHttpInfo(String id, { List<int>? locationIds, int? lspId, List<int>? lspIds, String? lspName, List<int>? padIds, bool? related, bool? strictFiltering, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/2.2.0/launch/upcoming/{id}/'.replaceAll('{id}', id);
+    final path = r'/2.2.0/launch/upcoming/{id}/'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -3663,6 +2489,7 @@ class LaunchApi {
     }
 
     const contentTypes = <String>[];
+
 
     return apiClient.invokeAPI(
       path,
@@ -3697,38 +2524,17 @@ class LaunchApi {
   ///
   /// * [bool] strictFiltering:
   ///   Enforce strict filtering for lsp__ids, location__ids, and pad__ids. False by default for backwards-compatibility.
-  Future<LaunchDetailed?> launchUpcomingRetrieve(
-    String id, {
-    List<int>? locationIds,
-    int? lspId,
-    List<int>? lspIds,
-    String? lspName,
-    List<int>? padIds,
-    bool? related,
-    bool? strictFiltering,
-  }) async {
-    final response = await launchUpcomingRetrieveWithHttpInfo(
-      id,
-      locationIds: locationIds,
-      lspId: lspId,
-      lspIds: lspIds,
-      lspName: lspName,
-      padIds: padIds,
-      related: related,
-      strictFiltering: strictFiltering,
-    );
+  Future<LaunchDetailed?> launchUpcomingRetrieve(String id, { List<int>? locationIds, int? lspId, List<int>? lspIds, String? lspName, List<int>? padIds, bool? related, bool? strictFiltering, }) async {
+    final response = await launchUpcomingRetrieveWithHttpInfo(id,  locationIds: locationIds, lspId: lspId, lspIds: lspIds, lspName: lspName, padIds: padIds, related: related, strictFiltering: strictFiltering, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty &&
-        response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(
-        await _decodeBodyBytes(response),
-        'LaunchDetailed',
-      ) as LaunchDetailed;
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'LaunchDetailed',) as LaunchDetailed;
+    
     }
     return null;
   }

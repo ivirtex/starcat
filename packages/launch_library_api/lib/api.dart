@@ -29,6 +29,7 @@ part 'auth/http_bearer_auth.dart';
 
 part 'api/agencies_api.dart';
 part 'api/astronaut_api.dart';
+part 'api/config_api.dart';
 part 'api/dashboard_api.dart';
 part 'api/docking_event_api.dart';
 part 'api/event_api.dart';
@@ -167,6 +168,7 @@ part 'model/spacewalk_list.dart';
 part 'model/spacewalk_normal.dart';
 part 'model/update.dart';
 part 'model/vid_url.dart';
+
 
 const _delimiters = {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};
 const _dateEpochMarker = 'epoch';

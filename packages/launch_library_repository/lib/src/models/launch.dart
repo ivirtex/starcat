@@ -23,8 +23,8 @@ class Launch extends Equatable {
     required this.pad,
     required this.webcastLive,
     required this.image,
-    required this.infographic,
     required this.program,
+    this.infographic,
     this.flightclubUrl,
     this.rSpacexApiId,
     this.net,
@@ -72,7 +72,6 @@ class Launch extends Equatable {
       pad: Pad.fromApi(apiLaunchModel.pad),
       webcastLive: apiLaunchModel.webcastLive ?? false,
       image: apiLaunchModel.image,
-      infographic: apiLaunchModel.infographic,
       program: apiLaunchModel.program.map(Program.fromApi).toList(),
       orbitalLaunchAttemptCount: apiLaunchModel.orbitalLaunchAttemptCount,
       locationLaunchAttemptCount: apiLaunchModel.locationLaunchAttemptCount,
@@ -110,7 +109,7 @@ class Launch extends Equatable {
   final List<VideoURL>? vidURLs;
   final bool webcastLive;
   final String image;
-  final String infographic;
+  final String? infographic;
   final List<Program> program;
   final int? orbitalLaunchAttemptCount;
   final int? locationLaunchAttemptCount;

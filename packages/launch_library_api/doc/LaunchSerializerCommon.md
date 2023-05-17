@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **pad** | [**Pad**](Pad.md) |  | [readonly] 
 **webcastLive** | **bool** |  | [optional] 
 **image** | **String** |  | [readonly] 
-**infographic** | **String** |  | [readonly] 
+**infographic** | **String** |  | [optional] [readonly] 
 **program** | [**List<Program>**](Program.md) |  | [readonly] [default to const []]
 **orbitalLaunchAttemptCount** | **int** |  | [optional] 
 **locationLaunchAttemptCount** | **int** |  | [optional] 

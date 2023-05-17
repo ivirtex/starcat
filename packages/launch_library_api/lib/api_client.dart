@@ -12,7 +12,7 @@ part of launch_library_api;
 
 class ApiClient {
   ApiClient({
-    // TODO(ivirtex): Change in production
+    // TODO(ivirtex): change in production
     this.basePath = 'https://lldev.thespacedevs.com',
     this.authentication,
   });
@@ -62,8 +62,6 @@ class ApiClient {
         ? '?${urlEncodedQueryParams.join('&')}'
         : '';
     final uri = Uri.parse('$basePath$path$queryString');
-
-    print('Request: $method $uri');
 
     try {
       // Special case for uploading a single file which isn't a 'multipart/form-data'.

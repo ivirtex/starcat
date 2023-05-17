@@ -53,6 +53,9 @@ class Configuration extends Equatable {
       id: apiConfiguration.id,
       url: apiConfiguration.url,
       name: apiConfiguration.name,
+      family: apiConfiguration.family,
+      fullName: apiConfiguration.fullName,
+      variant: apiConfiguration.variant,
     );
   }
 

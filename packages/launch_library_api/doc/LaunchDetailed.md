@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 **vidURLs** | [**List<VidURL>**](VidURL.md) |  | [readonly] [default to const []]
 **webcastLive** | **bool** |  | [readonly] 
 **image** | **String** |  | [readonly] 
-**infographic** | **String** |  | [readonly] 
+**infographic** | **String** |  | [optional] [readonly] 
 **program** | [**List<Program>**](Program.md) |  | [readonly] [default to const []]
 **orbitalLaunchAttemptCount** | **int** |  | [readonly] 
 **locationLaunchAttemptCount** | **int** |  | [readonly] 
