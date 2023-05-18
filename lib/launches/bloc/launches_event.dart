@@ -8,7 +8,7 @@ class LaunchesRequested extends LaunchesEvent {
   const LaunchesRequested();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class LaunchesDetailsRequested extends LaunchesEvent {

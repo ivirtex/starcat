@@ -32,6 +32,8 @@ void main() {
 
       when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenAnswer((_) async => <Launch>[launch]);
+      when(() => launchLibraryRepository.getPastLaunches())
+          .thenAnswer((_) async => <Launch>[]);
       when(() => launch.toJson()).thenReturn(<String, dynamic>{});
     });
 

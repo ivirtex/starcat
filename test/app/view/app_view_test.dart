@@ -39,6 +39,8 @@ void main() {
 
       when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenAnswer((_) async => <Launch>[]);
+      when(() => launchLibraryRepository.getPastLaunches())
+          .thenAnswer((_) async => <Launch>[]);
       when(() => spaceflightNewsRepository.getNews())
           .thenAnswer((_) async => <Article>[]);
       when(

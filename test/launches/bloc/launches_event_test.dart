@@ -9,7 +9,7 @@ void main() {
     test('supports value comparisons', () {
       expect(
         const LaunchesRequested(),
-        isNot(const LaunchesRequested()),
+        const LaunchesRequested(),
       );
 
       expect(

@@ -23,7 +23,7 @@ const sampleLaunch = Launch(
   ),
   mission: Mission(
     name: 'Long Mission Name',
-    description: 'Mission Description',
+    description: 'Mission Description.',
     type: 'Resupply',
     orbit: Orbit(),
   ),
