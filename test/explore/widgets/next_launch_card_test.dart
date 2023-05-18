@@ -1,6 +1,3 @@
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -11,7 +8,6 @@ import 'package:mocktail/mocktail.dart';
 // Project imports:
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
-import 'package:starcat/shared/shared.dart';
 import '../../sample_launch.dart';
 import '../../test_helpers/test_helpers.dart';
 
