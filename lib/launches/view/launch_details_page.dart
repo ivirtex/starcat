@@ -1,17 +1,17 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:share_plus/share_plus.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
-import 'package:starcat/helpers/format_date.dart';
+import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 
@@ -57,13 +57,50 @@ class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
   }
 }
 
-class LaunchDetailsView extends StatelessWidget {
+class LaunchDetailsView extends StatefulWidget {
   const LaunchDetailsView({
     required this.launch,
     super.key,
   });
 
   final Launch launch;
+
+  @override
+  State<LaunchDetailsView> createState() => _LaunchDetailsViewState();
+}
+
+class _LaunchDetailsViewState extends State<LaunchDetailsView> {
+  final scrollController = ScrollController();
+
+  bool hasAppBarCollapsed = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // This code allows for changing colors of the status bar
+    // and the app bar when scrolling to allow for better readability
+    // (white text when expanded, black text when collapsed).
+    // It is not used in dark mode because text
+    // is already fairly readable (always white).
+    if (!isDarkMode(context)) {
+      scrollController.addListener(() {
+        if (scrollController.offset > 125) {
+          if (!hasAppBarCollapsed) {
+            setState(() {
+              hasAppBarCollapsed = true;
+            });
+          }
+        } else {
+          if (hasAppBarCollapsed) {
+            setState(() {
+              hasAppBarCollapsed = false;
+            });
+          }
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,42 +111,73 @@ class LaunchDetailsView extends StatelessWidget {
             CupertinoSliverNavigationBar(
               stretch: true,
               border: null,
-              largeTitle: AutoSizeText(launch.mission?.name ?? 'N/A'),
+              largeTitle: AutoSizeText(widget.launch.mission?.name ?? 'N/A'),
             ),
             Body(
-              launch: launch,
+              launch: widget.launch,
             ),
           ],
         ),
       ),
       material: (_) => Scaffold(
         body: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          controller: scrollController,
           slivers: [
-            // TODO(ivirtex): consider showing mission image in flexibleSpace
             SliverAppBar.medium(
               stretch: true,
-              title: AutoSizeText(launch.mission?.name ?? 'N/A'),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.ios_share_rounded),
-                  onPressed: () => Share.share(composeShareText(launch)),
+              expandedHeight: 200,
+              systemOverlayStyle:
+                  hasAppBarCollapsed ? null : SystemUiOverlayStyle.light,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                color: hasAppBarCollapsed ? Colors.black : Colors.white,
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              flexibleSpace: FlexibleSpaceBar(
+                stretchModes: const [
+                  StretchMode.zoomBackground,
+                  StretchMode.blurBackground,
+                ],
+                titlePadding: const EdgeInsetsDirectional.only(
+                  start: 72,
+                  bottom: 16,
+                  end: 16,
                 ),
-              ],
+                background: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    MissionImage(
+                      imageUrl: widget.launch.image ?? '',
+                      fit: BoxFit.cover,
+                    ),
+                    const DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment(0, 0.5),
+                          end: Alignment.center,
+                          colors: [
+                            Colors.black26,
+                            Colors.transparent,
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                title: Text(
+                  widget.launch.mission?.name ?? 'N/A',
+                  style: TextStyle(
+                    color: hasAppBarCollapsed ? Colors.black : Colors.white,
+                  ),
+                ),
+              ),
             ),
-            Body(launch: launch),
+            Body(launch: widget.launch),
           ],
         ),
       ),
     );
-  }
-
-  String composeShareText(Launch launch) {
-    final net = formatDate(launch.net);
-    final launchName = launch.name;
-    final launchPad = launch.pad?.name;
-
-    // ignore: lines_longer_than_80_chars
-    return '$launchName launch date is NET $net and will be launching from $launchPad.';
   }
 }
 
@@ -128,15 +196,6 @@ class Body extends StatelessWidget {
       sliver: SliverList(
         delegate: SliverChildListDelegate(
           [
-            Column(
-              children: [
-                const SizedBox(height: kListSpacing),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(kBorderRadius),
-                  child: MissionImage(imageUrl: launch.image ?? ''),
-                ),
-              ],
-            ),
             const SizedBox(height: kListSpacing),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
