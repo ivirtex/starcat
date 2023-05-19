@@ -157,6 +157,10 @@ class Body extends StatelessWidget {
             const SizedBox(height: kListSpacing),
             LaunchPadMap(pad: launch.pad),
             const SizedBox(height: kListSpacing),
+            FirstStageLandingCard(
+              landing: launch.rocket?.launcherStage?.firstOrNull?.landing,
+            ),
+            const SizedBox(height: kListSpacing),
             TargetOrbitCard(orbit: launch.mission?.orbit),
             const SizedBox(height: kListSpacing),
           ]

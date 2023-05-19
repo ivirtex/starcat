@@ -94,7 +94,7 @@ class ExploreCard extends StatelessWidget {
                 ),
                 child: DefaultTextStyle(
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,

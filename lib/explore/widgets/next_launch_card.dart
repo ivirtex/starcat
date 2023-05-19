@@ -54,6 +54,7 @@ class NextLaunchCard extends StatelessWidget {
               const Spacer(),
               CountdownTimer(
                 launchDate: launchDate,
+                // TODO(ivirtex): use netPrecision instead
                 mode: launchStatus?.abbrev == StatusAbbrev.go &&
                         timeLeft! < 24.hours
                     ? CountdownTimerMode.hoursMinutesSeconds

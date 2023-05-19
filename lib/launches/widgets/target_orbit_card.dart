@@ -24,7 +24,7 @@ class TargetOrbitCard extends StatelessWidget {
     return ExploreCard(
       title: Row(
         children: [
-          Icon(PhosphorIcons.bold.planet, size: 14),
+          Icon(PhosphorIcons.fill.planet, size: 14),
           const SizedBox(width: 5),
           const Text('Target Orbit'),
         ],
