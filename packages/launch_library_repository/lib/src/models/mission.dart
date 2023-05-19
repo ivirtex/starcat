@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:launch_library_api/api.dart' as api;
 
 // Project imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -19,6 +20,16 @@ class Mission extends Equatable {
 
   factory Mission.fromJson(Map<String, dynamic> json) =>
       _$MissionFromJson(json);
+
+  factory Mission.fromApi(api.Mission apiMission) {
+    return Mission(
+      name: apiMission.name,
+      description: apiMission.description,
+      launchDesignator: apiMission.launchDesignator,
+      type: apiMission.type,
+      orbit: Orbit.fromApi(apiMission.orbit),
+    );
+  }
 
   final String? name;
   final String? description;

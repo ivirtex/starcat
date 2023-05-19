@@ -2,54 +2,61 @@
 import 'dart:developer';
 
 // Package imports:
-import 'package:launch_library_api/launch_library_api.dart' as api;
+import 'package:launch_library_api/api.dart';
 
 // Project imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 /// Repository for fetching data from the Launch Library 2 API.
 class LaunchLibraryRepository {
-  LaunchLibraryRepository({api.LaunchLibraryApiClient? launchLibraryApiClient})
-      : _launchLibraryApiClient =
-            launchLibraryApiClient ?? api.LaunchLibraryApiClient();
+  LaunchLibraryRepository({LaunchApi? launchApiClient})
+      : _launchApiClient = launchApiClient ?? LaunchApi();
 
-  final api.LaunchLibraryApiClient _launchLibraryApiClient;
+  final LaunchApi _launchApiClient;
 
-  Future<List<Launch>> getLaunches(api.LaunchTime launchTime) async {
-    api.Launches apiResponse;
+  Future<List<Launch>> getUpcomingLaunches() async {
+    PaginatedLaunchSerializerCommonList? apiResponse;
 
     try {
-      apiResponse = await _launchLibraryApiClient.getLaunches(launchTime);
+      apiResponse = await _launchApiClient.launchUpcomingList();
     } catch (e) {
       log('LaunchLibraryRepository.getLaunches: $e');
 
       rethrow;
     }
 
-    final apiLaunches = apiResponse.results;
+    final apiLaunches = apiResponse!.results;
 
     return apiLaunches.map(Launch.fromApi).toList();
   }
-}
 
-StatusAbbrev parseStatusAbbrev(String? statusAbbrev) {
-  switch (statusAbbrev) {
-    case 'Go':
-      return StatusAbbrev.go;
-    case 'TBC':
-      return StatusAbbrev.tbc;
-    case 'Success':
-      return StatusAbbrev.success;
-    case 'Failure':
-      return StatusAbbrev.failure;
-    case 'Hold':
-      return StatusAbbrev.hold;
-    case 'In Flight':
-      return StatusAbbrev.inFlight;
-    case 'Partial Failure':
-      return StatusAbbrev.partialFailure;
-    case 'TBD':
-    default:
-      return StatusAbbrev.tbd;
+  Future<List<Launch>> getPastLaunches() async {
+    PaginatedLaunchSerializerCommonList? apiResponse;
+
+    try {
+      apiResponse = await _launchApiClient.launchPreviousList();
+    } catch (e) {
+      log('LaunchLibraryRepository.getLaunches: $e');
+
+      rethrow;
+    }
+
+    final apiLaunches = apiResponse!.results;
+
+    return apiLaunches.map(Launch.fromApi).toList();
+  }
+
+  Future<Launch> getLaunchDetails(String id) async {
+    LaunchDetailed? apiResponse;
+
+    try {
+      apiResponse = await _launchApiClient.launchRetrieve(id);
+    } catch (e) {
+      log('LaunchLibraryRepository.getLaunchDetails: $e');
+
+      rethrow;
+    }
+
+    return Launch.fromApiDetailed(apiResponse!);
   }
 }

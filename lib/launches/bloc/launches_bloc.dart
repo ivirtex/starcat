@@ -19,6 +19,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     this.clock = const Clock(),
   }) : super(const LaunchesState()) {
     on<LaunchesRequested>(_onLaunchesRequested);
+    on<LaunchesDetailsRequested>(_onLaunchesDetailsRequested);
     on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
   }
 
@@ -40,9 +41,8 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
 
     try {
       final upcomingLaunches =
-          await _launchLibraryRepository.getLaunches(LaunchTime.upcoming);
-      final pastLaunches =
-          await _launchLibraryRepository.getLaunches(LaunchTime.previous);
+          await _launchLibraryRepository.getUpcomingLaunches();
+      final pastLaunches = await _launchLibraryRepository.getPastLaunches();
 
       emit(
         state.copyWith(
@@ -61,6 +61,50 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
           upcomingLaunches: state.upcomingLaunches,
           pastLaunches: state.pastLaunches,
         ),
+      );
+    }
+  }
+
+  Future<void> _onLaunchesDetailsRequested(
+    LaunchesDetailsRequested event,
+    Emitter<LaunchesState> emit,
+  ) async {
+    emit(state.copyWith(status: LaunchesStatus.loading));
+
+    try {
+      final detailedLaunch = await _launchLibraryRepository.getLaunchDetails(
+        event.launchId,
+      );
+
+      emit(
+        state.copyWith(
+          status: LaunchesStatus.success,
+          upcomingLaunches: state.upcomingLaunches.map(
+            (launch) {
+              if (launch.id == event.launchId) {
+                return detailedLaunch;
+              } else {
+                return launch;
+              }
+            },
+          ).toList(),
+          pastLaunches: state.pastLaunches.map(
+            (launch) {
+              if (launch.id == event.launchId) {
+                return detailedLaunch;
+              } else {
+                return launch;
+              }
+            },
+          ).toList(),
+          lastSuccessfulUpdate: clock.now(),
+        ),
+      );
+    } catch (err) {
+      log('LaunchesBloc._onLaunchesDetailsRequested: $err');
+
+      emit(
+        state.copyWith(status: LaunchesStatus.failure),
       );
     }
   }

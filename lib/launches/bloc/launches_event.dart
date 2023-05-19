@@ -5,12 +5,19 @@ abstract class LaunchesEvent extends Equatable {
 }
 
 class LaunchesRequested extends LaunchesEvent {
-  const LaunchesRequested({required this.launchTime});
-
-  final LaunchTime launchTime;
+  const LaunchesRequested();
 
   @override
-  List<Object> get props => [launchTime];
+  List<Object?> get props => [];
+}
+
+class LaunchesDetailsRequested extends LaunchesEvent {
+  const LaunchesDetailsRequested({required this.launchId});
+
+  final String launchId;
+
+  @override
+  List<Object> get props => [launchId];
 }
 
 class LaunchesSelectionChanged extends LaunchesEvent {

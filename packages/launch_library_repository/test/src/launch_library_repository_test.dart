@@ -1,25 +1,24 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 // Package imports:
-import 'package:launch_library_api/launch_library_api.dart' as api;
+import 'package:launch_library_api/api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 // Project imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
 
-class MockLaunchLibraryApiClient extends Mock
-    implements api.LaunchLibraryApiClient {}
+class MockLaunchApi extends Mock implements LaunchApi {}
 
 void main() {
   group('LaunchLibraryRepository', () {
-    late api.LaunchLibraryApiClient launchLibraryApiClient;
+    late MockLaunchApi launchApiClient;
     late LaunchLibraryRepository launchLibraryRepository;
 
     setUp(() {
-      launchLibraryApiClient = MockLaunchLibraryApiClient();
+      launchApiClient = MockLaunchApi();
       launchLibraryRepository = LaunchLibraryRepository(
-        launchLibraryApiClient: launchLibraryApiClient,
+        launchApiClient: launchApiClient,
       );
     });
 
@@ -32,38 +31,32 @@ void main() {
 
     group('getLaunches', () {
       test('calls getLaunches with correct time option', () async {
-        const launchTime = LaunchTime.previous;
-
         try {
-          await launchLibraryRepository.getLaunches(launchTime);
+          await launchLibraryRepository.getUpcomingLaunches();
         } catch (_) {}
 
-        verify(() => launchLibraryApiClient.getLaunches(launchTime)).called(1);
+        verify(() => launchApiClient.launchUpcomingList()).called(1);
       });
 
       test('returns correct Launches', () async {
-        const launchTime = LaunchTime.previous;
-        const launches = api.Launches(count: 0, results: []);
+        final launches = PaginatedLaunchSerializerCommonList(results: []);
 
-        when(() => launchLibraryApiClient.getLaunches(launchTime))
+        when(() => launchApiClient.launchUpcomingList())
             .thenAnswer((_) async => launches);
 
         expect(
-          await launchLibraryRepository.getLaunches(launchTime),
-          <Launch>[],
+          await launchLibraryRepository.getUpcomingLaunches(),
+          <LaunchSerializerCommon>[],
         );
       });
 
       test('throws when getLaunches fails', () async {
-        const launchTime = LaunchTime.previous;
-        final exception = api.LaunchesRequestFailure();
-
-        when(() => launchLibraryApiClient.getLaunches(launchTime))
-            .thenThrow(exception);
+        when(() => launchApiClient.launchUpcomingList())
+            .thenThrow(ApiException(404, ''));
 
         expect(
-          () => launchLibraryRepository.getLaunches(launchTime),
-          throwsA(isA<api.LaunchesRequestFailure>()),
+          () => launchLibraryRepository.getUpcomingLaunches(),
+          throwsA(isA<ApiException>()),
         );
       });
     });

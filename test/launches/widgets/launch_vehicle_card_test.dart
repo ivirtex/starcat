@@ -15,7 +15,9 @@ void main() {
         const MaterialApp(
           home: LaunchVehicleCard(
             vehicle: Rocket(
+              id: 164,
               configuration: Configuration(
+                id: 164,
                 url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
                 name: 'Falcon 9',
                 fullName: 'Falcon 9 Block 5',

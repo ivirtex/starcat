@@ -13,9 +13,10 @@ Status _$StatusFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = Status(
-          abbrev: $checkedConvert(
-              'abbrev', (v) => $enumDecode(_$StatusAbbrevEnumMap, v)),
+          id: $checkedConvert('id', (v) => v as int),
           name: $checkedConvert('name', (v) => v as String?),
+          abbrev: $checkedConvert(
+              'abbrev', (v) => $enumDecodeNullable(_$StatusAbbrevEnumMap, v)),
           description: $checkedConvert('description', (v) => v as String?),
         );
         return val;
@@ -23,8 +24,9 @@ Status _$StatusFromJson(Map<String, dynamic> json) => $checkedCreate(
     );
 
 Map<String, dynamic> _$StatusToJson(Status instance) => <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
-      'abbrev': _$StatusAbbrevEnumMap[instance.abbrev]!,
+      'abbrev': _$StatusAbbrevEnumMap[instance.abbrev],
       'description': instance.description,
     };
 

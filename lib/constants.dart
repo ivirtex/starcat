@@ -20,9 +20,9 @@ const kNoSavedArticlesText = 'No saved articles';
 
 const kStateChangeAnimationDuration = Duration(milliseconds: 500);
 
-const kListAnimationIntervalDuration = Duration(milliseconds: 100);
+const kListAnimationIntervalDuration = Duration(milliseconds: 75);
 
-const kListAnimationFadeDuration = Duration(milliseconds: 350);
+const kListAnimationFadeDuration = Duration(milliseconds: 250);
 
 const kListSpacing = 10.0;
 

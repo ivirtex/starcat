@@ -18,10 +18,13 @@ void main() {
     url: '',
     slug: '',
     name: 'Falcon 9 Block 5 | CRS-21',
-    status: Status(),
-    launchServiceProvider: LaunchServiceProvider(),
+    status: Status(id: 0),
+    netPrecision: NetPrecision(id: 0),
+    launchServiceProvider: LaunchServiceProvider(id: 0, url: '', name: ''),
     rocket: Rocket(
+      id: 0,
       configuration: Configuration(
+        id: 0,
         url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
         name: 'Falcon 9',
         family: 'Falcon',
@@ -39,6 +42,8 @@ void main() {
       location: Location(),
     ),
     webcastLive: false,
+    infographic: '',
+    image: '',
     program: [],
   );
 
@@ -47,10 +52,13 @@ void main() {
     url: '',
     slug: '',
     name: 'Falcon 9 Block 5 | CRS-21',
-    status: Status(),
-    launchServiceProvider: LaunchServiceProvider(),
+    status: Status(id: 0),
+    netPrecision: NetPrecision(id: 0),
+    launchServiceProvider: LaunchServiceProvider(id: 0, url: '', name: ''),
     rocket: Rocket(
+      id: 0,
       configuration: Configuration(
+        id: 0,
         url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
         name: 'Falcon 9',
         family: 'Falcon',
@@ -68,6 +76,8 @@ void main() {
       location: Location(),
     ),
     webcastLive: false,
+    infographic: '',
+    image: '',
     program: [],
   );
 
@@ -76,10 +86,13 @@ void main() {
     url: '',
     slug: '',
     name: 'Falcon 9 Block 5 | CRS-21',
-    status: Status(),
-    launchServiceProvider: LaunchServiceProvider(),
+    status: Status(id: 0),
+    netPrecision: NetPrecision(id: 0),
+    launchServiceProvider: LaunchServiceProvider(id: 0, url: '', name: ''),
     rocket: Rocket(
+      id: 0,
       configuration: Configuration(
+        id: 0,
         url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
         name: 'Falcon 9',
         family: 'Falcon',
@@ -97,6 +110,8 @@ void main() {
       location: Location(),
     ),
     webcastLive: false,
+    infographic: '',
+    image: '',
     program: [],
   );
 
@@ -105,10 +120,13 @@ void main() {
     url: '',
     slug: '',
     name: 'Falcon 9 Block 5 | CRS-21',
-    status: Status(),
-    launchServiceProvider: LaunchServiceProvider(),
+    status: Status(id: 0),
+    netPrecision: NetPrecision(id: 0),
+    launchServiceProvider: LaunchServiceProvider(id: 0, url: '', name: ''),
     rocket: Rocket(
+      id: 0,
       configuration: Configuration(
+        id: 0,
         url: 'https://ll.thespacedevs.com/2.2.0/config/launcher/164/',
         name: 'Falcon Heavy',
         family: 'Falcon',
@@ -126,6 +144,8 @@ void main() {
       location: Location(),
     ),
     webcastLive: false,
+    infographic: '',
+    image: '',
     program: [],
   );
 

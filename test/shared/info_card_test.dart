@@ -14,7 +14,7 @@ void main() {
   group('InfoCard', () {
     testWidgets('renders correctly', (tester) async {
       await tester.pumpApp(
-        const InfoCard(
+        const InfoCard.bordered(
           icon: Icon(Icons.ac_unit),
           child: Text('Child'),
         ),

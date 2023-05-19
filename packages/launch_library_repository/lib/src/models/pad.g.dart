@@ -14,7 +14,10 @@ Pad _$PadFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = Pad(
           location: $checkedConvert(
-              'location', (v) => Location.fromJson(v as Map<String, dynamic>)),
+              'location',
+              (v) => v == null
+                  ? null
+                  : Location.fromJson(v as Map<String, dynamic>)),
           url: $checkedConvert('url', (v) => v as String?),
           latitude: $checkedConvert('latitude', (v) => v as String?),
           longitude: $checkedConvert('longitude', (v) => v as String?),

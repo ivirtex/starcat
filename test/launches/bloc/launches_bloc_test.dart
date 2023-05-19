@@ -30,11 +30,9 @@ void main() {
       );
       launch = MockLaunch();
 
-      registerFallbackValue(LaunchTime.upcoming);
-
-      when(() => launchLibraryRepository.getLaunches(LaunchTime.upcoming))
+      when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenAnswer((_) async => <Launch>[launch]);
-      when(() => launchLibraryRepository.getLaunches(LaunchTime.previous))
+      when(() => launchLibraryRepository.getPastLaunches())
           .thenAnswer((_) async => <Launch>[]);
       when(() => launch.toJson()).thenReturn(<String, dynamic>{});
     });
@@ -46,19 +44,16 @@ void main() {
     blocTest<LaunchesBloc, LaunchesState>(
       'calls getLaunches with correct time',
       build: () => launchesBloc,
-      act: (bloc) =>
-          bloc.add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
+      act: (bloc) => bloc.add(const LaunchesRequested()),
       verify: (_) {
-        verify(() => launchLibraryRepository.getLaunches(LaunchTime.upcoming))
-            .called(1);
+        verify(() => launchLibraryRepository.getUpcomingLaunches()).called(1);
       },
     );
 
     blocTest<LaunchesBloc, LaunchesState>(
       'emits [loading, success] when fetchLaunches returns launches',
       build: () => launchesBloc,
-      act: (bloc) =>
-          bloc.add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
+      act: (bloc) => bloc.add(const LaunchesRequested()),
       expect: () => [
         const LaunchesState(status: LaunchesStatus.loading),
         LaunchesState(
@@ -71,11 +66,10 @@ void main() {
 
     blocTest<LaunchesBloc, LaunchesState>(
       'emits [loading, failure] when fetchLaunches throws',
-      setUp: () => when(() => launchLibraryRepository.getLaunches(any()))
+      setUp: () => when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenThrow(Exception()),
       build: () => launchesBloc,
-      act: (bloc) =>
-          bloc.add(const LaunchesRequested(launchTime: LaunchTime.upcoming)),
+      act: (bloc) => bloc.add(const LaunchesRequested()),
       expect: () => [
         const LaunchesState(status: LaunchesStatus.loading),
         isA<LaunchesState>()
