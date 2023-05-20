@@ -9,6 +9,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
+// Project imports:
+import 'package:starcat/launches/launches.dart';
+
 part 'launches_event.dart';
 part 'launches_state.dart';
 part 'launches_bloc.g.dart';
@@ -72,9 +75,38 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     emit(state.copyWith(status: LaunchesStatus.loading));
 
     try {
-      final detailedLaunch = await _launchLibraryRepository.getLaunchDetails(
-        event.launchId,
-      );
+      late Launch detailedLaunch;
+
+      // Check if launch exists in cache
+      if (state.detailedLaunchesCached
+          .any((element) => element.launch.id == event.launchId)) {
+        final cachedLaunch = state.detailedLaunchesCached.firstWhere(
+          (element) => element.launch.id == event.launchId,
+        );
+
+        // Check if launch is still valid
+        if (cachedLaunch.expirationDate.isAfter(clock.now())) {
+          detailedLaunch = cachedLaunch.launch;
+
+          // ignore: lines_longer_than_80_chars
+          log('LaunchesBloc._onLaunchesDetailsRequested: Cache hit for launch ${detailedLaunch.name}');
+        } else {
+          detailedLaunch = await _launchLibraryRepository.getLaunchDetails(
+            event.launchId,
+          );
+
+          // Invalidate cache
+          state.detailedLaunchesCached.removeWhere(
+            (element) => element.launch.id == event.launchId,
+          );
+
+          log('Invalidating cache for launch ${detailedLaunch.name}');
+        }
+      } else {
+        detailedLaunch = await _launchLibraryRepository.getLaunchDetails(
+          event.launchId,
+        );
+      }
 
       emit(
         state.copyWith(
@@ -97,7 +129,16 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
               }
             },
           ).toList(),
-          lastSuccessfulUpdate: clock.now(),
+          detailedLaunchesCached: {
+            ...state.detailedLaunchesCached,
+            LaunchCached(
+              launch: detailedLaunch,
+              expirationDate: computeCacheExpirationDate(
+                clock.now(),
+                detailedLaunch.net!,
+              ),
+            ),
+          },
         ),
       );
     } catch (err) {

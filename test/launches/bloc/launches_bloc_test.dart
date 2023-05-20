@@ -59,7 +59,6 @@ void main() {
         LaunchesState(
           status: LaunchesStatus.success,
           upcomingLaunches: [launch],
-          lastSuccessfulUpdate: DateTime(2023),
         ),
       ],
     );

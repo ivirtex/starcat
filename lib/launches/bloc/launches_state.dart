@@ -13,8 +13,8 @@ class LaunchesState extends Equatable {
     this.status = LaunchesStatus.initial,
     this.upcomingLaunches = const <Launch>[],
     this.pastLaunches = const <Launch>[],
+    this.detailedLaunchesCached = const <LaunchCached>{},
     this.selectedLaunches = SelectedLaunches.upcoming,
-    this.lastSuccessfulUpdate,
   });
 
   factory LaunchesState.fromJson(Map<String, dynamic> json) =>
@@ -23,8 +23,8 @@ class LaunchesState extends Equatable {
   final LaunchesStatus status;
   final List<Launch> upcomingLaunches;
   final List<Launch> pastLaunches;
+  final Set<LaunchCached> detailedLaunchesCached;
   final SelectedLaunches selectedLaunches;
-  final DateTime? lastSuccessfulUpdate;
 
   Map<String, dynamic> toJson() => _$LaunchesStateToJson(this);
 
@@ -32,6 +32,7 @@ class LaunchesState extends Equatable {
     LaunchesStatus? status,
     List<Launch>? upcomingLaunches,
     List<Launch>? pastLaunches,
+    Set<LaunchCached>? detailedLaunchesCached,
     SelectedLaunches? selectedLaunches,
     DateTime? lastSuccessfulUpdate,
   }) {
@@ -39,8 +40,9 @@ class LaunchesState extends Equatable {
       status: status ?? this.status,
       upcomingLaunches: upcomingLaunches ?? this.upcomingLaunches,
       pastLaunches: pastLaunches ?? this.pastLaunches,
+      detailedLaunchesCached:
+          detailedLaunchesCached ?? this.detailedLaunchesCached,
       selectedLaunches: selectedLaunches ?? this.selectedLaunches,
-      lastSuccessfulUpdate: lastSuccessfulUpdate ?? this.lastSuccessfulUpdate,
     );
   }
 
@@ -52,7 +54,7 @@ class LaunchesState extends Equatable {
         status,
         upcomingLaunches,
         pastLaunches,
+        detailedLaunchesCached,
         selectedLaunches,
-        lastSuccessfulUpdate,
       ];
 }

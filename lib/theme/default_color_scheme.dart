@@ -10,6 +10,7 @@ final ColorScheme kDefaultLightScheme = ColorScheme(
   onSecondary: Colors.white,
   onSecondaryContainer: Colors.white,
   tertiary: Colors.red,
+  onTertiary: Colors.white,
   background: Colors.white,
   onBackground: Colors.black,
   surface: Colors.white,
@@ -29,6 +30,7 @@ final ColorScheme kDefaultDarkScheme = ColorScheme(
   onSecondary: Colors.black,
   onSecondaryContainer: Colors.black,
   tertiary: Colors.red,
+  onTertiary: Colors.white,
   background: Colors.black,
   onBackground: Colors.white,
   surface: const Color.fromARGB(255, 15, 15, 15),
@@ -36,5 +38,5 @@ final ColorScheme kDefaultDarkScheme = ColorScheme(
   onSurface: Colors.white,
   outline: Colors.grey.shade500,
   error: Colors.red.shade700,
-  onError: Colors.black,
+  onError: Colors.white,
 );

@@ -31,7 +31,7 @@ dependencies:
   http: ^0.13.5
   hydrated_bloc: ^9.1.0
   intl: ^0.18.0
-  json_annotation: ^4.8.0
+  json_annotation: ^4.8.1
   launch_library_repository:
     path: packages/launch_library_repository
   live_activities: ^1.7.4

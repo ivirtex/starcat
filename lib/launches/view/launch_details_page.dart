@@ -113,7 +113,7 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
               border: null,
               largeTitle: AutoSizeText(widget.launch.mission?.name ?? 'N/A'),
             ),
-            Body(
+            _Body(
               launch: widget.launch,
             ),
           ],
@@ -173,7 +173,7 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
                 ),
               ),
             ),
-            Body(launch: widget.launch),
+            _Body(launch: widget.launch),
           ],
         ),
       ),
@@ -181,10 +181,9 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
   }
 }
 
-class Body extends StatelessWidget {
-  const Body({
+class _Body extends StatelessWidget {
+  const _Body({
     required this.launch,
-    super.key,
   });
 
   final Launch launch;

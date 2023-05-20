@@ -118,21 +118,13 @@ class UpcomingLaunchCard extends StatelessWidget {
                         spacing: 5,
                         runSpacing: 5,
                         children: [
-                          InfoCard.bordered(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 4,
-                              vertical: 2,
-                            ),
+                          InfoCard.secondary(
+                            borderRadius: BorderRadius.circular(8),
                             child: Text(date),
                           ),
-                          InfoCard.bordered(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 4,
-                              vertical: 2,
-                            ),
-                            child: Text(
-                              launch.pad?.name ?? 'No pad',
-                            ),
+                          InfoCard.secondary(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Text(launch.pad?.name ?? 'No pad'),
                           ),
                         ],
                       ),
