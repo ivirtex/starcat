@@ -29,7 +29,7 @@ class LaunchSerializerCommon {
     this.hashtag,
     required this.launchServiceProvider,
     required this.rocket,
-    required this.mission,
+    this.mission,
     required this.pad,
     this.webcastLive,
     required this.image,
@@ -97,7 +97,13 @@ class LaunchSerializerCommon {
 
   RocketSerializerCommon rocket;
 
-  Mission mission;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  Mission? mission;
 
   Pad pad;
 
@@ -205,7 +211,7 @@ class LaunchSerializerCommon {
     (hashtag == null ? 0 : hashtag!.hashCode) +
     (launchServiceProvider.hashCode) +
     (rocket.hashCode) +
-    (mission.hashCode) +
+    (mission == null ? 0 : mission!.hashCode) +
     (pad.hashCode) +
     (webcastLive == null ? 0 : webcastLive!.hashCode) +
     (image.hashCode) +
@@ -281,7 +287,11 @@ class LaunchSerializerCommon {
     }
       json[r'launch_service_provider'] = this.launchServiceProvider;
       json[r'rocket'] = this.rocket;
+    if (this.mission != null) {
       json[r'mission'] = this.mission;
+    } else {
+      json[r'mission'] = null;
+    }
       json[r'pad'] = this.pad;
     if (this.webcastLive != null) {
       json[r'webcast_live'] = this.webcastLive;
@@ -373,7 +383,7 @@ class LaunchSerializerCommon {
         hashtag: mapValueOfType<String>(json, r'hashtag'),
         launchServiceProvider: AgencySerializerMini.fromJson(json[r'launch_service_provider'])!,
         rocket: RocketSerializerCommon.fromJson(json[r'rocket'])!,
-        mission: Mission.fromJson(json[r'mission'])!,
+        mission: Mission.fromJson(json[r'mission']),
         pad: Pad.fromJson(json[r'pad'])!,
         webcastLive: mapValueOfType<bool>(json, r'webcast_live'),
         image: mapValueOfType<String>(json, r'image')!,
@@ -440,7 +450,6 @@ class LaunchSerializerCommon {
     'status',
     'launch_service_provider',
     'rocket',
-    'mission',
     'pad',
     'image',
     'program',

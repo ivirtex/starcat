@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **hashtag** | **String** |  | [optional] [readonly] 
 **launchServiceProvider** | [**AgencySerializerDetailedCommon**](AgencySerializerDetailedCommon.md) |  | [readonly] 
 **rocket** | [**RocketDetailed**](RocketDetailed.md) |  | [readonly] 
-**mission** | [**Mission**](Mission.md) |  | [readonly] 
+**mission** | [**Mission**](Mission.md) |  | [optional] [readonly] 
 **pad** | [**Pad**](Pad.md) |  | [readonly] 
 **infoURLs** | [**List<InfoURL>**](InfoURL.md) |  | [readonly] [default to const []]
 **vidURLs** | [**List<VidURL>**](VidURL.md) |  | [readonly] [default to const []]

@@ -32,7 +32,7 @@ class LaunchDetailed {
     this.hashtag,
     required this.launchServiceProvider,
     required this.rocket,
-    required this.mission,
+    this.mission,
     required this.pad,
     this.infoURLs = const [],
     this.vidURLs = const [],
@@ -95,7 +95,13 @@ class LaunchDetailed {
 
   RocketDetailed rocket;
 
-  Mission mission;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  Mission? mission;
 
   Pad pad;
 
@@ -196,7 +202,7 @@ class LaunchDetailed {
     (hashtag == null ? 0 : hashtag!.hashCode) +
     (launchServiceProvider.hashCode) +
     (rocket.hashCode) +
-    (mission.hashCode) +
+    (mission == null ? 0 : mission!.hashCode) +
     (pad.hashCode) +
     (infoURLs.hashCode) +
     (vidURLs.hashCode) +
@@ -278,7 +284,11 @@ class LaunchDetailed {
     }
       json[r'launch_service_provider'] = this.launchServiceProvider;
       json[r'rocket'] = this.rocket;
+    if (this.mission != null) {
       json[r'mission'] = this.mission;
+    } else {
+      json[r'mission'] = null;
+    }
       json[r'pad'] = this.pad;
       json[r'infoURLs'] = this.infoURLs;
       json[r'vidURLs'] = this.vidURLs;
@@ -372,7 +382,7 @@ class LaunchDetailed {
         hashtag: mapValueOfType<String>(json, r'hashtag'),
         launchServiceProvider: AgencySerializerDetailedCommon.fromJson(json[r'launch_service_provider'])!,
         rocket: RocketDetailed.fromJson(json[r'rocket'])!,
-        mission: Mission.fromJson(json[r'mission'])!,
+        mission: Mission.fromJson(json[r'mission']),
         pad: Pad.fromJson(json[r'pad'])!,
         infoURLs: InfoURL.listFromJson(json[r'infoURLs']),
         vidURLs: VidURL.listFromJson(json[r'vidURLs']),
@@ -450,7 +460,6 @@ class LaunchDetailed {
     'failreason',
     'launch_service_provider',
     'rocket',
-    'mission',
     'pad',
     'infoURLs',
     'vidURLs',

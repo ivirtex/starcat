@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **hashtag** | **String** |  | [optional] 
 **launchServiceProvider** | [**AgencySerializerMini**](AgencySerializerMini.md) |  | [readonly] 
 **rocket** | [**RocketSerializerCommon**](RocketSerializerCommon.md) |  | [readonly] 
-**mission** | [**Mission**](Mission.md) |  | [readonly] 
+**mission** | [**Mission**](Mission.md) |  | [optional] [readonly] 
 **pad** | [**Pad**](Pad.md) |  | [readonly] 
 **webcastLive** | **bool** |  | [optional] 
 **image** | **String** |  | [readonly] 

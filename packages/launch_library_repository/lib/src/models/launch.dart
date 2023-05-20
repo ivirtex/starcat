@@ -77,7 +77,9 @@ class Launch extends Equatable {
         apiLaunchModel.launchServiceProvider,
       ),
       rocket: Rocket.fromApi(apiLaunchModel.rocket),
-      mission: Mission.fromApi(apiLaunchModel.mission),
+      mission: apiLaunchModel.mission != null
+          ? Mission.fromApi(apiLaunchModel.mission!)
+          : null,
       pad: Pad.fromApi(apiLaunchModel.pad),
       webcastLive: apiLaunchModel.webcastLive ?? false,
       image: apiLaunchModel.image,
@@ -116,7 +118,9 @@ class Launch extends Equatable {
         apiDetailedLaunchModel.launchServiceProvider,
       ),
       rocket: Rocket.fromApiDetailed(apiDetailedLaunchModel.rocket),
-      mission: Mission.fromApi(apiDetailedLaunchModel.mission),
+      mission: apiDetailedLaunchModel.mission != null
+          ? Mission.fromApi(apiDetailedLaunchModel.mission!)
+          : null,
       pad: Pad.fromApi(apiDetailedLaunchModel.pad),
       webcastLive: apiDetailedLaunchModel.webcastLive,
       image: apiDetailedLaunchModel.image,
