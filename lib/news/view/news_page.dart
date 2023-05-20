@@ -57,7 +57,7 @@ class _NewsViewState extends State<NewsView> {
               border: null,
               largeTitle: Text('News'),
             ),
-            Body(),
+            _Body(),
           ],
         ),
       ),
@@ -85,7 +85,7 @@ class _NewsViewState extends State<NewsView> {
               ],
               title: const Text('News'),
             ),
-            const Body(),
+            const _Body(),
           ],
         ),
       ),
@@ -93,10 +93,8 @@ class _NewsViewState extends State<NewsView> {
   }
 }
 
-class Body extends StatelessWidget {
-  const Body({
-    super.key,
-  });
+class _Body extends StatelessWidget {
+  const _Body();
 
   @override
   Widget build(BuildContext context) {

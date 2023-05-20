@@ -68,7 +68,7 @@ class _ExploreViewState extends State<ExploreView> {
               border: null,
               largeTitle: Text('Explore'),
             ),
-            Body(),
+            _Body(),
           ],
         ),
       ),
@@ -87,7 +87,7 @@ class _ExploreViewState extends State<ExploreView> {
                   ),
                 ],
               ),
-              const Body(),
+              const _Body(),
             ],
           ),
         ),
@@ -101,10 +101,8 @@ class _ExploreViewState extends State<ExploreView> {
   }
 }
 
-class Body extends StatelessWidget {
-  const Body({
-    super.key,
-  });
+class _Body extends StatelessWidget {
+  const _Body();
 
   @override
   Widget build(BuildContext context) {

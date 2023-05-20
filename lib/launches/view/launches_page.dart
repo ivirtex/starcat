@@ -26,7 +26,7 @@ class LaunchesPage extends StatelessWidget {
               border: null,
               largeTitle: Text('Explore'),
             ),
-            Body(),
+            _Body(),
           ],
         ),
       ),
@@ -45,7 +45,7 @@ class LaunchesPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Body(),
+            const _Body(),
           ],
         ),
       ),
@@ -53,8 +53,8 @@ class LaunchesPage extends StatelessWidget {
   }
 }
 
-class Body extends StatelessWidget {
-  const Body({super.key});
+class _Body extends StatelessWidget {
+  const _Body();
 
   @override
   Widget build(BuildContext context) {

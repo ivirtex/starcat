@@ -39,7 +39,7 @@ class SettingsView extends StatelessWidget {
               border: null,
               largeTitle: Text('Settings'),
             ),
-            Body(),
+            _Body(),
           ],
         ),
       ),
@@ -50,7 +50,7 @@ class SettingsView extends StatelessWidget {
               pinned: true,
               title: Text('Settings'),
             ),
-            Body(),
+            _Body(),
           ],
         ),
       ),
@@ -58,14 +58,14 @@ class SettingsView extends StatelessWidget {
   }
 }
 
-class Body extends StatefulWidget {
-  const Body({super.key});
+class _Body extends StatefulWidget {
+  const _Body();
 
   @override
-  State<Body> createState() => _BodyState();
+  State<_Body> createState() => _BodyState();
 }
 
-class _BodyState extends State<Body> {
+class _BodyState extends State<_Body> {
   late bool _isMaterial3Enabled;
   late bool _areNotificationsSentContinuously;
 
