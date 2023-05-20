@@ -18,10 +18,12 @@ import 'package:starcat/shared/shared.dart';
 class LaunchDetailsPage extends StatefulWidget {
   const LaunchDetailsPage({
     required this.launchId,
+    this.withHero = false,
     super.key,
   });
 
   final String launchId;
+  final bool withHero;
 
   @override
   State<LaunchDetailsPage> createState() => _LaunchDetailsPageState();
@@ -53,17 +55,22 @@ class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
           pastLaunches.firstWhere((element) => element.id == widget.launchId);
     }
 
-    return LaunchDetailsView(launch: launch);
+    return LaunchDetailsView(
+      launch: launch,
+      withHero: widget.withHero,
+    );
   }
 }
 
 class LaunchDetailsView extends StatefulWidget {
   const LaunchDetailsView({
     required this.launch,
+    this.withHero = false,
     super.key,
   });
 
   final Launch launch;
+  final bool withHero;
 
   @override
   State<LaunchDetailsView> createState() => _LaunchDetailsViewState();
@@ -147,9 +154,15 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
                 background: Stack(
                   fit: StackFit.expand,
                   children: [
-                    MissionImage(
-                      imageUrl: widget.launch.image ?? '',
-                      fit: BoxFit.cover,
+                    HeroMode(
+                      enabled: widget.withHero,
+                      child: Hero(
+                        tag: widget.launch.id,
+                        child: MissionImage(
+                          imageUrl: widget.launch.image ?? '',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     const DecoratedBox(
                       decoration: BoxDecoration(

@@ -35,7 +35,7 @@ class LaunchesList extends StatelessWidget {
             child: ExploreCard(
               title: const Text('Status'),
               trailing: LaunchStatus(launch.status),
-              onTap: () => context.go('/launch/${launch.id}'),
+              onTap: () => context.go('/launch/${launch.id}?withHero=true'),
               padding: EdgeInsets.zero,
               child: IntrinsicHeight(
                 child: Row(
@@ -43,9 +43,15 @@ class LaunchesList extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 100,
-                      child: MissionImage(
-                        imageUrl: launch.image ?? '',
-                        fit: BoxFit.cover,
+                      child: Hero(
+                        tag: launch.id,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: MissionImage(
+                            imageUrl: launch.image ?? '',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
                     Flexible(
