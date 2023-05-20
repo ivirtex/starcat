@@ -1,17 +1,17 @@
 part of 'launches_bloc.dart';
 
-abstract class LaunchesEvent extends Equatable {
+sealed class LaunchesEvent extends Equatable {
   const LaunchesEvent();
 }
 
-class LaunchesRequested extends LaunchesEvent {
+final class LaunchesRequested extends LaunchesEvent {
   const LaunchesRequested();
 
   @override
   List<Object?> get props => [];
 }
 
-class LaunchesDetailsRequested extends LaunchesEvent {
+final class LaunchesDetailsRequested extends LaunchesEvent {
   const LaunchesDetailsRequested({required this.launchId});
 
   final String launchId;
@@ -20,7 +20,7 @@ class LaunchesDetailsRequested extends LaunchesEvent {
   List<Object> get props => [launchId];
 }
 
-class LaunchesSelectionChanged extends LaunchesEvent {
+final class LaunchesSelectionChanged extends LaunchesEvent {
   const LaunchesSelectionChanged({required this.selectedLaunches});
 
   final SelectedLaunches selectedLaunches;
