@@ -9,7 +9,9 @@ import 'package:starcat/bootstrap.dart';
 void main() {
   bootstrap(
     () => AppWrapper(
-      launchLibraryRepository: LaunchLibraryRepository(),
+      launchLibraryRepository: LaunchLibraryRepository(
+        baseUrlForApi: 'https://ll.thespacedevs.com',
+      ),
       spaceflightNewsRepository: SpaceflightNewsRepository(),
     ),
   );

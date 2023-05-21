@@ -22,9 +22,9 @@ void main() {
   initHydratedStorage();
 
   final launches = [
-    sampleLaunch.copyWith(net: DateTime(2023)),
-    sampleLaunch.copyWith(net: DateTime(2024)),
     sampleLaunch,
+    sampleLaunch.copyWith(net: DateTime(2023), id: '2'),
+    sampleLaunch.copyWith(net: DateTime(2024), id: '3'),
   ];
 
   group('LaunchesList', () {

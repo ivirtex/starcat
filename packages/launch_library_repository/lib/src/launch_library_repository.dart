@@ -9,8 +9,11 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 
 /// Repository for fetching data from the Launch Library 2 API.
 class LaunchLibraryRepository {
-  LaunchLibraryRepository({LaunchApi? launchApiClient})
-      : _launchApiClient = launchApiClient ?? LaunchApi();
+  LaunchLibraryRepository({
+    LaunchApi? launchApiClient,
+    String baseUrlForApi = 'localhost:8000',
+  }) : _launchApiClient =
+            launchApiClient ?? LaunchApi(ApiClient(basePath: baseUrlForApi));
 
   final LaunchApi _launchApiClient;
 
