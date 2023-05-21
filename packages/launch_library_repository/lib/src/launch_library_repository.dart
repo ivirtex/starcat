@@ -21,7 +21,8 @@ class LaunchLibraryRepository {
     PaginatedLaunchSerializerCommonList? apiResponse;
 
     try {
-      apiResponse = await _launchApiClient.launchUpcomingList();
+      apiResponse =
+          await _launchApiClient.launchUpcomingList(hideRecentPrevious: true);
     } catch (e) {
       log('LaunchLibraryRepository.getLaunches: $e');
 
