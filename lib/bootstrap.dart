@@ -36,36 +36,42 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
-  WidgetsFlutterBinding.ensureInitialized();
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
   Bloc.observer = AppBlocObserver();
-  HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getApplicationDocumentsDirectory(),
-  );
-
-  await initNotifications(pluginInstance: FlutterLocalNotificationsPlugin());
-
-  await Workmanager().initialize(
-    callbackDispatcher,
-    isInDebugMode: kDebugMode,
-  );
-
-  final mapsImplementation = GoogleMapsFlutterPlatform.instance;
-  if (mapsImplementation is GoogleMapsFlutterAndroid) {
-    mapsImplementation.useAndroidViewSurface = false;
-
-    try {
-      await mapsImplementation
-          .initializeWithRenderer(AndroidMapRenderer.latest);
-    } on PlatformException catch (e) {
-      log(e.toString());
-    }
-  }
 
   await runZonedGuarded(
-    () async => runApp(await builder()),
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
+
+      HydratedBloc.storage = await HydratedStorage.build(
+        storageDirectory: await getApplicationDocumentsDirectory(),
+      );
+
+      await initNotifications(
+        pluginInstance: FlutterLocalNotificationsPlugin(),
+      );
+
+      await Workmanager().initialize(
+        callbackDispatcher,
+        isInDebugMode: kDebugMode,
+      );
+
+      final mapsImplementation = GoogleMapsFlutterPlatform.instance;
+      if (mapsImplementation is GoogleMapsFlutterAndroid) {
+        mapsImplementation.useAndroidViewSurface = false;
+
+        try {
+          await mapsImplementation
+              .initializeWithRenderer(AndroidMapRenderer.latest);
+        } on PlatformException catch (e) {
+          log(e.toString());
+        }
+      }
+
+      runApp(await builder());
+    },
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
