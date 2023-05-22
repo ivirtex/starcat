@@ -30,18 +30,20 @@ void main() {
     });
 
     group('getLaunches', () {
-      test('calls getLaunches with correct time option', () async {
+      test('calls getUpcomingLaunches', () async {
         try {
           await launchLibraryRepository.getUpcomingLaunches();
         } catch (_) {}
 
-        verify(() => launchApiClient.launchUpcomingList()).called(1);
+        verify(
+          () => launchApiClient.launchUpcomingList(hideRecentPrevious: true),
+        ).called(1);
       });
 
       test('returns correct Launches', () async {
         final launches = PaginatedLaunchSerializerCommonList(results: []);
 
-        when(() => launchApiClient.launchUpcomingList())
+        when(() => launchApiClient.launchUpcomingList(hideRecentPrevious: true))
             .thenAnswer((_) async => launches);
 
         expect(
@@ -51,7 +53,7 @@ void main() {
       });
 
       test('throws when getLaunches fails', () async {
-        when(() => launchApiClient.launchUpcomingList())
+        when(() => launchApiClient.launchUpcomingList(hideRecentPrevious: true))
             .thenThrow(ApiException(404, ''));
 
         expect(

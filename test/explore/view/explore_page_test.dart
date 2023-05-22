@@ -16,6 +16,7 @@ import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
+import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/theme/theme.dart';
 import '../../test_helpers/test_helpers.dart';
 
@@ -23,6 +24,9 @@ class MockLaunchesBloc extends MockBloc<LaunchesEvent, LaunchesState>
     implements LaunchesBloc {}
 
 class MockNewsBloc extends MockBloc<NewsEvent, NewsState> implements NewsBloc {}
+
+class MockNotificationsCubit extends MockCubit<NotificationsState>
+    implements NotificationsCubit {}
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
@@ -63,11 +67,13 @@ void main() {
   group('ExploreView', () {
     late LaunchesBloc launchesBloc;
     late NewsBloc newsBloc;
+    late NotificationsCubit notificationsCubit;
     late Launch launches;
 
     setUp(() {
       launchesBloc = MockLaunchesBloc();
       newsBloc = MockNewsBloc();
+      notificationsCubit = MockNotificationsCubit();
       launches = MockLaunch();
 
       when(
@@ -78,6 +84,10 @@ void main() {
       when(() => newsBloc.add(const NewsFetchRequested()))
           .thenAnswer((_) async => <Article>[]);
       when(() => newsBloc.state).thenReturn(const NewsState());
+
+      when(() => notificationsCubit.state).thenReturn(
+        const NotificationsState(),
+      );
     });
 
     testWidgets(
@@ -124,15 +134,13 @@ void main() {
     );
 
     testWidgets(
-      'dispatches snackbars with failure message for LaunchesStatus.failure and NewsStatus.failure',
+      'dispatches snackbar with failure message for LaunchesStatus.failure',
       (WidgetTester tester) async {
         final expectedLaunchesState = [
           const LaunchesState(status: LaunchesStatus.failure),
         ];
-
         final expectedNewsState = [
-          const NewsState(),
-          const NewsState(status: NewsStatus.failure),
+          const NewsState(status: NewsStatus.success),
         ];
 
         whenListen(launchesBloc, Stream.fromIterable(expectedLaunchesState));
@@ -147,6 +155,36 @@ void main() {
         await tester.pump(const Duration(seconds: 3));
 
         expect(find.text(kLaunchesUpdateErrorText), findsOneWidget);
+
+        await tester.pumpAndSettle();
+      },
+    );
+
+    testWidgets(
+      'dispatches snackbar with failure message for NewsStatus.failure',
+      (WidgetTester tester) async {
+        when(() => launchesBloc.state)
+            .thenReturn(const LaunchesState(status: LaunchesStatus.success));
+
+        final expectedLaunchesState = [
+          const LaunchesState(status: LaunchesStatus.success),
+        ];
+        final expectedNewsState = [
+          const NewsState(status: NewsStatus.failure),
+        ];
+
+        whenListen(launchesBloc, Stream.fromIterable(expectedLaunchesState));
+        whenListen(newsBloc, Stream.fromIterable(expectedNewsState));
+
+        await tester.pumpApp(
+          launchesBloc: launchesBloc,
+          newsBloc: newsBloc,
+          const ExploreView(),
+        );
+
+        await tester.pump(const Duration(seconds: 3));
+
+        expect(find.text(kNewsUpdateErrorText), findsOneWidget);
 
         await tester.pumpAndSettle();
       },
@@ -173,6 +211,38 @@ void main() {
         await tester.pump(const Duration(seconds: 3));
 
         expect(find.byType(NextLaunchCard), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'pull to refresh reloads launches and news',
+      (WidgetTester tester) async {
+        when(() => launchesBloc.state).thenReturn(
+          const LaunchesState(
+            status: LaunchesStatus.success,
+          ),
+        );
+        when(() => newsBloc.state).thenReturn(
+          const NewsState(status: NewsStatus.success),
+        );
+
+        await tester.pumpApp(
+          launchesBloc: launchesBloc,
+          newsBloc: newsBloc,
+          notificationsCubit: notificationsCubit,
+          const ExploreView(),
+        );
+        await tester.pumpAndSettle();
+
+        await tester.drag(
+          find.byType(CustomScrollView),
+          const Offset(0, 300),
+        );
+        await tester.pumpAndSettle();
+
+        // First call is in initState and second is triggered by pull to refresh
+        verify(() => launchesBloc.add(const LaunchesRequested())).called(2);
+        verify(() => newsBloc.add(const NewsFetchRequested())).called(2);
       },
     );
 

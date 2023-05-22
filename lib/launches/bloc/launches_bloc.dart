@@ -52,7 +52,6 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
           status: LaunchesStatus.success,
           upcomingLaunches: upcomingLaunches,
           pastLaunches: pastLaunches,
-          lastSuccessfulUpdate: clock.now(),
         ),
       );
     } catch (err) {
@@ -135,7 +134,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
               launch: detailedLaunch,
               expirationDate: computeCacheExpirationDate(
                 clock.now(),
-                detailedLaunch.net!,
+                detailedLaunch.net,
               ),
             ),
           },

@@ -34,7 +34,6 @@ class LaunchesState extends Equatable {
     List<Launch>? pastLaunches,
     Set<LaunchCached>? detailedLaunchesCached,
     SelectedLaunches? selectedLaunches,
-    DateTime? lastSuccessfulUpdate,
   }) {
     return LaunchesState(
       status: status ?? this.status,
@@ -47,7 +46,7 @@ class LaunchesState extends Equatable {
   }
 
   @override
-  bool? get stringify => false;
+  bool? get stringify => true;
 
   @override
   List<Object?> get props => [

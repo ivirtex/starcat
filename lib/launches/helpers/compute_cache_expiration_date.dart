@@ -8,8 +8,12 @@ import 'package:starcat/helpers/format_duration.dart';
 /// Used for preventing rate limiting.
 DateTime computeCacheExpirationDate(
   DateTime now,
-  DateTime launchNet,
+  DateTime? launchNet,
 ) {
+  if (launchNet == null) {
+    return now.add(const Duration(minutes: 5));
+  }
+
   final hasLaunched = now.isAfter(launchNet);
   final timeDiffInHours = now.difference(launchNet).inHours.abs();
 

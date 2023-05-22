@@ -137,9 +137,7 @@ class _Body extends StatelessWidget {
                       return Column(
                         children: [
                           NextLaunchCard(
-                            launch: state.upcomingLaunches.isNotEmpty
-                                ? state.upcomingLaunches.first
-                                : null,
+                            launch: state.upcomingLaunches.firstOrNull,
                           ),
                           const SizedBox(height: kListSpacing * 2),
                           UpcomingLaunches(launches: state.upcomingLaunches),
@@ -207,7 +205,6 @@ class _Body extends StatelessWidget {
             ),
           ),
         );
-        break;
     }
   }
 
@@ -215,18 +212,23 @@ class _Body extends StatelessWidget {
     BuildContext context,
     NewsState state,
   ) {
-    if (state.status == NewsStatus.failure) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.errorContainer,
-          content: Text(
-            kNewsUpdateErrorText,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onErrorContainer,
+    switch (state.status) {
+      case NewsStatus.initial:
+      case NewsStatus.loading:
+      case NewsStatus.success:
+        break;
+      case NewsStatus.failure:
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+            content: Text(
+              kNewsUpdateErrorText,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onErrorContainer,
+              ),
             ),
           ),
-        ),
-      );
+        );
     }
   }
 }
