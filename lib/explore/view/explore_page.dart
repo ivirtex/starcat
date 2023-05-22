@@ -178,6 +178,7 @@ class _Body extends StatelessWidget {
                 },
               ),
             ),
+            const SizedBox(height: kListSpacing),
           ],
         ),
       ),

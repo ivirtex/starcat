@@ -46,7 +46,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       WidgetsFlutterBinding.ensureInitialized();
 
       HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory: await getApplicationDocumentsDirectory(),
+        storageDirectory: await getTemporaryDirectory(),
       );
 
       await initNotifications(

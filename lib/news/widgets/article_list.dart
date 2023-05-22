@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/news/news.dart';
 
 class ArticleList extends StatelessWidget {
@@ -31,9 +32,12 @@ class ArticleList extends StatelessWidget {
               .savedArticles
               .contains(article);
 
-          return ArticleCard(
-            article: article,
-            isSaved: isSaved,
+          return Padding(
+            padding: const EdgeInsets.only(bottom: kListSpacing),
+            child: ArticleCard(
+              article: article,
+              isSaved: isSaved,
+            ),
           );
         },
       ),

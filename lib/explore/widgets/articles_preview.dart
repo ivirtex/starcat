@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
+import 'package:starcat/explore/explore.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/shared/shared.dart';
 
@@ -21,10 +23,6 @@ class ArticlesPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (articles.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,20 +32,30 @@ class ArticlesPreview extends StatelessWidget {
         ),
         SizedBox(
           height: 330,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: min(5, articles.length),
-            itemBuilder: (context, index) {
-              return SizedBox(
-                width: 300,
-                child: ArticleCard(
+          child: articles.isNotEmpty
+              ? ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: min(5, articles.length),
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      width: 300,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: kListSpacing),
+                        child: ArticleCard(
+                          expandVertically: true,
+                          previewMode: true,
+                          article: articles[index],
+                        ),
+                      ),
+                    );
+                  },
+                )
+              : const ExploreCard(
                   expandVertically: true,
-                  previewMode: true,
-                  article: articles[index],
+                  child: Center(
+                    child: Text('No articles'),
+                  ),
                 ),
-              );
-            },
-          ),
         ),
       ],
     );

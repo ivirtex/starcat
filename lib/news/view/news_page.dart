@@ -160,7 +160,8 @@ class _Body extends StatelessWidget {
   }
 
   Widget _buildEmpty(BuildContext context, String message) =>
-      SliverToBoxAdapter(
+      SliverFillRemaining(
+        hasScrollBody: false,
         child: Center(
           child: Text(
             message,

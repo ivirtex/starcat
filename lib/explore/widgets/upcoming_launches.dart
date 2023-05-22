@@ -55,8 +55,11 @@ class UpcomingLaunches extends StatelessWidget {
                     );
                   },
                 )
-              : const Center(
-                  child: Text('No upcoming launches'),
+              : const ExploreCard(
+                  expandVertically: true,
+                  child: Center(
+                    child: Text('No upcoming launches'),
+                  ),
                 ),
         ),
       ],

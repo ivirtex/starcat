@@ -22,10 +22,7 @@ class NextLaunchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (launch == null) {
-      return const SizedBox.shrink();
-    }
-
+    final doesExist = launch != null;
     final launchDate = launch?.net;
     final timeLeft = launch?.net?.difference(DateTime.now());
     final launchName = launch?.name;
@@ -79,7 +76,9 @@ class NextLaunchCard extends StatelessWidget {
               const SizedBox(height: kListSpacing),
               ThemedButton(
                 shouldCupertinoButtonBeFilled: true,
-                onPressed: () => context.go('/launch/${launch!.id}'),
+                onPressed: doesExist
+                    ? () => context.go('/launch/${launch!.id}')
+                    : null,
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
