@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
@@ -30,27 +29,28 @@ class MockNotificationsCubit extends MockCubit<NotificationsState>
 
 class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
 
-class MockLaunch extends Mock implements Launch {}
-
 void main() {
   group('ExplorePage', () {
     late LaunchesBloc launchesBloc;
     late NewsBloc newsBloc;
-    late Launch launch;
+    late NotificationsCubit notificationsCubit;
 
     setUp(() {
       launchesBloc = MockLaunchesBloc();
       newsBloc = MockNewsBloc();
-      launch = MockLaunch();
+      notificationsCubit = MockNotificationsCubit();
 
-      when(
-        () => launchesBloc.add(const LaunchesRequested()),
-      ).thenAnswer((_) async => <Launch>[launch]);
       when(() => launchesBloc.state).thenReturn(const LaunchesState());
 
       when(() => newsBloc.add(const NewsFetchRequested()))
           .thenAnswer((_) async => <Article>[]);
       when(() => newsBloc.state).thenReturn(const NewsState());
+
+      when(() => notificationsCubit.state).thenReturn(
+        const NotificationsState(
+          hasNotificationsPreferenceModalBeenShown: true,
+        ),
+      );
     });
 
     testWidgets('renders ExplorePage', (WidgetTester tester) async {
@@ -68,25 +68,23 @@ void main() {
     late LaunchesBloc launchesBloc;
     late NewsBloc newsBloc;
     late NotificationsCubit notificationsCubit;
-    late Launch launches;
 
     setUp(() {
       launchesBloc = MockLaunchesBloc();
       newsBloc = MockNewsBloc();
       notificationsCubit = MockNotificationsCubit();
-      launches = MockLaunch();
 
-      when(
-        () => launchesBloc.add(const LaunchesRequested()),
-      ).thenAnswer((_) async => launches);
-      when(() => launchesBloc.state).thenReturn(const LaunchesState());
+      when(() => launchesBloc.state)
+          .thenReturn(const LaunchesState(status: LaunchesStatus.success));
 
       when(() => newsBloc.add(const NewsFetchRequested()))
           .thenAnswer((_) async => <Article>[]);
       when(() => newsBloc.state).thenReturn(const NewsState());
 
       when(() => notificationsCubit.state).thenReturn(
-        const NotificationsState(),
+        const NotificationsState(
+          hasNotificationsPreferenceModalBeenShown: true,
+        ),
       );
     });
 
@@ -139,12 +137,8 @@ void main() {
         final expectedLaunchesState = [
           const LaunchesState(status: LaunchesStatus.failure),
         ];
-        final expectedNewsState = [
-          const NewsState(status: NewsStatus.success),
-        ];
 
         whenListen(launchesBloc, Stream.fromIterable(expectedLaunchesState));
-        whenListen(newsBloc, Stream.fromIterable(expectedNewsState));
 
         await tester.pumpApp(
           launchesBloc: launchesBloc,
@@ -163,22 +157,23 @@ void main() {
     testWidgets(
       'dispatches snackbar with failure message for NewsStatus.failure',
       (WidgetTester tester) async {
-        when(() => launchesBloc.state)
-            .thenReturn(const LaunchesState(status: LaunchesStatus.success));
+        // Ensure that article preview is created in the sliver
+        await tester.binding.setSurfaceSize(const Size(500, 1000));
 
-        final expectedLaunchesState = [
-          const LaunchesState(status: LaunchesStatus.success),
-        ];
         final expectedNewsState = [
           const NewsState(status: NewsStatus.failure),
         ];
 
-        whenListen(launchesBloc, Stream.fromIterable(expectedLaunchesState));
-        whenListen(newsBloc, Stream.fromIterable(expectedNewsState));
+        whenListen(
+          newsBloc,
+          Stream.fromIterable(expectedNewsState),
+          initialState: const NewsState(status: NewsStatus.failure),
+        );
 
         await tester.pumpApp(
           launchesBloc: launchesBloc,
           newsBloc: newsBloc,
+          notificationsCubit: notificationsCubit,
           const ExploreView(),
         );
 
@@ -187,6 +182,8 @@ void main() {
         expect(find.text(kNewsUpdateErrorText), findsOneWidget);
 
         await tester.pumpAndSettle();
+
+        addTearDown(() => tester.binding.setSurfaceSize(null));
       },
     );
 

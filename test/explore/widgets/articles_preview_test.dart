@@ -1,6 +1,3 @@
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,11 +9,12 @@ import '../../test_helpers/test_helpers.dart';
 
 void main() {
   group('ArticlesPreview', () {
-    testWidgets('returns SizedBox.shrink() when there are no articles',
+    testWidgets('returns card with message when there are no articles',
         (tester) async {
-      await tester.pumpWidget(const ArticlesPreview(articles: []));
+      await tester.pumpApp(const ArticlesPreview(articles: []));
 
-      expect(find.byType(SizedBox), findsOneWidget);
+      expect(find.byType(ExploreCard), findsOneWidget);
+      expect(find.text('No articles'), findsOneWidget);
     });
 
     testWidgets('returns a list of articles', (tester) async {
