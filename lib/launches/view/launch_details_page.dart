@@ -15,49 +15,21 @@ import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 
-class LaunchDetailsPage extends StatefulWidget {
+class LaunchDetailsPage extends StatelessWidget {
   const LaunchDetailsPage({
-    required this.launchId,
+    required this.launch,
     this.withHero = false,
     super.key,
   });
 
-  final String launchId;
+  final Launch launch;
   final bool withHero;
 
   @override
-  State<LaunchDetailsPage> createState() => _LaunchDetailsPageState();
-}
-
-class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
-  @override
-  void initState() {
-    super.initState();
-
-    context
-        .read<LaunchesBloc>()
-        .add(LaunchesDetailsRequested(launchId: widget.launchId));
-  }
-
-  @override
   Widget build(BuildContext context) {
-    late Launch launch;
-
-    final upcomingLaunches =
-        context.watch<LaunchesBloc>().state.upcomingLaunches;
-    final pastLaunches = context.watch<LaunchesBloc>().state.pastLaunches;
-
-    if (upcomingLaunches.any((element) => element.id == widget.launchId)) {
-      launch = upcomingLaunches
-          .firstWhere((element) => element.id == widget.launchId);
-    } else {
-      launch =
-          pastLaunches.firstWhere((element) => element.id == widget.launchId);
-    }
-
     return LaunchDetailsView(
       launch: launch,
-      withHero: widget.withHero,
+      withHero: withHero,
     );
   }
 }
@@ -80,6 +52,15 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
   final scrollController = ScrollController();
 
   bool hasAppBarCollapsed = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    context
+        .read<LaunchesBloc>()
+        .add(LaunchesDetailsRequested(launchId: widget.launch.id));
+  }
 
   @override
   void didChangeDependencies() {

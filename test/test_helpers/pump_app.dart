@@ -117,11 +117,19 @@ extension PumpApp on WidgetTester {
                 builder: (context, state) => widget,
                 routes: [
                   GoRoute(
-                    name: 'launch',
                     path: 'launch/:id',
-                    builder: (context, state) => LaunchDetailsPage(
-                      launchId: state.pathParameters['id']!,
-                    ),
+                    builder: (context, state) {
+                      final allLaunches =
+                          context.read<LaunchesBloc>().state.allLaunches;
+                      final launch = allLaunches.firstWhere(
+                        (launch) => launch.id == state.pathParameters['id'],
+                      );
+
+                      return LaunchDetailsPage(
+                        launch: launch,
+                        withHero: state.queryParameters['withHero'] == 'true',
+                      );
+                    },
                   ),
                   GoRoute(
                     path: 'news',

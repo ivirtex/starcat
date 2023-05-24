@@ -26,6 +26,8 @@ class LaunchesState extends Equatable {
   final Set<LaunchCached> detailedLaunchesCached;
   final SelectedLaunches selectedLaunches;
 
+  List<Launch> get allLaunches => pastLaunches + upcomingLaunches;
+
   Map<String, dynamic> toJson() => _$LaunchesStateToJson(this);
 
   LaunchesState copyWith({

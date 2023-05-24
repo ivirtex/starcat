@@ -30,7 +30,7 @@ void main() {
     testWidgets('renders LaunchDetailsPage', (tester) async {
       await tester.pumpApp(
         launchesBloc: launchesBloc,
-        LaunchDetailsPage(launchId: sampleLaunch.id),
+        const LaunchDetailsPage(launch: sampleLaunch),
       );
 
       await tester.pump(const Duration(seconds: 2));

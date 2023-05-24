@@ -165,10 +165,17 @@ final _router = GoRouter(
       routes: [
         GoRoute(
           path: 'launch/:id',
-          builder: (context, state) => LaunchDetailsPage(
-            launchId: state.pathParameters['id']!,
-            withHero: state.queryParameters['withHero'] == 'true',
-          ),
+          builder: (context, state) {
+            final allLaunches = context.read<LaunchesBloc>().state.allLaunches;
+            final launch = allLaunches.firstWhere(
+              (launch) => launch.id == state.queryParameters['id'],
+            );
+
+            return LaunchDetailsPage(
+              launch: launch,
+              withHero: state.queryParameters['withHero'] == 'true',
+            );
+          },
         ),
         GoRoute(
           path: 'settings',

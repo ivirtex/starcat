@@ -101,21 +101,19 @@ void main() {
           .thenReturn(LaunchesState(upcomingLaunches: launches));
 
       await tester.pumpAppWithRouter(
+        launchesBloc: launchesBloc,
         UpcomingLaunches(
           launches: launches,
         ),
-        launchesBloc: launchesBloc,
       );
 
-      await tester.tap(find.byType(UpcomingLaunchCard).last);
+      await tester.tap(find.byType(UpcomingLaunchCard).first);
       await tester.pump(const Duration(seconds: 2));
       await tester.pump(const Duration(seconds: 2));
 
       expect(
-        tester
-            .widget<LaunchDetailsPage>(find.byType(LaunchDetailsPage))
-            .launchId,
-        launches.last.id,
+        tester.widget<LaunchDetailsPage>(find.byType(LaunchDetailsPage)).launch,
+        launches.first,
       );
     });
   });
