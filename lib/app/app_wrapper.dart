@@ -168,7 +168,7 @@ final _router = GoRouter(
           builder: (context, state) {
             final allLaunches = context.read<LaunchesBloc>().state.allLaunches;
             final launch = allLaunches.firstWhere(
-              (launch) => launch.id == state.queryParameters['id'],
+              (launch) => launch.id == state.pathParameters['id'],
             );
 
             return LaunchDetailsPage(

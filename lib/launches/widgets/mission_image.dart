@@ -26,6 +26,21 @@ class MissionImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrl.isEmpty) {
+      return SizedBox(
+        height: 150,
+        child: ColoredBox(
+          color: Theme.of(context).colorScheme.errorContainer,
+          child: Center(
+            child: Icon(
+              Icons.image_not_supported_rounded,
+              color: Theme.of(context).colorScheme.onErrorContainer,
+            ),
+          ),
+        ),
+      );
+    }
+
     return AnimatedSize(
       duration: 500.ms,
       curve: Curves.easeInOut,
@@ -56,7 +71,7 @@ class MissionImage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.error,
+                    Icons.image_not_supported_rounded,
                     color: Theme.of(context).colorScheme.onErrorContainer,
                   ),
                   Text(
