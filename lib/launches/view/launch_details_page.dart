@@ -156,7 +156,9 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
                           ],
                         ),
                       ),
-                    ),
+                    )
+                        .animate(delay: 150.ms)
+                        .fadeIn(duration: kListAnimationFadeDuration),
                   ],
                 ),
                 title: Text(
@@ -164,7 +166,9 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
                   style: TextStyle(
                     color: hasAppBarCollapsed ? Colors.black : Colors.white,
                   ),
-                ),
+                )
+                    .animate(delay: 150.ms)
+                    .fadeIn(duration: kListAnimationFadeDuration),
               ),
             ),
             _Body(launch: widget.launch),
