@@ -94,18 +94,19 @@ class _BodyState extends State<_Body> {
             ),
           ),
           const ThemeModeSelector(),
-          SwitchListTile.adaptive(
-            secondary: const Icon(Icons.color_lens_rounded),
-            title: const Text('Material You'),
-            value: _isMaterial3Enabled,
-            onChanged: (isEnabled) {
-              setState(() {
-                _isMaterial3Enabled = isEnabled;
+          if (Theme.of(context).platform != TargetPlatform.iOS)
+            SwitchListTile.adaptive(
+              secondary: const Icon(Icons.color_lens_rounded),
+              title: const Text('Material You'),
+              value: _isMaterial3Enabled,
+              onChanged: (isEnabled) {
+                setState(() {
+                  _isMaterial3Enabled = isEnabled;
 
-                context.read<ThemeCubit>().setMaterial3(isEnabled: isEnabled);
-              });
-            },
-          ),
+                  context.read<ThemeCubit>().setMaterial3(isEnabled: isEnabled);
+                });
+              },
+            ),
           const SizedBox(height: kListSpacing),
           Padding(
             padding: _textPadding,
@@ -128,11 +129,12 @@ class _BodyState extends State<_Body> {
               });
             },
           ),
-          const ListTile(
-            leading: Icon(Icons.edit_notifications_rounded),
-            title: Text('Customize notifications'),
-            onTap: AppSettings.openNotificationSettings,
-          ),
+          if (Theme.of(context).platform != TargetPlatform.iOS)
+            const ListTile(
+              leading: Icon(Icons.edit_notifications_rounded),
+              title: Text('Customize notifications'),
+              onTap: AppSettings.openNotificationSettings,
+            ),
           const SizedBox(height: kListSpacing),
           Padding(
             padding: _textPadding,
