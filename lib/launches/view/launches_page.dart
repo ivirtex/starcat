@@ -24,7 +24,7 @@ class LaunchesPage extends StatelessWidget {
             CupertinoSliverNavigationBar(
               stretch: true,
               border: null,
-              largeTitle: Text('Explore'),
+              largeTitle: Text('Launches'),
             ),
             _Body(),
           ],

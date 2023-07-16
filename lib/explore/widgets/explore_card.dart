@@ -1,8 +1,10 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
+import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/shared/shared.dart';
 
 class ExploreCard extends StatelessWidget {
@@ -44,7 +46,9 @@ class ExploreCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
           child: DefaultTextStyle(
-            style: Theme.of(context).textTheme.titleSmall!,
+            style: isCupertino(context)
+                ? CupertinoTheme.of(context).textTheme.textStyle
+                : Theme.of(context).textTheme.titleSmall!,
             child: Row(
               children: [
                 if (title != null) title!,
@@ -71,7 +75,7 @@ class ExploreCard extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: color ?? Theme.of(context).colorScheme.surface,
+            color: color ?? CupertinoColors.systemGrey6.resolveFrom(context),
           ),
           child: CupertinoInkWell(
             onPressed: onTap,

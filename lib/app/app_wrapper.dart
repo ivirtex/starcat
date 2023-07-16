@@ -143,6 +143,9 @@ class App extends StatelessWidget {
       child: CupertinoApp.router(
         title: 'Falcon',
         theme: CupertinoThemeData(
+          barBackgroundColor: CupertinoColors.systemBackground,
+          primaryColor: CupertinoColors.systemRed,
+          primaryContrastingColor: CupertinoColors.systemGroupedBackground,
           brightness: context.read<ThemeCubit>().state.themeMode ==
                   ThemeMode.dark
               ? Brightness.dark

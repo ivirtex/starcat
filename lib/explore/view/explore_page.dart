@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -150,10 +149,10 @@ class _Body extends StatelessWidget {
               ),
             ),
             const SizedBox(height: kListSpacing * 2),
-            if (kDebugMode) ...[
-              const DebugMenu(),
-              const SizedBox(height: kListSpacing * 2)
-            ],
+            // if (kDebugMode) ...[
+            //   const DebugMenu(),
+            //   const SizedBox(height: kListSpacing * 2)
+            // ],
             AnimatedSize(
               alignment: Alignment.topCenter,
               duration: kStateChangeAnimationDuration,

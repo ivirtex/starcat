@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -8,7 +9,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
-import 'package:starcat/helpers/format_date.dart';
+import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/shared/shared.dart';
 
 class UpcomingLaunches extends StatelessWidget {
@@ -112,7 +113,9 @@ class UpcomingLaunchCard extends StatelessWidget {
                     children: [
                       AutoSizeText(
                         launch.mission?.name ?? 'No name',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: isCupertino(context)
+                            ? CupertinoTheme.of(context).textTheme.textStyle
+                            : Theme.of(context).textTheme.titleMedium,
                         maxLines: 2,
                       ),
                       const SizedBox(height: 5),

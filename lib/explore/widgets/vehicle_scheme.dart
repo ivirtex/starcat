@@ -1,10 +1,14 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:vector_graphics/vector_graphics.dart';
+
+// Project imports:
+import 'package:starcat/helpers/helpers.dart';
 
 // TODO(ivirtex): add more vehicle schemes
 class VehicleScheme extends StatelessWidget {
@@ -46,7 +50,9 @@ class VehicleScheme extends StatelessWidget {
       AssetBytesLoader(vehiclePath),
       fit: BoxFit.scaleDown,
       colorFilter: ColorFilter.mode(
-        Theme.of(context).colorScheme.secondary,
+        isCupertino(context)
+            ? CupertinoTheme.of(context).primaryColor
+            : Theme.of(context).colorScheme.secondary,
         BlendMode.srcIn,
       ),
     );

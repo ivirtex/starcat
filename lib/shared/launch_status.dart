@@ -1,8 +1,12 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
+
+// Project imports:
+import 'package:starcat/helpers/helpers.dart';
 
 class LaunchStatus extends StatelessWidget {
   const LaunchStatus(
@@ -33,6 +37,27 @@ class LaunchStatus extends StatelessWidget {
     }
   }
 
+  CupertinoDynamicColor getCupertinoColorForAbbrev(StatusAbbrev abbrev) {
+    switch (abbrev) {
+      case StatusAbbrev.go:
+        return CupertinoColors.systemGreen;
+      case StatusAbbrev.success:
+        return CupertinoColors.systemGreen;
+      case StatusAbbrev.tbc:
+        return CupertinoColors.systemGreen;
+      case StatusAbbrev.hold:
+        return CupertinoColors.systemOrange;
+      case StatusAbbrev.inFlight:
+        return CupertinoColors.systemBlue;
+      case StatusAbbrev.partialFailure:
+        return CupertinoColors.systemOrange;
+      case StatusAbbrev.failure:
+        return CupertinoColors.systemRed;
+      case StatusAbbrev.tbd:
+        return CupertinoColors.systemGrey;
+    }
+  }
+
   IconData getIconForAbbrev(StatusAbbrev abbrev) {
     switch (abbrev) {
       case StatusAbbrev.go:
@@ -54,20 +79,53 @@ class LaunchStatus extends StatelessWidget {
     }
   }
 
+  IconData getCupertinoIconForAbbrev(StatusAbbrev abbrev) {
+    switch (abbrev) {
+      case StatusAbbrev.go:
+        return CupertinoIcons.checkmark_circle;
+      case StatusAbbrev.success:
+        return CupertinoIcons.checkmark_circle;
+      case StatusAbbrev.tbc:
+        return CupertinoIcons.question_circle;
+      case StatusAbbrev.hold:
+        return CupertinoIcons.pause_circle;
+      case StatusAbbrev.inFlight:
+        return CupertinoIcons.airplane;
+      case StatusAbbrev.partialFailure:
+        return CupertinoIcons.exclamationmark_circle;
+      case StatusAbbrev.failure:
+        return CupertinoIcons.xmark_circle;
+      case StatusAbbrev.tbd:
+        return CupertinoIcons.question_circle;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Icon(
-          getIconForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
+          isCupertino(context)
+              ? getCupertinoIconForAbbrev(
+                  launchStatus?.abbrev ?? StatusAbbrev.tbd,
+                )
+              : getIconForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
+          color: isCupertino(context)
+              ? getCupertinoColorForAbbrev(
+                  launchStatus?.abbrev ?? StatusAbbrev.tbd,
+                )
+              : getColorForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
           size: 14,
-          color: getColorForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
         ),
         const SizedBox(width: 3),
         Text(
           launchStatus?.name ?? '',
           style: TextStyle(
-            color: getColorForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
+            color: isCupertino(context)
+                ? getCupertinoColorForAbbrev(
+                    launchStatus?.abbrev ?? StatusAbbrev.tbd,
+                  )
+                : getColorForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
           ),
         ),
       ],

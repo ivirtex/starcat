@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -73,10 +74,14 @@ class LaunchDateCard extends StatelessWidget {
               children: [
                 Text(
                   localMMMd ?? 'N/A',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    fontSize: 18,
-                  ),
+                  style: isCupertino(context)
+                      ? CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                            fontSize: 18,
+                          )
+                      : TextStyle(
+                          color: Theme.of(context).colorScheme.tertiary,
+                          fontSize: 18,
+                        ),
                 ),
                 const SizedBox(width: 10),
                 Column(
@@ -86,12 +91,16 @@ class LaunchDateCard extends StatelessWidget {
                     if (localHm != null)
                       Text(
                         '$localHm ($utcTime UTC)',
-                        style: Theme.of(context).textTheme.labelLarge,
+                        style: isCupertino(context)
+                            ? CupertinoTheme.of(context).textTheme.textStyle
+                            : Theme.of(context).textTheme.labelLarge,
                       )
                     else
                       Text(
                         'N/A',
-                        style: Theme.of(context).textTheme.labelLarge,
+                        style: isCupertino(context)
+                            ? CupertinoTheme.of(context).textTheme.textStyle
+                            : Theme.of(context).textTheme.labelLarge,
                       ),
                   ],
                 ),

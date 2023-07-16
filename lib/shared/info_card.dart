@@ -1,5 +1,9 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:starcat/helpers/helpers.dart';
 
 enum InfoCardType {
   colored,
@@ -109,7 +113,9 @@ class InfoCard extends StatelessWidget {
                 width: 1.5,
               )
             : null,
-        color: getBgColorForType(context),
+        color: isCupertino(context)
+            ? CupertinoColors.tertiarySystemFill.resolveFrom(context)
+            : getBgColorForType(context),
       ),
       padding: padding,
       child: Row(
@@ -127,9 +133,13 @@ class InfoCard extends StatelessWidget {
           ],
           Flexible(
             child: DefaultTextStyle(
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                    color: getContentColorForType(context),
-                  ),
+              style: isCupertino(context)
+                  ? CupertinoTheme.of(context).textTheme.textStyle.copyWith(
+                        fontSize: 14,
+                      )
+                  : Theme.of(context).textTheme.labelSmall!.copyWith(
+                        color: getContentColorForType(context),
+                      ),
               child: child,
             ),
           ),

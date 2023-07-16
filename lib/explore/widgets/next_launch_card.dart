@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -64,14 +65,21 @@ class NextLaunchCard extends StatelessWidget {
             children: [
               Text(
                 launchName ?? 'Unknown',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: isCupertino(context)
+                    ? CupertinoTheme.of(context)
+                        .textTheme
+                        .navTitleTextStyle
+                        .copyWith(fontSize: 22)
+                    : Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: kListSpacing),
               Text(
                 description ?? 'No description',
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
+                style: isCupertino(context)
+                    ? CupertinoTheme.of(context).textTheme.textStyle
+                    : Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
               ),
               const SizedBox(height: kListSpacing),
               ThemedButton(

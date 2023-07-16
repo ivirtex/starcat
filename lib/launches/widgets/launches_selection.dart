@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -6,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:starcat/launches/launches.dart';
+import 'package:starcat/shared/shared.dart';
 
 class LaunchesSelection extends StatefulWidget {
   const LaunchesSelection({super.key});
@@ -26,29 +28,51 @@ class _LaunchesSelectionState extends State<LaunchesSelection> {
 
   @override
   Widget build(BuildContext context) {
-    return SegmentedButton(
-      selected: {selected},
-      onSelectionChanged: (newSelection) {
-        setState(() {
-          selected = newSelection.first;
+    return PlatformWidget(
+      cupertino: (context) {
+        return CupertinoSlidingSegmentedControl<SelectedLaunches>(
+          children: const {
+            SelectedLaunches.upcoming: Text('Upcoming'),
+            SelectedLaunches.past: Text('Past'),
+          },
+          groupValue: selected,
+          onValueChanged: (newValue) {
+            setState(() {
+              selected = newValue!;
 
-          context.read<LaunchesBloc>().add(
-                LaunchesSelectionChanged(selectedLaunches: selected),
-              );
-        });
+              context.read<LaunchesBloc>().add(
+                    LaunchesSelectionChanged(selectedLaunches: selected),
+                  );
+            });
+          },
+        );
       },
-      segments: const [
-        ButtonSegment(
-          value: SelectedLaunches.upcoming,
-          label: Text('Upcoming'),
-          icon: Icon(Icons.new_releases_rounded),
-        ),
-        ButtonSegment(
-          value: SelectedLaunches.past,
-          label: Text('Past'),
-          icon: Icon(Icons.history_rounded),
-        ),
-      ],
+      material: (context) {
+        return SegmentedButton(
+          selected: {selected},
+          onSelectionChanged: (newSelection) {
+            setState(() {
+              selected = newSelection.first;
+
+              context.read<LaunchesBloc>().add(
+                    LaunchesSelectionChanged(selectedLaunches: selected),
+                  );
+            });
+          },
+          segments: const [
+            ButtonSegment(
+              value: SelectedLaunches.upcoming,
+              label: Text('Upcoming'),
+              icon: Icon(Icons.new_releases_rounded),
+            ),
+            ButtonSegment(
+              value: SelectedLaunches.past,
+              label: Text('Past'),
+              icon: Icon(Icons.history_rounded),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -1,5 +1,9 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// Project imports:
+import 'package:starcat/helpers/helpers.dart';
 
 class Section extends StatelessWidget {
   const Section({
@@ -17,12 +21,20 @@ class Section extends StatelessWidget {
       padding: const EdgeInsets.only(left: 5, right: 5, bottom: 5),
       child: IconTheme(
         data: IconThemeData(
-          color: Theme.of(context).colorScheme.onSurface,
+          color: isCupertino(context)
+              ? CupertinoTheme.of(context).primaryColor
+              : Theme.of(context).colorScheme.onSurface,
           size: 20,
         ),
         child: DefaultTextStyle(
-          style:
-              Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18) ??
+          style: isCupertino(context)
+              ? CupertinoTheme.of(context).textTheme.navTitleTextStyle.copyWith(
+                    fontSize: 18,
+                  )
+              : Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontSize: 18) ??
                   const TextStyle(),
           child: icon != null
               ? Row(

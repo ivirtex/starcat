@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -62,7 +63,11 @@ class LaunchesList extends StatelessWidget {
                           children: [
                             Text(
                               launch.name,
-                              style: Theme.of(context).textTheme.titleMedium,
+                              style: isCupertino(context)
+                                  ? CupertinoTheme.of(context)
+                                      .textTheme
+                                      .navTitleTextStyle
+                                  : Theme.of(context).textTheme.titleMedium,
                             ),
                             Text(
                               formatDate(
@@ -70,13 +75,22 @@ class LaunchesList extends StatelessWidget {
                                     dateFormat: DateFormat.yMd().add_jm(),
                                   ) ??
                                   'N/A',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
-                                  ),
+                              style: isCupertino(context)
+                                  ? CupertinoTheme.of(context)
+                                      .textTheme
+                                      .textStyle
+                                      .copyWith(
+                                        color: CupertinoColors.secondaryLabel
+                                            .resolveFrom(context),
+                                      )
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .outline,
+                                      ),
                             ),
                             const SizedBox(height: 5),
                             Text(
@@ -84,13 +98,19 @@ class LaunchesList extends StatelessWidget {
                                     launch.mission?.description,
                                   ) ??
                                   'No description',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
-                                  ),
+                              style: isCupertino(context)
+                                  ? CupertinoTheme.of(context)
+                                      .textTheme
+                                      .textStyle
+                                      .copyWith(fontSize: 16)
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .outline,
+                                      ),
                             ),
                           ],
                         ),

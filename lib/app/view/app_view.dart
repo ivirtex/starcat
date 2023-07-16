@@ -79,13 +79,17 @@ class _AppViewState extends State<AppView> {
             ],
           ),
           tabBuilder: (context, index) {
-            return IndexedStack(
-              index: index,
-              children: const [
-                ExplorePage(),
-                LaunchesPage(),
-                NewsPage(),
-              ],
+            return CupertinoTabView(
+              builder: (context) {
+                return IndexedStack(
+                  index: index,
+                  children: const [
+                    ExplorePage(),
+                    LaunchesPage(),
+                    NewsPage(),
+                  ],
+                );
+              },
             );
           },
         );

@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -66,7 +67,9 @@ class ArticleCard extends StatelessWidget {
               flex: 4,
               child: AutoSizeText(
                 article.title,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: isCupertino(context)
+                    ? CupertinoTheme.of(context).textTheme.textStyle
+                    : Theme.of(context).textTheme.titleMedium,
               ),
             ),
             const Spacer(),
@@ -121,7 +124,9 @@ class ArticleCard extends StatelessWidget {
                   flex: 10,
                   child: Text(
                     article.title,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: isCupertino(context)
+                        ? CupertinoTheme.of(context).textTheme.navTitleTextStyle
+                        : Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
                 const Spacer(),

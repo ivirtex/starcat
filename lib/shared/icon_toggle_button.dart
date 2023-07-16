@@ -52,12 +52,14 @@ class _IconToggleButtonState extends State<IconToggleButton> {
       style = widget.getDefaultStyle!(selected, colors);
     }
 
-    return IconButton(
-      isSelected: selected,
-      icon: widget.icon,
-      selectedIcon: widget.selectedIcon,
-      onPressed: onPressed,
-      style: style,
+    return Material(
+      child: IconButton(
+        isSelected: selected,
+        icon: widget.icon,
+        selectedIcon: widget.selectedIcon,
+        onPressed: onPressed,
+        style: style,
+      ),
     );
   }
 }
