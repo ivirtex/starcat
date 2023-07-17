@@ -127,11 +127,6 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
                   StretchMode.zoomBackground,
                   StretchMode.blurBackground,
                 ],
-                titlePadding: const EdgeInsetsDirectional.only(
-                  start: 72,
-                  bottom: 16,
-                  end: 16,
-                ),
                 background: Stack(
                   fit: StackFit.expand,
                   children: [

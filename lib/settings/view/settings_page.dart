@@ -95,7 +95,7 @@ class _BodyState extends State<_Body> {
           ),
           const ThemeModeSelector(),
           if (Theme.of(context).platform != TargetPlatform.iOS)
-            SwitchListTile.adaptive(
+            SwitchListTile(
               secondary: const Icon(Icons.color_lens_rounded),
               title: const Text('Material You'),
               value: _isMaterial3Enabled,
@@ -115,7 +115,7 @@ class _BodyState extends State<_Body> {
               style: _getSectionTextStyle(context),
             ),
           ),
-          SwitchListTile.adaptive(
+          SwitchListTile(
             secondary: const Icon(Icons.notifications_active_rounded),
             title: const Text('Send notifications before every launch'),
             value: _areNotificationsSentContinuously,
