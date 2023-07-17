@@ -83,7 +83,7 @@ class UpcomingLaunchCard extends StatelessWidget {
       width: 250,
       child: ExploreCard(
         expandVertically: true,
-        onTap: () => context.go('/launch/${launch.id}'),
+        onTap: () => context.go('/explore/launch/${launch.id}'),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

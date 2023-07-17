@@ -77,7 +77,7 @@ class NextLaunchCard extends StatelessWidget {
               ThemedButton(
                 shouldCupertinoButtonBeFilled: true,
                 onPressed: doesExist
-                    ? () => context.go('/launch/${launch!.id}')
+                    ? () => context.go('/explore/launch/${launch!.id}')
                     : null,
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,

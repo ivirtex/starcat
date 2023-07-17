@@ -8,18 +8,16 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:wiredash/wiredash.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
-import 'package:starcat/app/app.dart';
+import 'package:starcat/app/router.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/notifications.dart';
-import 'package:starcat/settings/settings.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
 
@@ -130,7 +128,7 @@ class App extends StatelessWidget {
                 ),
               ),
               themeMode: context.read<ThemeCubit>().state.themeMode,
-              routerConfig: _router,
+              routerConfig: router,
             ),
           ),
         );
@@ -152,38 +150,8 @@ class App extends StatelessWidget {
                   ? Brightness.light
                   : null,
         ),
-        routerConfig: _router,
+        routerConfig: router,
       ),
     );
   }
 }
-
-final _router = GoRouter(
-  initialLocation: '/',
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const AppView(),
-      routes: [
-        GoRoute(
-          path: 'launch/:id',
-          builder: (context, state) {
-            final allLaunches = context.read<LaunchesBloc>().state.allLaunches;
-            final launch = allLaunches.firstWhere(
-              (launch) => launch.id == state.pathParameters['id'],
-            );
-
-            return LaunchDetailsPage(
-              launch: launch,
-              withHero: state.queryParameters['withHero'] == 'true',
-            );
-          },
-        ),
-        GoRoute(
-          path: 'settings',
-          builder: (context, state) => const SettingsPage(),
-        ),
-      ],
-    ),
-  ],
-);

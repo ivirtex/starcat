@@ -2,27 +2,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// Package imports:
+import 'package:go_router/go_router.dart';
+
 // Project imports:
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/shared/shared.dart';
 
-class AppView extends StatefulWidget {
-  const AppView({super.key});
+class AppView extends StatelessWidget {
+  const AppView({
+    required this.navigationShell,
+    super.key,
+  });
 
-  @override
-  State<AppView> createState() => _AppViewState();
-}
-
-class _AppViewState extends State<AppView> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +25,6 @@ class _AppViewState extends State<AppView> {
       material: (context) {
         return Scaffold(
           bottomNavigationBar: NavigationBar(
-            selectedIndex: _selectedIndex,
-            onDestinationSelected: _onItemTapped,
             destinations: const [
               NavigationDestination(
                 icon: Icon(Icons.explore_rounded),
@@ -46,18 +39,10 @@ class _AppViewState extends State<AppView> {
                 label: 'News',
               ),
             ],
+            selectedIndex: navigationShell.currentIndex,
+            onDestinationSelected: (int idx) => _onItemTapped(idx, context),
           ),
-          body: SafeArea(
-            top: false,
-            child: IndexedStack(
-              index: _selectedIndex,
-              children: const [
-                ExplorePage(),
-                LaunchesPage(),
-                NewsPage(),
-              ],
-            ),
-          ),
+          body: navigationShell,
         );
       },
       cupertino: (context) {
@@ -90,6 +75,13 @@ class _AppViewState extends State<AppView> {
           },
         );
       },
+    );
+  }
+
+  void _onItemTapped(int index, BuildContext context) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
     );
   }
 }

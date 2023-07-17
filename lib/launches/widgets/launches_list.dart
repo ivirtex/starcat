@@ -35,7 +35,8 @@ class LaunchesList extends StatelessWidget {
             child: ExploreCard(
               title: const Text('Status'),
               trailing: LaunchStatus(launch.status),
-              onTap: () => context.go('/launch/${launch.id}?withHero=true'),
+              onTap: () =>
+                  context.go('/launches/launch/${launch.id}?withHero=true'),
               padding: EdgeInsets.zero,
               child: IntrinsicHeight(
                 child: Row(

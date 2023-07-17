@@ -75,6 +75,7 @@ class _ExploreViewState extends State<ExploreView> {
       material: (context) => Scaffold(
         body: RefreshIndicator(
           onRefresh: () async => _onRefresh(context),
+          edgeOffset: 50,
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -83,7 +84,7 @@ class _ExploreViewState extends State<ExploreView> {
                 actions: [
                   IconButton(
                     icon: const Icon(Icons.settings_rounded),
-                    onPressed: () => context.go('/settings'),
+                    onPressed: () => context.go('/explore/settings'),
                   ),
                 ],
               ),

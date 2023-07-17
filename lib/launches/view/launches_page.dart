@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 // Project imports:
@@ -32,20 +31,14 @@ class LaunchesPage extends StatelessWidget {
       ),
       // TODO(ivirtex): add navigation bar with
       // upcoming and past launches and news tabs
-      material: (context) => Scaffold(
+      material: (context) => const Scaffold(
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
               pinned: true,
-              title: const Text('Launches'),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.settings_rounded),
-                  onPressed: () => context.go('/settings'),
-                ),
-              ],
+              title: Text('Launches'),
             ),
-            const _Body(),
+            _Body(),
           ],
         ),
       ),
