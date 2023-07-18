@@ -46,6 +46,13 @@ void main() {
     });
 
     testWidgets('shows upcoming launches', (tester) async {
+      when(() => launchesBloc.state).thenReturn(
+        LaunchesState(
+          upcomingLaunches: const [launch1],
+          pastLaunches: [launch2, launch3],
+        ),
+      );
+
       await tester.pumpApp(
         launchesBloc: launchesBloc,
         const LaunchesPage(),

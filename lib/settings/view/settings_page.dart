@@ -114,10 +114,12 @@ class _BodyState extends State<_Body> {
             },
           ),
           if (Theme.of(context).platform != TargetPlatform.iOS)
-            const ListTile(
-              leading: Icon(Icons.edit_notifications_rounded),
-              title: Text('Customize notifications'),
-              onTap: AppSettings.openNotificationSettings,
+            ListTile(
+              leading: const Icon(Icons.edit_notifications_rounded),
+              title: const Text('Customize notifications'),
+              onTap: () => AppSettings.openAppSettings(
+                type: AppSettingsType.notification,
+              ),
             ),
           const SizedBox(height: kListSpacing),
           Padding(
