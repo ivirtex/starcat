@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
+import 'package:starcat/app/app.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/cubit/cubit.dart';
@@ -68,8 +68,7 @@ extension PumpApp on WidgetTester {
     );
   }
 
-  Future<void> pumpAppWithRouter(
-    Widget widget, {
+  Future<void> pumpAppWithRouter({
     LaunchLibraryRepository? launchLibraryRepository,
     SpaceflightNewsRepository? spaceflightNewsRepository,
     LaunchesBloc? launchesBloc,
@@ -79,6 +78,7 @@ extension PumpApp on WidgetTester {
     FlutterLocalNotificationsPlugin? notificationsPluginMock,
     Workmanager? workmanagerMock,
     TargetPlatform platform = TargetPlatform.android,
+    String location = '/explore',
   }) {
     return pumpWidget(
       MultiBlocProvider(
@@ -110,35 +110,7 @@ extension PumpApp on WidgetTester {
           themeMode: themeCubit?.state.themeMode,
           theme: ThemeData().copyWith(platform: platform),
           darkTheme: ThemeData.dark().copyWith(platform: platform),
-          routerConfig: GoRouter(
-            routes: [
-              GoRoute(
-                path: '/',
-                builder: (context, state) => widget,
-                routes: [
-                  GoRoute(
-                    path: 'launch/:id',
-                    builder: (context, state) {
-                      final allLaunches =
-                          context.read<LaunchesBloc>().state.allLaunches;
-                      final launch = allLaunches.firstWhere(
-                        (launch) => launch.id == state.pathParameters['id'],
-                      );
-
-                      return LaunchDetailsPage(
-                        launch: launch,
-                        withHero: state.queryParameters['withHero'] == 'true',
-                      );
-                    },
-                  ),
-                  GoRoute(
-                    path: 'news',
-                    builder: (context, state) => const NewsPage(),
-                  )
-                ],
-              ),
-            ],
-          ),
+          routerConfig: createRouter(initialLocation: location),
         ),
       ),
     );

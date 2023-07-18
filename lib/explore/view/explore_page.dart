@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,6 @@ import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/notifications.dart';
-import 'package:starcat/shared/shared.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -59,38 +57,24 @@ class _ExploreViewState extends State<ExploreView> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformWidget(
-      cupertino: (context) => const CupertinoPageScaffold(
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () async => _onRefresh(context),
+        edgeOffset: 50,
         child: CustomScrollView(
           slivers: [
-            CupertinoSliverNavigationBar(
-              stretch: true,
-              border: null,
-              largeTitle: Text('Explore'),
+            SliverAppBar(
+              pinned: true,
+              title: const Text('Explore'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.settings_rounded),
+                  onPressed: () => context.go('/explore/settings'),
+                ),
+              ],
             ),
-            _Body(),
+            const _Body(),
           ],
-        ),
-      ),
-      material: (context) => Scaffold(
-        body: RefreshIndicator(
-          onRefresh: () async => _onRefresh(context),
-          edgeOffset: 50,
-          child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                pinned: true,
-                title: const Text('Explore'),
-                actions: [
-                  IconButton(
-                    icon: const Icon(Icons.settings_rounded),
-                    onPressed: () => context.go('/explore/settings'),
-                  ),
-                ],
-              ),
-              const _Body(),
-            ],
-          ),
         ),
       ),
     );

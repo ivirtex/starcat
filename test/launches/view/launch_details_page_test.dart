@@ -1,6 +1,3 @@
-// Flutter imports:
-import 'package:flutter/cupertino.dart';
-
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -48,18 +45,6 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(LaunchDetailsView), findsOneWidget);
-    });
-
-    testWidgets('uses Cupertino widgets on iOS', (tester) async {
-      await tester.pumpApp(
-        platform: TargetPlatform.iOS,
-        const LaunchDetailsView(launch: sampleLaunch),
-      );
-
-      await tester.pump(const Duration(seconds: 2));
-
-      expect(find.byType(CupertinoPageScaffold), findsOneWidget);
-      expect(find.byType(CupertinoSliverNavigationBar), findsOneWidget);
     });
 
     testWidgets('renders image', (tester) async {

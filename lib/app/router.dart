@@ -15,79 +15,81 @@ import 'package:starcat/settings/settings.dart';
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 
-final router = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  initialLocation: '/explore',
-  debugLogDiagnostics: true,
-  routes: [
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navShell) {
-        return AppView(navigationShell: navShell);
-      },
-      branches: [
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/explore',
-              builder: (context, state) => const ExplorePage(),
-              routes: [
-                GoRoute(
-                  path: 'launch/:id',
-                  builder: (context, state) {
-                    final allLaunches =
-                        context.read<LaunchesBloc>().state.allLaunches;
-                    final launch = allLaunches.firstWhere(
-                      (launch) => launch.id == state.pathParameters['id'],
-                    );
+GoRouter createRouter({String initialLocation = '/explore'}) {
+  return GoRouter(
+    navigatorKey: _rootNavigatorKey,
+    initialLocation: initialLocation,
+    debugLogDiagnostics: true,
+    routes: [
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navShell) {
+          return AppView(navigationShell: navShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/explore',
+                builder: (context, state) => const ExplorePage(),
+                routes: [
+                  GoRoute(
+                    path: 'launch/:id',
+                    builder: (context, state) {
+                      final allLaunches =
+                          context.read<LaunchesBloc>().state.allLaunches;
+                      final launch = allLaunches.firstWhere(
+                        (launch) => launch.id == state.pathParameters['id'],
+                      );
 
-                    return LaunchDetailsPage(
-                      launch: launch,
-                      withHero: state.queryParameters['withHero'] == 'true',
-                    );
-                  },
-                ),
-                GoRoute(
-                  path: 'settings',
-                  builder: (context, state) => const SettingsPage(),
-                ),
-              ],
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/launches',
-              builder: (context, state) => const LaunchesPage(),
-              routes: [
-                GoRoute(
-                  path: 'launch/:id',
-                  builder: (context, state) {
-                    final allLaunches =
-                        context.read<LaunchesBloc>().state.allLaunches;
-                    final launch = allLaunches.firstWhere(
-                      (launch) => launch.id == state.pathParameters['id'],
-                    );
+                      return LaunchDetailsPage(
+                        launch: launch,
+                        withHero: state.queryParameters['withHero'] == 'true',
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'settings',
+                    builder: (context, state) => const SettingsPage(),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/launches',
+                builder: (context, state) => const LaunchesPage(),
+                routes: [
+                  GoRoute(
+                    path: 'launch/:id',
+                    builder: (context, state) {
+                      final allLaunches =
+                          context.read<LaunchesBloc>().state.allLaunches;
+                      final launch = allLaunches.firstWhere(
+                        (launch) => launch.id == state.pathParameters['id'],
+                      );
 
-                    return LaunchDetailsPage(
-                      launch: launch,
-                      withHero: state.queryParameters['withHero'] == 'true',
-                    );
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/news',
-              builder: (context, state) => const NewsPage(),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ],
-);
+                      return LaunchDetailsPage(
+                        launch: launch,
+                        withHero: state.queryParameters['withHero'] == 'true',
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/news',
+                builder: (context, state) => const NewsPage(),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
+}

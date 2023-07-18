@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:starcat/helpers/format_duration.dart';
 
 /// Computes the cache expiration date for the launch data.
-/// Used for preventing rate limiting.
+/// Used to prevent unnecessary API calls.
 DateTime computeCacheExpirationDate(
   DateTime now,
   DateTime? launchNet,

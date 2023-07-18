@@ -20,8 +20,8 @@ void main() {
     late LaunchesBloc launchesBloc;
 
     const launch1 = sampleLaunch;
-    final launch2 = sampleLaunch.copyWith(id: '2');
-    final launch3 = sampleLaunch.copyWith(id: '3');
+    final launch2 = sampleLaunch.copyWith(id: '2', name: 'Launch 2');
+    final launch3 = sampleLaunch.copyWith(id: '3', name: 'Launch 3');
 
     setUpAll(() {
       launchesBloc = MockLaunchesBloc();
@@ -86,23 +86,24 @@ void main() {
     testWidgets('navigates to launch details', (tester) async {
       when(() => launchesBloc.state).thenReturn(
         LaunchesState(
-          upcomingLaunches: const [launch1],
+          selectedLaunches: SelectedLaunches.past,
           pastLaunches: [launch2, launch3],
         ),
       );
 
       await tester.pumpAppWithRouter(
         launchesBloc: launchesBloc,
-        const LaunchesPage(),
+        location: '/launches',
       );
 
       await tester.pump(const Duration(seconds: 3));
 
-      await tester.tap(find.byType(ExploreCard));
-      await tester.pumpAndSettle();
+      await tester.tap(find.text(launch2.name));
+      await tester.pump(const Duration(seconds: 3));
+      await tester.pump(const Duration(seconds: 3));
 
       expect(find.byType(LaunchDetailsPage), findsOneWidget);
-      expect(find.text(launch1.mission!.name!), findsOneWidget);
+      expect(find.text(launch2.mission!.name!), findsOneWidget);
     });
   });
 }

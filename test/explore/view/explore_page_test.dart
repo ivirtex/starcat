@@ -242,35 +242,5 @@ void main() {
         verify(() => newsBloc.add(const NewsFetchRequested())).called(2);
       },
     );
-
-    //! https://github.com/flutter/flutter/issues/83788
-    testWidgets(
-      'renders Cupertino style page for iOS',
-      (WidgetTester tester) async {
-        when(() => launchesBloc.state).thenReturn(
-          const LaunchesState(
-            status: LaunchesStatus.success,
-          ),
-        );
-        when(() => newsBloc.state).thenReturn(
-          const NewsState(status: NewsStatus.success),
-        );
-
-        await tester.pumpApp(
-          launchesBloc: launchesBloc,
-          newsBloc: newsBloc,
-          platform: TargetPlatform.iOS,
-          const ExploreView(),
-        );
-
-        await tester.pump(const Duration(seconds: 3));
-
-        expect(find.byType(CupertinoPageScaffold), findsOneWidget);
-        expect(find.byType(Scaffold), findsNothing);
-
-        expect(find.byType(CustomScrollView), findsOneWidget);
-        expect(find.byType(CupertinoSliverNavigationBar), findsOneWidget);
-      },
-    );
   });
 }

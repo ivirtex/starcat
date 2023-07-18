@@ -104,11 +104,7 @@ void main() {
     testWidgets('navigates to launch details', (tester) async {
       await tester.pumpAppWithRouter(
         launchesBloc: launchesBloc,
-        CustomScrollView(
-          slivers: [
-            LaunchesList(launches: launches),
-          ],
-        ),
+        location: '/launches',
       );
 
       await tester.tap(find.byType(ExploreCard).first);

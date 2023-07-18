@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -9,38 +8,21 @@ import 'package:sliver_tools/sliver_tools.dart';
 // Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/launches/launches.dart';
-import 'package:starcat/shared/shared.dart';
 
 class LaunchesPage extends StatelessWidget {
   const LaunchesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return PlatformWidget(
-      cupertino: (context) => const CupertinoPageScaffold(
-        child: CustomScrollView(
-          slivers: [
-            CupertinoSliverNavigationBar(
-              stretch: true,
-              border: null,
-              largeTitle: Text('Explore'),
-            ),
-            _Body(),
-          ],
-        ),
-      ),
-      // TODO(ivirtex): add navigation bar with
-      // upcoming and past launches and news tabs
-      material: (context) => const Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              title: Text('Launches'),
-            ),
-            _Body(),
-          ],
-        ),
+    return const Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            title: Text('Launches'),
+          ),
+          _Body(),
+        ],
       ),
     );
   }

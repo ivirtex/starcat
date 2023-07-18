@@ -1,7 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
@@ -25,20 +25,12 @@ void main() {
       when(() => newsBloc.state).thenReturn(const NewsState());
     });
 
-    testWidgets('renders correctly on iOS', (WidgetTester tester) async {
-      await tester.pumpApp(const NewsPage(), platform: TargetPlatform.iOS);
-
-      await tester.pumpAndSettle();
-
-      expect(find.byType(CupertinoPageScaffold), findsOneWidget);
-    });
-
     testWidgets('renders correctly on Android', (WidgetTester tester) async {
       await tester.pumpApp(const NewsPage());
 
       await tester.pumpAndSettle();
 
-      expect(find.byType(CupertinoPageScaffold), findsNothing);
+      expect(find.byType(Scaffold), findsOneWidget);
     });
 
     testWidgets(

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
-import 'package:starcat/shared/shared.dart';
 
 class ExploreCard extends StatelessWidget {
   const ExploreCard({
@@ -65,81 +64,63 @@ class ExploreCard extends StatelessWidget {
   }
 
   Widget buildBody({required BuildContext context}) {
-    return PlatformWidget(
-      cupertino: (_) => Padding(
-        padding: const EdgeInsets.all(5),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: color ?? Theme.of(context).colorScheme.surface,
-          ),
-          child: CupertinoInkWell(
-            onPressed: onTap,
-            child: Padding(
-              padding: padding,
-              child: child,
-            ),
-          ),
-        ),
-      ),
-      material: (_) => slideOut != null
-          ? Padding(
-              // Compensate for margin of a card
-              padding: const EdgeInsets.only(top: 4),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: slideOutColor ??
-                      Theme.of(context).colorScheme.surfaceVariant,
-                  borderRadius: BorderRadius.circular(kBorderRadius),
+    return slideOut != null
+        ? Padding(
+            // Compensate for margin of a card
+            padding: const EdgeInsets.only(top: 4),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: slideOutColor ??
+                    Theme.of(context).colorScheme.surfaceVariant,
+                borderRadius: BorderRadius.circular(kBorderRadius),
+              ),
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: slideOutPadding,
-                        child: slideOut,
-                      ),
-                      Expanded(
-                        flex: expandVertically ? 1 : 0,
-                        child: Card(
-                          margin: EdgeInsets.zero,
-                          color: color ?? Theme.of(context).colorScheme.surface,
-                          shape: shape ??
-                              const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  bottom: Radius.circular(kBorderRadius),
-                                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: slideOutPadding,
+                      child: slideOut,
+                    ),
+                    Expanded(
+                      flex: expandVertically ? 1 : 0,
+                      child: Card(
+                        margin: EdgeInsets.zero,
+                        color: color ?? Theme.of(context).colorScheme.surface,
+                        shape: shape ??
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(kBorderRadius),
                               ),
-                          child: InkWell(
-                            onTap: onTap,
-                            child: Padding(
-                              padding: padding,
-                              child: child,
                             ),
+                        child: InkWell(
+                          onTap: onTap,
+                          child: Padding(
+                            padding: padding,
+                            child: child,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          : Card(
-              shape: shape,
-              margin: EdgeInsets.zero,
-              color: color,
-              child: InkWell(
-                onTap: onTap,
-                child: Padding(
-                  padding: padding,
-                  child: child,
+                    ),
+                  ],
                 ),
               ),
             ),
-    );
+          )
+        : Card(
+            shape: shape,
+            margin: EdgeInsets.zero,
+            color: color,
+            child: InkWell(
+              onTap: onTap,
+              child: Padding(
+                padding: padding,
+                child: child,
+              ),
+            ),
+          );
   }
 }

@@ -1,10 +1,8 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -13,7 +11,6 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:starcat/constants.dart';
 import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/launches/launches.dart';
-import 'package:starcat/shared/shared.dart';
 
 class LaunchDetailsPage extends StatelessWidget {
   const LaunchDetailsPage({
@@ -92,83 +89,67 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformWidget(
-      cupertino: (_) => CupertinoPageScaffold(
-        child: CustomScrollView(
-          slivers: [
-            CupertinoSliverNavigationBar(
-              stretch: true,
-              border: null,
-              largeTitle: AutoSizeText(widget.launch.mission?.name ?? 'N/A'),
+    return Scaffold(
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        controller: scrollController,
+        slivers: [
+          SliverAppBar.medium(
+            stretch: true,
+            expandedHeight: 200,
+            systemOverlayStyle:
+                hasAppBarCollapsed ? null : SystemUiOverlayStyle.light,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              color: hasAppBarCollapsed ? Colors.black : Colors.white,
+              onPressed: () => Navigator.of(context).pop(),
             ),
-            _Body(
-              launch: widget.launch,
-            ),
-          ],
-        ),
-      ),
-      material: (_) => Scaffold(
-        body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          controller: scrollController,
-          slivers: [
-            SliverAppBar.medium(
-              stretch: true,
-              expandedHeight: 200,
-              systemOverlayStyle:
-                  hasAppBarCollapsed ? null : SystemUiOverlayStyle.light,
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                color: hasAppBarCollapsed ? Colors.black : Colors.white,
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              flexibleSpace: FlexibleSpaceBar(
-                stretchModes: const [
-                  StretchMode.zoomBackground,
-                  StretchMode.blurBackground,
-                ],
-                background: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    HeroMode(
-                      enabled: widget.withHero,
-                      child: Hero(
-                        tag: widget.launch.id,
-                        child: MissionImage(
-                          imageUrl: widget.launch.image ?? '',
-                          fit: BoxFit.cover,
-                        ),
+            flexibleSpace: FlexibleSpaceBar(
+              stretchModes: const [
+                StretchMode.zoomBackground,
+                StretchMode.blurBackground,
+              ],
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  HeroMode(
+                    enabled: widget.withHero,
+                    child: Hero(
+                      tag: widget.launch.id,
+                      child: MissionImage(
+                        imageUrl: widget.launch.image ?? '',
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    const DecoratedBox(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment(0, 0.5),
-                          end: Alignment.center,
-                          colors: [
-                            Colors.black26,
-                            Colors.transparent,
-                          ],
-                        ),
-                      ),
-                    )
-                        .animate(delay: 150.ms)
-                        .fadeIn(duration: kListAnimationFadeDuration),
-                  ],
-                ),
-                title: Text(
-                  widget.launch.mission?.name ?? 'N/A',
-                  style: TextStyle(
-                    color: hasAppBarCollapsed ? Colors.black : Colors.white,
                   ),
-                )
-                    .animate(delay: 150.ms)
-                    .fadeIn(duration: kListAnimationFadeDuration),
+                  const DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(0, 0.5),
+                        end: Alignment.center,
+                        colors: [
+                          Colors.black26,
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                  )
+                      .animate(delay: 150.ms)
+                      .fadeIn(duration: kListAnimationFadeDuration),
+                ],
               ),
+              title: Text(
+                widget.launch.mission?.name ?? 'N/A',
+                style: TextStyle(
+                  color: hasAppBarCollapsed ? Colors.black : Colors.white,
+                ),
+              )
+                  .animate(delay: 150.ms)
+                  .fadeIn(duration: kListAnimationFadeDuration),
             ),
-            _Body(launch: widget.launch),
-          ],
-        ),
+          ),
+          _Body(launch: widget.launch),
+        ],
       ),
     );
   }

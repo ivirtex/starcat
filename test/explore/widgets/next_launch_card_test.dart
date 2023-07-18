@@ -30,8 +30,12 @@ void main() {
 
       when(() => launchLibraryRepository.getLaunchDetails(any()))
           .thenAnswer((_) async => sampleLaunch);
-      when(() => launchesBloc.state)
-          .thenReturn(const LaunchesState(upcomingLaunches: [sampleLaunch]));
+      when(() => launchesBloc.state).thenReturn(
+        const LaunchesState(
+          upcomingLaunches: [sampleLaunch],
+          status: LaunchesStatus.success,
+        ),
+      );
     });
 
     testWidgets('renders ExploreCard', (WidgetTester tester) async {
@@ -50,7 +54,6 @@ void main() {
       await tester.pumpAppWithRouter(
         launchLibraryRepository: launchLibraryRepository,
         launchesBloc: launchesBloc,
-        const NextLaunchCard(launch: sampleLaunch),
       );
 
       await tester.tap(find.text('Launch Details'));

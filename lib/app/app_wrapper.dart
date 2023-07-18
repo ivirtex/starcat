@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +17,6 @@ import 'package:starcat/app/router.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/notifications.dart';
-import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
 
 class AppWrapper extends StatelessWidget {
@@ -69,10 +67,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
-        return PlatformWidget(
-          material: _createSchemedMaterialApp,
-          cupertino: _createCupertinoApp,
-        );
+        return _createSchemedMaterialApp(context);
       },
     );
   }
@@ -128,30 +123,11 @@ class App extends StatelessWidget {
                 ),
               ),
               themeMode: context.read<ThemeCubit>().state.themeMode,
-              routerConfig: router,
+              routerConfig: createRouter(),
             ),
           ),
         );
       },
-    );
-  }
-
-  Widget _createCupertinoApp(BuildContext context) {
-    return Wiredash(
-      projectId: 'starcat-w3mkxif',
-      secret: '8y10DEziectf1WRHc9DWrmnog2p_YHo8',
-      child: CupertinoApp.router(
-        title: 'Falcon',
-        theme: CupertinoThemeData(
-          brightness: context.read<ThemeCubit>().state.themeMode ==
-                  ThemeMode.dark
-              ? Brightness.dark
-              : context.read<ThemeCubit>().state.themeMode == ThemeMode.light
-                  ? Brightness.light
-                  : null,
-        ),
-        routerConfig: router,
-      ),
     );
   }
 }

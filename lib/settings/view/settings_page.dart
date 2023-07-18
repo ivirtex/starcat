@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -13,7 +12,6 @@ import 'package:wiredash/wiredash.dart';
 import 'package:starcat/constants.dart';
 import 'package:starcat/notifications/cubit/notifications_cubit.dart';
 import 'package:starcat/settings/settings.dart';
-import 'package:starcat/shared/shared.dart';
 import 'package:starcat/theme/theme.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -30,29 +28,15 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformWidget(
-      cupertino: (_) => const CupertinoPageScaffold(
-        child: CustomScrollView(
-          slivers: [
-            CupertinoSliverNavigationBar(
-              stretch: true,
-              border: null,
-              largeTitle: Text('Settings'),
-            ),
-            _Body(),
-          ],
-        ),
-      ),
-      material: (_) => const Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              title: Text('Settings'),
-            ),
-            _Body(),
-          ],
-        ),
+    return const Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            title: Text('Settings'),
+          ),
+          _Body(),
+        ],
       ),
     );
   }

@@ -19,7 +19,7 @@ class PlatformWidget extends StatelessWidget {
     switch (platform) {
       case TargetPlatform.macOS:
       case TargetPlatform.iOS:
-      // return cupertino?.call(context) ?? const SizedBox.shrink();
+        return cupertino?.call(context) ?? const SizedBox.shrink();
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
       case TargetPlatform.linux:

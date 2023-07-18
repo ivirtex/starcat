@@ -75,7 +75,6 @@ class NextLaunchCard extends StatelessWidget {
               ),
               const SizedBox(height: kListSpacing),
               ThemedButton(
-                shouldCupertinoButtonBeFilled: true,
                 onPressed: doesExist
                     ? () => context.go('/explore/launch/${launch!.id}')
                     : null,

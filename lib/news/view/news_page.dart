@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -9,7 +8,6 @@ import 'package:sliver_tools/sliver_tools.dart';
 // Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/news/news.dart';
-import 'package:starcat/shared/shared.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -47,40 +45,26 @@ class _NewsViewState extends State<NewsView> {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformWidget(
-      cupertino: (_) => const CupertinoPageScaffold(
-        child: CustomScrollView(
-          slivers: [
-            CupertinoSliverNavigationBar(
-              stretch: true,
-              border: null,
-              largeTitle: Text('News'),
-            ),
-            _Body(),
-          ],
-        ),
-      ),
-      material: (_) => Scaffold(
-        floatingActionButton: shouldShowFab
-            ? FloatingActionButton(
-                onPressed: () => scrollController.animateTo(
-                  0,
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.easeInOut,
-                ),
-                child: const Icon(Icons.arrow_upward_rounded),
-              )
-            : null,
-        body: CustomScrollView(
-          controller: scrollController,
-          slivers: const [
-            SliverAppBar(
-              pinned: true,
-              title: Text('News'),
-            ),
-            _Body(),
-          ],
-        ),
+    return Scaffold(
+      floatingActionButton: shouldShowFab
+          ? FloatingActionButton(
+              onPressed: () => scrollController.animateTo(
+                0,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeInOut,
+              ),
+              child: const Icon(Icons.arrow_upward_rounded),
+            )
+          : null,
+      body: CustomScrollView(
+        controller: scrollController,
+        slivers: const [
+          SliverAppBar(
+            pinned: true,
+            title: Text('News'),
+          ),
+          _Body(),
+        ],
       ),
     );
   }

@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -29,31 +28,20 @@ class NotifyAboutLaunchButton extends StatelessWidget {
     final areNotificationsContinuous =
         notificationsCubit.state.areNotificationsContinuous;
 
-    return PlatformWidget(
-      material: (context) {
-        return IconToggleButton(
-          isEnabled: isUpcoming && !areNotificationsContinuous,
-          getDefaultStyle: isUpcoming && !areNotificationsContinuous
-              ? enabledFilledTonalButtonStyle
-              : disabledFilledTonalButtonStyle,
-          icon: const Icon(Icons.notification_add_rounded),
-          selectedIcon: const Icon(Icons.notifications_active_rounded),
-          selected: isLaunchTracked || areNotificationsContinuous,
-          onToggle: (selected) {
-            if (selected) {
-              context.read<NotificationsCubit>().trackLaunch(launch);
-            } else {
-              context.read<NotificationsCubit>().cancelTrackingLaunch(launch);
-            }
-          },
-        );
-      },
-      cupertino: (context) {
-        // TODO(ivirtex): impelement this
-        return CupertinoButton.filled(
-          child: const Text('Notify me'),
-          onPressed: () {},
-        );
+    return IconToggleButton(
+      isEnabled: isUpcoming && !areNotificationsContinuous,
+      getDefaultStyle: isUpcoming && !areNotificationsContinuous
+          ? enabledFilledTonalButtonStyle
+          : disabledFilledTonalButtonStyle,
+      icon: const Icon(Icons.notification_add_rounded),
+      selectedIcon: const Icon(Icons.notifications_active_rounded),
+      selected: isLaunchTracked || areNotificationsContinuous,
+      onToggle: (selected) {
+        if (selected) {
+          context.read<NotificationsCubit>().trackLaunch(launch);
+        } else {
+          context.read<NotificationsCubit>().cancelTrackingLaunch(launch);
+        }
       },
     );
   }
