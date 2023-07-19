@@ -2,7 +2,6 @@
 
 // Dart imports:
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 // Flutter imports:
@@ -24,7 +23,15 @@ import 'package:starcat/notifications/notifications.dart';
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
-    log('Executing task $task at ${DateTime.now()}');
+    final directory = await getApplicationDocumentsDirectory();
+    final logFile = File('${directory.path}/logs.txt');
+
+    final logger = Logger(
+      output: FileOutput(logFile),
+      printer: SimplePrinter(printTime: true),
+    );
+
+    logger.i('Executing task $task at ${DateTime.now()}');
 
     final pluginInstance = FlutterLocalNotificationsPlugin();
     await initNotifications(pluginInstance: pluginInstance);
@@ -35,14 +42,6 @@ void callbackDispatcher() {
       isInDebugMode: kDebugMode,
     );
 
-    final directory = await getApplicationDocumentsDirectory();
-    final logFile = File('${directory.path}/logs.txt');
-
-    final logger = Logger(
-      output: FileOutput(logFile),
-      printer: SimplePrinter(printTime: true),
-    );
-
     switch (task) {
       // This task is scheduled when the user
       // turns on continuous launch notifications feature
@@ -51,9 +50,6 @@ void callbackDispatcher() {
             inputData!['currentUpcomingLaunchUrl'] as String;
         final currentUpcomingLaunchDate =
             DateTime.tryParse(inputData['launchDate'] as String? ?? '');
-        final currentCheckFrequency = Duration(
-          seconds: inputData['currentCheckFrequency'] as int,
-        );
 
         try {
           final request = Uri.parse(kUpcomingLaunchUrl);
@@ -151,22 +147,20 @@ void callbackDispatcher() {
               actualUpcomingLaunch.net!.toLocal(),
               DateTime.now(),
             );
-            if (suggestedCheckFrequency != currentCheckFrequency) {
-              logger.i(
-                '''
-                  autoNextLaunchCheck:
-                  New check frequency suggested for 
-                  ${actualUpcomingLaunch.name} is ${formatDuration(suggestedCheckFrequency)}
-                  ''',
-              );
+            logger.i(
+              '''
+                autoNextLaunchCheck:
+                New check frequency suggested for 
+                ${actualUpcomingLaunch.name} is ${formatDuration(suggestedCheckFrequency)}
+                ''',
+            );
 
-              await cancelAutoNextLaunchCheck();
-              await scheduleAutoNextLaunchCheck(
-                currentUpcomingLaunchUrl: actualUpcomingLaunch.url,
-                launchDate: actualUpcomingLaunch.net!.toLocal(),
-                checkFrequency: suggestedCheckFrequency,
-              );
-            }
+            await cancelAutoNextLaunchCheck();
+            await scheduleAutoNextLaunchCheck(
+              currentUpcomingLaunchUrl: actualUpcomingLaunch.url,
+              launchDate: actualUpcomingLaunch.net!.toLocal(),
+              checkFrequency: suggestedCheckFrequency,
+            );
           }
         } catch (e) {
           logger.e('Error in autoNextLaunchCheck: $e');

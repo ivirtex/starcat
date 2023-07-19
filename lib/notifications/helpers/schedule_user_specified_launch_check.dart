@@ -1,24 +1,23 @@
 // Package imports:
 import 'package:workmanager/workmanager.dart';
 
-String _userSpecifiedCheckTaskName = 'userSpecifiedLaunchCheck';
+String _userSpecifiedCheckTaskName = 'dev.ivirtex.starcat.userSpecifiedCheck';
 
 Future<void> scheduleUserSpecifiedLaunchCheck({
   required DateTime launchDate,
   required Uri launchUpdateUri,
   required Workmanager workmanager,
-  Duration? checkFrequency = const Duration(hours: 1),
+  Duration checkFrequency = const Duration(hours: 1),
 }) async {
   assert(
     launchDate == launchDate.toLocal(),
     'launchDate must be in local time',
   );
 
-  await workmanager.registerPeriodicTask(
-    launchUpdateUri.toString(),
+  await workmanager.registerOneOffTask(
     _userSpecifiedCheckTaskName,
-    frequency: checkFrequency,
-    initialDelay: const Duration(seconds: 3),
+    _userSpecifiedCheckTaskName,
+    initialDelay: checkFrequency,
     constraints: Constraints(
       networkType: NetworkType.connected,
     ),
@@ -26,7 +25,7 @@ Future<void> scheduleUserSpecifiedLaunchCheck({
     inputData: <String, dynamic>{
       'launchDate': launchDate.toIso8601String(),
       'launchUpdateUri': launchUpdateUri.toString(),
-      'frequency': checkFrequency!.inSeconds,
+      'frequency': checkFrequency.inSeconds,
     },
   );
 }

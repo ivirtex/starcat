@@ -46,6 +46,7 @@ class _ExploreViewState extends State<ExploreView> {
         Future.delayed(const Duration(seconds: 1), () {
           showModalBottomSheet<void>(
             context: context,
+            useRootNavigator: true,
             builder: (context) => const NotificationsPreferenceModal(),
           );
         });

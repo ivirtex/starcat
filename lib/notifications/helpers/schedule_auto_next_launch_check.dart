@@ -1,7 +1,8 @@
 // Package imports:
 import 'package:workmanager/workmanager.dart';
 
-const String _autoNextLaunchCheckTaskName = 'autoNextLaunchCheck';
+const String _autoNextLaunchCheckTaskName =
+    'dev.ivirtex.starcat.autoNextLaunchCheck';
 
 Future<void> scheduleAutoNextLaunchCheck({
   required Duration checkFrequency,
@@ -13,15 +14,13 @@ Future<void> scheduleAutoNextLaunchCheck({
     'launchDate must be in local time',
   );
 
-  await Workmanager().registerPeriodicTask(
+  await Workmanager().registerOneOffTask(
     _autoNextLaunchCheckTaskName,
     _autoNextLaunchCheckTaskName,
-    frequency: checkFrequency,
-    initialDelay: const Duration(seconds: 5),
+    initialDelay: checkFrequency,
     constraints: Constraints(
       networkType: NetworkType.connected,
     ),
-    existingWorkPolicy: ExistingWorkPolicy.replace,
     inputData: <String, dynamic>{
       'currentUpcomingLaunchUrl': currentUpcomingLaunchUrl ?? '',
       'launchDate': launchDate?.toIso8601String() ?? '',
