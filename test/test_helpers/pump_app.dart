@@ -26,8 +26,8 @@ extension PumpApp on WidgetTester {
     NewsBloc? newsBloc,
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
-    FlutterLocalNotificationsPlugin? notificationsPluginMock,
-    Workmanager? workmanagerMock,
+    FlutterLocalNotificationsPlugin? notificationsPlugin,
+    Workmanager? workmanager,
     TargetPlatform platform = TargetPlatform.android,
   }) {
     initHydratedStorage();
@@ -53,8 +53,8 @@ extension PumpApp on WidgetTester {
           BlocProvider.value(
             value: notificationsCubit ??
                 NotificationsCubit(
-                  notificationsPluginMock ?? FlutterLocalNotificationsPlugin(),
-                  workmanagerMock ?? Workmanager(),
+                  notificationsPlugin ?? FlutterLocalNotificationsPlugin(),
+                  workmanager ?? Workmanager(),
                 ),
           )
         ],

@@ -101,10 +101,9 @@ void main() {
 
     registerFallbackValue(const Duration(days: 1));
     when(
-      () => workmanager.registerPeriodicTask(
+      () => workmanager.registerOneOffTask(
         any(),
         any(),
-        frequency: any(named: 'frequency'),
         initialDelay: any(named: 'initialDelay'),
         constraints: any(named: 'constraints'),
         existingWorkPolicy: any(named: 'existingWorkPolicy'),

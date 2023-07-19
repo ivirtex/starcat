@@ -95,6 +95,10 @@ void main() {
 
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
+      // Dismiss notifications preference modal
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+
       await tester.tap(find.byIcon(Icons.explore_rounded));
       await tester.pumpAndSettle();
       expect(find.byType(ExplorePage), findsOneWidget);
