@@ -31,6 +31,7 @@ void callbackDispatcher() {
       printer: SimplePrinter(printTime: true),
     );
 
+    // ignore: cascade_invocations
     logger.i('Executing task $task at ${DateTime.now()}');
 
     final pluginInstance = FlutterLocalNotificationsPlugin();
