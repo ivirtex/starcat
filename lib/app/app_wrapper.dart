@@ -103,24 +103,13 @@ class App extends StatelessWidget {
             secret: '8y10DEziectf1WRHc9DWrmnog2p_YHo8',
             child: MaterialApp.router(
               title: 'Starcat',
-              theme: FlexThemeData.light(
-                useMaterial3: true,
-                useMaterial3ErrorColors: true,
-                colorScheme: lightScheme.copyWith(shadow: Colors.transparent),
-                subThemesData: const FlexSubThemesData(
-                  useTextTheme: true,
-                  appBarCenterTitle: false,
-                ),
+              theme: createThemeBasedOn(
+                scheme: lightScheme,
+                brightness: Brightness.light,
               ),
-              darkTheme: FlexThemeData.dark(
-                useMaterial3: true,
-                useMaterial3ErrorColors: true,
-                colorScheme: darkScheme.copyWith(shadow: Colors.transparent),
-                appBarStyle: FlexAppBarStyle.background,
-                subThemesData: const FlexSubThemesData(
-                  useTextTheme: true,
-                  appBarCenterTitle: false,
-                ),
+              darkTheme: createThemeBasedOn(
+                scheme: darkScheme,
+                brightness: Brightness.dark,
               ),
               themeMode: context.read<ThemeCubit>().state.themeMode,
               routerConfig: createRouter(),

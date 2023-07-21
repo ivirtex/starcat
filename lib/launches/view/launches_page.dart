@@ -25,7 +25,6 @@ class _LaunchesPageState extends State<LaunchesPage> {
   void initState() {
     super.initState();
 
-    // TODO(ivirtex): optimize this (rebuilds constantly)
     scrollController.addListener(() {
       if (scrollController.offset > 0) {
         if (!shouldShowFab) {
