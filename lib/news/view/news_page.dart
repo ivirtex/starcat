@@ -36,9 +36,13 @@ class _NewsViewState extends State<NewsView> {
 
     scrollController.addListener(() {
       if (scrollController.offset > 0) {
-        setState(() => shouldShowFab = true);
+        if (!shouldShowFab) {
+          setState(() => shouldShowFab = true);
+        }
       } else {
-        setState(() => shouldShowFab = false);
+        if (shouldShowFab) {
+          setState(() => shouldShowFab = false);
+        }
       }
     });
   }

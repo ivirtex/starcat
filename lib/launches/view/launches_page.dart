@@ -9,14 +9,52 @@ import 'package:sliver_tools/sliver_tools.dart';
 import 'package:starcat/constants.dart';
 import 'package:starcat/launches/launches.dart';
 
-class LaunchesPage extends StatelessWidget {
+class LaunchesPage extends StatefulWidget {
   const LaunchesPage({super.key});
 
   @override
+  State<LaunchesPage> createState() => _LaunchesPageState();
+}
+
+class _LaunchesPageState extends State<LaunchesPage> {
+  final scrollController = ScrollController();
+
+  bool shouldShowFab = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // TODO(ivirtex): optimize this (rebuilds constantly)
+    scrollController.addListener(() {
+      if (scrollController.offset > 0) {
+        if (!shouldShowFab) {
+          setState(() => shouldShowFab = true);
+        }
+      } else {
+        if (shouldShowFab) {
+          setState(() => shouldShowFab = false);
+        }
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      floatingActionButton: shouldShowFab
+          ? FloatingActionButton(
+              onPressed: () => scrollController.animateTo(
+                0,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeInOut,
+              ),
+              child: const Icon(Icons.arrow_upward_rounded),
+            )
+          : null,
       body: CustomScrollView(
-        slivers: [
+        controller: scrollController,
+        slivers: const [
           SliverAppBar(
             pinned: true,
             title: Text('Launches'),
