@@ -109,7 +109,7 @@ class InfoCard extends StatelessWidget {
                 width: 1.5,
               )
             : null,
-        color: getBgColorForType(context),
+        color: bgColor ?? getBgColorForType(context),
       ),
       padding: padding,
       child: Row(
@@ -128,7 +128,7 @@ class InfoCard extends StatelessWidget {
           Flexible(
             child: DefaultTextStyle(
               style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                    color: getContentColorForType(context),
+                    color: contentColor ?? getContentColorForType(context),
                   ),
               child: child,
             ),
