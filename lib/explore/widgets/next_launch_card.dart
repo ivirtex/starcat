@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:live_activities/live_activities.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
@@ -60,7 +61,7 @@ class NextLaunchCard extends StatelessWidget {
             ],
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 launchName ?? 'Unknown',
@@ -74,16 +75,28 @@ class NextLaunchCard extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: kListSpacing),
+              if (timeLeft != null && timeLeft < 24.hours)
+                OutlinedButton(
+                  onPressed: () async {
+                    final liveActivitiesPlugin = LiveActivities();
+                    await liveActivitiesPlugin.init(
+                      appGroupId: 'group.hubertjozwiak.starcat',
+                    );
+
+                    await liveActivitiesPlugin.createActivity(
+                      {
+                        'launchTimeLeft': timeLeft.inSeconds,
+                        'launchName': launchName
+                      },
+                    );
+                  },
+                  child: const Text('Track using Dynamic Island'),
+                ),
               ThemedButton(
                 onPressed: doesExist
                     ? () => context.go('/explore/launch/${launch!.id}')
                     : null,
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Launch Details'),
-                  ],
-                ),
+                child: const Text('Launch Details'),
               ),
             ],
           ),

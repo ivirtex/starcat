@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:live_activities/live_activities.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -199,6 +200,45 @@ class _DebugMenuState extends State<DebugMenu> {
             ],
           ),
         ),
+        const SizedBox(height: kListSpacing),
+        ExploreCard(
+          title: const Text('Live activities'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              FilledButton.tonal(
+                onPressed: () async {
+                  final liveActivitiesPlugin = LiveActivities();
+                  await liveActivitiesPlugin.init(
+                    appGroupId: 'group.hubertjozwiak.starcat',
+                  );
+
+                  final exampleTime = DateTime.now().add(
+                    const Duration(
+                      minutes: 15,
+                    ),
+                  );
+
+                  await liveActivitiesPlugin.createActivity(
+                    {'remainingTime': exampleTime.toIso8601String()},
+                  );
+                },
+                child: const Text('Create activity (iOS)'),
+              ),
+              FilledButton.tonal(
+                onPressed: () async {
+                  final liveActivitiesPlugin = LiveActivities();
+                  await liveActivitiesPlugin.init(
+                    appGroupId: 'group.hubertjozwiak.starcat',
+                  );
+
+                  await liveActivitiesPlugin.endAllActivities();
+                },
+                child: const Text('End all activities (iOS)'),
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
