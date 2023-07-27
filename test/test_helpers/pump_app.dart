@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:live_activities/live_activities.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -27,6 +28,7 @@ extension PumpApp on WidgetTester {
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
     FlutterLocalNotificationsPlugin? notificationsPlugin,
+    LiveActivities? liveActivitiesPlugin,
     Workmanager? workmanager,
     TargetPlatform platform = TargetPlatform.android,
   }) {
@@ -54,6 +56,7 @@ extension PumpApp on WidgetTester {
             value: notificationsCubit ??
                 NotificationsCubit(
                   notificationsPlugin ?? FlutterLocalNotificationsPlugin(),
+                  liveActivitiesPlugin ?? LiveActivities(),
                   workmanager ?? Workmanager(),
                 ),
           )
@@ -75,8 +78,9 @@ extension PumpApp on WidgetTester {
     NewsBloc? newsBloc,
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
-    FlutterLocalNotificationsPlugin? notificationsPluginMock,
-    Workmanager? workmanagerMock,
+    FlutterLocalNotificationsPlugin? notificationsPlugin,
+    LiveActivities? liveActivitiesPlugin,
+    Workmanager? workmanager,
     TargetPlatform platform = TargetPlatform.android,
     String location = '/explore',
   }) {
@@ -101,8 +105,9 @@ extension PumpApp on WidgetTester {
           BlocProvider.value(
             value: notificationsCubit ??
                 NotificationsCubit(
-                  notificationsPluginMock ?? FlutterLocalNotificationsPlugin(),
-                  workmanagerMock ?? Workmanager(),
+                  notificationsPlugin ?? FlutterLocalNotificationsPlugin(),
+                  liveActivitiesPlugin ?? LiveActivities(),
+                  workmanager ?? Workmanager(),
                 ),
           )
         ],

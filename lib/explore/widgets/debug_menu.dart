@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:live_activities/live_activities.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:workmanager/workmanager.dart';
@@ -54,10 +53,10 @@ class _DebugMenuState extends State<DebugMenu> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                      child: Text(launch.name),
+                      child: Text(launch.launchData.name),
                     ),
                     const SizedBox(width: 10),
-                    Text('ID: ${launch.id.hashCode}'),
+                    Text('ID: ${launch.launchData.id.hashCode}'),
                   ],
                 ),
               FilledButton.tonal(
@@ -245,14 +244,16 @@ class _DebugMenuState extends State<DebugMenu> {
 
   void _clearTrackedLaunches(
     BuildContext context,
-    List<Launch> trackedLaunches,
+    List<TrackedLaunch> trackedLaunches,
   ) {
     Workmanager().cancelAll();
 
     for (final launch in trackedLaunches) {
-      log('Cancelling notification (id: ${launch.id.hashCode})');
+      log('Cancelling notification (id: ${launch.launchData.id.hashCode})');
 
-      context.read<NotificationsCubit>().cancelTrackingLaunch(launch);
+      context
+          .read<NotificationsCubit>()
+          .cancelTrackingLaunch(launch.launchData);
     }
 
     log('Cleared tracked launches');

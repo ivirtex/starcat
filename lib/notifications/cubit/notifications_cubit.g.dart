@@ -9,9 +9,9 @@ part of 'notifications_cubit.dart';
 NotificationsState _$NotificationsStateFromJson(Map<String, dynamic> json) =>
     NotificationsState(
       trackedLaunches: (json['trackedLaunches'] as List<dynamic>?)
-              ?.map((e) => Launch.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => TrackedLaunch.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const <Launch>[],
+          const <TrackedLaunch>[],
       areNotificationsContinuous:
           json['areNotificationsContinuous'] as bool? ?? false,
       hasNotificationsPreferenceModalBeenShown:

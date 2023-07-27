@@ -38,7 +38,9 @@ class NotifyAboutLaunchButton extends StatelessWidget {
       selected: isLaunchTracked || areNotificationsContinuous,
       onToggle: (selected) {
         if (selected) {
-          context.read<NotificationsCubit>().trackLaunch(launch);
+          context
+              .read<NotificationsCubit>()
+              .trackLaunch(launch, mode: TrackingMethod.notifications);
         } else {
           context.read<NotificationsCubit>().cancelTrackingLaunch(launch);
         }

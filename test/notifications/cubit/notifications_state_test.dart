@@ -24,8 +24,22 @@ void main() {
       const state = NotificationsState();
 
       expect(
-        state.copyWith(trackedLaunches: [sampleLaunch]),
-        const NotificationsState(trackedLaunches: [sampleLaunch]),
+        state.copyWith(
+          trackedLaunches: [
+            const TrackedLaunch(
+              launchData: sampleLaunch,
+              trackingMethod: TrackingMethod.notifications,
+            ),
+          ],
+        ),
+        const NotificationsState(
+          trackedLaunches: [
+            TrackedLaunch(
+              launchData: sampleLaunch,
+              trackingMethod: TrackingMethod.notifications,
+            ),
+          ],
+        ),
       );
     });
   });

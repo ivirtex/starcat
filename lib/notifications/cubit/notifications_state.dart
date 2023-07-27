@@ -3,7 +3,7 @@ part of 'notifications_cubit.dart';
 @JsonSerializable()
 class NotificationsState extends Equatable {
   const NotificationsState({
-    this.trackedLaunches = const <Launch>[],
+    this.trackedLaunches = const <TrackedLaunch>[],
     this.areNotificationsContinuous = false,
     this.hasNotificationsPreferenceModalBeenShown = false,
   });
@@ -11,14 +11,14 @@ class NotificationsState extends Equatable {
   factory NotificationsState.fromJson(Map<String, dynamic> json) =>
       _$NotificationsStateFromJson(json);
 
-  final List<Launch> trackedLaunches;
+  final List<TrackedLaunch> trackedLaunches;
   final bool areNotificationsContinuous;
   final bool hasNotificationsPreferenceModalBeenShown;
 
   Map<String, dynamic> toJson() => _$NotificationsStateToJson(this);
 
   NotificationsState copyWith({
-    List<Launch>? trackedLaunches,
+    List<TrackedLaunch>? trackedLaunches,
     bool? areNotificationsContinuous,
     bool? hasNotificationsPreferenceModalBeenShown,
   }) {

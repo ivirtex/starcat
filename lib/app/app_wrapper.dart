@@ -8,6 +8,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:live_activities/live_activities.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:wiredash/wiredash.dart';
 import 'package:workmanager/workmanager.dart';
@@ -50,6 +51,7 @@ class AppWrapper extends StatelessWidget {
         BlocProvider(
           create: (context) => NotificationsCubit(
             FlutterLocalNotificationsPlugin(),
+            LiveActivities(),
             Workmanager(),
           ),
           child: Container(),
