@@ -10,9 +10,11 @@ ThemeData createThemeBasedOn({
 }) {
   return FlexColorScheme(
     useMaterial3: true,
+    brightness: brightness,
     colorScheme: scheme.copyWith(shadow: Colors.transparent),
     subThemesData: const FlexSubThemesData(
       useTextTheme: true,
+      appBarBackgroundSchemeColor: SchemeColor.background,
       appBarCenterTitle: false,
       adaptiveSplash: FlexAdaptive.apple(),
       splashTypeAdaptive: FlexSplashType.noSplash,
