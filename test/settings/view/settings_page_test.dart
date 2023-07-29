@@ -26,7 +26,11 @@ void main() {
 
   group('SettingsPage', () {
     testWidgets('renders SettingsPage', (tester) async {
-      await tester.pumpApp(const SettingsPage());
+      await tester.pumpApp(
+        const Scaffold(
+          body: SettingsPage(),
+        ),
+      );
 
       await tester.pumpAndSettle();
 
@@ -36,7 +40,11 @@ void main() {
 
   group('SettingsView', () {
     testWidgets('renders SettingsView', (tester) async {
-      await tester.pumpApp(const SettingsView());
+      await tester.pumpApp(
+        const Scaffold(
+          body: SettingsPage(),
+        ),
+      );
 
       await tester.pumpAndSettle();
 
@@ -46,7 +54,9 @@ void main() {
     testWidgets('Material You SwitchListTile works', (tester) async {
       await tester.pumpApp(
         themeCubit: themeCubit,
-        const SettingsView(),
+        const Scaffold(
+          body: SettingsPage(),
+        ),
       );
 
       await tester.pumpAndSettle();
@@ -65,7 +75,9 @@ void main() {
     testWidgets('ThemeMode selector works', (tester) async {
       await tester.pumpApp(
         themeCubit: themeCubit,
-        const SettingsView(),
+        const Scaffold(
+          body: SettingsPage(),
+        ),
       );
 
       await tester.pumpAndSettle();

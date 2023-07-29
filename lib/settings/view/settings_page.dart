@@ -23,33 +23,14 @@ class SettingsPage extends StatelessWidget {
   }
 }
 
-class SettingsView extends StatelessWidget {
+class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            title: Text('Settings'),
-          ),
-          _Body(),
-        ],
-      ),
-    );
-  }
+  State<SettingsView> createState() => _SettingsViewState();
 }
 
-class _Body extends StatefulWidget {
-  const _Body();
-
-  @override
-  State<_Body> createState() => _BodyState();
-}
-
-class _BodyState extends State<_Body> {
+class _SettingsViewState extends State<SettingsView> {
   late bool _isMaterial3Enabled;
   late bool _areNotificationsSentContinuously;
 
@@ -67,96 +48,95 @@ class _BodyState extends State<_Body> {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildListDelegate.fixed(
-        [
-          Padding(
-            padding: _textPadding,
-            child: Text(
-              'Theme',
-              style: _getSectionTextStyle(context),
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: _textPadding,
+          child: Text(
+            'Theme',
+            style: _getSectionTextStyle(context),
           ),
-          const ThemeModeSelector(),
-          if (Theme.of(context).platform != TargetPlatform.iOS)
-            SwitchListTile(
-              secondary: const Icon(Icons.color_lens_rounded),
-              title: const Text('Material You'),
-              value: _isMaterial3Enabled,
-              onChanged: (isEnabled) {
-                setState(() {
-                  _isMaterial3Enabled = isEnabled;
-
-                  context.read<ThemeCubit>().setMaterial3(isEnabled: isEnabled);
-                });
-              },
-            ),
-          const SizedBox(height: kListSpacing),
-          Padding(
-            padding: _textPadding,
-            child: Text(
-              'Notifications',
-              style: _getSectionTextStyle(context),
-            ),
-          ),
+        ),
+        const ThemeModeSelector(),
+        if (Theme.of(context).platform != TargetPlatform.iOS)
           SwitchListTile(
-            secondary: const Icon(Icons.notifications_active_rounded),
-            title: const Text('Send notifications before every launch'),
-            value: _areNotificationsSentContinuously,
+            secondary: const Icon(Icons.color_lens_rounded),
+            title: const Text('Material You'),
+            value: _isMaterial3Enabled,
             onChanged: (isEnabled) {
               setState(() {
-                _areNotificationsSentContinuously = isEnabled;
+                _isMaterial3Enabled = isEnabled;
 
-                context
-                    .read<NotificationsCubit>()
-                    .setIfNotificationsAreSentContinuously(isTrue: isEnabled);
+                context.read<ThemeCubit>().setMaterial3(isEnabled: isEnabled);
               });
             },
           ),
-          if (Theme.of(context).platform != TargetPlatform.iOS)
-            ListTile(
-              leading: const Icon(Icons.edit_notifications_rounded),
-              title: const Text('Customize notifications'),
-              onTap: () => AppSettings.openAppSettings(
-                type: AppSettingsType.notification,
-              ),
-            ),
-          const SizedBox(height: kListSpacing),
-          Padding(
-            padding: _textPadding,
-            child: Text(
-              'About',
-              style: _getSectionTextStyle(context),
-            ),
+        const SizedBox(height: kListSpacing),
+        Padding(
+          padding: _textPadding,
+          child: Text(
+            'Notifications',
+            style: _getSectionTextStyle(context),
           ),
+        ),
+        SwitchListTile(
+          secondary: const Icon(Icons.notifications_active_rounded),
+          title: const Text('Send notifications before every launch'),
+          value: _areNotificationsSentContinuously,
+          onChanged: (isEnabled) {
+            setState(() {
+              _areNotificationsSentContinuously = isEnabled;
+
+              context
+                  .read<NotificationsCubit>()
+                  .setIfNotificationsAreSentContinuously(isTrue: isEnabled);
+            });
+          },
+        ),
+        if (Theme.of(context).platform != TargetPlatform.iOS)
           ListTile(
-            leading: const Icon(Icons.code_rounded),
-            title: const Text('Source Code'),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            onTap: _launchSourceCodeUrl,
-          ),
-          ListTile(
-            leading: const Icon(Icons.bug_report_rounded),
-            title: const Text('Submit Feedback'),
-            trailing: const Icon(Icons.chevron_right_rounded),
-            onTap: () {
-              Wiredash.of(context).show(
-                inheritMaterialTheme: true,
-              );
-            },
-          ),
-          Padding(
-            padding: _textPadding,
-            child: Text(
-              'Made with ❤️ by ivirtex',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelSmall,
+            leading: const Icon(Icons.edit_notifications_rounded),
+            title: const Text('Customize notifications'),
+            onTap: () => AppSettings.openAppSettings(
+              type: AppSettingsType.notification,
             ),
           ),
-        ]
-            .animate(interval: kListAnimationIntervalDuration)
-            .fadeIn(duration: kListAnimationFadeDuration),
-      ),
+        const SizedBox(height: kListSpacing),
+        Padding(
+          padding: _textPadding,
+          child: Text(
+            'About',
+            style: _getSectionTextStyle(context),
+          ),
+        ),
+        ListTile(
+          leading: const Icon(Icons.code_rounded),
+          title: const Text('Source Code'),
+          trailing: const Icon(Icons.chevron_right_rounded),
+          onTap: _launchSourceCodeUrl,
+        ),
+        ListTile(
+          leading: const Icon(Icons.bug_report_rounded),
+          title: const Text('Submit Feedback'),
+          trailing: const Icon(Icons.chevron_right_rounded),
+          onTap: () {
+            Wiredash.of(context).show(
+              inheritMaterialTheme: true,
+            );
+          },
+        ),
+        Padding(
+          padding: _textPadding,
+          child: Text(
+            'Made with ❤️ by ivirtex',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+        ),
+      ]
+          .animate(interval: kListAnimationIntervalDuration)
+          .fadeIn(duration: kListAnimationFadeDuration),
     );
   }
 

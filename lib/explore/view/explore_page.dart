@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
@@ -13,6 +12,7 @@ import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/notifications.dart';
+import 'package:starcat/settings/settings.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -70,7 +70,16 @@ class _ExploreViewState extends State<ExploreView> {
               actions: [
                 IconButton(
                   icon: const Icon(Icons.settings_rounded),
-                  onPressed: () => context.go('/explore/settings'),
+                  onPressed: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      useRootNavigator: true,
+                      showDragHandle: true,
+                      builder: (_) {
+                        return const SettingsView();
+                      },
+                    );
+                  },
                 ),
               ],
             ),

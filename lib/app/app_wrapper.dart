@@ -54,7 +54,6 @@ class AppWrapper extends StatelessWidget {
             LiveActivities(),
             Workmanager(),
           ),
-          child: Container(),
         )
       ],
       child: const App(),
@@ -114,7 +113,7 @@ class App extends StatelessWidget {
                 brightness: Brightness.dark,
               ),
               themeMode: context.read<ThemeCubit>().state.themeMode,
-              routerConfig: createRouter(),
+              routerConfig: router,
             ),
           ),
         );

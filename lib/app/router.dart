@@ -10,17 +10,25 @@ import 'package:starcat/app/app.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
-import 'package:starcat/settings/settings.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 
+/// Primary router for the app, created as a variable so that it can be
+/// reused by Flutter when rebuilding the tree.
+final router = createRouter();
+
+/// Used directly only in tests.
 GoRouter createRouter({String initialLocation = '/explore'}) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: initialLocation,
     debugLogDiagnostics: true,
     routes: [
+      GoRoute(
+        path: '/',
+        redirect: (_, __) => '/explore',
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navShell) {
           return AppView(navigationShell: navShell);
@@ -47,10 +55,6 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
                             state.uri.queryParameters['withHero'] == 'true',
                       );
                     },
-                  ),
-                  GoRoute(
-                    path: 'settings',
-                    builder: (context, state) => const SettingsPage(),
                   ),
                 ],
               ),
