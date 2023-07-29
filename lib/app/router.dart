@@ -43,7 +43,8 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
 
                       return LaunchDetailsPage(
                         launch: launch,
-                        withHero: state.queryParameters['withHero'] == 'true',
+                        withHero:
+                            state.uri.queryParameters['withHero'] == 'true',
                       );
                     },
                   ),
@@ -72,7 +73,8 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
 
                       return LaunchDetailsPage(
                         launch: launch,
-                        withHero: state.queryParameters['withHero'] == 'true',
+                        withHero:
+                            state.uri.queryParameters['withHero'] == 'true',
                       );
                     },
                   ),

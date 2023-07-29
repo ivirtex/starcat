@@ -286,7 +286,7 @@ void callbackDispatcher() {
 
         break;
       default:
-        logger.wtf('Unknown task $task');
+        logger.f('Unknown task $task');
     }
 
     return Future.value(true);

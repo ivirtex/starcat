@@ -25,9 +25,9 @@ dependencies:
   flutter_local_notifications: ^15.1.0+1
   flutter_native_timezone: ^2.0.0
   flutter_svg: ^2.0.7
-  go_router: ^9.1.1
+  go_router: ^10.0.0
   google_fonts: ^5.1.0
-  google_maps_flutter: ^2.3.1
+  google_maps_flutter: ^2.4.0
   http: ^1.1.0
   hydrated_bloc: ^9.1.2
   intl: ^0.18.0
@@ -35,7 +35,7 @@ dependencies:
   launch_library_repository:
     path: packages/launch_library_repository
   live_activities: ^1.7.4
-  logger: ^1.4.0
+  logger: ^2.0.1
   maps_launcher: ^2.2.0
   mockito: ^5.4.2
   path_provider: ^2.0.14
