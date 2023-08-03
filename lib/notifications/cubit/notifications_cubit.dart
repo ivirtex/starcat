@@ -126,7 +126,8 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     if (isTrue) {
       await requestPermissions(_flutterLocalNotificationsPlugin);
       await scheduleAutoNextLaunchCheck(
-        checkFrequency: const Duration(hours: 3),
+        checkFrequency: const Duration(seconds: 3),
+        workmanagerInstance: _workmanager,
       );
     } else {
       await cancelAutoNextLaunchCheck();

@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:workmanager/workmanager.dart';
 
 const String _autoNextLaunchCheckTaskName =
@@ -6,6 +7,7 @@ const String _autoNextLaunchCheckTaskName =
 
 Future<void> scheduleAutoNextLaunchCheck({
   required Duration checkFrequency,
+  required Workmanager workmanagerInstance,
   String? currentUpcomingLaunchUrl,
   DateTime? launchDate,
 }) async {
@@ -14,7 +16,7 @@ Future<void> scheduleAutoNextLaunchCheck({
     'launchDate must be in local time',
   );
 
-  await Workmanager().registerOneOffTask(
+  await workmanagerInstance.registerOneOffTask(
     _autoNextLaunchCheckTaskName,
     _autoNextLaunchCheckTaskName,
     initialDelay: checkFrequency,
@@ -27,6 +29,10 @@ Future<void> scheduleAutoNextLaunchCheck({
       'currentCheckFrequency': checkFrequency.inSeconds,
     },
   );
+
+  await Hive.initFlutter();
+  final box = await Hive.openBox<String>('upcomingLaunch');
+  await box.put('launchDate', launchDate?.toIso8601String() ?? '');
 }
 
 Future<void> cancelAutoNextLaunchCheck() async {

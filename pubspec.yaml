@@ -28,6 +28,8 @@ dependencies:
   go_router: ^10.0.0
   google_fonts: ^5.1.0
   google_maps_flutter: ^2.4.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   http: ^1.1.0
   hydrated_bloc: ^9.1.2
   intl: ^0.18.0

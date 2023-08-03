@@ -4,11 +4,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-// Flutter imports:
-import 'package:flutter/foundation.dart';
-
 // Package imports:
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:logger/logger.dart';
@@ -20,6 +18,7 @@ import 'package:starcat/constants.dart';
 import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/notifications/notifications.dart';
 
+// TODO(ivirtex): fix this on iOS
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
@@ -40,13 +39,13 @@ void callbackDispatcher() {
     final workmanager = Workmanager();
     await workmanager.initialize(
       callbackDispatcher,
-      isInDebugMode: kDebugMode,
+      isInDebugMode: true,
     );
 
     switch (task) {
       // This task is scheduled when the user
       // turns on continuous launch notifications feature
-      case 'autoNextLaunchCheck':
+      case 'dev.ivirtex.starcat.autoNextLaunchCheck':
         final currentUpcomingLaunchUrl =
             inputData!['currentUpcomingLaunchUrl'] as String;
         final currentUpcomingLaunchDate =
@@ -96,6 +95,7 @@ void callbackDispatcher() {
               currentUpcomingLaunchUrl: actualUpcomingLaunch.url,
               launchDate: actualUpcomingLaunch.net!.toLocal(),
               checkFrequency: newCheckFrequency,
+              workmanagerInstance: workmanager,
             );
           } else if (actualUpcomingLaunch.net!
               .isAfter(currentUpcomingLaunchDate!)) {
@@ -134,6 +134,7 @@ void callbackDispatcher() {
                 actualUpcomingLaunch.net!.toLocal(),
                 DateTime.now(),
               ),
+              workmanagerInstance: workmanager,
             );
           } else {
             // Launch has not been delayed
@@ -161,6 +162,7 @@ void callbackDispatcher() {
               currentUpcomingLaunchUrl: actualUpcomingLaunch.url,
               launchDate: actualUpcomingLaunch.net!.toLocal(),
               checkFrequency: suggestedCheckFrequency,
+              workmanagerInstance: workmanager,
             );
           }
         } catch (e) {
@@ -172,7 +174,7 @@ void callbackDispatcher() {
         break;
       // This task is scheduled by the user when
       // they add a new launch to their watchlist
-      case 'userSpecifiedLaunchCheck':
+      case 'dev.ivirtex.starcat.userSpecifiedCheck':
         final launchDate = DateTime.parse(inputData!['launchDate'] as String);
         final launchUpdateUrl =
             Uri.parse(inputData['launchUpdateUri'] as String);
@@ -282,6 +284,114 @@ void callbackDispatcher() {
           logger.e('Error in userSpecifiedLaunchCheck: $e');
 
           return Future.value(false);
+        }
+
+        break;
+      case Workmanager.iOSBackgroundTask:
+        try {
+          await Hive.initFlutter();
+          final box = await Hive.openBox<String>('upcomingLaunch');
+          final savedLaunchDate = DateTime.tryParse(box.get('launchDate')!);
+          if (savedLaunchDate == null) {
+            logger.e(
+              'iOSBackgroundTask: Saved launch date is null or couldnt be parsed',
+            );
+          }
+
+          final launchDate = savedLaunchDate?.toLocal();
+
+          final request = Uri.parse(kUpcomingLaunchUrl);
+          final response = await http.get(request);
+          final json = jsonDecode(response.body) as Map<String, dynamic>;
+          final upcomingLaunch =
+              Launch.fromJson(json['results'][0] as Map<String, dynamic>);
+          logger.i('iOSBackgroundTask: Upcoming launch parsed');
+
+          if (launchDate == null) {
+            logger.e(
+              'iOSBackgroundTask: Saved launch date is null, saving most recent one',
+            );
+
+            await box.put(
+              'launchDate',
+              upcomingLaunch.net!.toLocal().toIso8601String(),
+            );
+
+            return Future.value(true);
+          }
+
+          // Check if launch has been delayed, if so, we
+          // cancel old notification and schedule new ones
+          if (upcomingLaunch.net!.isAfter(launchDate)) {
+            logger.i(
+              '''
+            iOSBackgroundTask:
+            Launch ${upcomingLaunch.name} has been delayed to ${upcomingLaunch.net}
+            ''',
+            );
+
+            await cancelLaunchNotifications(
+              upcomingLaunch.name,
+              pluginInstance,
+            );
+            await scheduleLaunchNotifications(
+              upcomingLaunch.net!.toLocal(),
+              upcomingLaunch.name,
+              upcomingLaunch.pad!.name ?? 'unknown pad',
+              pluginInstance,
+            );
+
+            // Dispatch notification to notify user about the delay
+            await pluginInstance.show(
+              upcomingLaunch.net.hashCode,
+              upcomingLaunch.name,
+              '${upcomingLaunch.name} has been delayed to ${upcomingLaunch.net}',
+              null,
+            );
+          } else if (DateTime.now().isAfter(launchDate)) {
+            // Check if launch has happened, then we can cancel
+            // the check task and the notifications (technically there
+            // should be no more notifications, but just in case)
+            logger.i(
+              '''
+            iOSBackgroundTask:
+            Launch ${upcomingLaunch.name} has launched!
+            ''',
+            );
+
+            await cancelLaunchNotifications(
+              upcomingLaunch.name,
+              pluginInstance,
+            );
+            await cancelUserSpecifiedLaunchCheck(
+              upcomingLaunch.name,
+              workmanager,
+            );
+
+            return Future.value(true);
+          } else {
+            logger.i(
+              '''
+            iOSBackgroundTask:
+            Launch ${upcomingLaunch.name} is still scheduled for $launchDate
+            ''',
+            );
+
+            // notify user
+            await pluginInstance.show(
+              upcomingLaunch.net.hashCode,
+              upcomingLaunch.name,
+              '${upcomingLaunch.name} is still scheduled for $launchDate',
+              null,
+            );
+          }
+
+          await box.put(
+            'launchDate',
+            upcomingLaunch.net!.toIso8601String(),
+          );
+        } catch (e) {
+          logger.e('Error in iOSBackgroundTask: $e');
         }
 
         break;

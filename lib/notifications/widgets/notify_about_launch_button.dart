@@ -23,8 +23,8 @@ class NotifyAboutLaunchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final notificationsCubit = context.watch<NotificationsCubit>();
 
-    final isLaunchTracked =
-        notificationsCubit.state.trackedLaunches.contains(launch);
+    final isLaunchTracked = notificationsCubit.state.trackedLaunches
+        .any((trackedLaunch) => trackedLaunch.launchData.id == launch.id);
     final areNotificationsContinuous =
         notificationsCubit.state.areNotificationsContinuous;
 
