@@ -9,7 +9,6 @@ import 'package:very_good_infinite_list/very_good_infinite_list.dart';
 // Project imports:
 import 'package:starcat/launches/launches.dart';
 
-// TODO(ivirtex): add infinite scrolling
 class LaunchesList extends StatelessWidget {
   const LaunchesList({
     required this.launches,
