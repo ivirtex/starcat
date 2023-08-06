@@ -92,7 +92,7 @@ class _Body extends StatelessWidget {
                   return LaunchesList(launches: state.upcomingLaunches);
               }
             },
-          )
+          ),
         ],
       ),
     );

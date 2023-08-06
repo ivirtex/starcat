@@ -81,6 +81,7 @@ class UpcomingLaunchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 250,
+      // TODO(ivirtex): add launch image as background
       child: ExploreCard(
         expandVertically: true,
         onTap: () => context.go('/explore/launch/${launch.id}'),

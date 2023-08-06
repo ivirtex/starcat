@@ -138,6 +138,7 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
                       .fadeIn(duration: kListAnimationFadeDuration),
                 ],
               ),
+              // TODO(ivirtex): add horizontal padding
               title: Text(
                 widget.launch.mission?.name ?? 'N/A',
                 style: TextStyle(

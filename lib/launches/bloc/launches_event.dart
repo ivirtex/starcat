@@ -20,6 +20,17 @@ final class LaunchesDetailsRequested extends LaunchesEvent {
   List<Object> get props => [launchId];
 }
 
+final class LaunchesNextPageRequested extends LaunchesEvent {
+  const LaunchesNextPageRequested({
+    required this.type,
+  });
+
+  final SelectedLaunches type;
+
+  @override
+  List<Object?> get props => [type];
+}
+
 final class LaunchesSelectionChanged extends LaunchesEvent {
   const LaunchesSelectionChanged({required this.selectedLaunches});
 

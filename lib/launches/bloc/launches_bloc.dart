@@ -24,6 +24,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     on<LaunchesRequested>(_onLaunchesRequested);
     on<LaunchesDetailsRequested>(_onLaunchesDetailsRequested);
     on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
+    on<LaunchesNextPageRequested>(_onLaunchesNextPageRequested);
   }
 
   final LaunchLibraryRepository _launchLibraryRepository;
@@ -154,5 +155,73 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     Emitter<LaunchesState> emit,
   ) {
     emit(state.copyWith(selectedLaunches: event.selectedLaunches));
+  }
+
+  Future<void> _onLaunchesNextPageRequested(
+    LaunchesNextPageRequested event,
+    Emitter<LaunchesState> emit,
+  ) async {
+    emit(state.copyWith(status: LaunchesStatus.loading));
+
+    switch (event.type) {
+      case SelectedLaunches.upcoming:
+        try {
+          final upcomingLaunches =
+              await _launchLibraryRepository.getNextPageUpcomingLaunches(
+            offset: state.currentOffsetOfUpcomingLaunches,
+          );
+
+          emit(
+            state.copyWith(
+              status: LaunchesStatus.success,
+              upcomingLaunches: [
+                ...state.upcomingLaunches,
+                ...upcomingLaunches,
+              ],
+              currentOffsetOfUpcomingLaunches:
+                  state.currentOffsetOfUpcomingLaunches + 10,
+            ),
+          );
+        } catch (err) {
+          log('LaunchesBloc._onLaunchesNextPageRequested: $err');
+
+          emit(
+            state.copyWith(
+              status: LaunchesStatus.failure,
+              upcomingLaunches: state.upcomingLaunches,
+            ),
+          );
+        }
+        break;
+      case SelectedLaunches.past:
+        try {
+          final pastLaunches =
+              await _launchLibraryRepository.getNextPagePastLaunches(
+            offset: state.currentOffsetOfPastLaunches,
+          );
+
+          emit(
+            state.copyWith(
+              status: LaunchesStatus.success,
+              pastLaunches: [
+                ...state.pastLaunches,
+                ...pastLaunches,
+              ],
+              currentOffsetOfPastLaunches:
+                  state.currentOffsetOfPastLaunches + 10,
+            ),
+          );
+        } catch (err) {
+          log('LaunchesBloc._onLaunchesNextPageRequested: $err');
+
+          emit(
+            state.copyWith(
+              status: LaunchesStatus.failure,
+              pastLaunches: state.pastLaunches,
+            ),
+          );
+        }
+        break;
+    }
   }
 }

@@ -25,6 +25,10 @@ LaunchesState _$LaunchesStateFromJson(Map<String, dynamic> json) =>
       selectedLaunches: $enumDecodeNullable(
               _$SelectedLaunchesEnumMap, json['selectedLaunches']) ??
           SelectedLaunches.upcoming,
+      currentOffsetOfUpcomingLaunches:
+          json['currentOffsetOfUpcomingLaunches'] as int? ?? 10,
+      currentOffsetOfPastLaunches:
+          json['currentOffsetOfPastLaunches'] as int? ?? 10,
     );
 
 Map<String, dynamic> _$LaunchesStateToJson(LaunchesState instance) =>
@@ -34,6 +38,9 @@ Map<String, dynamic> _$LaunchesStateToJson(LaunchesState instance) =>
       'pastLaunches': instance.pastLaunches,
       'detailedLaunchesCached': instance.detailedLaunchesCached.toList(),
       'selectedLaunches': _$SelectedLaunchesEnumMap[instance.selectedLaunches]!,
+      'currentOffsetOfUpcomingLaunches':
+          instance.currentOffsetOfUpcomingLaunches,
+      'currentOffsetOfPastLaunches': instance.currentOffsetOfPastLaunches,
     };
 
 const _$LaunchesStatusEnumMap = {

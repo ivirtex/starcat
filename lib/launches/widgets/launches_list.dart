@@ -2,16 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:very_good_infinite_list/very_good_infinite_list.dart';
 
 // Project imports:
-import 'package:starcat/constants.dart';
-import 'package:starcat/explore/explore.dart';
-import 'package:starcat/helpers/helpers.dart';
 import 'package:starcat/launches/launches.dart';
-import 'package:starcat/shared/shared.dart';
 
 // TODO(ivirtex): add infinite scrolling
 class LaunchesList extends StatelessWidget {
@@ -24,86 +20,40 @@ class LaunchesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        childCount: launches.length,
-        (context, index) {
-          final launch = launches[index];
+    final selectedLaunches =
+        context.read<LaunchesBloc>().state.selectedLaunches;
 
-          return Padding(
-            padding: const EdgeInsets.only(bottom: kListSpacing),
-            child: ExploreCard(
-              title: const Text('Status'),
-              trailing: LaunchStatus(launch.status),
-              onTap: () =>
-                  context.go('/launches/launch/${launch.id}?withHero=true'),
-              padding: EdgeInsets.zero,
-              child: IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    SizedBox(
-                      width: 100,
-                      child: Hero(
-                        tag: launch.id,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: MissionImage(
-                            imageUrl: launch.image ?? '',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.all(kListSpacing),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              launch.name,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              formatDate(
-                                    launch.net?.toLocal(),
-                                    dateFormat: DateFormat.yMd().add_jm(),
-                                  ) ??
-                                  'N/A',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
-                                  ),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              createShortDescription(
-                                    launch.mission?.description,
-                                  ) ??
-                                  'No description',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.outline,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
+    return SliverInfiniteList(
+      onFetchData: () {
+        context
+            .read<LaunchesBloc>()
+            .add(LaunchesNextPageRequested(type: selectedLaunches));
+      },
+      isLoading:
+          context.read<LaunchesBloc>().state.status == LaunchesStatus.loading,
+      hasError:
+          context.read<LaunchesBloc>().state.status == LaunchesStatus.failure,
+      loadingBuilder: (context) => const Padding(
+        padding: EdgeInsets.all(8),
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
+      errorBuilder: (context) {
+        return const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: Center(
+            child: Text('Something went wrong'),
+          ),
+        );
+      },
+      debounceDuration: const Duration(milliseconds: 500),
+      itemCount: launches.length,
+      itemBuilder: (context, index) {
+        final launch = launches[index];
+
+        return LaunchCard(launch: launch);
+      },
     );
   }
 }
