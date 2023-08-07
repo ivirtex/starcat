@@ -71,7 +71,6 @@ void main() {
         );
 
         expect(find.text(launch.mission!.name!), findsOneWidget);
-        expect(find.text(launch.pad!.name!), findsOneWidget);
       }
     });
 

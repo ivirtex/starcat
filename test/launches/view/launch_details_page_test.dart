@@ -37,8 +37,18 @@ void main() {
   });
 
   group('LaunchDetailsView', () {
+    late LaunchesBloc launchesBloc;
+
+    setUp(() {
+      launchesBloc = MockLaunchesBloc();
+      when(() => launchesBloc.state).thenReturn(
+        const LaunchesState(upcomingLaunches: [sampleLaunch]),
+      );
+    });
+
     testWidgets('renders LaunchDetailsView', (tester) async {
       await tester.pumpApp(
+        launchesBloc: launchesBloc,
         const LaunchDetailsView(launch: sampleLaunch),
       );
 
@@ -49,6 +59,7 @@ void main() {
 
     testWidgets('renders image', (tester) async {
       await tester.pumpApp(
+        launchesBloc: launchesBloc,
         const LaunchDetailsView(launch: sampleLaunch),
       );
 
@@ -59,6 +70,7 @@ void main() {
 
     testWidgets('learn more button is tappable', (tester) async {
       await tester.pumpApp(
+        launchesBloc: launchesBloc,
         const LaunchDetailsView(launch: sampleLaunch),
       );
 
