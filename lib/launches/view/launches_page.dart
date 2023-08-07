@@ -51,15 +51,20 @@ class _LaunchesPageState extends State<LaunchesPage> {
               child: const Icon(Icons.arrow_upward_rounded),
             )
           : null,
-      body: CustomScrollView(
-        controller: scrollController,
-        slivers: const [
-          SliverAppBar(
-            pinned: true,
-            title: Text('Launches'),
-          ),
-          _Body(),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () async =>
+            context.read<LaunchesBloc>().add(const LaunchesRequested()),
+        edgeOffset: kRefreshEdgeOffset,
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: const [
+            SliverAppBar(
+              pinned: true,
+              title: Text('Launches'),
+            ),
+            _Body(),
+          ],
+        ),
       ),
     );
   }

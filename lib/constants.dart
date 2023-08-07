@@ -30,13 +30,14 @@ const kBorderRadius = 12.0;
 
 const kBodyPadding = EdgeInsets.symmetric(horizontal: 10);
 
+const kRefreshEdgeOffset = 120.0;
+
 const kSourceCodeUrl = 'https://github.com/ivirtex/starcat';
 
 const kUpcomingLaunchUrl = kDebugMode
     ? 'https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?hide_recent_previous=true&limit=1'
     : 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?hide_recent_previous=true&limit=1';
 
-// TODO(ivirtex): make it customizable
 // Notifications schedule
 const kLaunchNotificationsSchedule = [
   Duration(hours: 24),

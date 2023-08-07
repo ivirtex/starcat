@@ -60,15 +60,20 @@ class _NewsViewState extends State<NewsView> {
               child: const Icon(Icons.arrow_upward_rounded),
             )
           : null,
-      body: CustomScrollView(
-        controller: scrollController,
-        slivers: const [
-          SliverAppBar(
-            pinned: true,
-            title: Text('News'),
-          ),
-          _Body(),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () async =>
+            context.read<NewsBloc>().add(const NewsFetchRequested()),
+        edgeOffset: kRefreshEdgeOffset,
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: const [
+            SliverAppBar(
+              pinned: true,
+              title: Text('News'),
+            ),
+            _Body(),
+          ],
+        ),
       ),
     );
   }

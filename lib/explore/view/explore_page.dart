@@ -61,7 +61,7 @@ class _ExploreViewState extends State<ExploreView> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async => _onRefresh(context),
-        edgeOffset: 50,
+        edgeOffset: kRefreshEdgeOffset,
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
