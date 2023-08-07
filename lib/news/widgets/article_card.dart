@@ -55,28 +55,19 @@ class ArticleCard extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () => launchUrlString(
-          article.url,
-          mode: LaunchMode.externalApplication,
-        ),
+        onTap: () => launchUrlString(article.url),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 4,
-              child: AutoSizeText(
-                article.title,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+            AutoSizeText(
+              article.title,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
-            const Spacer(),
-            Expanded(
-              flex: 5,
-              child: Text(
-                article.summary,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
-              ),
+            const SizedBox(height: kListSpacing),
+            Text(
+              article.summary,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
             ),
           ],
         ),
@@ -108,10 +99,7 @@ class ArticleCard extends StatelessWidget {
             imageUrl: article.imageUrl,
           ),
         ),
-        onTap: () => launchUrlString(
-          article.url,
-          mode: LaunchMode.externalApplication,
-        ),
+        onTap: () => launchUrlString(article.url),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

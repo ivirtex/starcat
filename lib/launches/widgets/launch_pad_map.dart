@@ -111,6 +111,7 @@ class _LaunchPadMapState extends State<LaunchPadMap>
               child: _isDataValid()
                   ? GoogleMap(
                       zoomControlsEnabled: false,
+                      myLocationButtonEnabled: false,
                       gestureRecognizers: const <Factory<
                           OneSequenceGestureRecognizer>>{
                         Factory<OneSequenceGestureRecognizer>(
@@ -130,7 +131,7 @@ class _LaunchPadMapState extends State<LaunchPadMap>
                         ),
                       },
                       initialCameraPosition: CameraPosition(
-                        zoom: 10,
+                        zoom: 5,
                         target: LatLng(
                           double.parse(widget.pad!.latitude!),
                           double.parse(widget.pad!.longitude!),

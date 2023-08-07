@@ -149,7 +149,7 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
                   .fadeIn(duration: kListAnimationFadeDuration),
             ),
           ),
-          _Body(launch: widget.launch),
+          _Body(launchId: widget.launch.id),
         ],
       ),
     );
@@ -158,13 +158,17 @@ class _LaunchDetailsViewState extends State<LaunchDetailsView> {
 
 class _Body extends StatelessWidget {
   const _Body({
-    required this.launch,
+    required this.launchId,
   });
 
-  final Launch launch;
+  final String launchId;
 
   @override
   Widget build(BuildContext context) {
+    final launch = context.watch<LaunchesBloc>().state.allLaunches.firstWhere(
+          (launch) => launch.id == launchId,
+        );
+
     return SliverPadding(
       padding: kBodyPadding,
       sliver: SliverList(

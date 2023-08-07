@@ -31,7 +31,7 @@ class ArticlesPreview extends StatelessWidget {
           child: Text('Latest News'),
         ),
         SizedBox(
-          height: 330,
+          height: 320,
           child: articles.isNotEmpty
               ? ListView.builder(
                   scrollDirection: Axis.horizontal,

@@ -18,6 +18,7 @@ class ExploreCard extends StatelessWidget {
     this.padding = const EdgeInsets.all(10),
     this.shape,
     this.color,
+    this.backgroundDecorationImage,
     this.expandVertically = false,
     this.onTap,
     super.key,
@@ -31,6 +32,7 @@ class ExploreCard extends StatelessWidget {
   final EdgeInsets padding;
   final ShapeBorder? shape;
   final Color? color;
+  final DecorationImage? backgroundDecorationImage;
   final bool expandVertically;
   final VoidCallback? onTap;
   final Widget child;
@@ -110,15 +112,21 @@ class ExploreCard extends StatelessWidget {
               ),
             ),
           )
-        : Card(
-            shape: shape,
-            margin: EdgeInsets.zero,
-            color: color,
-            child: InkWell(
-              onTap: onTap,
-              child: Padding(
-                padding: padding,
-                child: child,
+        : DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(kBorderRadius),
+              image: backgroundDecorationImage,
+            ),
+            child: Card(
+              color: color,
+              shape: shape,
+              margin: EdgeInsets.zero,
+              child: InkWell(
+                onTap: onTap,
+                child: Padding(
+                  padding: padding,
+                  child: child,
+                ),
               ),
             ),
           );

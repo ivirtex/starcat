@@ -35,7 +35,7 @@ class LaunchesList extends StatelessWidget {
       loadingBuilder: (context) => const Padding(
         padding: EdgeInsets.all(8),
         child: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator.adaptive(),
         ),
       ),
       errorBuilder: (context) {

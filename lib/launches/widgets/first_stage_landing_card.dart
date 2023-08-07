@@ -18,41 +18,6 @@ class FirstStageLandingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Row? landingSuccessWidget;
-
-    if (landing?.success != null) {
-      // ignore: use_if_null_to_convert_nulls_to_bools
-      landingSuccessWidget = landing!.success == true
-          ? const Row(
-              children: [
-                Icon(
-                  Icons.check_circle_rounded,
-                  size: 14,
-                  color: Colors.green,
-                ),
-                SizedBox(width: 5),
-                Text(
-                  'Landing Successful',
-                  style: TextStyle(color: Colors.green),
-                ),
-              ],
-            )
-          : const Row(
-              children: [
-                Icon(
-                  Icons.cancel_rounded,
-                  size: 14,
-                  color: Colors.red,
-                ),
-                SizedBox(width: 5),
-                Text(
-                  'Landing Failed',
-                  style: TextStyle(color: Colors.green),
-                ),
-              ],
-            );
-    }
-
     return ExploreCard(
       title: Row(
         children: [
@@ -61,15 +26,38 @@ class FirstStageLandingCard extends StatelessWidget {
           const Text('Landing'),
         ],
       ),
-      trailing: landingSuccessWidget,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            landing?.description ?? 'No landing information',
-          ),
-        ],
-      ),
+      trailing: landing?.success != null
+          ? landing!.success ?? false
+              ? const Row(
+                  children: [
+                    Icon(
+                      Icons.check_circle_rounded,
+                      size: 14,
+                      color: Colors.green,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      'Landing Successful',
+                      style: TextStyle(color: Colors.green),
+                    ),
+                  ],
+                )
+              : const Row(
+                  children: [
+                    Icon(
+                      Icons.cancel_rounded,
+                      size: 14,
+                      color: Colors.red,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      'Landing Failed',
+                      style: TextStyle(color: Colors.green),
+                    ),
+                  ],
+                )
+          : null,
+      child: Text(landing?.description ?? 'No landing information'),
     );
   }
 }
