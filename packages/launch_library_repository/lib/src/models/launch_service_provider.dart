@@ -49,6 +49,16 @@ class LaunchServiceProvider extends Equatable {
     );
   }
 
+  factory LaunchServiceProvider.fromApiStandard(
+    api.Agency apiLaunchServiceProviderMini,
+  ) {
+    return LaunchServiceProvider(
+      id: apiLaunchServiceProviderMini.id,
+      url: apiLaunchServiceProviderMini.url,
+      name: apiLaunchServiceProviderMini.name,
+    );
+  }
+
   factory LaunchServiceProvider.fromApi(
     api.AgencySerializerDetailedCommon apiLaunchServiceProvider,
   ) {

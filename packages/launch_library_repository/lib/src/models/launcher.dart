@@ -40,6 +40,23 @@ class Launcher extends Equatable {
     );
   }
 
+  factory Launcher.fromApiDetail(api.LauncherDetail apiLauncherDetailed) {
+    return Launcher(
+      id: apiLauncherDetailed.id,
+      url: apiLauncherDetailed.url,
+      details: apiLauncherDetailed.details,
+      flightProven: apiLauncherDetailed.flightProven,
+      serialNumber: apiLauncherDetailed.serialNumber,
+      status: apiLauncherDetailed.status,
+      imageUrl: apiLauncherDetailed.imageUrl,
+      successfulLandings: apiLauncherDetailed.successfulLandings,
+      attemptedLandings: apiLauncherDetailed.attemptedLandings,
+      flights: apiLauncherDetailed.flights,
+      lastLaunchDate: apiLauncherDetailed.lastLaunchDate,
+      firstLaunchDate: apiLauncherDetailed.firstLaunchDate,
+    );
+  }
+
   factory Launcher.fromApiDetailed(api.LauncherDetailed apiLauncherDetailed) {
     return Launcher(
       id: apiLauncherDetailed.id,

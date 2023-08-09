@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **mission** | [**Mission**](Mission.md) |  | [optional] [readonly] 
 **pad** | [**Pad**](Pad.md) |  | [readonly] 
 **webcastLive** | **bool** |  | [optional] 
-**image** | **String** |  | [readonly] 
+**image** | **String** |  | [optional] [readonly] 
 **infographic** | **String** |  | [optional] [readonly] 
 **program** | [**List<Program>**](Program.md) |  | [readonly] [default to const []]
 **orbitalLaunchAttemptCount** | **int** |  | [optional] 

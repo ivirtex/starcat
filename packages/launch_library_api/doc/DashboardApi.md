@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **dashboardStarshipRetrieve**
-> dashboardStarshipRetrieve()
+> StarshipDashboard dashboardStarshipRetrieve()
 
 
 
@@ -37,7 +37,8 @@ import 'package:launch_library_api/api.dart';
 final api_instance = DashboardApi();
 
 try {
-    api_instance.dashboardStarshipRetrieve();
+    final result = api_instance.dashboardStarshipRetrieve();
+    print(result);
 } catch (e) {
     print('Exception when calling DashboardApi->dashboardStarshipRetrieve: $e\n');
 }
@@ -48,7 +49,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+[**StarshipDashboard**](StarshipDashboard.md)
 
 ### Authorization
 
@@ -57,7 +58,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

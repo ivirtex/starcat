@@ -32,7 +32,7 @@ class LaunchSerializerCommon {
     this.mission,
     required this.pad,
     this.webcastLive,
-    required this.image,
+    this.image,
     this.infographic,
     this.program = const [],
     this.orbitalLaunchAttemptCount,
@@ -115,7 +115,13 @@ class LaunchSerializerCommon {
   ///
   bool? webcastLive;
 
-  String image;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? image;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -214,7 +220,7 @@ class LaunchSerializerCommon {
     (mission == null ? 0 : mission!.hashCode) +
     (pad.hashCode) +
     (webcastLive == null ? 0 : webcastLive!.hashCode) +
-    (image.hashCode) +
+    (image == null ? 0 : image!.hashCode) +
     (infographic == null ? 0 : infographic!.hashCode) +
     (program.hashCode) +
     (orbitalLaunchAttemptCount == null ? 0 : orbitalLaunchAttemptCount!.hashCode) +
@@ -298,7 +304,11 @@ class LaunchSerializerCommon {
     } else {
       json[r'webcast_live'] = null;
     }
+    if (this.image != null) {
       json[r'image'] = this.image;
+    } else {
+      json[r'image'] = null;
+    }
     if (this.infographic != null) {
       json[r'infographic'] = this.infographic;
     } else {
@@ -386,7 +396,7 @@ class LaunchSerializerCommon {
         mission: Mission.fromJson(json[r'mission']),
         pad: Pad.fromJson(json[r'pad'])!,
         webcastLive: mapValueOfType<bool>(json, r'webcast_live'),
-        image: mapValueOfType<String>(json, r'image')!,
+        image: mapValueOfType<String>(json, r'image'),
         infographic: mapValueOfType<String>(json, r'infographic'),
         program: Program.listFromJson(json[r'program']),
         orbitalLaunchAttemptCount: mapValueOfType<int>(json, r'orbital_launch_attempt_count'),
@@ -451,7 +461,6 @@ class LaunchSerializerCommon {
     'launch_service_provider',
     'rocket',
     'pad',
-    'image',
     'program',
   };
 }

@@ -12,7 +12,7 @@ part of launch_library_api;
 
 class ApiClient {
   ApiClient({
-    this.basePath = 'https://lldev.thespacedevs.com',
+    this.basePath = 'http://localhost',
     this.authentication,
   });
 
@@ -317,6 +317,8 @@ class ApiClient {
           return LauncherDetail.fromJson(value);
         case 'LauncherDetailed':
           return LauncherDetailed.fromJson(value);
+        case 'LiveStream':
+          return LiveStream.fromJson(value);
         case 'Location':
           return Location.fromJson(value);
         case 'LocationDetail':
@@ -333,6 +335,12 @@ class ApiClient {
           return NoticeType.fromJson(value);
         case 'Orbit':
           return Orbit.fromJson(value);
+        case 'Orbiter':
+          return Orbiter.fromJson(value);
+        case 'OrbiterSpacecraftConfig':
+          return OrbiterSpacecraftConfig.fromJson(value);
+        case 'OrbiterStatus':
+          return OrbiterStatus.fromJson(value);
         case 'Pad':
           return Pad.fromJson(value);
         case 'PadSerializerNoLocation':
@@ -468,6 +476,10 @@ class ApiClient {
           return SpacewalkList.fromJson(value);
         case 'SpacewalkNormal':
           return SpacewalkNormal.fromJson(value);
+        case 'StarshipDashboard':
+          return StarshipDashboard.fromJson(value);
+        case 'StarshipDashboardUpcoming':
+          return StarshipDashboardUpcoming.fromJson(value);
         case 'Update':
           return Update.fromJson(value);
         case 'VidURL':

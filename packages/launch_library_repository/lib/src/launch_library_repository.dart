@@ -2,7 +2,7 @@
 import 'dart:developer';
 
 // Package imports:
-import 'package:launch_library_api/api.dart';
+import 'package:launch_library_api/api.dart' as api;
 
 // Project imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -10,15 +10,19 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 /// Repository for fetching data from the Launch Library 2 API.
 class LaunchLibraryRepository {
   LaunchLibraryRepository({
-    LaunchApi? launchApiClient,
+    api.LaunchApi? launchApiClient,
+    api.DashboardApi? dashboardApiClient,
     String baseUrlForApi = 'localhost:8000',
-  }) : _launchApiClient =
-            launchApiClient ?? LaunchApi(ApiClient(basePath: baseUrlForApi));
+  })  : _launchApiClient = launchApiClient ??
+            api.LaunchApi(api.ApiClient(basePath: baseUrlForApi)),
+        _dashboardApiClient = dashboardApiClient ??
+            api.DashboardApi(api.ApiClient(basePath: baseUrlForApi));
 
-  final LaunchApi _launchApiClient;
+  final api.LaunchApi _launchApiClient;
+  final api.DashboardApi _dashboardApiClient;
 
   Future<List<Launch>> getUpcomingLaunches() async {
-    PaginatedLaunchSerializerCommonList? apiResponse;
+    api.PaginatedLaunchSerializerCommonList? apiResponse;
 
     try {
       apiResponse =
@@ -35,7 +39,7 @@ class LaunchLibraryRepository {
   }
 
   Future<List<Launch>> getPastLaunches() async {
-    PaginatedLaunchSerializerCommonList? apiResponse;
+    api.PaginatedLaunchSerializerCommonList? apiResponse;
 
     try {
       apiResponse = await _launchApiClient.launchPreviousList();
@@ -51,7 +55,7 @@ class LaunchLibraryRepository {
   }
 
   Future<Launch> getLaunchDetails(String id) async {
-    LaunchDetailed? apiResponse;
+    api.LaunchDetailed? apiResponse;
 
     try {
       apiResponse = await _launchApiClient.launchRetrieve(id);
@@ -67,7 +71,7 @@ class LaunchLibraryRepository {
   Future<List<Launch>> getNextPageUpcomingLaunches({
     required int offset,
   }) async {
-    PaginatedLaunchSerializerCommonList? apiResponse;
+    api.PaginatedLaunchSerializerCommonList? apiResponse;
 
     try {
       apiResponse =
@@ -86,7 +90,7 @@ class LaunchLibraryRepository {
   Future<List<Launch>> getNextPagePastLaunches({
     required int offset,
   }) async {
-    PaginatedLaunchSerializerCommonList? apiResponse;
+    api.PaginatedLaunchSerializerCommonList? apiResponse;
 
     try {
       apiResponse =
@@ -100,5 +104,19 @@ class LaunchLibraryRepository {
     final apiLaunches = apiResponse!.results;
 
     return apiLaunches.map(Launch.fromApi).toList();
+  }
+
+  Future<StarshipDashboard> getStarshipDashboard() async {
+    api.StarshipDashboard? apiResponse;
+
+    try {
+      apiResponse = await _dashboardApiClient.dashboardStarshipRetrieve();
+    } catch (e) {
+      log('LaunchLibraryRepository.getStarshipDashboard: $e');
+
+      rethrow;
+    }
+
+    return StarshipDashboard.fromApi(apiResponse!);
   }
 }

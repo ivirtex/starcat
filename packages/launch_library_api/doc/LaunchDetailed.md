@@ -32,7 +32,7 @@ Name | Type | Description | Notes
 **infoURLs** | [**List<InfoURL>**](InfoURL.md) |  | [readonly] [default to const []]
 **vidURLs** | [**List<VidURL>**](VidURL.md) |  | [readonly] [default to const []]
 **webcastLive** | **bool** |  | [readonly] 
-**image** | **String** |  | [readonly] 
+**image** | **String** |  | [optional] [readonly] 
 **infographic** | **String** |  | [optional] [readonly] 
 **program** | [**List<Program>**](Program.md) |  | [readonly] [default to const []]
 **orbitalLaunchAttemptCount** | **int** |  | [optional] [readonly] 

@@ -37,7 +37,7 @@ class LaunchDetailed {
     this.infoURLs = const [],
     this.vidURLs = const [],
     required this.webcastLive,
-    required this.image,
+    this.image,
     this.infographic,
     this.program = const [],
     this.orbitalLaunchAttemptCount,
@@ -111,7 +111,13 @@ class LaunchDetailed {
 
   bool webcastLive;
 
-  String image;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? image;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -207,7 +213,7 @@ class LaunchDetailed {
     (infoURLs.hashCode) +
     (vidURLs.hashCode) +
     (webcastLive.hashCode) +
-    (image.hashCode) +
+    (image == null ? 0 : image!.hashCode) +
     (infographic == null ? 0 : infographic!.hashCode) +
     (program.hashCode) +
     (orbitalLaunchAttemptCount == null ? 0 : orbitalLaunchAttemptCount!.hashCode) +
@@ -293,7 +299,11 @@ class LaunchDetailed {
       json[r'infoURLs'] = this.infoURLs;
       json[r'vidURLs'] = this.vidURLs;
       json[r'webcast_live'] = this.webcastLive;
+    if (this.image != null) {
       json[r'image'] = this.image;
+    } else {
+      json[r'image'] = null;
+    }
     if (this.infographic != null) {
       json[r'infographic'] = this.infographic;
     } else {
@@ -387,7 +397,7 @@ class LaunchDetailed {
         infoURLs: InfoURL.listFromJson(json[r'infoURLs']),
         vidURLs: VidURL.listFromJson(json[r'vidURLs']),
         webcastLive: mapValueOfType<bool>(json, r'webcast_live')!,
-        image: mapValueOfType<String>(json, r'image')!,
+        image: mapValueOfType<String>(json, r'image'),
         infographic: mapValueOfType<String>(json, r'infographic'),
         program: Program.listFromJson(json[r'program']),
         orbitalLaunchAttemptCount: mapValueOfType<int>(json, r'orbital_launch_attempt_count'),
@@ -464,7 +474,6 @@ class LaunchDetailed {
     'infoURLs',
     'vidURLs',
     'webcast_live',
-    'image',
     'program',
     'location_launch_attempt_count',
     'pad_launch_attempt_count',

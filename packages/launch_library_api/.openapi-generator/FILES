@@ -57,6 +57,7 @@ doc/LauncherConfigDetailSerializerForAgency.md
 doc/LauncherConfigList.md
 doc/LauncherDetail.md
 doc/LauncherDetailed.md
+doc/LiveStream.md
 doc/Location.md
 doc/LocationApi.md
 doc/LocationDetail.md
@@ -67,6 +68,9 @@ doc/MissionType.md
 doc/NetPrecision.md
 doc/NoticeType.md
 doc/Orbit.md
+doc/Orbiter.md
+doc/OrbiterSpacecraftConfig.md
+doc/OrbiterStatus.md
 doc/Pad.md
 doc/PadApi.md
 doc/PadSerializerNoLocation.md
@@ -139,6 +143,8 @@ doc/SpacewalkDetailed.md
 doc/SpacewalkList.md
 doc/SpacewalkNormal.md
 doc/SpacewalksApi.md
+doc/StarshipDashboard.md
+doc/StarshipDashboardUpcoming.md
 doc/Update.md
 doc/UpdatesApi.md
 doc/VidURL.md
@@ -215,6 +221,7 @@ lib/model/launcher_config_detail_serializer_for_agency.dart
 lib/model/launcher_config_list.dart
 lib/model/launcher_detail.dart
 lib/model/launcher_detailed.dart
+lib/model/live_stream.dart
 lib/model/location.dart
 lib/model/location_detail.dart
 lib/model/mission.dart
@@ -223,6 +230,9 @@ lib/model/mission_type.dart
 lib/model/net_precision.dart
 lib/model/notice_type.dart
 lib/model/orbit.dart
+lib/model/orbiter.dart
+lib/model/orbiter_spacecraft_config.dart
+lib/model/orbiter_status.dart
 lib/model/pad.dart
 lib/model/pad_serializer_no_location.dart
 lib/model/paginated_agency_list.dart
@@ -290,6 +300,8 @@ lib/model/spacecraft_status.dart
 lib/model/spacewalk_detailed.dart
 lib/model/spacewalk_list.dart
 lib/model/spacewalk_normal.dart
+lib/model/starship_dashboard.dart
+lib/model/starship_dashboard_upcoming.dart
 lib/model/update.dart
 lib/model/vid_url.dart
 pubspec.yaml
