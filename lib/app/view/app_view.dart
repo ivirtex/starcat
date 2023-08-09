@@ -30,6 +30,10 @@ class AppView extends StatelessWidget {
             icon: Icon(Icons.article_rounded),
             label: 'News',
           ),
+          NavigationDestination(
+            icon: Icon(Icons.rocket_rounded),
+            label: 'Starship',
+          ),
         ],
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (int index) => navigationShell.goBranch(

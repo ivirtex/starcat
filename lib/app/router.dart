@@ -10,6 +10,7 @@ import 'package:starcat/app/app.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
+import 'package:starcat/starship/starship.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -91,6 +92,14 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
               GoRoute(
                 path: '/news',
                 builder: (context, state) => const NewsPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/starship',
+                builder: (context, state) => const StarshipPage(),
               ),
             ],
           ),
