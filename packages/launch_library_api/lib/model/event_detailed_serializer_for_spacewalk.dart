@@ -25,7 +25,7 @@ class EventDetailedSerializerForSpacewalk {
     this.videoUrl,
     this.featureImage,
     this.date,
-    required this.datePrecision,
+    this.datePrecision,
   });
 
   int id;
@@ -70,7 +70,13 @@ class EventDetailedSerializerForSpacewalk {
 
   DateTime? date;
 
-  NetPrecision datePrecision;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  NetPrecision? datePrecision;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is EventDetailedSerializerForSpacewalk &&
@@ -103,7 +109,7 @@ class EventDetailedSerializerForSpacewalk {
     (videoUrl == null ? 0 : videoUrl!.hashCode) +
     (featureImage == null ? 0 : featureImage!.hashCode) +
     (date == null ? 0 : date!.hashCode) +
-    (datePrecision.hashCode);
+    (datePrecision == null ? 0 : datePrecision!.hashCode);
 
   @override
   String toString() => 'EventDetailedSerializerForSpacewalk[id=$id, url=$url, slug=$slug, name=$name, type=$type, description=$description, webcastLive=$webcastLive, location=$location, newsUrl=$newsUrl, videoUrl=$videoUrl, featureImage=$featureImage, date=$date, datePrecision=$datePrecision]';
@@ -150,7 +156,11 @@ class EventDetailedSerializerForSpacewalk {
     } else {
       json[r'date'] = null;
     }
+    if (this.datePrecision != null) {
       json[r'date_precision'] = this.datePrecision;
+    } else {
+      json[r'date_precision'] = null;
+    }
     return json;
   }
 
@@ -185,7 +195,7 @@ class EventDetailedSerializerForSpacewalk {
         videoUrl: mapValueOfType<String>(json, r'video_url'),
         featureImage: mapValueOfType<String>(json, r'feature_image'),
         date: mapDateTime(json, r'date', ''),
-        datePrecision: NetPrecision.fromJson(json[r'date_precision'])!,
+        datePrecision: NetPrecision.fromJson(json[r'date_precision']),
       );
     }
     return null;
@@ -238,7 +248,6 @@ class EventDetailedSerializerForSpacewalk {
     'slug',
     'name',
     'type',
-    'date_precision',
   };
 }
 

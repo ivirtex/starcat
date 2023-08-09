@@ -8,13 +8,13 @@ part of 'starship_dashboard_upcoming.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-StarshipDashboardUpcoming _$StarshipDashboardUpcomingFromJson(
+StarshipLaunchesAndEvents _$StarshipLaunchesAndEventsFromJson(
         Map<String, dynamic> json) =>
     $checkedCreate(
-      'StarshipDashboardUpcoming',
+      'StarshipLaunchesAndEvents',
       json,
       ($checkedConvert) {
-        final val = StarshipDashboardUpcoming(
+        final val = StarshipLaunchesAndEvents(
           launches: $checkedConvert(
               'launches',
               (v) =>
@@ -34,8 +34,8 @@ StarshipDashboardUpcoming _$StarshipDashboardUpcomingFromJson(
       },
     );
 
-Map<String, dynamic> _$StarshipDashboardUpcomingToJson(
-        StarshipDashboardUpcoming instance) =>
+Map<String, dynamic> _$StarshipLaunchesAndEventsToJson(
+        StarshipLaunchesAndEvents instance) =>
     <String, dynamic>{
       'launches': instance.launches,
       'events': instance.events,

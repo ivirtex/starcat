@@ -14,7 +14,9 @@ Mission _$MissionFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = Mission(
           orbit: $checkedConvert(
-              'orbit', (v) => Orbit.fromJson(v as Map<String, dynamic>)),
+              'orbit',
+              (v) =>
+                  v == null ? null : Orbit.fromJson(v as Map<String, dynamic>)),
           name: $checkedConvert('name', (v) => v as String?),
           description: $checkedConvert('description', (v) => v as String?),
           type: $checkedConvert('type', (v) => v as String?),

@@ -13,7 +13,7 @@ class Event extends Equatable {
     required this.slug,
     required this.name,
     required this.type,
-    required this.datePrecision,
+    this.datePrecision,
     this.updates = const [],
     this.description,
     this.webcastLive,
@@ -43,7 +43,9 @@ class Event extends Equatable {
       videoUrl: data.videoUrl,
       featureImage: data.featureImage,
       date: data.date,
-      datePrecision: NetPrecision.fromApi(data.datePrecision),
+      datePrecision: data.datePrecision != null
+          ? NetPrecision.fromApi(data.datePrecision!)
+          : null,
       launches: data.launches.map(Launch.fromApi).toList(),
       program: data.program.map(Program.fromApi).toList(),
     );
@@ -62,7 +64,7 @@ class Event extends Equatable {
   final String? videoUrl;
   final String? featureImage;
   final DateTime? date;
-  final NetPrecision datePrecision;
+  final NetPrecision? datePrecision;
   final List<Launch> launches;
   final List<Program> program;
 

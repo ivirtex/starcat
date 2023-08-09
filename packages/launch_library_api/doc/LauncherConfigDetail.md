@@ -9,15 +9,15 @@ import 'package:launch_library_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | [readonly] 
-**url** | **String** |  | [readonly] 
-**name** | **String** |  | 
+**url** | **String** |  | [optional] [readonly] 
+**name** | **String** |  | [optional] 
 **active** | **bool** |  | [optional] 
 **reusable** | **bool** |  | [optional] 
 **description** | **String** |  | [optional] 
 **family** | **String** |  | [optional] 
 **fullName** | **String** |  | [optional] 
-**manufacturer** | [**AgencySerializerDetailedCommon**](AgencySerializerDetailedCommon.md) |  | [readonly] 
-**program** | [**List<Program>**](Program.md) |  | [readonly] [default to const []]
+**manufacturer** | [**AgencySerializerDetailedCommon**](AgencySerializerDetailedCommon.md) |  | [optional] [readonly] 
+**program** | [**List<Program>**](Program.md) |  | [optional] [readonly] [default to const []]
 **variant** | **String** |  | [optional] 
 **alias** | **String** |  | [optional] 
 **minStage** | **int** |  | [optional] 

@@ -18,7 +18,10 @@ FirstStage _$FirstStageFromJson(Map<String, dynamic> json) => $checkedCreate(
           launcher: $checkedConvert(
               'launcher', (v) => Launcher.fromJson(v as Map<String, dynamic>)),
           landing: $checkedConvert(
-              'landing', (v) => Landing.fromJson(v as Map<String, dynamic>)),
+              'landing',
+              (v) => v == null
+                  ? null
+                  : Landing.fromJson(v as Map<String, dynamic>)),
           reused: $checkedConvert('reused', (v) => v as bool?),
           launcherFlightNumber:
               $checkedConvert('launcher_flight_number', (v) => v as int?),

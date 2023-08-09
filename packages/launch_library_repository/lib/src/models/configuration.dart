@@ -12,8 +12,8 @@ part 'configuration.g.dart';
 class Configuration extends Equatable {
   const Configuration({
     required this.id,
-    required this.url,
-    required this.name,
+    this.url,
+    this.name,
     this.active,
     this.reusable,
     this.description,
@@ -71,8 +71,11 @@ class Configuration extends Equatable {
       description: apiDetailedConfiguration.description,
       family: apiDetailedConfiguration.family,
       fullName: apiDetailedConfiguration.fullName,
-      manufacturer:
-          LaunchServiceProvider.fromApi(apiDetailedConfiguration.manufacturer),
+      manufacturer: apiDetailedConfiguration.manufacturer != null
+          ? LaunchServiceProvider.fromApi(
+              apiDetailedConfiguration.manufacturer!,
+            )
+          : null,
       program: apiDetailedConfiguration.program.map(Program.fromApi).toList(),
       variant: apiDetailedConfiguration.variant,
       alias: apiDetailedConfiguration.alias,
@@ -101,8 +104,8 @@ class Configuration extends Equatable {
   }
 
   final int id;
-  final String url;
-  final String name;
+  final String? url;
+  final String? name;
   final bool? active;
   final bool? reusable;
   final String? description;

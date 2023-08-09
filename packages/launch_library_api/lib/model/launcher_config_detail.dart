@@ -14,14 +14,14 @@ class LauncherConfigDetail {
   /// Returns a new [LauncherConfigDetail] instance.
   LauncherConfigDetail({
     required this.id,
-    required this.url,
-    required this.name,
+    this.url,
+    this.name,
     this.active,
     this.reusable,
     this.description,
     this.family,
     this.fullName,
-    required this.manufacturer,
+    this.manufacturer,
     this.program = const [],
     this.variant,
     this.alias,
@@ -49,9 +49,21 @@ class LauncherConfigDetail {
 
   int id;
 
-  String url;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? url;
 
-  String name;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? name;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -93,7 +105,13 @@ class LauncherConfigDetail {
   ///
   String? fullName;
 
-  AgencySerializerDetailedCommon manufacturer;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  AgencySerializerDetailedCommon? manufacturer;
 
   List<Program> program;
 
@@ -218,14 +236,14 @@ class LauncherConfigDetail {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (id.hashCode) +
-    (url.hashCode) +
-    (name.hashCode) +
+    (url == null ? 0 : url!.hashCode) +
+    (name == null ? 0 : name!.hashCode) +
     (active == null ? 0 : active!.hashCode) +
     (reusable == null ? 0 : reusable!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
     (family == null ? 0 : family!.hashCode) +
     (fullName == null ? 0 : fullName!.hashCode) +
-    (manufacturer.hashCode) +
+    (manufacturer == null ? 0 : manufacturer!.hashCode) +
     (program.hashCode) +
     (variant == null ? 0 : variant!.hashCode) +
     (alias == null ? 0 : alias!.hashCode) +
@@ -256,8 +274,16 @@ class LauncherConfigDetail {
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
       json[r'id'] = this.id;
+    if (this.url != null) {
       json[r'url'] = this.url;
+    } else {
+      json[r'url'] = null;
+    }
+    if (this.name != null) {
       json[r'name'] = this.name;
+    } else {
+      json[r'name'] = null;
+    }
     if (this.active != null) {
       json[r'active'] = this.active;
     } else {
@@ -283,7 +309,11 @@ class LauncherConfigDetail {
     } else {
       json[r'full_name'] = null;
     }
+    if (this.manufacturer != null) {
       json[r'manufacturer'] = this.manufacturer;
+    } else {
+      json[r'manufacturer'] = null;
+    }
       json[r'program'] = this.program;
     if (this.variant != null) {
       json[r'variant'] = this.variant;
@@ -418,14 +448,14 @@ class LauncherConfigDetail {
 
       return LauncherConfigDetail(
         id: mapValueOfType<int>(json, r'id')!,
-        url: mapValueOfType<String>(json, r'url')!,
-        name: mapValueOfType<String>(json, r'name')!,
+        url: mapValueOfType<String>(json, r'url'),
+        name: mapValueOfType<String>(json, r'name'),
         active: mapValueOfType<bool>(json, r'active'),
         reusable: mapValueOfType<bool>(json, r'reusable'),
         description: mapValueOfType<String>(json, r'description'),
         family: mapValueOfType<String>(json, r'family'),
         fullName: mapValueOfType<String>(json, r'full_name'),
-        manufacturer: AgencySerializerDetailedCommon.fromJson(json[r'manufacturer'])!,
+        manufacturer: AgencySerializerDetailedCommon.fromJson(json[r'manufacturer']),
         program: Program.listFromJson(json[r'program']),
         variant: mapValueOfType<String>(json, r'variant'),
         alias: mapValueOfType<String>(json, r'alias'),
@@ -497,10 +527,6 @@ class LauncherConfigDetail {
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
     'id',
-    'url',
-    'name',
-    'manufacturer',
-    'program',
   };
 }
 

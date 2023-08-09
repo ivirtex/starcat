@@ -26,7 +26,7 @@ class Events {
     this.videoUrl,
     this.featureImage,
     this.date,
-    required this.datePrecision,
+    this.datePrecision,
     this.launches = const [],
     this.expeditions = const [],
     this.spacestations = const [],
@@ -77,7 +77,13 @@ class Events {
 
   DateTime? date;
 
-  NetPrecision datePrecision;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  NetPrecision? datePrecision;
 
   List<LaunchSerializerCommon> launches;
 
@@ -124,7 +130,7 @@ class Events {
     (videoUrl == null ? 0 : videoUrl!.hashCode) +
     (featureImage == null ? 0 : featureImage!.hashCode) +
     (date == null ? 0 : date!.hashCode) +
-    (datePrecision.hashCode) +
+    (datePrecision == null ? 0 : datePrecision!.hashCode) +
     (launches.hashCode) +
     (expeditions.hashCode) +
     (spacestations.hashCode) +
@@ -176,7 +182,11 @@ class Events {
     } else {
       json[r'date'] = null;
     }
+    if (this.datePrecision != null) {
       json[r'date_precision'] = this.datePrecision;
+    } else {
+      json[r'date_precision'] = null;
+    }
       json[r'launches'] = this.launches;
       json[r'expeditions'] = this.expeditions;
       json[r'spacestations'] = this.spacestations;
@@ -216,7 +226,7 @@ class Events {
         videoUrl: mapValueOfType<String>(json, r'video_url'),
         featureImage: mapValueOfType<String>(json, r'feature_image'),
         date: mapDateTime(json, r'date', ''),
-        datePrecision: NetPrecision.fromJson(json[r'date_precision'])!,
+        datePrecision: NetPrecision.fromJson(json[r'date_precision']),
         launches: LaunchSerializerCommon.listFromJson(json[r'launches']),
         expeditions: Expedition.listFromJson(json[r'expeditions']),
         spacestations: SpaceStationSerializerForCommon.listFromJson(json[r'spacestations']),
@@ -274,7 +284,6 @@ class Events {
     'name',
     'updates',
     'type',
-    'date_precision',
     'launches',
     'expeditions',
     'spacestations',

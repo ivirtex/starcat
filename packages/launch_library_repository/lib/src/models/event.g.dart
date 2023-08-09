@@ -19,8 +19,11 @@ Event _$EventFromJson(Map<String, dynamic> json) => $checkedCreate(
           name: $checkedConvert('name', (v) => v as String),
           type: $checkedConvert(
               'type', (v) => EventType.fromJson(v as Map<String, dynamic>)),
-          datePrecision: $checkedConvert('date_precision',
-              (v) => NetPrecision.fromJson(v as Map<String, dynamic>)),
+          datePrecision: $checkedConvert(
+              'date_precision',
+              (v) => v == null
+                  ? null
+                  : NetPrecision.fromJson(v as Map<String, dynamic>)),
           updates: $checkedConvert(
               'updates',
               (v) =>

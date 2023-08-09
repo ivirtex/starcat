@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **videoUrl** | **String** |  | [optional] 
 **featureImage** | **String** |  | [optional] 
 **date** | [**DateTime**](DateTime.md) |  | [optional] 
-**datePrecision** | [**NetPrecision**](NetPrecision.md) |  | [readonly] 
+**datePrecision** | [**NetPrecision**](NetPrecision.md) |  | [optional] [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

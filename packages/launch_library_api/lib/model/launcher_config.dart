@@ -16,7 +16,7 @@ class LauncherConfig {
     required this.id,
     required this.url,
     required this.name,
-    required this.manufacturer,
+    this.manufacturer,
     this.program = const [],
     this.family,
     this.fullName,
@@ -33,7 +33,13 @@ class LauncherConfig {
 
   String name;
 
-  Agency manufacturer;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  Agency? manufacturer;
 
   List<Program> program;
 
@@ -96,7 +102,7 @@ class LauncherConfig {
     (id.hashCode) +
     (url.hashCode) +
     (name.hashCode) +
-    (manufacturer.hashCode) +
+    (manufacturer == null ? 0 : manufacturer!.hashCode) +
     (program.hashCode) +
     (family == null ? 0 : family!.hashCode) +
     (fullName == null ? 0 : fullName!.hashCode) +
@@ -114,7 +120,11 @@ class LauncherConfig {
       json[r'id'] = this.id;
       json[r'url'] = this.url;
       json[r'name'] = this.name;
+    if (this.manufacturer != null) {
       json[r'manufacturer'] = this.manufacturer;
+    } else {
+      json[r'manufacturer'] = null;
+    }
       json[r'program'] = this.program;
     if (this.family != null) {
       json[r'family'] = this.family;
@@ -176,7 +186,7 @@ class LauncherConfig {
         id: mapValueOfType<int>(json, r'id')!,
         url: mapValueOfType<String>(json, r'url')!,
         name: mapValueOfType<String>(json, r'name')!,
-        manufacturer: Agency.fromJson(json[r'manufacturer'])!,
+        manufacturer: Agency.fromJson(json[r'manufacturer']),
         program: Program.listFromJson(json[r'program']),
         family: mapValueOfType<String>(json, r'family'),
         fullName: mapValueOfType<String>(json, r'full_name'),
@@ -235,7 +245,6 @@ class LauncherConfig {
     'id',
     'url',
     'name',
-    'manufacturer',
     'program',
   };
 }

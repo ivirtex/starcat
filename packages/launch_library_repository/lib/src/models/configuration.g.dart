@@ -15,8 +15,8 @@ Configuration _$ConfigurationFromJson(Map<String, dynamic> json) =>
       ($checkedConvert) {
         final val = Configuration(
           id: $checkedConvert('id', (v) => v as int),
-          url: $checkedConvert('url', (v) => v as String),
-          name: $checkedConvert('name', (v) => v as String),
+          url: $checkedConvert('url', (v) => v as String?),
+          name: $checkedConvert('name', (v) => v as String?),
           active: $checkedConvert('active', (v) => v as bool?),
           reusable: $checkedConvert('reusable', (v) => v as bool?),
           description: $checkedConvert('description', (v) => v as String?),

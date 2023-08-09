@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **videoUrl** | **String** |  | [optional] 
 **featureImage** | **String** |  | [optional] 
 **date** | [**DateTime**](DateTime.md) |  | [optional] 
-**datePrecision** | [**NetPrecision**](NetPrecision.md) |  | [readonly] 
+**datePrecision** | [**NetPrecision**](NetPrecision.md) |  | [optional] [readonly] 
 **launches** | [**List<LaunchSerializerCommon>**](LaunchSerializerCommon.md) |  | [default to const []]
 **expeditions** | [**List<Expedition>**](Expedition.md) |  | [default to const []]
 **spacestations** | [**List<SpaceStationSerializerForCommon>**](SpaceStationSerializerForCommon.md) |  | [default to const []]

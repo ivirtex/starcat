@@ -25,13 +25,13 @@ StarshipDashboard _$StarshipDashboardFromJson(Map<String, dynamic> json) =>
               'upcoming',
               (v) => v == null
                   ? null
-                  : StarshipDashboardUpcoming.fromJson(
+                  : StarshipLaunchesAndEvents.fromJson(
                       v as Map<String, dynamic>)),
           previous: $checkedConvert(
               'previous',
               (v) => v == null
                   ? null
-                  : StarshipDashboardUpcoming.fromJson(
+                  : StarshipLaunchesAndEvents.fromJson(
                       v as Map<String, dynamic>)),
           roadClosures: $checkedConvert(
               'road_closures',

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | [readonly] 
 **url** | **String** |  | [readonly] 
 **name** | **String** |  | 
-**manufacturer** | [**Agency**](Agency.md) |  | [readonly] 
+**manufacturer** | [**Agency**](Agency.md) |  | [optional] [readonly] 
 **program** | [**List<Program>**](Program.md) |  | [readonly] [default to const []]
 **family** | **String** |  | [optional] 
 **fullName** | **String** |  | [optional] 

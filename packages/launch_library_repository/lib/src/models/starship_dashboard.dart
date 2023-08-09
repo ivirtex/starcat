@@ -26,10 +26,10 @@ class StarshipDashboard extends Equatable {
     return StarshipDashboard(
       updates: data.updates.map(Update.fromApi).toList(),
       upcoming: data.upcoming != null
-          ? StarshipDashboardUpcoming.fromApi(data.upcoming!)
+          ? StarshipLaunchesAndEvents.fromApi(data.upcoming!)
           : null,
       previous: data.previous != null
-          ? StarshipDashboardUpcoming.fromApi(data.previous!)
+          ? StarshipLaunchesAndEvents.fromApi(data.previous!)
           : null,
       roadClosures: data.roadClosures.map(RoadClosureStatus.fromApi).toList(),
       notices: data.notices.map(NoticeType.fromApi).toList(),
@@ -40,8 +40,8 @@ class StarshipDashboard extends Equatable {
   }
 
   final List<Update> updates;
-  final StarshipDashboardUpcoming? upcoming;
-  final StarshipDashboardUpcoming? previous;
+  final StarshipLaunchesAndEvents? upcoming;
+  final StarshipLaunchesAndEvents? previous;
   final List<RoadClosureStatus> roadClosures;
   final List<NoticeType> notices;
   final List<LiveStream> liveStreams;
