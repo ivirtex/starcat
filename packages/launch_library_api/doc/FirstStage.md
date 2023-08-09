@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **reused** | **bool** |  | [optional] 
 **launcherFlightNumber** | **int** |  | [optional] 
 **launcher** | [**LauncherDetailed**](LauncherDetailed.md) |  | [readonly] 
-**landing** | [**Landing**](Landing.md) |  | [readonly] 
+**landing** | [**Landing**](Landing.md) |  | [optional] [readonly] 
 **previousFlightDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **turnAroundTimeDays** | **int** |  | [optional] 
 **previousFlight** | [**LaunchSerializerMini**](LaunchSerializerMini.md) |  | [optional] [readonly] 

@@ -18,7 +18,7 @@ class FirstStage {
     this.reused,
     this.launcherFlightNumber,
     required this.launcher,
-    required this.landing,
+    this.landing,
     this.previousFlightDate,
     this.turnAroundTimeDays,
     this.previousFlight,
@@ -36,7 +36,13 @@ class FirstStage {
 
   LauncherDetailed launcher;
 
-  Landing landing;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  Landing? landing;
 
   DateTime? previousFlightDate;
 
@@ -72,7 +78,7 @@ class FirstStage {
     (reused == null ? 0 : reused!.hashCode) +
     (launcherFlightNumber == null ? 0 : launcherFlightNumber!.hashCode) +
     (launcher.hashCode) +
-    (landing.hashCode) +
+    (landing == null ? 0 : landing!.hashCode) +
     (previousFlightDate == null ? 0 : previousFlightDate!.hashCode) +
     (turnAroundTimeDays == null ? 0 : turnAroundTimeDays!.hashCode) +
     (previousFlight == null ? 0 : previousFlight!.hashCode);
@@ -95,7 +101,11 @@ class FirstStage {
       json[r'launcher_flight_number'] = null;
     }
       json[r'launcher'] = this.launcher;
+    if (this.landing != null) {
       json[r'landing'] = this.landing;
+    } else {
+      json[r'landing'] = null;
+    }
     if (this.previousFlightDate != null) {
       json[r'previous_flight_date'] = this.previousFlightDate!.toUtc().toIso8601String();
     } else {
@@ -138,7 +148,7 @@ class FirstStage {
         reused: mapValueOfType<bool>(json, r'reused'),
         launcherFlightNumber: mapValueOfType<int>(json, r'launcher_flight_number'),
         launcher: LauncherDetailed.fromJson(json[r'launcher'])!,
-        landing: Landing.fromJson(json[r'landing'])!,
+        landing: Landing.fromJson(json[r'landing']),
         previousFlightDate: mapDateTime(json, r'previous_flight_date', ''),
         turnAroundTimeDays: mapValueOfType<int>(json, r'turn_around_time_days'),
         previousFlight: LaunchSerializerMini.fromJson(json[r'previous_flight']),
@@ -192,7 +202,6 @@ class FirstStage {
     'id',
     'type',
     'launcher',
-    'landing',
   };
 }
 
