@@ -18,7 +18,7 @@ class Mission {
     this.description,
     this.launchDesignator,
     required this.type,
-    required this.orbit,
+    this.orbit,
   });
 
   int id;
@@ -37,7 +37,13 @@ class Mission {
 
   String type;
 
-  Orbit orbit;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  Orbit? orbit;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Mission &&
@@ -56,7 +62,7 @@ class Mission {
     (description == null ? 0 : description!.hashCode) +
     (launchDesignator == null ? 0 : launchDesignator!.hashCode) +
     (type.hashCode) +
-    (orbit.hashCode);
+    (orbit == null ? 0 : orbit!.hashCode);
 
   @override
   String toString() => 'Mission[id=$id, name=$name, description=$description, launchDesignator=$launchDesignator, type=$type, orbit=$orbit]';
@@ -76,7 +82,11 @@ class Mission {
       json[r'launch_designator'] = null;
     }
       json[r'type'] = this.type;
+    if (this.orbit != null) {
       json[r'orbit'] = this.orbit;
+    } else {
+      json[r'orbit'] = null;
+    }
     return json;
   }
 
@@ -104,7 +114,7 @@ class Mission {
         description: mapValueOfType<String>(json, r'description'),
         launchDesignator: mapValueOfType<String>(json, r'launch_designator'),
         type: mapValueOfType<String>(json, r'type')!,
-        orbit: Orbit.fromJson(json[r'orbit'])!,
+        orbit: Orbit.fromJson(json[r'orbit']),
       );
     }
     return null;
@@ -155,7 +165,6 @@ class Mission {
     'id',
     'name',
     'type',
-    'orbit',
   };
 }
 

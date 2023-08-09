@@ -11,7 +11,7 @@ part 'mission.g.dart';
 @JsonSerializable()
 class Mission extends Equatable {
   const Mission({
-    required this.orbit,
+    this.orbit,
     this.name,
     this.description,
     this.type,
@@ -27,7 +27,7 @@ class Mission extends Equatable {
       description: apiMission.description,
       launchDesignator: apiMission.launchDesignator,
       type: apiMission.type,
-      orbit: Orbit.fromApi(apiMission.orbit),
+      orbit: apiMission.orbit != null ? Orbit.fromApi(apiMission.orbit!) : null,
     );
   }
 
@@ -35,7 +35,7 @@ class Mission extends Equatable {
   final String? description;
   final String? launchDesignator;
   final String? type;
-  final Orbit orbit;
+  final Orbit? orbit;
 
   Map<String, dynamic> toJson() => _$MissionToJson(this);
 

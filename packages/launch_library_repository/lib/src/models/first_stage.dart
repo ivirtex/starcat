@@ -14,7 +14,7 @@ class FirstStage extends Equatable {
     required this.id,
     required this.type,
     required this.launcher,
-    required this.landing,
+    this.landing,
     this.reused,
     this.launcherFlightNumber,
     this.previousFlightDate,
@@ -30,7 +30,9 @@ class FirstStage extends Equatable {
       id: apiFirstStage.id,
       type: apiFirstStage.type,
       launcher: Launcher.fromApiDetailed(apiFirstStage.launcher),
-      landing: Landing.fromApi(apiFirstStage.landing),
+      landing: apiFirstStage.landing != null
+          ? Landing.fromApi(apiFirstStage.landing!)
+          : null,
       reused: apiFirstStage.reused,
       launcherFlightNumber: apiFirstStage.launcherFlightNumber,
       previousFlightDate: apiFirstStage.previousFlightDate,
@@ -46,7 +48,7 @@ class FirstStage extends Equatable {
   final bool? reused;
   final int? launcherFlightNumber;
   final Launcher launcher;
-  final Landing landing;
+  final Landing? landing;
   final DateTime? previousFlightDate;
   final int? turnAroundTimeDays;
   final Launch? previousFlight;
