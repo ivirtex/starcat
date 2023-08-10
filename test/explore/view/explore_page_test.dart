@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
