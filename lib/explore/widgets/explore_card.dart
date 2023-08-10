@@ -112,20 +112,23 @@ class ExploreCard extends StatelessWidget {
               ),
             ),
           )
-        : DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(kBorderRadius),
-              image: backgroundDecorationImage,
-            ),
-            child: Card(
-              color: color,
-              shape: shape,
-              margin: EdgeInsets.zero,
-              child: InkWell(
-                onTap: onTap,
-                child: Padding(
-                  padding: padding,
-                  child: child,
+        : Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(kBorderRadius),
+                image: backgroundDecorationImage,
+              ),
+              child: Card(
+                color: color,
+                shape: shape,
+                margin: EdgeInsets.zero,
+                child: InkWell(
+                  onTap: onTap,
+                  child: Padding(
+                    padding: padding,
+                    child: child,
+                  ),
                 ),
               ),
             ),
