@@ -14,10 +14,11 @@ import 'package:wiredash/wiredash.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
-import 'package:starcat/app/router.dart';
+import 'package:starcat/app/app.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/notifications.dart';
+import 'package:starcat/starship/starship.dart';
 import 'package:starcat/theme/theme.dart';
 
 class AppWrapper extends StatelessWidget {
@@ -46,6 +47,11 @@ class AppWrapper extends StatelessWidget {
         BlocProvider(
           create: (context) => NewsBloc(
             _spaceflightNewsRepository,
+          ),
+        ),
+        BlocProvider(
+          create: (context) => StarshipDashboardBloc(
+            _launchLibraryRepository,
           ),
         ),
         BlocProvider(

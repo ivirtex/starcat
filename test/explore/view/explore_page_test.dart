@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
@@ -16,6 +17,7 @@ import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/notifications.dart';
+import 'package:starcat/starship/starship.dart';
 import 'package:starcat/theme/theme.dart';
 import '../../test_helpers/test_helpers.dart';
 
@@ -23,6 +25,10 @@ class MockLaunchesBloc extends MockBloc<LaunchesEvent, LaunchesState>
     implements LaunchesBloc {}
 
 class MockNewsBloc extends MockBloc<NewsEvent, NewsState> implements NewsBloc {}
+
+class MockStarshipDashboardBloc
+    extends MockBloc<StarshipDashboardEvent, StarshipDashboardState>
+    implements StarshipDashboardBloc {}
 
 class MockNotificationsCubit extends MockCubit<NotificationsState>
     implements NotificationsCubit {}

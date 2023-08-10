@@ -27,7 +27,7 @@ void main() {
     testWidgets('renders LaunchDetailsPage', (tester) async {
       await tester.pumpApp(
         launchesBloc: launchesBloc,
-        const LaunchDetailsPage(launch: sampleLaunch),
+        LaunchDetailsPage(launchId: sampleLaunch.id),
       );
 
       await tester.pump(const Duration(seconds: 2));

@@ -26,6 +26,8 @@ const kListAnimationFadeDuration = Duration(milliseconds: 250);
 
 const kListSpacing = 10.0;
 
+const kSectionSpacing = 20.0;
+
 const kBorderRadius = 12.0;
 
 const kBodyPadding = EdgeInsets.symmetric(horizontal: 10);

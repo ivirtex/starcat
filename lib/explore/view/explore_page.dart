@@ -13,6 +13,7 @@ import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/settings/settings.dart';
+import 'package:starcat/starship/starship.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -93,6 +94,9 @@ class _ExploreViewState extends State<ExploreView> {
   void _onRefresh(BuildContext context) {
     context.read<LaunchesBloc>().add(const LaunchesRequested());
     context.read<NewsBloc>().add(const NewsFetchRequested());
+    context
+        .read<StarshipDashboardBloc>()
+        .add(const StarshipDashboardRequested());
   }
 }
 
@@ -121,7 +125,7 @@ class _Body extends StatelessWidget {
                       return const Column(
                         children: [
                           NextLaunchCardPlaceholder(),
-                          SizedBox(height: kListSpacing * 2),
+                          SizedBox(height: kSectionSpacing),
                           UpcomingLaunchesPlaceholder(
                             delay: Duration(milliseconds: 500),
                           ),
@@ -134,7 +138,7 @@ class _Body extends StatelessWidget {
                           NextLaunchCard(
                             launch: state.upcomingLaunches.firstOrNull,
                           ),
-                          const SizedBox(height: kListSpacing * 2),
+                          const SizedBox(height: kSectionSpacing),
                           UpcomingLaunches(launches: state.upcomingLaunches),
                         ]
                             .animate(interval: kListAnimationIntervalDuration)
@@ -144,10 +148,10 @@ class _Body extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: kListSpacing * 2),
+            const SizedBox(height: kSectionSpacing),
             if (kDebugMode) ...[
               const DebugMenu(),
-              const SizedBox(height: kListSpacing * 2)
+              const SizedBox(height: kSectionSpacing)
             ],
             AnimatedSize(
               alignment: Alignment.topCenter,

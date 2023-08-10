@@ -112,8 +112,10 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
 
       expect(
-        tester.widget<LaunchDetailsPage>(find.byType(LaunchDetailsPage)).launch,
-        launches.first,
+        tester
+            .widget<LaunchDetailsPage>(find.byType(LaunchDetailsPage))
+            .launchId,
+        launches.first.id,
       );
     });
   });

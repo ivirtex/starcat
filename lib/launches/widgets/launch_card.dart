@@ -16,19 +16,23 @@ import 'package:starcat/shared/shared.dart';
 class LaunchCard extends StatelessWidget {
   const LaunchCard({
     required this.launch,
+    required this.destination,
+    this.padding = const EdgeInsets.only(bottom: kListSpacing),
     super.key,
   });
 
   final Launch launch;
+  final String destination;
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: kListSpacing),
+      padding: padding,
       child: ExploreCard(
         title: const Text('Status'),
         trailing: LaunchStatus(launch.status),
-        onTap: () => context.go('/launches/launch/${launch.id}?withHero=true'),
+        onTap: () => context.go(destination),
         padding: EdgeInsets.zero,
         child: IntrinsicHeight(
           child: Row(
@@ -38,14 +42,9 @@ class LaunchCard extends StatelessWidget {
                 width: 100,
                 child: Hero(
                   tag: launch.id,
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(10),
-                    ),
-                    child: MissionImage(
-                      imageUrl: launch.image ?? '',
-                      fit: BoxFit.cover,
-                    ),
+                  child: MissionImage(
+                    imageUrl: launch.image ?? '',
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

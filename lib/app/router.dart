@@ -44,14 +44,14 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
                   GoRoute(
                     path: 'launch/:id',
                     builder: (context, state) {
-                      final allLaunches =
-                          context.read<LaunchesBloc>().state.allLaunches;
-                      final launch = allLaunches.firstWhere(
-                        (launch) => launch.id == state.pathParameters['id'],
-                      );
+                      context.read<LaunchesBloc>().add(
+                            LaunchesDetailsRequested(
+                              launchId: state.pathParameters['id']!,
+                            ),
+                          );
 
                       return LaunchDetailsPage(
-                        launch: launch,
+                        launchId: state.pathParameters['id']!,
                         withHero:
                             state.uri.queryParameters['withHero'] == 'true',
                       );
@@ -70,14 +70,14 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
                   GoRoute(
                     path: 'launch/:id',
                     builder: (context, state) {
-                      final allLaunches =
-                          context.read<LaunchesBloc>().state.allLaunches;
-                      final launch = allLaunches.firstWhere(
-                        (launch) => launch.id == state.pathParameters['id'],
-                      );
+                      context.read<LaunchesBloc>().add(
+                            LaunchesDetailsRequested(
+                              launchId: state.pathParameters['id']!,
+                            ),
+                          );
 
                       return LaunchDetailsPage(
-                        launch: launch,
+                        launchId: state.pathParameters['id']!,
                         withHero:
                             state.uri.queryParameters['withHero'] == 'true',
                       );
@@ -100,6 +100,54 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
               GoRoute(
                 path: '/starship',
                 builder: (context, state) => const StarshipPage(),
+                routes: [
+                  GoRoute(
+                    path: 'launch/:id',
+                    builder: (context, state) {
+                      return StarshipLaunchDetailsPage(
+                        launchId: state.pathParameters['id']!,
+                        withHero:
+                            state.uri.queryParameters['withHero'] == 'true',
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'updates',
+                    builder: (context, state) {
+                      final updates = context
+                          .read<StarshipDashboardBloc>()
+                          .state
+                          .dashboard!
+                          .updates;
+
+                      return UpdatesPage(updates: updates);
+                    },
+                  ),
+                  GoRoute(
+                    path: 'orbital-vehicles',
+                    builder: (context, state) {
+                      final orbiters = context
+                          .read<StarshipDashboardBloc>()
+                          .state
+                          .dashboard!
+                          .orbiters;
+
+                      return OrbitalVehiclesPage(orbiters: orbiters);
+                    },
+                  ),
+                  GoRoute(
+                    path: 'vehicles',
+                    builder: (context, state) {
+                      final vehicles = context
+                          .read<StarshipDashboardBloc>()
+                          .state
+                          .dashboard!
+                          .vehicles;
+
+                      return VehiclesPage(launchers: vehicles);
+                    },
+                  ),
+                ],
               ),
             ],
           ),

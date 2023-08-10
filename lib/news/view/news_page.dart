@@ -89,6 +89,7 @@ class _Body extends StatelessWidget {
       sliver: MultiSliver(
         children: [
           // TODO(ivirtex): add a search bar
+          // TODO(ivirtex): refactor to use box protocol
           const SliverList(
             delegate: SliverChildListDelegate.fixed(
               [

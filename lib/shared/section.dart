@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class Section extends StatelessWidget {
   const Section({
     required this.child,
+    this.trailing,
     this.icon,
     super.key,
   });
 
   final Icon? icon;
+  final Widget? trailing;
   final Widget child;
 
   @override
@@ -24,15 +26,18 @@ class Section extends StatelessWidget {
           style:
               Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 18) ??
                   const TextStyle(),
-          child: icon != null
-              ? Row(
-                  children: [
-                    icon!,
-                    const SizedBox(width: 5),
-                    Expanded(child: child),
-                  ],
-                )
-              : child,
+          child: Row(
+            children: [
+              if (icon != null)
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: icon,
+                ),
+              child,
+              const Spacer(),
+              if (trailing != null) trailing!,
+            ],
+          ),
         ),
       ),
     );

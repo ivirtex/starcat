@@ -15,6 +15,7 @@ import 'package:starcat/app/app.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/cubit/cubit.dart';
+import 'package:starcat/starship/bloc/bloc.dart';
 import 'package:starcat/theme/theme.dart';
 import 'test_helpers.dart';
 
@@ -51,6 +52,11 @@ extension PumpApp on WidgetTester {
                 NewsBloc(
                   spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                 ),
+          ),
+          BlocProvider(
+            create: (context) => StarshipDashboardBloc(
+              launchLibraryRepository ?? LaunchLibraryRepository(),
+            ),
           ),
           BlocProvider.value(
             value: notificationsCubit ??

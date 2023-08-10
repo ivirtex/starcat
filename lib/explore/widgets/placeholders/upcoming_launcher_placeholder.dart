@@ -68,8 +68,6 @@ class UpcomingLaunchCardPlaceholder extends StatelessWidget {
           children: [
             LoadingPlaceholder(width: 150),
             Spacer(),
-            LoadingPlaceholder(width: 60),
-            SizedBox(height: 5),
             LoadingPlaceholder(),
           ],
         ),

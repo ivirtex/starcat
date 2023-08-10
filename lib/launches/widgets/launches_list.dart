@@ -51,7 +51,10 @@ class LaunchesList extends StatelessWidget {
       itemBuilder: (context, index) {
         final launch = launches[index];
 
-        return LaunchCard(launch: launch);
+        return LaunchCard(
+          launch: launch,
+          destination: '/launches/launch/${launch.id}?withHero=true',
+        );
       },
     );
   }
