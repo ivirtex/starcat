@@ -8,3 +8,4 @@ export 'launches_list.dart';
 export 'launches_selection.dart';
 export 'mission_image.dart';
 export 'target_orbit_card.dart';
+export 'youtube_video_card.dart';

@@ -124,6 +124,9 @@ class Launch extends Equatable {
       pad: Pad.fromApi(apiDetailedLaunchModel.pad),
       webcastLive: apiDetailedLaunchModel.webcastLive,
       image: apiDetailedLaunchModel.image,
+      infographic: apiDetailedLaunchModel.infographic,
+      infoURLs: apiDetailedLaunchModel.infoURLs.map(InfoURL.fromApi).toList(),
+      vidURLs: apiDetailedLaunchModel.vidURLs.map(VideoURL.fromApi).toList(),
       program: apiDetailedLaunchModel.program.map(Program.fromApi).toList(),
       orbitalLaunchAttemptCount:
           apiDetailedLaunchModel.orbitalLaunchAttemptCount,

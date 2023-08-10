@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:launch_library_api/api.dart' as api;
 
 part 'video_url.g.dart';
 
@@ -16,6 +17,14 @@ class VideoURL extends Equatable {
 
   factory VideoURL.fromJson(Map<String, dynamic> json) =>
       _$VideoURLFromJson(json);
+
+  factory VideoURL.fromApi(api.VidURL vidURL) => VideoURL(
+        url: vidURL.url,
+        priority: vidURL.priority,
+        title: vidURL.title,
+        description: vidURL.description,
+        featureImage: vidURL.featureImage,
+      );
 
   final int? priority;
   final String? title;

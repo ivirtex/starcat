@@ -56,23 +56,22 @@ class LaunchVehicleCard extends StatelessWidget {
                           ),
                           if (stage.reused != null)
                             InfoCard(
-                              bgColor: stage.reused!
-                                  ? Colors.lightGreen
-                                  : Colors.redAccent,
+                              bgColor:
+                                  stage.reused! ? Colors.green : Colors.red,
                               contentColor: Colors.white,
                               icon: const Icon(Icons.eco_rounded),
                               child:
                                   Text(stage.reused! ? 'Reused' : 'Not reused'),
                             ),
                           if (stage.launcherFlightNumber != null)
-                            InfoCard.tertiary(
+                            InfoCard.primary(
                               icon: const Icon(Icons.flight_rounded),
                               child: Text(
                                 'Flight #${stage.launcherFlightNumber}',
                               ),
                             ),
                           if (stage.turnAroundTimeDays != null)
-                            InfoCard.tertiary(
+                            InfoCard.primary(
                               icon: const Icon(Icons.timer_rounded),
                               child: Text(
                                 '${stage.turnAroundTimeDays} days',
