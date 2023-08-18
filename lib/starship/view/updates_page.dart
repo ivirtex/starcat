@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
@@ -42,8 +41,8 @@ class UpdatesView extends StatelessWidget {
           ),
           SliverPadding(
             padding: kBodyPadding,
-            sliver: MultiSliver(
-              children: [
+            sliver: SliverMainAxisGroup(
+              slivers: [
                 const SizedBox(height: kListSpacing),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(

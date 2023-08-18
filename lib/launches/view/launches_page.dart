@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sliver_tools/sliver_tools.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
@@ -78,8 +77,8 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: kBodyPadding,
-      sliver: MultiSliver(
-        children: [
+      sliver: SliverMainAxisGroup(
+        slivers: [
           const SliverList(
             delegate: SliverChildListDelegate.fixed(
               [
