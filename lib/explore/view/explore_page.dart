@@ -76,8 +76,12 @@ class _ExploreViewState extends State<ExploreView> {
                       context: context,
                       useRootNavigator: true,
                       showDragHandle: true,
+                      isScrollControlled: true,
                       builder: (_) {
-                        return const SettingsView();
+                        return const FractionallySizedBox(
+                          heightFactor: 0.8,
+                          child: SettingsView(),
+                        );
                       },
                     );
                   },

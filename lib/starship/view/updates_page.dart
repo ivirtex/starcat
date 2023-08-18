@@ -40,24 +40,19 @@ class UpdatesView extends StatelessWidget {
             title: Text('Updates'),
           ),
           SliverPadding(
-            padding: kBodyPadding,
-            sliver: SliverMainAxisGroup(
-              slivers: [
-                const SizedBox(height: kListSpacing),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: updates.length,
-                    (context, index) {
-                      final update = updates[index];
+            padding: kBodyPadding + const EdgeInsets.only(top: kListSpacing),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                childCount: updates.length,
+                (context, index) {
+                  final update = updates[index];
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: kListSpacing),
-                        child: UpdateCard(update: update),
-                      );
-                    },
-                  ),
-                ),
-              ],
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: kListSpacing),
+                    child: UpdateCard(update: update),
+                  );
+                },
+              ),
             ),
           ),
         ],

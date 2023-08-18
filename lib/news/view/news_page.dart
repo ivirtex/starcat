@@ -88,14 +88,10 @@ class _Body extends StatelessWidget {
       sliver: SliverMainAxisGroup(
         slivers: [
           // TODO(ivirtex): add a search bar
-          // TODO(ivirtex): refactor to use box protocol
-          const SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              [
-                SizedBox(height: kListSpacing),
-                ArticleSelection(),
-                SizedBox(height: kListSpacing),
-              ],
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: kListSpacing),
+              child: ArticleSelection(),
             ),
           ),
           BlocBuilder<NewsBloc, NewsState>(

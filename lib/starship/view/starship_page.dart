@@ -36,7 +36,9 @@ class StarshipView extends StatelessWidget {
               pinned: true,
               title: Text('Starship'),
             ),
-            _Body(),
+            SliverToBoxAdapter(
+              child: _Body(),
+            ),
           ],
         ),
       ),
@@ -49,85 +51,71 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
+    return Padding(
       padding: kBodyPadding,
-      sliver: SliverMainAxisGroup(
-        slivers: [
-          SliverList.list(
-            children: [
-              AnimatedSize(
-                alignment: Alignment.topCenter,
-                duration: kStateChangeAnimationDuration,
-                curve: Curves.easeInOut,
-                child:
-                    BlocBuilder<StarshipDashboardBloc, StarshipDashboardState>(
-                  builder: (context, state) {
-                    switch (state.status) {
-                      case StarshipDashboardStatus.initial:
-                      case StarshipDashboardStatus.loading:
-                        return const Column(
-                          children: [
-                            SizedBox(height: kListSpacing),
-                            RoadClosurePlaceholder(),
-                            SizedBox(height: kSectionSpacing),
-                            NoticesPlaceholder(
-                              delay: Duration(milliseconds: 500),
-                            ),
-                            SizedBox(height: kSectionSpacing),
-                            UpdatesPlaceholder(
-                              delay: Duration(milliseconds: 500 * 2),
-                            ),
-                            SizedBox(height: kSectionSpacing),
-                            OrbitersPlaceholder(
-                              delay: Duration(milliseconds: 500 * 3),
-                            ),
-                            SizedBox(height: kSectionSpacing),
-                            VehiclesPlaceholder(
-                              delay: Duration(milliseconds: 500 * 4),
-                            ),
-                            SizedBox(height: kSectionSpacing),
-                          ],
-                        );
-                      case StarshipDashboardStatus.failure:
-                      case StarshipDashboardStatus.success:
-                        return Column(
-                          children: [
-                            const SizedBox(height: kListSpacing),
-                            RoadClosures(
-                              roadClosures: state.dashboard!.roadClosures,
-                            ),
-                            const SizedBox(height: kSectionSpacing),
-                            Notices(notices: state.dashboard!.notices),
-                            const SizedBox(height: kSectionSpacing),
-                            Updates(updates: state.dashboard!.updates),
-                            const SizedBox(height: kSectionSpacing),
-                            Orbiters(orbiters: state.dashboard!.orbiters),
-                            const SizedBox(height: kSectionSpacing),
-                            Vehicles(vehicles: state.dashboard!.vehicles),
-                            const SizedBox(height: kSectionSpacing),
-                            Launches(
-                              title: 'Upcoming Launches',
-                              icon: Icons.schedule_rounded,
-                              launches: state.dashboard!.upcoming!.launches,
-                            ),
-                            const SizedBox(height: kSectionSpacing),
-                            Launches(
-                              title: 'Previous Launches',
-                              icon: Icons.history_rounded,
-                              launches: state.dashboard!.previous!.launches,
-                            ),
-                            const SizedBox(height: kListSpacing),
-                          ]
-                              .animate(interval: kListAnimationIntervalDuration)
-                              .fadeIn(duration: kStateChangeAnimationDuration),
-                        );
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-        ],
+      child: BlocBuilder<StarshipDashboardBloc, StarshipDashboardState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case StarshipDashboardStatus.initial:
+            case StarshipDashboardStatus.loading:
+              return const Column(
+                children: [
+                  SizedBox(height: kListSpacing),
+                  RoadClosurePlaceholder(),
+                  SizedBox(height: kSectionSpacing),
+                  NoticesPlaceholder(
+                    delay: Duration(milliseconds: 500),
+                  ),
+                  SizedBox(height: kSectionSpacing),
+                  UpdatesPlaceholder(
+                    delay: Duration(milliseconds: 500 * 2),
+                  ),
+                  SizedBox(height: kSectionSpacing),
+                  OrbitersPlaceholder(
+                    delay: Duration(milliseconds: 500 * 3),
+                  ),
+                  SizedBox(height: kSectionSpacing),
+                  VehiclesPlaceholder(
+                    delay: Duration(milliseconds: 500 * 4),
+                  ),
+                  SizedBox(height: kSectionSpacing),
+                ],
+              );
+            case StarshipDashboardStatus.failure:
+            case StarshipDashboardStatus.success:
+              return Column(
+                children: [
+                  const SizedBox(height: kListSpacing),
+                  RoadClosures(
+                    roadClosures: state.dashboard!.roadClosures,
+                  ),
+                  const SizedBox(height: kSectionSpacing),
+                  Notices(notices: state.dashboard!.notices),
+                  const SizedBox(height: kSectionSpacing),
+                  Updates(updates: state.dashboard!.updates),
+                  const SizedBox(height: kSectionSpacing),
+                  Orbiters(orbiters: state.dashboard!.orbiters),
+                  const SizedBox(height: kSectionSpacing),
+                  Vehicles(vehicles: state.dashboard!.vehicles),
+                  const SizedBox(height: kSectionSpacing),
+                  Launches(
+                    title: 'Upcoming Launches',
+                    icon: Icons.schedule_rounded,
+                    launches: state.dashboard!.upcoming!.launches,
+                  ),
+                  const SizedBox(height: kSectionSpacing),
+                  Launches(
+                    title: 'Previous Launches',
+                    icon: Icons.history_rounded,
+                    launches: state.dashboard!.previous!.launches,
+                  ),
+                  const SizedBox(height: kListSpacing),
+                ]
+                    .animate(interval: kListAnimationIntervalDuration)
+                    .fadeIn(duration: kStateChangeAnimationDuration),
+              );
+          }
+        },
       ),
     );
   }

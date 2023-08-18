@@ -43,36 +43,34 @@ class VehiclesView extends StatelessWidget {
           ),
           SliverPadding(
             padding: kBodyPadding,
-            sliver: SliverMainAxisGroup(
-              slivers: [
-                const SizedBox(height: kListSpacing),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: launchers.length,
-                    (context, index) {
-                      final vehicle = launchers[index];
+            sliver: SliverPadding(
+              padding: const EdgeInsets.only(top: kListSpacing),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: launchers.length,
+                  (context, index) {
+                    final vehicle = launchers[index];
 
-                      // Capitalize status
-                      final status = toBeginningOfSentenceCase(
-                        vehicle.status ?? 'Unknown',
-                      );
+                    // Capitalize status
+                    final status = toBeginningOfSentenceCase(
+                      vehicle.status ?? 'Unknown',
+                    );
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: kListSpacing),
-                        child: VehicleCard(
-                          title: Text(vehicle.serialNumber ?? 'N/A SN'),
-                          subtitle: Text(vehicle.details ?? 'N/A Details'),
-                          leading: MissionImage(
-                            imageUrl: vehicle.imageUrl ?? '',
-                            fit: BoxFit.cover,
-                          ),
-                          status: Text(status ?? 'Unknown'),
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: kListSpacing),
+                      child: VehicleCard(
+                        title: Text(vehicle.serialNumber ?? 'N/A SN'),
+                        subtitle: Text(vehicle.details ?? 'N/A Details'),
+                        leading: MissionImage(
+                          imageUrl: vehicle.imageUrl ?? '',
+                          fit: BoxFit.cover,
                         ),
-                      );
-                    },
-                  ),
+                        status: Text(status ?? 'Unknown'),
+                      ),
+                    );
+                  },
                 ),
-              ],
+              ),
             ),
           ),
         ],

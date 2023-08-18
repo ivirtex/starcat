@@ -41,35 +41,29 @@ class OrbitalVehiclesView extends StatelessWidget {
             title: Text('Orbital Vehicles'),
           ),
           SliverPadding(
-            padding: kBodyPadding,
-            sliver: SliverMainAxisGroup(
-              slivers: [
-                const SizedBox(height: kListSpacing),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: orbiters.length,
-                    (context, index) {
-                      final vehicle = orbiters[index];
+            padding: kBodyPadding + const EdgeInsets.only(top: kListSpacing),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                childCount: orbiters.length,
+                (context, index) {
+                  final vehicle = orbiters[index];
 
-                      // Capitalize status
-                      final status =
-                          toBeginningOfSentenceCase(vehicle.status.name);
+                  // Capitalize status
+                  final status = toBeginningOfSentenceCase(vehicle.status.name);
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: kListSpacing),
-                        child: VehicleCard(
-                          title: Text(vehicle.name),
-                          subtitle: Text(vehicle.description),
-                          leading: Center(
-                            child: Text(vehicle.serialNumber),
-                          ),
-                          status: Text(status ?? 'Unknown'),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: kListSpacing),
+                    child: VehicleCard(
+                      title: Text(vehicle.name),
+                      subtitle: Text(vehicle.description),
+                      leading: Center(
+                        child: Text(vehicle.serialNumber),
+                      ),
+                      status: Text(status ?? 'Unknown'),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],

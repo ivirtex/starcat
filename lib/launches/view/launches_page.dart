@@ -79,13 +79,10 @@ class _Body extends StatelessWidget {
       padding: kBodyPadding,
       sliver: SliverMainAxisGroup(
         slivers: [
-          const SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              [
-                SizedBox(height: kListSpacing),
-                LaunchesSelection(),
-                SizedBox(height: kListSpacing),
-              ],
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: kListSpacing),
+              child: LaunchesSelection(),
             ),
           ),
           BlocBuilder<LaunchesBloc, LaunchesState>(
