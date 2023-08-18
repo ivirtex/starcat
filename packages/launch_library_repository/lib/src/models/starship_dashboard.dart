@@ -31,7 +31,7 @@ class StarshipDashboard extends Equatable {
       previous: data.previous != null
           ? StarshipLaunchesAndEvents.fromApi(data.previous!)
           : null,
-      roadClosures: data.roadClosures.map(RoadClosureStatus.fromApi).toList(),
+      roadClosures: data.roadClosures.map(RoadClosure.fromApi).toList(),
       notices: data.notices.map(NoticeType.fromApi).toList(),
       liveStreams: data.liveStreams.map(LiveStream.fromApi).toList(),
       vehicles: data.vehicles.map(Launcher.fromApiDetail).toList(),
@@ -42,7 +42,7 @@ class StarshipDashboard extends Equatable {
   final List<Update> updates;
   final StarshipLaunchesAndEvents? upcoming;
   final StarshipLaunchesAndEvents? previous;
-  final List<RoadClosureStatus> roadClosures;
+  final List<RoadClosure> roadClosures;
   final List<NoticeType> notices;
   final List<LiveStream> liveStreams;
   final List<Launcher> vehicles;

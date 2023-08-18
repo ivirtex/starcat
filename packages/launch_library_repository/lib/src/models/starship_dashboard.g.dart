@@ -38,7 +38,7 @@ StarshipDashboard _$StarshipDashboardFromJson(Map<String, dynamic> json) =>
               (v) =>
                   (v as List<dynamic>?)
                       ?.map((e) =>
-                          RoadClosureStatus.fromJson(e as Map<String, dynamic>))
+                          RoadClosure.fromJson(e as Map<String, dynamic>))
                       .toList() ??
                   const []),
           notices: $checkedConvert(

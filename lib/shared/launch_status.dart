@@ -12,7 +12,7 @@ class LaunchStatus extends StatelessWidget {
 
   final Status? launchStatus;
 
-  Color getColorForAbbrev(StatusAbbrev abbrev) {
+  Color getColorForAbbrev(StatusAbbrev abbrev, BuildContext context) {
     switch (abbrev) {
       case StatusAbbrev.go:
         return Colors.greenAccent.shade400;
@@ -23,13 +23,13 @@ class LaunchStatus extends StatelessWidget {
       case StatusAbbrev.hold:
         return Colors.orange;
       case StatusAbbrev.inFlight:
-        return Colors.blue;
+        return Theme.of(context).colorScheme.primary;
       case StatusAbbrev.partialFailure:
         return Colors.orange;
       case StatusAbbrev.failure:
-        return Colors.red;
+        return Theme.of(context).colorScheme.error;
       case StatusAbbrev.tbd:
-        return Colors.grey;
+        return Theme.of(context).colorScheme.onSurface.withOpacity(0.8);
     }
   }
 
@@ -61,13 +61,19 @@ class LaunchStatus extends StatelessWidget {
         Icon(
           getIconForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
           size: 14,
-          color: getColorForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
+          color: getColorForAbbrev(
+            launchStatus?.abbrev ?? StatusAbbrev.tbd,
+            context,
+          ),
         ),
         const SizedBox(width: 3),
         Text(
           launchStatus?.name ?? '',
           style: TextStyle(
-            color: getColorForAbbrev(launchStatus?.abbrev ?? StatusAbbrev.tbd),
+            color: getColorForAbbrev(
+              launchStatus?.abbrev ?? StatusAbbrev.tbd,
+              context,
+            ),
           ),
         ),
       ],

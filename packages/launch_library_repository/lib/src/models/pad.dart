@@ -11,7 +11,7 @@ part 'pad.g.dart';
 @JsonSerializable()
 class Pad extends Equatable {
   const Pad({
-     this.location,
+    this.location,
     this.url,
     this.latitude,
     this.longitude,

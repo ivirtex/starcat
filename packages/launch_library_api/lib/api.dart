@@ -141,6 +141,7 @@ part 'model/paginated_spacecraft_status_list.dart';
 part 'model/paginated_spacewalk_normal_list.dart';
 part 'model/paginated_update_list.dart';
 part 'model/program.dart';
+part 'model/road_closure.dart';
 part 'model/road_closure_status.dart';
 part 'model/rocket_detailed.dart';
 part 'model/rocket_serializer_common.dart';

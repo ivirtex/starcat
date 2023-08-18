@@ -12,9 +12,9 @@ dependencies:
     path: ../launch_library_api
 
 dev_dependencies:
-  build_runner: ^2.4.4
+  build_runner: ^2.4.6
   import_sorter: ^4.6.0
-  json_serializable: ^6.6.2
-  mocktail: ^0.3.0
-  test: ^1.24.2
-  very_good_analysis: ^4.0.0
+  json_serializable: ^6.7.1
+  mocktail: ^1.0.0
+  test: ^1.24.6
+  very_good_analysis: ^5.0.0

@@ -21,6 +21,7 @@ export 'orbiter_spacecraft_config.dart';
 export 'orbiter_status.dart';
 export 'pad.dart';
 export 'program.dart';
+export 'road_closure.dart';
 export 'road_closure_status.dart';
 export 'rocket.dart';
 export 'spacecraft.dart';

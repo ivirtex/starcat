@@ -41,7 +41,7 @@ class StarshipDashboard {
   ///
   StarshipDashboardUpcoming? previous;
 
-  List<RoadClosureStatus> roadClosures;
+  List<RoadClosure> roadClosures;
 
   List<NoticeType> notices;
 
@@ -52,37 +52,34 @@ class StarshipDashboard {
   List<Orbiter> orbiters;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is StarshipDashboard &&
-          other.updates == updates &&
-          other.upcoming == upcoming &&
-          other.previous == previous &&
-          other.roadClosures == roadClosures &&
-          other.notices == notices &&
-          other.liveStreams == liveStreams &&
-          other.vehicles == vehicles &&
-          other.orbiters == orbiters;
+  bool operator ==(Object other) => identical(this, other) || other is StarshipDashboard &&
+     other.updates == updates &&
+     other.upcoming == upcoming &&
+     other.previous == previous &&
+     other.roadClosures == roadClosures &&
+     other.notices == notices &&
+     other.liveStreams == liveStreams &&
+     other.vehicles == vehicles &&
+     other.orbiters == orbiters;
 
   @override
   int get hashCode =>
-      // ignore: unnecessary_parenthesis
-      (updates.hashCode) +
-      (upcoming == null ? 0 : upcoming!.hashCode) +
-      (previous == null ? 0 : previous!.hashCode) +
-      (roadClosures.hashCode) +
-      (notices.hashCode) +
-      (liveStreams.hashCode) +
-      (vehicles.hashCode) +
-      (orbiters.hashCode);
+    // ignore: unnecessary_parenthesis
+    (updates.hashCode) +
+    (upcoming == null ? 0 : upcoming!.hashCode) +
+    (previous == null ? 0 : previous!.hashCode) +
+    (roadClosures.hashCode) +
+    (notices.hashCode) +
+    (liveStreams.hashCode) +
+    (vehicles.hashCode) +
+    (orbiters.hashCode);
 
   @override
-  String toString() =>
-      'StarshipDashboard[updates=$updates, upcoming=$upcoming, previous=$previous, roadClosures=$roadClosures, notices=$notices, liveStreams=$liveStreams, vehicles=$vehicles, orbiters=$orbiters]';
+  String toString() => 'StarshipDashboard[updates=$updates, upcoming=$upcoming, previous=$previous, roadClosures=$roadClosures, notices=$notices, liveStreams=$liveStreams, vehicles=$vehicles, orbiters=$orbiters]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    json[r'updates'] = this.updates;
+      json[r'updates'] = this.updates;
     if (this.upcoming != null) {
       json[r'upcoming'] = this.upcoming;
     } else {
@@ -93,11 +90,11 @@ class StarshipDashboard {
     } else {
       json[r'previous'] = null;
     }
-    json[r'road_closures'] = this.roadClosures;
-    json[r'notices'] = this.notices;
-    json[r'live_streams'] = this.liveStreams;
-    json[r'vehicles'] = this.vehicles;
-    json[r'orbiters'] = this.orbiters;
+      json[r'road_closures'] = this.roadClosures;
+      json[r'notices'] = this.notices;
+      json[r'live_streams'] = this.liveStreams;
+      json[r'vehicles'] = this.vehicles;
+      json[r'orbiters'] = this.orbiters;
     return json;
   }
 
@@ -113,10 +110,8 @@ class StarshipDashboard {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key),
-              'Required key "StarshipDashboard[$key]" is missing from JSON.');
-          assert(json[key] != null,
-              'Required key "StarshipDashboard[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "StarshipDashboard[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "StarshipDashboard[$key]" has a null value in JSON.');
         });
         return true;
       }());
@@ -125,7 +120,7 @@ class StarshipDashboard {
         updates: Update.listFromJson(json[r'updates']),
         upcoming: StarshipDashboardUpcoming.fromJson(json[r'upcoming']),
         previous: StarshipDashboardUpcoming.fromJson(json[r'previous']),
-        roadClosures: RoadClosureStatus.listFromJson(json[r'road_closures']),
+        roadClosures: RoadClosure.listFromJson(json[r'road_closures']),
         notices: NoticeType.listFromJson(json[r'notices']),
         liveStreams: LiveStream.listFromJson(json[r'live_streams']),
         vehicles: LauncherDetail.listFromJson(json[r'vehicles']),
@@ -135,10 +130,7 @@ class StarshipDashboard {
     return null;
   }
 
-  static List<StarshipDashboard> listFromJson(
-    dynamic json, {
-    bool growable = false,
-  }) {
+  static List<StarshipDashboard> listFromJson(dynamic json, {bool growable = false,}) {
     final result = <StarshipDashboard>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -166,24 +158,20 @@ class StarshipDashboard {
   }
 
   // maps a json object with a list of StarshipDashboard-objects as value to a dart map
-  static Map<String, List<StarshipDashboard>> mapListFromJson(
-    dynamic json, {
-    bool growable = false,
-  }) {
+  static Map<String, List<StarshipDashboard>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<StarshipDashboard>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = StarshipDashboard.listFromJson(
-          entry.value,
-          growable: growable,
-        );
+        map[entry.key] = StarshipDashboard.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;
   }
 
   /// The list of required keys that must be present in a JSON.
-  static const requiredKeys = <String>{};
+  static const requiredKeys = <String>{
+  };
 }
+

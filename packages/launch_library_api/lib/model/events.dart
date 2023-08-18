@@ -94,59 +94,62 @@ class Events {
   List<Program> program;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Events &&
-     other.id == id &&
-     other.url == url &&
-     other.slug == slug &&
-     other.name == name &&
-     other.updates == updates &&
-     other.type == type &&
-     other.description == description &&
-     other.webcastLive == webcastLive &&
-     other.location == location &&
-     other.newsUrl == newsUrl &&
-     other.videoUrl == videoUrl &&
-     other.featureImage == featureImage &&
-     other.date == date &&
-     other.datePrecision == datePrecision &&
-     other.launches == launches &&
-     other.expeditions == expeditions &&
-     other.spacestations == spacestations &&
-     other.program == program;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Events &&
+          other.id == id &&
+          other.url == url &&
+          other.slug == slug &&
+          other.name == name &&
+          other.updates == updates &&
+          other.type == type &&
+          other.description == description &&
+          other.webcastLive == webcastLive &&
+          other.location == location &&
+          other.newsUrl == newsUrl &&
+          other.videoUrl == videoUrl &&
+          other.featureImage == featureImage &&
+          other.date == date &&
+          other.datePrecision == datePrecision &&
+          other.launches == launches &&
+          other.expeditions == expeditions &&
+          other.spacestations == spacestations &&
+          other.program == program;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (id.hashCode) +
-    (url.hashCode) +
-    (slug.hashCode) +
-    (name.hashCode) +
-    (updates.hashCode) +
-    (type.hashCode) +
-    (description == null ? 0 : description!.hashCode) +
-    (webcastLive == null ? 0 : webcastLive!.hashCode) +
-    (location == null ? 0 : location!.hashCode) +
-    (newsUrl == null ? 0 : newsUrl!.hashCode) +
-    (videoUrl == null ? 0 : videoUrl!.hashCode) +
-    (featureImage == null ? 0 : featureImage!.hashCode) +
-    (date == null ? 0 : date!.hashCode) +
-    (datePrecision == null ? 0 : datePrecision!.hashCode) +
-    (launches.hashCode) +
-    (expeditions.hashCode) +
-    (spacestations.hashCode) +
-    (program.hashCode);
+      // ignore: unnecessary_parenthesis
+      (id.hashCode) +
+      (url.hashCode) +
+      (slug.hashCode) +
+      (name.hashCode) +
+      (updates.hashCode) +
+      (type.hashCode) +
+      (description == null ? 0 : description!.hashCode) +
+      (webcastLive == null ? 0 : webcastLive!.hashCode) +
+      (location == null ? 0 : location!.hashCode) +
+      (newsUrl == null ? 0 : newsUrl!.hashCode) +
+      (videoUrl == null ? 0 : videoUrl!.hashCode) +
+      (featureImage == null ? 0 : featureImage!.hashCode) +
+      (date == null ? 0 : date!.hashCode) +
+      (datePrecision == null ? 0 : datePrecision!.hashCode) +
+      (launches.hashCode) +
+      (expeditions.hashCode) +
+      (spacestations.hashCode) +
+      (program.hashCode);
 
   @override
-  String toString() => 'Events[id=$id, url=$url, slug=$slug, name=$name, updates=$updates, type=$type, description=$description, webcastLive=$webcastLive, location=$location, newsUrl=$newsUrl, videoUrl=$videoUrl, featureImage=$featureImage, date=$date, datePrecision=$datePrecision, launches=$launches, expeditions=$expeditions, spacestations=$spacestations, program=$program]';
+  String toString() =>
+      'Events[id=$id, url=$url, slug=$slug, name=$name, updates=$updates, type=$type, description=$description, webcastLive=$webcastLive, location=$location, newsUrl=$newsUrl, videoUrl=$videoUrl, featureImage=$featureImage, date=$date, datePrecision=$datePrecision, launches=$launches, expeditions=$expeditions, spacestations=$spacestations, program=$program]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'id'] = this.id;
-      json[r'url'] = this.url;
-      json[r'slug'] = this.slug;
-      json[r'name'] = this.name;
-      json[r'updates'] = this.updates;
-      json[r'type'] = this.type;
+    json[r'id'] = this.id;
+    json[r'url'] = this.url;
+    json[r'slug'] = this.slug;
+    json[r'name'] = this.name;
+    json[r'updates'] = this.updates;
+    json[r'type'] = this.type;
     if (this.description != null) {
       json[r'description'] = this.description;
     } else {
@@ -187,10 +190,10 @@ class Events {
     } else {
       json[r'date_precision'] = null;
     }
-      json[r'launches'] = this.launches;
-      json[r'expeditions'] = this.expeditions;
-      json[r'spacestations'] = this.spacestations;
-      json[r'program'] = this.program;
+    json[r'launches'] = this.launches;
+    json[r'expeditions'] = this.expeditions;
+    json[r'spacestations'] = this.spacestations;
+    json[r'program'] = this.program;
     return json;
   }
 
@@ -206,8 +209,10 @@ class Events {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Events[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Events[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "Events[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "Events[$key]" has a null value in JSON.');
         });
         return true;
       }());
@@ -229,14 +234,18 @@ class Events {
         datePrecision: NetPrecision.fromJson(json[r'date_precision']),
         launches: LaunchSerializerCommon.listFromJson(json[r'launches']),
         expeditions: Expedition.listFromJson(json[r'expeditions']),
-        spacestations: SpaceStationSerializerForCommon.listFromJson(json[r'spacestations']),
+        spacestations: SpaceStationSerializerForCommon.listFromJson(
+            json[r'spacestations']),
         program: Program.listFromJson(json[r'program']),
       );
     }
     return null;
   }
 
-  static List<Events> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Events> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <Events>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -264,13 +273,19 @@ class Events {
   }
 
   // maps a json object with a list of Events-objects as value to a dart map
-  static Map<String, List<Events>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<Events>> mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<Events>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Events.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Events.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
@@ -290,4 +305,3 @@ class Events {
     'program',
   };
 }
-
