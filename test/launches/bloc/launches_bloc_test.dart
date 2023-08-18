@@ -73,7 +73,7 @@ void main() {
       expect: () => [
         const LaunchesState(status: LaunchesStatus.loading),
         isA<LaunchesState>()
-            .having((w) => w.status, 'status', LaunchesStatus.failure)
+            .having((w) => w.status, 'status', LaunchesStatus.failure),
       ],
     );
 
@@ -110,7 +110,7 @@ void main() {
                 clock.now(),
                 detailedLaunch.net,
               ),
-            )
+            ),
           },
         ),
       ],
@@ -158,7 +158,7 @@ void main() {
               clock.now(),
               detailedLaunch.net,
             ),
-          )
+          ),
         },
       ),
       act: (bloc) =>
@@ -174,7 +174,7 @@ void main() {
                 clock.now(),
                 detailedLaunch.net,
               ),
-            )
+            ),
           },
         ),
         LaunchesState(
@@ -187,7 +187,7 @@ void main() {
                 clock.now(),
                 detailedLaunch.net,
               ),
-            )
+            ),
           },
         ),
       ],
@@ -212,7 +212,7 @@ void main() {
           LaunchCached(
             launch: detailedLaunch,
             expirationDate: clock.now().subtract(const Duration(days: 1)),
-          )
+          ),
         },
       ),
       act: (bloc) =>
@@ -232,7 +232,7 @@ void main() {
                 clock.now(),
                 detailedLaunch.net,
               ),
-            )
+            ),
           },
         ),
       ],

@@ -151,7 +151,7 @@ class _Body extends StatelessWidget {
             const SizedBox(height: kSectionSpacing),
             if (kDebugMode) ...[
               const DebugMenu(),
-              const SizedBox(height: kSectionSpacing)
+              const SizedBox(height: kSectionSpacing),
             ],
             AnimatedSize(
               alignment: Alignment.topCenter,

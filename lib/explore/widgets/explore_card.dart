@@ -60,7 +60,7 @@ class ExploreCard extends StatelessWidget {
             child: buildBody(context: context),
           )
         else
-          buildBody(context: context)
+          buildBody(context: context),
       ],
     );
   }

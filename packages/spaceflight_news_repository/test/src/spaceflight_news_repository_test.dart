@@ -76,7 +76,7 @@ void main() {
             featured: exampleArticle.featured,
             launchesInfo: const [],
             events: const [],
-          )
+          ),
         ]);
 
         when(() => spaceflightNewsApiClient.getArticles())

@@ -87,7 +87,7 @@ class UpcomingLaunchCard extends StatelessWidget {
         expandVertically: true,
         color: Colors.transparent,
         backgroundDecorationImage: DecorationImage(
-          image: CachedNetworkImageProvider(launch.image!),
+          image: CachedNetworkImageProvider(launch.image ?? ''),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
             Colors.black.withAlpha(30),
@@ -137,7 +137,7 @@ class UpcomingLaunchCard extends StatelessWidget {
             VehicleScheme(
               vehicle: launch.rocket,
               mission: launch.mission,
-            )
+            ),
           ],
         ),
       ),

@@ -154,7 +154,7 @@ void main() {
               TrackedLaunch(
                 launchData: launch,
                 trackingMethod: TrackingMethod.notifications,
-              )
+              ),
             ],
           ),
         ],
@@ -174,7 +174,7 @@ void main() {
                 launchData: launch,
                 trackingMethod: TrackingMethod.liveActivity,
                 activityId: '1',
-              )
+              ),
             ],
           ),
         ],
@@ -190,7 +190,7 @@ void main() {
             TrackedLaunch(
               launchData: launch,
               trackingMethod: TrackingMethod.notifications,
-            )
+            ),
           ],
         ),
         act: (cubit) {
@@ -210,7 +210,7 @@ void main() {
               launchData: launch,
               trackingMethod: TrackingMethod.liveActivity,
               activityId: '1',
-            )
+            ),
           ],
         ),
         act: (cubit) {

@@ -49,7 +49,7 @@ dependencies:
   url_launcher: ^6.1.12
   vector_graphics: ^1.1.7
   very_good_infinite_list: ^0.7.0
-  wiredash: ^1.7.2
+  wiredash: ^1.7.3
   workmanager: ^0.5.1
   youtube_player_flutter: ^8.1.2
 
@@ -60,7 +60,7 @@ dev_dependencies:
     sdk: flutter
   import_sorter: ^4.6.0
   json_serializable: ^6.7.1
-  mocktail: ^0.3.0
+  mocktail: ^1.0.0
   very_good_analysis: ^5.0.0+1
 
 flutter:

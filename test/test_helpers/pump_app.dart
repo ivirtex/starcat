@@ -65,7 +65,7 @@ extension PumpApp on WidgetTester {
                   liveActivitiesPlugin ?? LiveActivities(),
                   workmanager ?? Workmanager(),
                 ),
-          )
+          ),
         ],
         child: MaterialApp(
           themeMode: themeCubit?.state.themeMode,
@@ -115,7 +115,7 @@ extension PumpApp on WidgetTester {
                   liveActivitiesPlugin ?? LiveActivities(),
                   workmanager ?? Workmanager(),
                 ),
-          )
+          ),
         ],
         child: MaterialApp.router(
           themeMode: themeCubit?.state.themeMode,

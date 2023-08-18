@@ -46,7 +46,7 @@ class UpcomingLaunchesPlaceholder extends StatelessWidget {
               begin: 0.3,
               curve: Curves.easeInOut,
               duration: 1.seconds,
-            )
+            ),
       ],
     );
   }

@@ -39,7 +39,7 @@ class NextLaunchCardPlaceholder extends StatelessWidget {
               LoadingPlaceholder(
                 width: 150,
                 color: Theme.of(context).colorScheme.surface.withOpacity(0.5),
-              )
+              ),
             ],
           ),
           child: Container(
@@ -84,7 +84,7 @@ class NextLaunchCardPlaceholder extends StatelessWidget {
             .animate(
               onComplete: (controller) => controller.repeat(reverse: true),
             )
-            .fade(duration: 1.seconds, begin: 0.3, curve: Curves.easeInOut)
+            .fade(duration: 1.seconds, begin: 0.3, curve: Curves.easeInOut),
       ],
     );
   }

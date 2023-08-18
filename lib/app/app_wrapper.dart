@@ -60,7 +60,7 @@ class AppWrapper extends StatelessWidget {
             LiveActivities(),
             Workmanager(),
           ),
-        )
+        ),
       ],
       child: const App(),
     );

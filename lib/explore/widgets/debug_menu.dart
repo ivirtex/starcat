@@ -237,7 +237,7 @@ class _DebugMenuState extends State<DebugMenu> {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

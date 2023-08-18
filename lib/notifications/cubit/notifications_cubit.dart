@@ -80,7 +80,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
             launchData: launch,
             trackingMethod: mode,
             activityId: id,
-          )
+          ),
         ],
       ),
     );
