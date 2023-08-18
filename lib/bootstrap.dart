@@ -15,6 +15,7 @@ import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
@@ -38,6 +39,11 @@ class AppBlocObserver extends BlocObserver {
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
+
+    Sentry.captureException(
+      details.exception,
+      stackTrace: details.stack,
+    );
   };
   Bloc.observer = AppBlocObserver();
 
@@ -72,6 +78,13 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
       runApp(await builder());
     },
-    (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
+    (error, stackTrace) {
+      log(error.toString(), stackTrace: stackTrace);
+
+      Sentry.captureException(
+        error,
+        stackTrace: stackTrace,
+      );
+    },
   );
 }

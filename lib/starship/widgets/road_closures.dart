@@ -1,12 +1,12 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 // Package imports:
+import 'package:intl/intl.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:starcat/constants.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/format_date.dart';
 import 'package:starcat/shared/shared.dart';

@@ -42,6 +42,7 @@ dependencies:
   mockito: ^5.4.2
   path_provider: ^2.0.14
   phosphor_flutter: ^2.0.0
+  sentry_flutter: ^7.9.0
   sliver_tools: ^0.2.12
   spaceflight_news_repository:
     path: packages/spaceflight_news_repository
