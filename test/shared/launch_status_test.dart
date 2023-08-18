@@ -57,12 +57,23 @@ void main() {
         abbrev: StatusAbbrev.tbd,
       );
 
+      late BuildContext capturedContext;
+
       await tester.pumpApp(
-        const LaunchStatus(launchStatus),
+        Builder(
+          builder: (context) {
+            capturedContext = context;
+
+            return const LaunchStatus(launchStatus);
+          },
+        ),
       );
 
       final statusWidgetIcon = tester.widget(find.byType(Icon)) as Icon;
-      expect(statusWidgetIcon.color, Colors.grey);
+      expect(
+        statusWidgetIcon.color,
+        Theme.of(capturedContext).colorScheme.onSurface.withOpacity(0.8),
+      );
     });
   });
 }
