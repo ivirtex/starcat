@@ -152,11 +152,6 @@ class _Body extends StatelessWidget {
               ),
             ),
             const SizedBox(height: kListSpacing),
-            if (launch.vidURLs?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.only(bottom: kListSpacing),
-                child: YoutubeVideoCard(videoUrl: launch.vidURLs!.first.url),
-              ),
             LaunchDateCard(
               date: launch.net,
               status: launch.status,
