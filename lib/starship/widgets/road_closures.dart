@@ -36,40 +36,39 @@ class RoadClosures extends StatelessWidget {
                 child: Text('No road closures currently scheduled.'),
               )
             else
-              ListView.builder(
+              ListView.separated(
                 shrinkWrap: true,
                 itemCount: roadClosures.length,
                 padding: EdgeInsets.zero,
                 physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: kListSpacing),
                 itemBuilder: (context, index) {
                   final closure = roadClosures[index];
 
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: kListSpacing),
-                    child: ExploreCard(
-                      title: Text(closure.title!),
-                      trailing: Text(closure.status!.name),
-                      child: Builder(
-                        builder: (context) {
-                          final startDateString = '${formatDate(
-                            closure.windowStart,
-                            dateFormat: DateFormat.Hm(),
-                          )} ${formatDate(
-                            closure.windowStart,
-                            dateFormat: DateFormat.yMMMd(),
-                          )}';
+                  return ExploreCard(
+                    title: Text(closure.title!),
+                    trailing: Text(closure.status!.name),
+                    child: Builder(
+                      builder: (context) {
+                        final startDateString = '${formatDate(
+                          closure.windowStart,
+                          dateFormat: DateFormat.Hm(),
+                        )} ${formatDate(
+                          closure.windowStart,
+                          dateFormat: DateFormat.yMMMd(),
+                        )}';
 
-                          final endDateString = '${formatDate(
-                            closure.windowEnd,
-                            dateFormat: DateFormat.Hm(),
-                          )} ${formatDate(
-                            closure.windowEnd,
-                            dateFormat: DateFormat.yMMMd(),
-                          )}';
+                        final endDateString = '${formatDate(
+                          closure.windowEnd,
+                          dateFormat: DateFormat.Hm(),
+                        )} ${formatDate(
+                          closure.windowEnd,
+                          dateFormat: DateFormat.yMMMd(),
+                        )}';
 
-                          return Text('$startDateString to $endDateString');
-                        },
-                      ),
+                        return Text('$startDateString to $endDateString');
+                      },
                     ),
                   );
                 },

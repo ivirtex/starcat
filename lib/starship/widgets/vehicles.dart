@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/shared/section.dart';
 import 'package:starcat/starship/starship.dart';
 
@@ -31,11 +32,13 @@ class Vehicles extends StatelessWidget {
           ),
           child: const Text('Vehicles'),
         ),
-        ListView.builder(
+        ListView.separated(
           itemCount: min(3, vehicles.length),
           shrinkWrap: true,
           padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) =>
+              const SizedBox(height: kListSpacing),
           itemBuilder: (context, index) {
             final vehicle = vehicles[index];
 
