@@ -5,7 +5,7 @@ enum StarshipDashboardStatus { initial, loading, success, failure }
 @JsonSerializable()
 final class StarshipDashboardState extends Equatable {
   const StarshipDashboardState({
-    required this.status,
+    this.status = StarshipDashboardStatus.initial,
     this.dashboard,
   });
 

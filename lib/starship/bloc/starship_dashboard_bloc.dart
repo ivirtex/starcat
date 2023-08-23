@@ -14,9 +14,7 @@ part 'starship_dashboard_bloc.g.dart';
 class StarshipDashboardBloc
     extends HydratedBloc<StarshipDashboardEvent, StarshipDashboardState> {
   StarshipDashboardBloc(this._repository)
-      : super(
-          const StarshipDashboardState(status: StarshipDashboardStatus.initial),
-        ) {
+      : super(const StarshipDashboardState()) {
     on<StarshipDashboardRequested>(_onStarshipDashboardRequested);
   }
 

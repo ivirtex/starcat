@@ -30,7 +30,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.byType(Scaffold), findsOneWidget);
+      expect(find.byType(NewsPage), findsOneWidget);
     });
 
     testWidgets(

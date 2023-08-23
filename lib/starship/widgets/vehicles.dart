@@ -32,35 +32,41 @@ class Vehicles extends StatelessWidget {
           ),
           child: const Text('Vehicles'),
         ),
-        ListView.separated(
-          itemCount: min(3, vehicles.length),
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) =>
-              const SizedBox(height: kListSpacing),
-          itemBuilder: (context, index) {
-            final vehicle = vehicles[index];
+        if (vehicles.isEmpty)
+          const Padding(
+            padding: EdgeInsets.only(bottom: kListSpacing),
+            child: Text('No vehicles currently available.'),
+          )
+        else
+          ListView.separated(
+            itemCount: min(3, vehicles.length),
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (context, index) =>
+                const SizedBox(height: kListSpacing),
+            itemBuilder: (context, index) {
+              final vehicle = vehicles[index];
 
-            String? serialNumber;
+              String? serialNumber;
 
-            // convert Booster X to BX due to the way
-            // API returns the serial number
-            if (vehicle.serialNumber != null) {
-              serialNumber = vehicle.serialNumber!.replaceAll(' ', '');
-              serialNumber = serialNumber.replaceAll('Booster', 'B');
-              serialNumber = serialNumber.replaceAll('Ship', 'S');
-            }
+              // convert Booster X to BX due to the way
+              // API returns the serial number
+              if (vehicle.serialNumber != null) {
+                serialNumber = vehicle.serialNumber!.replaceAll(' ', '');
+                serialNumber = serialNumber.replaceAll('Booster', 'B');
+                serialNumber = serialNumber.replaceAll('Ship', 'S');
+              }
 
-            return VehicleCard(
-              title: Text(vehicle.serialNumber ?? 'N/A SN'),
-              subtitle: Text(vehicle.details ?? 'N/A Details'),
-              leading: Center(
-                child: Text(serialNumber ?? 'N/A SN'),
-              ),
-            );
-          },
-        ),
+              return VehicleCard(
+                title: Text(vehicle.serialNumber ?? 'N/A SN'),
+                subtitle: Text(vehicle.details ?? 'N/A Details'),
+                leading: Center(
+                  child: Text(serialNumber ?? 'N/A SN'),
+                ),
+              );
+            },
+          ),
       ],
     );
   }

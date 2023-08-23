@@ -26,6 +26,7 @@ extension PumpApp on WidgetTester {
     SpaceflightNewsRepository? spaceflightNewsRepository,
     LaunchesBloc? launchesBloc,
     NewsBloc? newsBloc,
+    StarshipDashboardBloc? starshipDashboardBloc,
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
     FlutterLocalNotificationsPlugin? notificationsPlugin,
@@ -54,9 +55,11 @@ extension PumpApp on WidgetTester {
                 ),
           ),
           BlocProvider(
-            create: (context) => StarshipDashboardBloc(
-              launchLibraryRepository ?? LaunchLibraryRepository(),
-            ),
+            create: (context) =>
+                starshipDashboardBloc ??
+                StarshipDashboardBloc(
+                  launchLibraryRepository ?? LaunchLibraryRepository(),
+                ),
           ),
           BlocProvider.value(
             value: notificationsCubit ??
@@ -71,7 +74,7 @@ extension PumpApp on WidgetTester {
           themeMode: themeCubit?.state.themeMode,
           theme: ThemeData().copyWith(platform: platform),
           darkTheme: ThemeData.dark().copyWith(platform: platform),
-          home: widget,
+          home: Scaffold(body: widget),
         ),
       ),
     );

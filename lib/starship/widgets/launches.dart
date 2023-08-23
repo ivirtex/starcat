@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 
@@ -28,21 +29,27 @@ class Launches extends StatelessWidget {
           icon: Icon(icon),
           child: Text(title),
         ),
-        ListView.builder(
-          padding: EdgeInsets.zero,
-          itemCount: launches.length,
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            final launch = launches[index];
+        if (launches.isEmpty)
+          const Padding(
+            padding: EdgeInsets.only(bottom: kListSpacing),
+            child: Text('No launches currently available.'),
+          )
+        else
+          ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: launches.length,
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              final launch = launches[index];
 
-            return LaunchCard(
-              launch: launch,
-              destination: '/starship/launch/${launch.id}?withHero=true',
-              padding: EdgeInsets.zero,
-            );
-          },
-        ),
+              return LaunchCard(
+                launch: launch,
+                destination: '/starship/launch/${launch.id}?withHero=true',
+                padding: EdgeInsets.zero,
+              );
+            },
+          ),
       ],
     );
   }
