@@ -54,7 +54,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
       HydratedBloc.storage = await HydratedStorage.build(
         storageDirectory: await getTemporaryDirectory(),
       );
-      
+
       await initNotifications(
         pluginInstance: FlutterLocalNotificationsPlugin(),
       );
