@@ -10,15 +10,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 // Package imports:
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:workmanager/workmanager.dart';
 
 // Project imports:
+import 'package:starcat/firebase_options.dart';
 import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/workmanager_callback_dispatcher.dart';
 
@@ -37,54 +39,45 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
-  FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
-
-    Sentry.captureException(
-      details.exception,
-      stackTrace: details.stack,
-    );
-  };
   Bloc.observer = AppBlocObserver();
 
-  await runZonedGuarded(
-    () async {
-      WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-      HydratedBloc.storage = await HydratedStorage.build(
-        storageDirectory: await getTemporaryDirectory(),
-      );
-
-      await initNotifications(
-        pluginInstance: FlutterLocalNotificationsPlugin(),
-      );
-
-      await Workmanager().initialize(
-        callbackDispatcher,
-        isInDebugMode: kDebugMode,
-      );
-
-      final mapsImplementation = GoogleMapsFlutterPlatform.instance;
-      if (mapsImplementation is GoogleMapsFlutterAndroid) {
-        mapsImplementation.useAndroidViewSurface = false;
-
-        try {
-          await mapsImplementation
-              .initializeWithRenderer(AndroidMapRenderer.latest);
-        } on PlatformException catch (e) {
-          log(e.toString());
-        }
-      }
-
-      runApp(await builder());
-    },
-    (error, stackTrace) {
-      log(error.toString(), stackTrace: stackTrace);
-
-      Sentry.captureException(
-        error,
-        stackTrace: stackTrace,
-      );
-    },
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+
+    return true;
+  };
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getTemporaryDirectory(),
+  );
+
+  await initNotifications(
+    pluginInstance: FlutterLocalNotificationsPlugin(),
+  );
+
+  await Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: kDebugMode,
+  );
+
+  final mapsImplementation = GoogleMapsFlutterPlatform.instance;
+  if (mapsImplementation is GoogleMapsFlutterAndroid) {
+    mapsImplementation.useAndroidViewSurface = false;
+
+    try {
+      await mapsImplementation
+          .initializeWithRenderer(AndroidMapRenderer.latest);
+    } on PlatformException catch (e) {
+      log(e.toString());
+    }
+  }
+
+  runApp(await builder());
 }

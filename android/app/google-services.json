@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "507498650062",
+    "project_id": "starcat-46320",
+    "storage_bucket": "starcat-46320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507498650062:android:607647f83fd12f6339b39f",
+        "android_client_info": {
+          "package_name": "dev.ivirtex.starcat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507498650062-bi1j8lbjms5aqdldtmls9hq14srilvdr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2V8Oz9KhOHgXceuAF0vYojHdvGtS22Tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507498650062-bi1j8lbjms5aqdldtmls9hq14srilvdr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "507498650062-qs5cmasg3q2fqs54dcuchbd3piqn94fa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.ivirtex.starcat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
