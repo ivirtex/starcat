@@ -13,7 +13,7 @@ import workmanager
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        GMSServices.provideAPIKey("AIzaSyCgiB7NYGvrW77rwJsKDyTsguxH8vPH_Eo")
+        GMSServices.provideAPIKey("AIzaSyCdg6Gj1eREabQ43KTxcq560aEm2JrCkTs")
 
         WorkmanagerPlugin.registerTask(withIdentifier: "dev.ivirtex.starcat.autoNextLaunchCheck")
         WorkmanagerPlugin.registerTask(withIdentifier: "dev.ivirtex.starcat.userSpecifiedCheck")
