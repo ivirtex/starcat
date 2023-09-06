@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:starcat/constants.dart';
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
@@ -31,7 +32,19 @@ class Notices extends StatelessWidget {
               if (notices.isEmpty)
                 const Text('No notices recently delivered.')
               else
-                for (final closure in notices) Text(closure.name),
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: notices.length,
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: kListSpacing),
+                  itemBuilder: (context, index) {
+                    final notice = notices[index];
+
+                    return Text(notice.name);
+                  },
+                ),
             ],
           ),
         ),

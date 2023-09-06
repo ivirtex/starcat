@@ -31,8 +31,7 @@ class RoadClosures extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (roadClosures.isEmpty)
-              const Padding(
-                padding: EdgeInsets.only(bottom: kListSpacing),
+              const ExploreCard(
                 child: Text('No road closures currently scheduled.'),
               )
             else
