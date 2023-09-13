@@ -22,6 +22,5 @@ Map<String, dynamic> _$TrackedLaunchToJson(TrackedLaunch instance) =>
     };
 
 const _$TrackingMethodEnumMap = {
-  TrackingMethod.notifications: 'notifications',
   TrackingMethod.liveActivity: 'liveActivity',
 };

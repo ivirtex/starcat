@@ -9,7 +9,9 @@ part of 'starship_dashboard_bloc.dart';
 StarshipDashboardState _$StarshipDashboardStateFromJson(
         Map<String, dynamic> json) =>
     StarshipDashboardState(
-      status: $enumDecode(_$StarshipDashboardStatusEnumMap, json['status']),
+      status: $enumDecodeNullable(
+              _$StarshipDashboardStatusEnumMap, json['status']) ??
+          StarshipDashboardStatus.initial,
       dashboard: json['dashboard'] == null
           ? null
           : StarshipDashboard.fromJson(

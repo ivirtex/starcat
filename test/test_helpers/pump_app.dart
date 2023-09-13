@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:live_activities/live_activities.dart';
+import 'package:mockito/mockito.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
-import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:starcat/app/app.dart';
@@ -18,6 +18,8 @@ import 'package:starcat/notifications/cubit/cubit.dart';
 import 'package:starcat/starship/bloc/bloc.dart';
 import 'package:starcat/theme/theme.dart';
 import 'test_helpers.dart';
+
+class FirebaseMessagingMock extends Mock implements FirebaseMessaging {}
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(
@@ -29,9 +31,8 @@ extension PumpApp on WidgetTester {
     StarshipDashboardBloc? starshipDashboardBloc,
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
-    FlutterLocalNotificationsPlugin? notificationsPlugin,
+    FirebaseMessaging? firebaseMessagingInstance,
     LiveActivities? liveActivitiesPlugin,
-    Workmanager? workmanager,
     TargetPlatform platform = TargetPlatform.android,
   }) {
     initHydratedStorage();
@@ -64,9 +65,8 @@ extension PumpApp on WidgetTester {
           BlocProvider.value(
             value: notificationsCubit ??
                 NotificationsCubit(
-                  notificationsPlugin ?? FlutterLocalNotificationsPlugin(),
+                  firebaseMessagingInstance ?? FirebaseMessagingMock(),
                   liveActivitiesPlugin ?? LiveActivities(),
-                  workmanager ?? Workmanager(),
                 ),
           ),
         ],
@@ -87,9 +87,8 @@ extension PumpApp on WidgetTester {
     NewsBloc? newsBloc,
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
-    FlutterLocalNotificationsPlugin? notificationsPlugin,
+    FirebaseMessaging? firebaseMessagingInstance,
     LiveActivities? liveActivitiesPlugin,
-    Workmanager? workmanager,
     TargetPlatform platform = TargetPlatform.android,
     String location = '/explore',
   }) {
@@ -114,9 +113,8 @@ extension PumpApp on WidgetTester {
           BlocProvider.value(
             value: notificationsCubit ??
                 NotificationsCubit(
-                  notificationsPlugin ?? FlutterLocalNotificationsPlugin(),
+                  firebaseMessagingInstance ?? FirebaseMessagingMock(),
                   liveActivitiesPlugin ?? LiveActivities(),
-                  workmanager ?? Workmanager(),
                 ),
           ),
         ],

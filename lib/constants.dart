@@ -40,9 +40,4 @@ const kUpcomingLaunchUrl = kDebugMode
     ? 'https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?hide_recent_previous=true&limit=1'
     : 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?hide_recent_previous=true&limit=1';
 
-// Notifications schedule
-const kLaunchNotificationsSchedule = [
-  Duration(hours: 24),
-  Duration(hours: 1),
-  Duration(minutes: 5),
-];
+const kContinuousNotificationsTopicName = 'all';

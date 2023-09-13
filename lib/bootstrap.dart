@@ -12,17 +12,13 @@ import 'package:flutter/widgets.dart';
 // Package imports:
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:starcat/firebase_options.dart';
-import 'package:starcat/notifications/notifications.dart';
-import 'package:starcat/workmanager_callback_dispatcher.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -56,15 +52,6 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getTemporaryDirectory(),
-  );
-
-  await initNotifications(
-    pluginInstance: FlutterLocalNotificationsPlugin(),
-  );
-
-  await Workmanager().initialize(
-    callbackDispatcher,
-    isInDebugMode: kDebugMode,
   );
 
   final mapsImplementation = GoogleMapsFlutterPlatform.instance;

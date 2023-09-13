@@ -9,16 +9,13 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:live_activities/live_activities.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/notifications/notifications.dart';
-import 'package:starcat/shared/filled_card.dart';
 import 'package:starcat/shared/section.dart';
 
 class DebugMenu extends StatefulWidget {
@@ -33,8 +30,6 @@ class _DebugMenuState extends State<DebugMenu> {
   Widget build(BuildContext context) {
     final trackedLaunches =
         context.watch<NotificationsCubit>().state.trackedLaunches;
-    final activeNotifications =
-        FlutterLocalNotificationsPlugin().pendingNotificationRequests();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -65,73 +60,6 @@ class _DebugMenuState extends State<DebugMenu> {
                 child: const Text('Clear tracked launches'),
               ),
             ],
-          ),
-        ),
-        const SizedBox(height: kListSpacing),
-        ExploreCard(
-          title: const Text('Pending notifications'),
-          child: FutureBuilder(
-            future: activeNotifications,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final notifications = snapshot.data!;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    for (final notification in notifications)
-                      FilledCard(
-                        margin: const EdgeInsets.only(bottom: kListSpacing),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Row(
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      notification.title ?? 'No title',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text('ID: ${notification.id}'),
-                                ],
-                              ),
-                              Text(notification.body ?? 'No body'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        setState(() {
-                          FlutterLocalNotificationsPlugin().cancelAll();
-                        });
-                      },
-                      child: const Text('Clear notifications'),
-                    ),
-                  ],
-                );
-              } else {
-                return const Center(child: Text('Loading...'));
-              }
-            },
-          ),
-        ),
-        const SizedBox(height: kListSpacing),
-        ExploreCard(
-          title: const Text('Background tasks'),
-          child: FilledButton.tonal(
-            onPressed: () {
-              setState(() {
-                Workmanager().cancelAll();
-              });
-            },
-            child: const Text('Cancel all background tasks'),
           ),
         ),
         const SizedBox(height: kListSpacing),
@@ -246,8 +174,6 @@ class _DebugMenuState extends State<DebugMenu> {
     BuildContext context,
     List<TrackedLaunch> trackedLaunches,
   ) {
-    Workmanager().cancelAll();
-
     for (final launch in trackedLaunches) {
       log('Cancelling notification (id: ${launch.launchData.id.hashCode})');
 

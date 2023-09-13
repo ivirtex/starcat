@@ -4,14 +4,13 @@ import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:live_activities/live_activities.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:wiredash/wiredash.dart';
-import 'package:workmanager/workmanager.dart';
 
 // Project imports:
 import 'package:starcat/app/app.dart';
@@ -25,12 +24,15 @@ class AppWrapper extends StatelessWidget {
   const AppWrapper({
     required LaunchLibraryRepository launchLibraryRepository,
     required SpaceflightNewsRepository spaceflightNewsRepository,
+    FirebaseMessaging? firebaseMessagingInstance,
     super.key,
   })  : _launchLibraryRepository = launchLibraryRepository,
-        _spaceflightNewsRepository = spaceflightNewsRepository;
+        _spaceflightNewsRepository = spaceflightNewsRepository,
+        _firebaseMessagingInstance = firebaseMessagingInstance;
 
   final LaunchLibraryRepository _launchLibraryRepository;
   final SpaceflightNewsRepository _spaceflightNewsRepository;
+  final FirebaseMessaging? _firebaseMessagingInstance;
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +58,8 @@ class AppWrapper extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => NotificationsCubit(
-            FlutterLocalNotificationsPlugin(),
+            _firebaseMessagingInstance ?? FirebaseMessaging.instance,
             LiveActivities(),
-            Workmanager(),
           ),
         ),
       ],

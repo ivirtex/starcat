@@ -1,14 +1,14 @@
 // Package imports:
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:live_activities/live_activities.dart';
-import 'package:workmanager/workmanager.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/notifications/notifications.dart';
 
 part 'notifications_state.dart';
@@ -16,15 +16,13 @@ part 'notifications_cubit.g.dart';
 
 class NotificationsCubit extends HydratedCubit<NotificationsState> {
   NotificationsCubit(
-    this._flutterLocalNotificationsPlugin,
-    this._liveActivitiesPlugin,
-    this._workmanager, {
+    this._firebaseMessagingInstance,
+    this._liveActivitiesPlugin, {
     this.clock = const Clock(),
   }) : super(const NotificationsState());
 
-  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
+  final FirebaseMessaging _firebaseMessagingInstance;
   final LiveActivities _liveActivitiesPlugin;
-  final Workmanager _workmanager;
   final Clock clock;
 
   @override
@@ -41,24 +39,6 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     String? id;
 
     switch (mode) {
-      case TrackingMethod.notifications:
-        await requestPermissions(_flutterLocalNotificationsPlugin);
-
-        await scheduleUserSpecifiedLaunchCheck(
-          launchDate: launch.net!.toLocal(),
-          launchUpdateUri: Uri.parse(launch.url!),
-          workmanager: _workmanager,
-          checkFrequency: getNewCheckFrequency(
-            launch.net!.toLocal(),
-            clock.now().toLocal(),
-          ),
-        );
-        await scheduleLaunchNotifications(
-          launch.net!.toLocal(),
-          launch.name,
-          launch.pad!.name!,
-          _flutterLocalNotificationsPlugin,
-        );
       case TrackingMethod.liveActivity:
         await _liveActivitiesPlugin.init(
           appGroupId: 'group.hubertjozwiak.starcat',
@@ -92,15 +72,6 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     );
 
     switch (trackedLaunch.trackingMethod) {
-      case TrackingMethod.notifications:
-        await cancelUserSpecifiedLaunchCheck(
-          launch.name,
-          _workmanager,
-        );
-        await cancelLaunchNotifications(
-          launch.name,
-          _flutterLocalNotificationsPlugin,
-        );
       case TrackingMethod.liveActivity:
         await _liveActivitiesPlugin.init(
           appGroupId: 'group.hubertjozwiak.starcat',
@@ -124,13 +95,12 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     required bool isTrue,
   }) async {
     if (isTrue) {
-      await requestPermissions(_flutterLocalNotificationsPlugin);
-      await scheduleAutoNextLaunchCheck(
-        checkFrequency: const Duration(seconds: 3),
-        workmanagerInstance: _workmanager,
-      );
+      await _firebaseMessagingInstance.requestPermission();
+      await _firebaseMessagingInstance
+          .subscribeToTopic(kContinuousNotificationsTopicName);
     } else {
-      await cancelAutoNextLaunchCheck();
+      await _firebaseMessagingInstance
+          .unsubscribeFromTopic(kContinuousNotificationsTopicName);
     }
 
     emit(

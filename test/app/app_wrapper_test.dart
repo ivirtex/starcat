@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:bloc_test/bloc_test.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
@@ -13,8 +13,6 @@ import 'package:starcat/app/app.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
-import 'package:starcat/notifications/notifications.dart';
-import 'package:starcat/theme/theme.dart';
 import '../test_helpers/test_helpers.dart';
 
 class MockLaunchLibraryRepository extends Mock
@@ -23,10 +21,7 @@ class MockLaunchLibraryRepository extends Mock
 class MockSpaceflightNewsRepository extends Mock
     implements SpaceflightNewsRepository {}
 
-class MockThemeCubit extends MockCubit<ThemeState> implements ThemeCubit {}
-
-class MockNotificationsCubit extends MockCubit<NotificationsState>
-    implements NotificationsCubit {}
+class FirebaseMessagingMock extends Mock implements FirebaseMessaging {}
 
 void main() {
   initHydratedStorage();
@@ -34,12 +29,12 @@ void main() {
   group('AppWrapper', () {
     late LaunchLibraryRepository launchLibraryRepository;
     late SpaceflightNewsRepository spaceflightNewsRepository;
-    late NotificationsCubit notificationsCubit;
+    late FirebaseMessaging firebaseMessagingInstance;
 
     setUp(() {
       launchLibraryRepository = MockLaunchLibraryRepository();
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
-      notificationsCubit = MockNotificationsCubit();
+      firebaseMessagingInstance = FirebaseMessagingMock();
 
       when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenAnswer((_) async => <Launch>[]);
@@ -47,20 +42,33 @@ void main() {
           .thenAnswer((_) async => <Launch>[]);
       when(() => spaceflightNewsRepository.getNews())
           .thenAnswer((_) async => <Article>[]);
-      when(
-        () => notificationsCubit.state,
-      ).thenReturn(
-        const NotificationsState(
-          hasNotificationsPreferenceModalBeenShown: true,
+      when(() => firebaseMessagingInstance.requestPermission()).thenAnswer(
+        (_) async => const NotificationSettings(
+          alert: AppleNotificationSetting.disabled,
+          announcement: AppleNotificationSetting.disabled,
+          authorizationStatus: AuthorizationStatus.authorized,
+          badge: AppleNotificationSetting.disabled,
+          carPlay: AppleNotificationSetting.disabled,
+          criticalAlert: AppleNotificationSetting.disabled,
+          lockScreen: AppleNotificationSetting.disabled,
+          notificationCenter: AppleNotificationSetting.disabled,
+          showPreviews: AppleShowPreviewSetting.always,
+          sound: AppleNotificationSetting.disabled,
+          timeSensitive: AppleNotificationSetting.disabled,
         ),
       );
+      when(() => firebaseMessagingInstance.subscribeToTopic(any()))
+          .thenAnswer((_) async {});
+      when(() => firebaseMessagingInstance.unsubscribeFromTopic(any()))
+          .thenAnswer((_) async {});
     });
 
     testWidgets('renders AppView', (tester) async {
-      await tester.pumpApp(
+      await tester.pumpWidget(
         AppWrapper(
           launchLibraryRepository: launchLibraryRepository,
           spaceflightNewsRepository: spaceflightNewsRepository,
+          firebaseMessagingInstance: firebaseMessagingInstance,
         ),
       );
 
@@ -74,6 +82,7 @@ void main() {
         AppWrapper(
           launchLibraryRepository: launchLibraryRepository,
           spaceflightNewsRepository: spaceflightNewsRepository,
+          firebaseMessagingInstance: firebaseMessagingInstance,
         ),
       );
 
@@ -86,10 +95,11 @@ void main() {
     });
 
     testWidgets('switches tabs', (tester) async {
-      await tester.pumpApp(
+      await tester.pumpWidget(
         AppWrapper(
           launchLibraryRepository: launchLibraryRepository,
           spaceflightNewsRepository: spaceflightNewsRepository,
+          firebaseMessagingInstance: firebaseMessagingInstance,
         ),
       );
 

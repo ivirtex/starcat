@@ -6,7 +6,6 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 part 'tracked_launch.g.dart';
 
 enum TrackingMethod {
-  notifications,
   liveActivity,
 }
 

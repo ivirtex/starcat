@@ -28,7 +28,7 @@ void main() {
           trackedLaunches: [
             const TrackedLaunch(
               launchData: sampleLaunch,
-              trackingMethod: TrackingMethod.notifications,
+              trackingMethod: TrackingMethod.liveActivity,
             ),
           ],
         ),
@@ -36,7 +36,7 @@ void main() {
           trackedLaunches: [
             TrackedLaunch(
               launchData: sampleLaunch,
-              trackingMethod: TrackingMethod.notifications,
+              trackingMethod: TrackingMethod.liveActivity,
             ),
           ],
         ),

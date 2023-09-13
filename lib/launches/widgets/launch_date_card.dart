@@ -8,7 +8,6 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 // Project imports:
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/helpers.dart';
-import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/shared.dart';
 
 class LaunchDateCard extends StatelessWidget {
@@ -30,16 +29,12 @@ class LaunchDateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var isUpcoming = false;
-
     String? localMMMd;
     String? localEEEE;
     String? localHm;
     String? utcTime;
 
     if (date != null) {
-      isUpcoming = date!.isAfter(DateTime.now());
-
       localMMMd = formatDate(date, dateFormat: DateFormat.MMMd());
       localEEEE = formatDate(date, dateFormat: DateFormat.EEEE());
       localHm = formatDate(date?.toLocal(), dateFormat: DateFormat.Hm());
@@ -98,12 +93,6 @@ class LaunchDateCard extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(),
-          if (launchDataForNotifications != null)
-            NotifyAboutLaunchButton(
-              launch: launchDataForNotifications!,
-              isUpcoming: isUpcoming,
-            ),
         ],
       ),
     );
