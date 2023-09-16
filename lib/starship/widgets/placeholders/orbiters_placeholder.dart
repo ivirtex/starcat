@@ -22,7 +22,7 @@ class OrbitersPlaceholder extends StatelessWidget {
     return Column(
       children: [
         Section(
-          icon: Icon(PhosphorIcons.regular.planet),
+          icon: Icon(PhosphorIcons.planet()),
           child: const Text('Orbital Vehicles'),
         ),
         ListView.builder(

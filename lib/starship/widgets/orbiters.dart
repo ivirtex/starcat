@@ -27,7 +27,7 @@ class Orbiters extends StatelessWidget {
     return Column(
       children: [
         Section(
-          icon: Icon(PhosphorIcons.regular.planet),
+          icon: Icon(PhosphorIcons.planet()),
           trailing: SectionButton(
             onPressed: () => context.go('/starship/orbital-vehicles'),
           ),

@@ -21,7 +21,10 @@ class FirstStageLandingCard extends StatelessWidget {
     return ExploreCard(
       title: Row(
         children: [
-          Icon(PhosphorIcons.fill.airplaneLanding, size: 14),
+          Icon(
+            PhosphorIcons.airplaneLanding(PhosphorIconsStyle.fill),
+            size: 14,
+          ),
           const SizedBox(width: 5),
           const Text('Landing'),
         ],
