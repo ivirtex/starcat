@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:app_settings/app_settings.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -93,14 +92,6 @@ class _SettingsViewState extends State<SettingsView> {
             });
           },
         ),
-        if (Theme.of(context).platform != TargetPlatform.iOS)
-          ListTile(
-            leading: const Icon(Icons.edit_notifications_rounded),
-            title: const Text('Customize notifications'),
-            onTap: () => AppSettings.openAppSettings(
-              type: AppSettingsType.notification,
-            ),
-          ),
         const SizedBox(height: kListSpacing),
         Padding(
           padding: _textPadding,

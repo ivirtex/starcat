@@ -6,7 +6,6 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  app_settings: ^5.0.0
   auto_animated: ^3.2.0
   auto_size_text: ^3.0.0
   bloc: ^8.1.2
@@ -44,7 +43,6 @@ dependencies:
   logger: ^2.0.2
   maps_launcher: ^2.2.0
   mockito: ^5.4.2
-  path_provider: ^2.1.1
   phosphor_flutter: ^2.0.0
   spaceflight_news_repository:
     path: packages/spaceflight_news_repository

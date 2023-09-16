@@ -64,17 +64,17 @@ class LaunchVehicleCard extends StatelessWidget {
                                   Text(stage.reused! ? 'Reused' : 'Not reused'),
                             ),
                           if (stage.launcherFlightNumber != null)
-                            InfoCard.primary(
+                            InfoCard.tertiary(
                               icon: const Icon(Icons.flight_rounded),
                               child: Text(
                                 'Flight #${stage.launcherFlightNumber}',
                               ),
                             ),
                           if (stage.turnAroundTimeDays != null)
-                            InfoCard.primary(
+                            InfoCard.tertiary(
                               icon: const Icon(Icons.timer_rounded),
                               child: Text(
-                                '${stage.turnAroundTimeDays} days',
+                                '${stage.turnAroundTimeDays} days turnaround',
                               ),
                             ),
                         ],

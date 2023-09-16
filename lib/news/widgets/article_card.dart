@@ -96,6 +96,7 @@ class ArticleCard extends StatelessWidget {
             top: Radius.circular(kBorderRadius),
           ),
           child: MissionImage(
+            fit: BoxFit.cover,
             imageUrl: article.imageUrl,
           ),
         ),

@@ -61,22 +61,29 @@ class _Body extends StatelessWidget {
               return const Column(
                 children: [
                   SizedBox(height: kListSpacing),
-                  RoadClosurePlaceholder(),
+                  LaunchesPlaceholder(
+                    title: 'Upcoming Launches',
+                    icon: Icons.schedule_rounded,
+                  ),
                   SizedBox(height: kSectionSpacing),
-                  NoticesPlaceholder(
+                  RoadClosurePlaceholder(
                     delay: Duration(milliseconds: 500),
                   ),
                   SizedBox(height: kSectionSpacing),
-                  UpdatesPlaceholder(
+                  NoticesPlaceholder(
                     delay: Duration(milliseconds: 500 * 2),
                   ),
                   SizedBox(height: kSectionSpacing),
-                  OrbitersPlaceholder(
+                  UpdatesPlaceholder(
                     delay: Duration(milliseconds: 500 * 3),
                   ),
                   SizedBox(height: kSectionSpacing),
-                  VehiclesPlaceholder(
+                  OrbitersPlaceholder(
                     delay: Duration(milliseconds: 500 * 4),
+                  ),
+                  SizedBox(height: kSectionSpacing),
+                  VehiclesPlaceholder(
+                    delay: Duration(milliseconds: 500 * 5),
                   ),
                   SizedBox(height: kSectionSpacing),
                 ],
@@ -86,6 +93,12 @@ class _Body extends StatelessWidget {
               return Column(
                 children: [
                   const SizedBox(height: kListSpacing),
+                  Launches(
+                    title: 'Upcoming Launches',
+                    icon: Icons.schedule_rounded,
+                    launches: state.dashboard!.upcoming?.launches ?? [],
+                  ),
+                  const SizedBox(height: kSectionSpacing),
                   RoadClosures(
                     roadClosures: state.dashboard?.roadClosures ?? [],
                   ),
@@ -97,12 +110,6 @@ class _Body extends StatelessWidget {
                   Orbiters(orbiters: state.dashboard?.orbiters ?? []),
                   const SizedBox(height: kSectionSpacing),
                   Vehicles(vehicles: state.dashboard?.vehicles ?? []),
-                  const SizedBox(height: kSectionSpacing),
-                  Launches(
-                    title: 'Upcoming Launches',
-                    icon: Icons.schedule_rounded,
-                    launches: state.dashboard!.upcoming?.launches ?? [],
-                  ),
                   const SizedBox(height: kSectionSpacing),
                   Launches(
                     title: 'Previous Launches',
