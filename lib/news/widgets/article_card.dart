@@ -75,11 +75,6 @@ class ArticleCard extends StatelessWidget {
     } else {
       return ExploreCard(
         expandVertically: expandVertically,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(kBorderRadius),
-          ),
-        ),
         title: Text(article.newsSite),
         trailing: Text(
           '${formatDate(
@@ -90,51 +85,53 @@ class ArticleCard extends StatelessWidget {
             dateFormat: DateFormat.yMMMd(),
           )}',
         ),
-        slideOutPadding: EdgeInsets.zero,
-        slideOut: ClipRRect(
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(kBorderRadius),
-          ),
-          child: MissionImage(
-            fit: BoxFit.cover,
-            imageUrl: article.imageUrl,
-          ),
-        ),
+        padding: EdgeInsets.zero,
         onTap: () => launchUrlString(article.url),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 10,
-                  child: Text(
-                    article.title,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-                const Spacer(),
-                IconToggleButton(
-                  icon: const Icon(Icons.bookmark_outline_rounded),
-                  selectedIcon: const Icon(Icons.bookmark_rounded),
-                  getDefaultStyle: enabledFilledTonalButtonStyle,
-                  selected: isSaved,
-                  onToggle: (isToggled) {
-                    if (isToggled) {
-                      context
-                          .read<NewsBloc>()
-                          .add(NewsArticleSaveRequested(article));
-                    } else {
-                      context
-                          .read<NewsBloc>()
-                          .add(NewsArticleUnsaveRequested(article));
-                    }
-                  },
-                ),
-              ],
+            MissionImage(
+              fit: BoxFit.cover,
+              imageUrl: article.imageUrl,
             ),
-            const SizedBox(height: kListSpacing),
-            Text(article.summary),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 10,
+                        child: Text(
+                          article.title,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                      const Spacer(),
+                      IconToggleButton(
+                        icon: const Icon(Icons.bookmark_outline_rounded),
+                        selectedIcon: const Icon(Icons.bookmark_rounded),
+                        getDefaultStyle: enabledFilledTonalButtonStyle,
+                        selected: isSaved,
+                        onToggle: (isToggled) {
+                          if (isToggled) {
+                            context
+                                .read<NewsBloc>()
+                                .add(NewsArticleSaveRequested(article));
+                          } else {
+                            context
+                                .read<NewsBloc>()
+                                .add(NewsArticleUnsaveRequested(article));
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: kListSpacing),
+                  Text(article.summary),
+                ],
+              ),
+            ),
           ],
         ),
       );

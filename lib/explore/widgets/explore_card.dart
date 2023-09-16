@@ -91,13 +91,7 @@ class ExploreCard extends StatelessWidget {
                       flex: expandVertically ? 1 : 0,
                       child: Card(
                         margin: EdgeInsets.zero,
-                        color: color ?? Theme.of(context).colorScheme.surface,
-                        shape: shape ??
-                            const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(kBorderRadius),
-                              ),
-                            ),
+                        shape: shape,
                         child: InkWell(
                           onTap: onTap,
                           child: Padding(
