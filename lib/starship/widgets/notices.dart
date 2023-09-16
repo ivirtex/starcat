@@ -25,29 +25,22 @@ class Notices extends StatelessWidget {
           icon: Icon(Icons.notifications_rounded),
           child: Text('Starbase Notices'),
         ),
-        ExploreCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (notices.isEmpty)
-                const Text('No notices recently delivered.')
-              else
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: notices.length,
-                  padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: kListSpacing),
-                  itemBuilder: (context, index) {
-                    final notice = notices[index];
+        if (notices.isEmpty)
+          const ExploreCard(child: Text('No notices recently delivered.'))
+        else
+          ListView.separated(
+            shrinkWrap: true,
+            itemCount: notices.length,
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (context, index) =>
+                const SizedBox(height: kListSpacing),
+            itemBuilder: (context, index) {
+              final notice = notices[index];
 
-                    return Text(notice.name);
-                  },
-                ),
-            ],
+              return ExploreCard(child: Text(notice.name));
+            },
           ),
-        ),
       ],
     );
   }

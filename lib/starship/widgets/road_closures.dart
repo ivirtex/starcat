@@ -27,53 +27,48 @@ class RoadClosures extends StatelessWidget {
           icon: Icon(Icons.remove_road_rounded),
           child: Text('Starbase Road Closures'),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (roadClosures.isEmpty)
-              const ExploreCard(
-                child: Text('No road closures currently scheduled.'),
-              )
-            else
-              ListView.separated(
-                shrinkWrap: true,
-                itemCount: roadClosures.length,
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: kListSpacing),
-                itemBuilder: (context, index) {
-                  final closure = roadClosures[index];
+        if (roadClosures.isEmpty)
+          const ExploreCard(
+            child: Text('No road closures currently scheduled.'),
+          )
+        else
+          ListView.separated(
+            shrinkWrap: true,
+            itemCount: roadClosures.length,
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (context, index) =>
+                const SizedBox(height: kListSpacing),
+            itemBuilder: (context, index) {
+              final closure = roadClosures[index];
 
-                  return ExploreCard(
-                    title: Text(closure.title!),
-                    trailing: Text(closure.status!.name),
-                    child: Builder(
-                      builder: (context) {
-                        final startDateString = '${formatDate(
-                          closure.windowStart,
-                          dateFormat: DateFormat.Hm(),
-                        )} ${formatDate(
-                          closure.windowStart,
-                          dateFormat: DateFormat.yMMMd(),
-                        )}';
+              return ExploreCard(
+                title: Text(closure.title!),
+                trailing: Text(closure.status!.name),
+                child: Builder(
+                  builder: (context) {
+                    final startDateString = '${formatDate(
+                      closure.windowStart,
+                      dateFormat: DateFormat.Hm(),
+                    )} ${formatDate(
+                      closure.windowStart,
+                      dateFormat: DateFormat.yMMMd(),
+                    )}';
 
-                        final endDateString = '${formatDate(
-                          closure.windowEnd,
-                          dateFormat: DateFormat.Hm(),
-                        )} ${formatDate(
-                          closure.windowEnd,
-                          dateFormat: DateFormat.yMMMd(),
-                        )}';
+                    final endDateString = '${formatDate(
+                      closure.windowEnd,
+                      dateFormat: DateFormat.Hm(),
+                    )} ${formatDate(
+                      closure.windowEnd,
+                      dateFormat: DateFormat.yMMMd(),
+                    )}';
 
-                        return Text('$startDateString to $endDateString');
-                      },
-                    ),
-                  );
-                },
-              ),
-          ],
-        ),
+                    return Text('$startDateString to $endDateString');
+                  },
+                ),
+              );
+            },
+          ),
       ],
     );
   }

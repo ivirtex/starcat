@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
-import 'package:starcat/constants.dart';
+import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 
@@ -30,8 +30,7 @@ class Launches extends StatelessWidget {
           child: Text(title),
         ),
         if (launches.isEmpty)
-          const Padding(
-            padding: EdgeInsets.only(bottom: kListSpacing),
+          const ExploreCard(
             child: Text('No launches currently available.'),
           )
         else
