@@ -5,6 +5,7 @@ import 'dart:developer';
 // Package imports:
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -57,6 +58,12 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
       );
     } catch (err) {
       log('LaunchesBloc._onLaunchesRequested: $err');
+
+      await FirebaseCrashlytics.instance.recordError(
+        err,
+        StackTrace.current,
+        reason: 'LaunchesBloc._onLaunchesRequested',
+      );
 
       emit(
         state.copyWith(

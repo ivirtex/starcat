@@ -1,8 +1,10 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Package imports:
 import 'package:equatable/equatable.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
@@ -43,6 +45,14 @@ class StarshipDashboardBloc
         ),
       );
     } catch (err) {
+      log('StarshipDashboardBloc._onStarshipDashboardRequested: $err');
+
+      await FirebaseCrashlytics.instance.recordError(
+        err,
+        StackTrace.current,
+        reason: 'LaunchesBloc._onLaunchesRequested',
+      );
+
       emit(
         state.copyWith(status: StarshipDashboardStatus.failure),
       );
