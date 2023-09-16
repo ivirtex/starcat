@@ -96,7 +96,7 @@ class _Body extends StatelessWidget {
                   Launches(
                     title: 'Upcoming Launches',
                     icon: Icons.schedule_rounded,
-                    launches: state.dashboard!.upcoming?.launches ?? [],
+                    launches: state.dashboard?.upcoming?.launches ?? [],
                   ),
                   const SizedBox(height: kSectionSpacing),
                   RoadClosures(
@@ -114,7 +114,7 @@ class _Body extends StatelessWidget {
                   Launches(
                     title: 'Previous Launches',
                     icon: Icons.history_rounded,
-                    launches: state.dashboard!.previous?.launches ?? [],
+                    launches: state.dashboard?.previous?.launches ?? [],
                   ),
                   const SizedBox(height: kListSpacing),
                 ]
