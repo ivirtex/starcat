@@ -14,7 +14,7 @@ dependencies:
   clock: ^1.1.1
   cupertino_icons: ^1.0.6
   duration: ^3.0.13
-  dynamic_color: ^1.6.6
+  dynamic_color: ^1.6.7
   equatable: ^2.0.5
   firebase_analytics: ^10.4.5
   firebase_core: ^2.15.1
@@ -30,7 +30,7 @@ dependencies:
   flutter_native_timezone: ^2.0.0
   flutter_svg: ^2.0.7
   go_router: ^10.1.2
-  google_fonts: ^5.1.0
+  google_fonts: ^6.0.0
   google_maps_flutter: ^2.5.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -52,7 +52,7 @@ dependencies:
   url_launcher: ^6.1.14
   vector_graphics: ^1.1.7
   very_good_infinite_list: ^0.7.0
-  wiredash: ^1.7.3
+  wiredash: ^1.7.4
 
 dev_dependencies:
   bloc_test: ^9.1.3
