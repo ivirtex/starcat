@@ -44,7 +44,7 @@ class RoadClosures extends StatelessWidget {
 
               return ExploreCard(
                 title: Text(closure.title!),
-                trailing: Text(closure.status!.name),
+                trailing: Text(closure.status!.name ?? 'Status N/A'),
                 child: Builder(
                   builder: (context) {
                     final startDateString = '${formatDate(

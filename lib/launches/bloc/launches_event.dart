@@ -11,15 +11,6 @@ final class LaunchesRequested extends LaunchesEvent {
   const LaunchesRequested();
 }
 
-final class LaunchesDetailsRequested extends LaunchesEvent {
-  const LaunchesDetailsRequested({required this.launchId});
-
-  final String launchId;
-
-  @override
-  List<Object> get props => [launchId];
-}
-
 final class LaunchesNextPageRequested extends LaunchesEvent {
   const LaunchesNextPageRequested({
     required this.type,

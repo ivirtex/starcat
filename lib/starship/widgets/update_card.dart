@@ -25,7 +25,7 @@ class UpdateCard extends StatelessWidget {
       onTap:
           update.infoUrl != null ? () => launchUrl(Uri.parse(infoUrl!)) : null,
       title: Text(
-        formatDate(update.createdOn.toLocal()) ?? '',
+        formatDate(update.createdOn?.toLocal()) ?? '',
         style: Theme.of(context)
             .textTheme
             .titleSmall

@@ -28,8 +28,6 @@ void main() {
       launchLibraryRepository = MockLaunchLibraryRepository();
       launchesBloc = MockLaunchesBloc();
 
-      when(() => launchLibraryRepository.getLaunchDetails(any()))
-          .thenAnswer((_) async => sampleLaunch);
       when(() => launchesBloc.state).thenReturn(
         const LaunchesState(
           upcomingLaunches: [sampleLaunch],

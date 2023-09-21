@@ -21,7 +21,7 @@ class VehicleScheme extends StatelessWidget {
   Widget build(BuildContext context) {
     String? vehiclePath;
 
-    switch (vehicle?.configuration.name) {
+    switch (vehicle?.configuration?.name) {
       case 'Falcon 9':
         if (mission?.type == 'Resupply' ||
             mission?.type == 'Human Exploration') {

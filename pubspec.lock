@@ -787,7 +787,7 @@ packages:
       path: "packages/launch_library_api"
       relative: true
     source: path
-    version: "1.0.0"
+    version: "0.1.0+1"
   launch_library_repository:
     dependency: "direct main"
     description:

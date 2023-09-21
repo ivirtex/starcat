@@ -38,7 +38,9 @@ class Notices extends StatelessWidget {
             itemBuilder: (context, index) {
               final notice = notices[index];
 
-              return ExploreCard(child: Text(notice.name));
+              return ExploreCard(
+                child: Text(notice.name ?? 'Notice N/A'),
+              );
             },
           ),
       ],

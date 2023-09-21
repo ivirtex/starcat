@@ -22,7 +22,6 @@ void main() {
         const Orbiters(
           orbiters: [
             Orbiter(
-              id: 1,
               url: 'https://example.com',
               name: 'Orbiter 1',
               serialNumber: '12345',
@@ -30,14 +29,13 @@ void main() {
               inSpace: true,
               timeInSpace: '10 days',
               timeDocked: '5 days',
-              status: OrbiterStatus(id: 1, name: 'Active'),
+              status: OrbiterStatus(name: 'Active'),
               description: 'This is a description',
               spacecraftConfig: OrbiterSpacecraftConfig(
-                id: 1,
                 url: '',
                 name: '',
-                type: SpacecraftConfigType(id: 1, name: 'Spacecraft'),
-                agency: LaunchServiceProvider(id: 1, name: 'SpaceX', url: ''),
+                type: SpacecraftConfigType(name: 'Spacecraft'),
+                agency: LaunchServiceProvider(name: 'SpaceX', url: ''),
               ),
             ),
           ],

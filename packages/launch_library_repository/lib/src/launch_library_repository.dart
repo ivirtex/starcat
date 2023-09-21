@@ -2,121 +2,89 @@
 import 'dart:developer';
 
 // Package imports:
-import 'package:launch_library_api/api.dart' as api;
-
-// Project imports:
-import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:launch_library_api/launch_library_api.dart';
 
 /// Repository for fetching data from the Launch Library 2 API.
 class LaunchLibraryRepository {
   LaunchLibraryRepository({
-    api.LaunchApi? launchApiClient,
-    api.DashboardApi? dashboardApiClient,
-    String baseUrlForApi = 'localhost:8000',
-  })  : _launchApiClient = launchApiClient ??
-            api.LaunchApi(api.ApiClient(basePath: baseUrlForApi)),
-        _dashboardApiClient = dashboardApiClient ??
-            api.DashboardApi(api.ApiClient(basePath: baseUrlForApi));
+    LaunchLibraryApiClient? launchLibraryApiClient,
+    String baseUrlForApi = 'localhost:8080',
+  }) : _launchLibraryApiClient = launchLibraryApiClient ??
+            LaunchLibraryApiClient(baseUrl: baseUrlForApi);
 
-  final api.LaunchApi _launchApiClient;
-  final api.DashboardApi _dashboardApiClient;
+  final LaunchLibraryApiClient _launchLibraryApiClient;
 
   Future<List<Launch>> getUpcomingLaunches() async {
-    api.PaginatedLaunchSerializerCommonList? apiResponse;
+    Launches apiResponse;
 
     try {
       apiResponse =
-          await _launchApiClient.launchUpcomingList(hideRecentPrevious: true);
+          await _launchLibraryApiClient.getLaunches(LaunchTime.upcoming);
     } catch (e) {
-      log('LaunchLibraryRepository.getLaunches: $e');
+      log('LaunchLibraryRepository.getUpcomingLaunches: $e');
 
       rethrow;
     }
 
-    final apiLaunches = apiResponse!.results;
+    return apiResponse.results;
+  }
 
-    return apiLaunches.map(Launch.fromApi).toList();
+  Future<List<Launch>> getNextPageUpcomingLaunches({int offset = 0}) async {
+    Launches apiResponse;
+
+    try {
+      apiResponse = await _launchLibraryApiClient
+          .getLaunches(LaunchTime.upcoming, offset: offset);
+    } catch (e) {
+      log('LaunchLibraryRepository.getUpcomingLaunches: $e');
+
+      rethrow;
+    }
+
+    return apiResponse.results;
   }
 
   Future<List<Launch>> getPastLaunches() async {
-    api.PaginatedLaunchSerializerCommonList? apiResponse;
-
-    try {
-      apiResponse = await _launchApiClient.launchPreviousList();
-    } catch (e) {
-      log('LaunchLibraryRepository.getLaunches: $e');
-
-      rethrow;
-    }
-
-    final apiLaunches = apiResponse!.results;
-
-    return apiLaunches.map(Launch.fromApi).toList();
-  }
-
-  Future<Launch> getLaunchDetails(String id) async {
-    api.LaunchDetailed? apiResponse;
-
-    try {
-      apiResponse = await _launchApiClient.launchRetrieve(id);
-    } catch (e) {
-      log('LaunchLibraryRepository.getLaunchDetails: $e');
-
-      rethrow;
-    }
-
-    return Launch.fromApiDetailed(apiResponse!);
-  }
-
-  Future<List<Launch>> getNextPageUpcomingLaunches({
-    required int offset,
-  }) async {
-    api.PaginatedLaunchSerializerCommonList? apiResponse;
+    Launches apiResponse;
 
     try {
       apiResponse =
-          await _launchApiClient.launchUpcomingList(offset: offset, limit: 10);
+          await _launchLibraryApiClient.getLaunches(LaunchTime.previous);
     } catch (e) {
-      log('LaunchLibraryRepository.getNextPageUpcomingLaunches: $e');
+      log('LaunchLibraryRepository.getPreviousLaunches: $e');
 
       rethrow;
     }
 
-    final apiLaunches = apiResponse!.results;
-
-    return apiLaunches.map(Launch.fromApi).toList();
+    return apiResponse.results;
   }
 
-  Future<List<Launch>> getNextPagePastLaunches({
-    required int offset,
-  }) async {
-    api.PaginatedLaunchSerializerCommonList? apiResponse;
+  Future<List<Launch>> getNextPagePastLaunches({int offset = 0}) async {
+    Launches apiResponse;
 
     try {
-      apiResponse =
-          await _launchApiClient.launchPreviousList(offset: offset, limit: 10);
+      apiResponse = await _launchLibraryApiClient
+          .getLaunches(LaunchTime.previous, offset: offset);
     } catch (e) {
-      log('LaunchLibraryRepository.getNextPagePastLaunches: $e');
+      log('LaunchLibraryRepository.getPreviousLaunches: $e');
 
       rethrow;
     }
 
-    final apiLaunches = apiResponse!.results;
-
-    return apiLaunches.map(Launch.fromApi).toList();
+    return apiResponse.results;
   }
 
   Future<StarshipDashboard> getStarshipDashboard() async {
-    api.StarshipDashboard? apiResponse;
+    StarshipDashboard apiResponse;
 
     try {
-      apiResponse = await _dashboardApiClient.dashboardStarshipRetrieve();
+      apiResponse = await _launchLibraryApiClient.getStarshipDashboard();
     } catch (e) {
       log('LaunchLibraryRepository.getStarshipDashboard: $e');
 
       rethrow;
     }
 
-    return StarshipDashboard.fromApi(apiResponse!);
+    return apiResponse;
   }
 }

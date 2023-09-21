@@ -49,15 +49,16 @@ class OrbitalVehiclesView extends StatelessWidget {
                   final vehicle = orbiters[index];
 
                   // Capitalize status
-                  final status = toBeginningOfSentenceCase(vehicle.status.name);
+                  final status =
+                      toBeginningOfSentenceCase(vehicle.status?.name);
 
                   return Padding(
                     padding: const EdgeInsets.only(bottom: kListSpacing),
                     child: VehicleCard(
-                      title: Text(vehicle.name),
-                      subtitle: Text(vehicle.description),
+                      title: Text(vehicle.name ?? 'Name N/A'),
+                      subtitle: Text(vehicle.description ?? 'Description N/A'),
                       leading: Center(
-                        child: Text(vehicle.serialNumber),
+                        child: Text(vehicle.serialNumber ?? 'SN N/A'),
                       ),
                       status: Text(status ?? 'Unknown'),
                     ),
