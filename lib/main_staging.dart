@@ -10,7 +10,7 @@ void main() {
   bootstrap(
     () => AppWrapper(
       launchLibraryRepository: LaunchLibraryRepository(
-        baseUrlForApi: 'https://lldev.thespacedevs.com',
+        baseUrlForApi: 'lldev.thespacedevs.com',
       ),
       spaceflightNewsRepository: SpaceflightNewsRepository(),
     ),

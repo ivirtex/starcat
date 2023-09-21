@@ -13,7 +13,6 @@ class LaunchesState extends Equatable {
     this.status = LaunchesStatus.initial,
     this.upcomingLaunches = const <Launch>[],
     this.pastLaunches = const <Launch>[],
-    this.detailedLaunchesCached = const <LaunchCached>{},
     this.selectedLaunches = SelectedLaunches.upcoming,
     this.currentOffsetOfUpcomingLaunches = 10,
     this.currentOffsetOfPastLaunches = 10,
@@ -25,7 +24,6 @@ class LaunchesState extends Equatable {
   final LaunchesStatus status;
   final List<Launch> upcomingLaunches;
   final List<Launch> pastLaunches;
-  final Set<LaunchCached> detailedLaunchesCached;
   final SelectedLaunches selectedLaunches;
 
   final int currentOffsetOfUpcomingLaunches;
@@ -48,8 +46,6 @@ class LaunchesState extends Equatable {
       status: status ?? this.status,
       upcomingLaunches: upcomingLaunches ?? this.upcomingLaunches,
       pastLaunches: pastLaunches ?? this.pastLaunches,
-      detailedLaunchesCached:
-          detailedLaunchesCached ?? this.detailedLaunchesCached,
       selectedLaunches: selectedLaunches ?? this.selectedLaunches,
       currentOffsetOfUpcomingLaunches: currentOffsetOfUpcomingLaunches ??
           this.currentOffsetOfUpcomingLaunches,
@@ -66,7 +62,8 @@ class LaunchesState extends Equatable {
         status,
         upcomingLaunches,
         pastLaunches,
-        detailedLaunchesCached,
         selectedLaunches,
+        currentOffsetOfUpcomingLaunches,
+        currentOffsetOfPastLaunches,
       ];
 }

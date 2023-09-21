@@ -2,6 +2,9 @@
 import 'dart:async';
 import 'dart:developer';
 
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
@@ -23,7 +26,6 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     this.clock = const Clock(),
   }) : super(const LaunchesState()) {
     on<LaunchesRequested>(_onLaunchesRequested);
-    on<LaunchesDetailsRequested>(_onLaunchesDetailsRequested);
     on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
     on<LaunchesNextPageRequested>(_onLaunchesNextPageRequested);
   }
@@ -59,11 +61,13 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     } catch (err) {
       log('LaunchesBloc._onLaunchesRequested: $err');
 
-      await FirebaseCrashlytics.instance.recordError(
-        err,
-        StackTrace.current,
-        reason: 'LaunchesBloc._onLaunchesRequested',
-      );
+      if (kReleaseMode) {
+        await FirebaseCrashlytics.instance.recordError(
+          err,
+          StackTrace.current,
+          reason: 'LaunchesBloc._onLaunchesRequested',
+        );
+      }
 
       emit(
         state.copyWith(
@@ -71,88 +75,6 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
           upcomingLaunches: state.upcomingLaunches,
           pastLaunches: state.pastLaunches,
         ),
-      );
-    }
-  }
-
-  Future<void> _onLaunchesDetailsRequested(
-    LaunchesDetailsRequested event,
-    Emitter<LaunchesState> emit,
-  ) async {
-    emit(state.copyWith(status: LaunchesStatus.loading));
-
-    try {
-      late Launch detailedLaunch;
-
-      // Check if launch exists in cache
-      if (state.detailedLaunchesCached
-          .any((element) => element.launch.id == event.launchId)) {
-        final cachedLaunch = state.detailedLaunchesCached.firstWhere(
-          (element) => element.launch.id == event.launchId,
-        );
-
-        // Check if launch is still valid
-        if (cachedLaunch.expirationDate.isAfter(clock.now())) {
-          detailedLaunch = cachedLaunch.launch;
-
-          // ignore: lines_longer_than_80_chars
-          log('LaunchesBloc._onLaunchesDetailsRequested: Cache hit for launch ${detailedLaunch.name}');
-        } else {
-          detailedLaunch = await _launchLibraryRepository.getLaunchDetails(
-            event.launchId,
-          );
-
-          // Invalidate cache
-          state.detailedLaunchesCached.removeWhere(
-            (element) => element.launch.id == event.launchId,
-          );
-
-          log('Invalidating cache for launch ${detailedLaunch.name}');
-        }
-      } else {
-        detailedLaunch = await _launchLibraryRepository.getLaunchDetails(
-          event.launchId,
-        );
-      }
-
-      emit(
-        state.copyWith(
-          status: LaunchesStatus.success,
-          upcomingLaunches: state.upcomingLaunches.map(
-            (launch) {
-              if (launch.id == event.launchId) {
-                return detailedLaunch;
-              } else {
-                return launch;
-              }
-            },
-          ).toList(),
-          pastLaunches: state.pastLaunches.map(
-            (launch) {
-              if (launch.id == event.launchId) {
-                return detailedLaunch;
-              } else {
-                return launch;
-              }
-            },
-          ).toList(),
-          detailedLaunchesCached: {
-            ...state.detailedLaunchesCached,
-            LaunchCached(
-              launch: detailedLaunch,
-              expirationDate: computeCacheExpirationDate(
-                clock.now(),
-                detailedLaunch.net,
-              ),
-            ),
-          },
-        ),
-      );
-    } catch (err) {
-      log('LaunchesBloc._onLaunchesDetailsRequested: $err');
-
-      emit(
-        state.copyWith(status: LaunchesStatus.failure),
       );
     }
   }

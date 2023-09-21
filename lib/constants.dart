@@ -1,7 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 const kImageErrorText = 'Whoops! Image failed to load';
@@ -35,9 +34,5 @@ const kBodyPadding = EdgeInsets.symmetric(horizontal: 10);
 const kRefreshEdgeOffset = 120.0;
 
 const kSourceCodeUrl = 'https://github.com/ivirtex/starcat';
-
-const kUpcomingLaunchUrl = kDebugMode
-    ? 'https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?hide_recent_previous=true&limit=1'
-    : 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?hide_recent_previous=true&limit=1';
 
 const kContinuousNotificationsTopicName = 'all';

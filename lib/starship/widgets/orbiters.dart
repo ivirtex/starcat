@@ -47,12 +47,12 @@ class Orbiters extends StatelessWidget {
               final vehicle = orbiters[index];
 
               return VehicleCard(
-                title: Text(vehicle.name),
-                subtitle: Text(vehicle.description),
+                title: Text(vehicle.name ?? 'Name N/A'),
+                subtitle: Text(vehicle.description ?? 'Description N/A'),
                 leading: Center(
-                  child: Text(vehicle.serialNumber),
+                  child: Text(vehicle.serialNumber ?? 'SN N/A'),
                 ),
-                status: Text(vehicle.status.name),
+                status: Text(vehicle.status?.name ?? 'Status N/A'),
               );
             },
           ),

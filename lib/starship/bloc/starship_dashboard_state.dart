@@ -37,4 +37,7 @@ final class StarshipDashboardState extends Equatable {
         status,
         dashboard,
       ];
+
+  @override
+  bool? get stringify => false;
 }

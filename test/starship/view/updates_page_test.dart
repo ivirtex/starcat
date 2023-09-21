@@ -22,9 +22,6 @@ void main() {
         UpdatesPage(
           updates: [
             Update(
-              id: 1,
-              profileImage: 'profileImage',
-              createdBy: 'createdBy',
               createdOn: DateTime.now(),
             ),
           ],

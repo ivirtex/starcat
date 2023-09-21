@@ -66,11 +66,11 @@ class _LaunchPadMapState extends State<LaunchPadMap>
           widget.pad!.name != null && widget.pad!.name != 'Unknown Pad';
 
       MapsLauncher.launchQuery(
-        launchByName ? widget.pad!.name! : widget.pad!.location!.name ?? 'N/A',
+        launchByName ? widget.pad!.name! : widget.pad!.location?.name ?? 'N/A',
       );
     } catch (e) {
       final url = Uri.parse(
-        'https://www.google.com/maps/search/?api=1&query=${widget.pad!.location!.name}',
+        'https://www.google.com/maps/search/?api=1&query=${widget.pad!.location?.name}',
       );
 
       launchUrl(url);

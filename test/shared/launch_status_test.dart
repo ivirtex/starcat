@@ -12,7 +12,6 @@ import '../test_helpers/test_helpers.dart';
 void main() {
   group('LaunchStatus', () {
     const launchStatus = Status(
-      id: 0,
       name: 'Go for launch',
       abbrev: StatusAbbrev.go,
     );
@@ -38,7 +37,6 @@ void main() {
     testWidgets('renders with light green color when abbrev is "TBC"',
         (WidgetTester tester) async {
       const launchStatus = Status(
-        id: 0,
         abbrev: StatusAbbrev.tbc,
       );
 
@@ -53,7 +51,6 @@ void main() {
     testWidgets('renders with grey color when abbrev is "TBD"',
         (WidgetTester tester) async {
       const launchStatus = Status(
-        id: 0,
         abbrev: StatusAbbrev.tbd,
       );
 

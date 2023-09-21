@@ -23,7 +23,7 @@ void main() {
         dashboard: StarshipDashboard(
           upcoming: StarshipLaunchesAndEvents(
             launches: [
-              Launch(id: 'testId', name: 'testName'),
+              Launch(id: 'testId', name: 'testName', url: '', slug: 'slug'),
             ],
           ),
         ),

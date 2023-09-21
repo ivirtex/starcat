@@ -2,6 +2,9 @@
 import 'dart:async';
 import 'dart:developer';
 
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -47,11 +50,13 @@ class StarshipDashboardBloc
     } catch (err) {
       log('StarshipDashboardBloc._onStarshipDashboardRequested: $err');
 
-      await FirebaseCrashlytics.instance.recordError(
-        err,
-        StackTrace.current,
-        reason: 'LaunchesBloc._onLaunchesRequested',
-      );
+      if (kReleaseMode) {
+        await FirebaseCrashlytics.instance.recordError(
+          err,
+          StackTrace.current,
+          reason: 'LaunchesBloc._onLaunchesRequested',
+        );
+      }
 
       emit(
         state.copyWith(status: StarshipDashboardStatus.failure),

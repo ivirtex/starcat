@@ -44,12 +44,6 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
                   GoRoute(
                     path: 'launch/:id',
                     builder: (context, state) {
-                      context.read<LaunchesBloc>().add(
-                            LaunchesDetailsRequested(
-                              launchId: state.pathParameters['id']!,
-                            ),
-                          );
-
                       return LaunchDetailsPage(
                         launchId: state.pathParameters['id']!,
                         withHero:
@@ -70,12 +64,6 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
                   GoRoute(
                     path: 'launch/:id',
                     builder: (context, state) {
-                      context.read<LaunchesBloc>().add(
-                            LaunchesDetailsRequested(
-                              launchId: state.pathParameters['id']!,
-                            ),
-                          );
-
                       return LaunchDetailsPage(
                         launchId: state.pathParameters['id']!,
                         withHero:

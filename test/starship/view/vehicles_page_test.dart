@@ -21,7 +21,7 @@ void main() {
       await tester.pumpApp(
         const VehiclesPage(
           launchers: [
-            Launcher(id: 1, url: ''),
+            Launcher(url: ''),
           ],
         ),
       );

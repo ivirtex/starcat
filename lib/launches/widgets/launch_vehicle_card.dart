@@ -93,16 +93,16 @@ class LaunchVehicleCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (vehicle?.configuration.manufacturer?.name != null)
+                      if (vehicle?.configuration?.manufacturer?.name != null)
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5),
                           child: Text(
-                            vehicle?.configuration.manufacturer?.name ?? 'N/A',
+                            vehicle?.configuration?.manufacturer?.name ?? 'N/A',
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                         ),
                       Text(
-                        vehicle?.configuration.fullName ?? 'N/A',
+                        vehicle?.configuration?.fullName ?? 'N/A',
                       ),
                     ],
                   ),

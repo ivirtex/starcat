@@ -1,24 +1,25 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 // Package imports:
-import 'package:launch_library_api/api.dart';
+import 'package:launch_library_api/launch_library_api.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 // Project imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
 
-class MockLaunchApi extends Mock implements LaunchApi {}
+class MockLaunchLibraryApiClient extends Mock
+    implements LaunchLibraryApiClient {}
 
 void main() {
   group('LaunchLibraryRepository', () {
-    late MockLaunchApi launchApiClient;
+    late LaunchLibraryApiClient launchLibraryApiClient;
     late LaunchLibraryRepository launchLibraryRepository;
 
     setUp(() {
-      launchApiClient = MockLaunchApi();
+      launchLibraryApiClient = MockLaunchLibraryApiClient();
       launchLibraryRepository = LaunchLibraryRepository(
-        launchApiClient: launchApiClient,
+        launchLibraryApiClient: launchLibraryApiClient,
       );
     });
 
@@ -30,35 +31,35 @@ void main() {
     });
 
     group('getLaunches', () {
-      test('calls getUpcomingLaunches', () async {
+      test('calls getLaunches with correct time option', () async {
         try {
           await launchLibraryRepository.getUpcomingLaunches();
         } catch (_) {}
-
-        verify(
-          () => launchApiClient.launchUpcomingList(hideRecentPrevious: true),
-        ).called(1);
+        verify(() => launchLibraryApiClient.getLaunches(LaunchTime.upcoming))
+            .called(1);
       });
 
       test('returns correct Launches', () async {
-        final launches = PaginatedLaunchSerializerCommonList(results: []);
+        const launches = Launches(count: 0, results: []);
 
-        when(() => launchApiClient.launchUpcomingList(hideRecentPrevious: true))
+        when(() => launchLibraryApiClient.getLaunches(LaunchTime.upcoming))
             .thenAnswer((_) async => launches);
 
         expect(
           await launchLibraryRepository.getUpcomingLaunches(),
-          <LaunchSerializerCommon>[],
+          <Launch>[],
         );
       });
 
       test('throws when getLaunches fails', () async {
-        when(() => launchApiClient.launchUpcomingList(hideRecentPrevious: true))
-            .thenThrow(ApiException(404, ''));
+        final exception = LaunchesRequestFailure();
+
+        when(() => launchLibraryApiClient.getLaunches(LaunchTime.upcoming))
+            .thenThrow(exception);
 
         expect(
           () => launchLibraryRepository.getUpcomingLaunches(),
-          throwsA(isA<ApiException>()),
+          throwsA(isA<LaunchesRequestFailure>()),
         );
       });
     });
