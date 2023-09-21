@@ -127,7 +127,10 @@ void main() {
 
     setUp(() {
       httpClient = MockHttpClient();
-      apiClient = LaunchLibraryApiClient(httpClient: httpClient);
+      apiClient = LaunchLibraryApiClient(
+        httpClient: httpClient,
+        baseUrl: 'lldev.thespacedevs.com',
+      );
     });
 
     group('constructor', () {
@@ -152,6 +155,10 @@ void main() {
             Uri.https(
               'lldev.thespacedevs.com',
               '/2.2.0/launch/previous/',
+              {
+                'offset': '0',
+                'mode': 'detailed',
+              },
             ),
           ),
         ).called(1);
@@ -165,6 +172,8 @@ void main() {
               '/2.2.0/launch/upcoming/',
               {
                 'hide_recent_previous': 'true',
+                'offset': '0',
+                'mode': 'detailed',
               },
             ),
           ),

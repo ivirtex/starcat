@@ -11,7 +11,7 @@ void main() {
   group('UpcomingLaunches', () {
     group('fromJson', () {
       test('returns correct UpcomingLaunches object', () {
-        final json = Launches.fromJson(
+        final launches = Launches.fromJson(
           const <String, dynamic>{
             'count': 80,
             'next':
@@ -116,7 +116,7 @@ void main() {
         );
 
         expect(
-          json,
+          launches,
           isA<Launches>()
               .having((w) => w.count, 'count', 80)
               .having(
@@ -137,7 +137,7 @@ void main() {
                 name: 'Falcon 9 Block 5 | Starlink Group 4-36',
                 status: const Status(
                   name: 'To Be Confirmed',
-                  abbrev: StatusAbbrev.tbd,
+                  abbrev: StatusAbbrev.tbc,
                   description:
                       'Awaiting official confirmation - current date is known with some certainty.',
                 ),

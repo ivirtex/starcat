@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
 import 'package:launch_library_api/launch_library_api.dart';
 
 part 'landing_location.g.dart';
