@@ -1,7 +1,7 @@
 export 'first_stage_landing_card.dart';
 export 'launch_card.dart';
 export 'launch_date_card.dart';
-export 'launch_details_view.dart';
+export '../view/launch_details_page.dart';
 export 'launch_pad_map.dart';
 export 'launch_vehicle_card.dart';
 export 'launches_list.dart';

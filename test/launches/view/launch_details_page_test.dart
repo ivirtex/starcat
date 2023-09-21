@@ -27,7 +27,7 @@ void main() {
     testWidgets('renders LaunchDetailsPage', (tester) async {
       await tester.pumpApp(
         launchesBloc: launchesBloc,
-        LaunchDetailsPage(launchId: sampleLaunch.id),
+        const LaunchDetailsPage(launch: sampleLaunch),
       );
 
       await tester.pump(const Duration(seconds: 2));
@@ -49,18 +49,18 @@ void main() {
     testWidgets('renders LaunchDetailsView', (tester) async {
       await tester.pumpApp(
         launchesBloc: launchesBloc,
-        const LaunchDetailsView(launch: sampleLaunch),
+        const LaunchDetailsPage(launch: sampleLaunch),
       );
 
       await tester.pump(const Duration(seconds: 2));
 
-      expect(find.byType(LaunchDetailsView), findsOneWidget);
+      expect(find.byType(LaunchDetailsPage), findsOneWidget);
     });
 
     testWidgets('renders image', (tester) async {
       await tester.pumpApp(
         launchesBloc: launchesBloc,
-        const LaunchDetailsView(launch: sampleLaunch),
+        const LaunchDetailsPage(launch: sampleLaunch),
       );
 
       await tester.pump(const Duration(seconds: 2));
@@ -71,7 +71,7 @@ void main() {
     testWidgets('learn more button is tappable', (tester) async {
       await tester.pumpApp(
         launchesBloc: launchesBloc,
-        const LaunchDetailsView(launch: sampleLaunch),
+        const LaunchDetailsPage(launch: sampleLaunch),
       );
 
       await tester.pump(const Duration(seconds: 2));

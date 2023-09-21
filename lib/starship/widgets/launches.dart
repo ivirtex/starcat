@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
@@ -34,11 +35,13 @@ class Launches extends StatelessWidget {
             child: Text('No launches currently available.'),
           )
         else
-          ListView.builder(
+          ListView.separated(
             padding: EdgeInsets.zero,
             itemCount: launches.length,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
+            separatorBuilder: (context, index) =>
+                const SizedBox(height: kListSpacing),
             itemBuilder: (context, index) {
               final launch = launches[index];
 

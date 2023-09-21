@@ -44,8 +44,16 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
                   GoRoute(
                     path: 'launch/:id',
                     builder: (context, state) {
+                      final launch = context
+                          .read<LaunchesBloc>()
+                          .state
+                          .allLaunches
+                          .firstWhere(
+                            (launch) => launch.id == state.pathParameters['id'],
+                          );
+
                       return LaunchDetailsPage(
-                        launchId: state.pathParameters['id']!,
+                        launch: launch,
                         withHero:
                             state.uri.queryParameters['withHero'] == 'true',
                       );
@@ -64,8 +72,16 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
                   GoRoute(
                     path: 'launch/:id',
                     builder: (context, state) {
+                      final launch = context
+                          .read<LaunchesBloc>()
+                          .state
+                          .allLaunches
+                          .firstWhere(
+                            (launch) => launch.id == state.pathParameters['id'],
+                          );
+
                       return LaunchDetailsPage(
-                        launchId: state.pathParameters['id']!,
+                        launch: launch,
                         withHero:
                             state.uri.queryParameters['withHero'] == 'true',
                       );
@@ -92,8 +108,16 @@ GoRouter createRouter({String initialLocation = '/explore'}) {
                   GoRoute(
                     path: 'launch/:id',
                     builder: (context, state) {
-                      return StarshipLaunchDetailsPage(
-                        launchId: state.pathParameters['id']!,
+                      final launch = context
+                          .read<StarshipDashboardBloc>()
+                          .state
+                          .allLaunches
+                          .firstWhere(
+                            (launch) => launch.id == state.pathParameters['id'],
+                          );
+
+                      return LaunchDetailsPage(
+                        launch: launch,
                         withHero:
                             state.uri.queryParameters['withHero'] == 'true',
                       );
