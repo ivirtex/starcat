@@ -29,6 +29,7 @@ class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
   final scrollController = ScrollController();
 
   bool hasAppBarCollapsed = false;
+  Color appBarContentColor = Colors.white;
 
   @override
   void didChangeDependencies() {
@@ -45,12 +46,14 @@ class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
           if (!hasAppBarCollapsed) {
             setState(() {
               hasAppBarCollapsed = true;
+              appBarContentColor = Colors.black;
             });
           }
         } else {
           if (hasAppBarCollapsed) {
             setState(() {
               hasAppBarCollapsed = false;
+              appBarContentColor = Colors.white;
             });
           }
         }
@@ -72,7 +75,7 @@ class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
                 hasAppBarCollapsed ? null : SystemUiOverlayStyle.light,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              color: hasAppBarCollapsed ? Colors.black : Colors.white,
+              color: appBarContentColor,
               onPressed: () => Navigator.of(context).pop(),
             ),
             flexibleSpace: FlexibleSpaceBar(
@@ -115,7 +118,7 @@ class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
                 child: Text(
                   widget.launch.mission?.name ?? 'N/A',
                   style: TextStyle(
-                    color: hasAppBarCollapsed ? Colors.black : Colors.white,
+                    color: appBarContentColor,
                   ),
                 )
                     .animate(delay: 150.ms)

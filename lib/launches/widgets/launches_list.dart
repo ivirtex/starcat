@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
+import 'package:starcat/constants.dart';
 import 'package:very_good_infinite_list/very_good_infinite_list.dart';
 
 // Project imports:
@@ -28,25 +29,27 @@ class LaunchesList extends StatelessWidget {
             .read<LaunchesBloc>()
             .add(LaunchesNextPageRequested(type: selectedLaunches));
       },
+      debounceDuration: const Duration(milliseconds: 500),
       isLoading:
           context.read<LaunchesBloc>().state.status == LaunchesStatus.loading,
       hasError:
           context.read<LaunchesBloc>().state.status == LaunchesStatus.failure,
       loadingBuilder: (context) => const Padding(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.symmetric(vertical: kListSpacing * 2),
         child: Center(
           child: CircularProgressIndicator.adaptive(),
         ),
       ),
       errorBuilder: (context) {
         return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 8),
+          padding: EdgeInsets.symmetric(vertical: kListSpacing),
           child: Center(
             child: Text('Something went wrong'),
           ),
         );
       },
-      debounceDuration: const Duration(milliseconds: 500),
+      separatorBuilder: (context, index) =>
+          const SizedBox(height: kListSpacing),
       itemCount: launches.length,
       itemBuilder: (context, index) {
         final launch = launches[index];
@@ -54,6 +57,7 @@ class LaunchesList extends StatelessWidget {
         return LaunchCard(
           launch: launch,
           destination: '/launches/launch/${launch.id}?withHero=true',
+          padding: EdgeInsets.zero,
         );
       },
     );
