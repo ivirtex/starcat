@@ -28,6 +28,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     on<LaunchesRequested>(_onLaunchesRequested);
     on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
     on<LaunchesNextPageRequested>(_onLaunchesNextPageRequested);
+    on<LaunchesOffsetReset>(_onLaunchesOffsetReset);
   }
 
   final LaunchLibraryRepository _launchLibraryRepository;
@@ -152,5 +153,17 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
         }
         break;
     }
+  }
+
+  void _onLaunchesOffsetReset(
+    LaunchesOffsetReset event,
+    Emitter<LaunchesState> emit,
+  ) {
+    emit(
+      state.copyWith(
+        currentOffsetOfUpcomingLaunches: 0,
+        currentOffsetOfPastLaunches: 0,
+      ),
+    );
   }
 }

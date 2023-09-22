@@ -11,6 +11,15 @@ final class LaunchesRequested extends LaunchesEvent {
   const LaunchesRequested();
 }
 
+final class LaunchesSelectionChanged extends LaunchesEvent {
+  const LaunchesSelectionChanged({required this.selectedLaunches});
+
+  final SelectedLaunches selectedLaunches;
+
+  @override
+  List<Object> get props => [selectedLaunches];
+}
+
 final class LaunchesNextPageRequested extends LaunchesEvent {
   const LaunchesNextPageRequested({
     required this.type,
@@ -22,11 +31,6 @@ final class LaunchesNextPageRequested extends LaunchesEvent {
   List<Object?> get props => [type];
 }
 
-final class LaunchesSelectionChanged extends LaunchesEvent {
-  const LaunchesSelectionChanged({required this.selectedLaunches});
-
-  final SelectedLaunches selectedLaunches;
-
-  @override
-  List<Object> get props => [selectedLaunches];
+final class LaunchesOffsetReset extends LaunchesEvent {
+  const LaunchesOffsetReset();
 }

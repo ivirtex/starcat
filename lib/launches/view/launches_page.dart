@@ -24,6 +24,8 @@ class _LaunchesPageState extends State<LaunchesPage> {
   void initState() {
     super.initState();
 
+    context.read<LaunchesBloc>().add(const LaunchesOffsetReset());
+
     scrollController.addListener(() {
       if (scrollController.offset > 0) {
         if (!shouldShowFab) {
