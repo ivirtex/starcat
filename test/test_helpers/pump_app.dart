@@ -85,6 +85,7 @@ extension PumpApp on WidgetTester {
     SpaceflightNewsRepository? spaceflightNewsRepository,
     LaunchesBloc? launchesBloc,
     NewsBloc? newsBloc,
+    StarshipDashboardBloc? starshipDashboardBloc,
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
     FirebaseMessaging? firebaseMessagingInstance,
@@ -108,6 +109,12 @@ extension PumpApp on WidgetTester {
             value: newsBloc ??
                 NewsBloc(
                   spaceflightNewsRepository ?? SpaceflightNewsRepository(),
+                ),
+          ),
+          BlocProvider.value(
+            value: starshipDashboardBloc ??
+                StarshipDashboardBloc(
+                  launchLibraryRepository ?? LaunchLibraryRepository(),
                 ),
           ),
           BlocProvider.value(
