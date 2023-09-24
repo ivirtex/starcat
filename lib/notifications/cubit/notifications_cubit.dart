@@ -108,6 +108,23 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     );
   }
 
+  Future<void> setIfStarbaseNotificationsAreEnabled({
+    required bool isTrue,
+  }) async {
+    if (isTrue) {
+      await _firebaseMessagingInstance.requestPermission();
+      await _firebaseMessagingInstance
+          .subscribeToTopic(kStarbaseNotificationsTopicName);
+    } else {
+      await _firebaseMessagingInstance
+          .unsubscribeFromTopic(kStarbaseNotificationsTopicName);
+    }
+
+    emit(
+      state.copyWith(areStarbaseNotificationsEnabled: isTrue),
+    );
+  }
+
   Future<void> setIfNotificationsPreferenceModalHasBeenShown({
     required bool isTrue,
   }) async {

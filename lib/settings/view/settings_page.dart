@@ -32,6 +32,7 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends State<SettingsView> {
   late bool _isMaterial3Enabled;
   late bool _areNotificationsSentContinuously;
+  late bool _areStarbaseNotificationsEnabled;
 
   final _textPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
 
@@ -43,6 +44,10 @@ class _SettingsViewState extends State<SettingsView> {
         context.read<ThemeCubit>().state.isDynamicThemeEnabled == true;
     _areNotificationsSentContinuously =
         context.read<NotificationsCubit>().state.areNotificationsContinuous;
+    _areStarbaseNotificationsEnabled = context
+        .read<NotificationsCubit>()
+        .state
+        .areStarbaseNotificationsEnabled;
   }
 
   @override
@@ -80,7 +85,7 @@ class _SettingsViewState extends State<SettingsView> {
         ),
         SwitchListTile(
           secondary: const Icon(Icons.notifications_active_rounded),
-          title: const Text('Send notifications before every launch'),
+          title: const Text('Notifications before every launch'),
           value: _areNotificationsSentContinuously,
           onChanged: (isEnabled) {
             setState(() {
@@ -89,6 +94,21 @@ class _SettingsViewState extends State<SettingsView> {
               context
                   .read<NotificationsCubit>()
                   .setIfNotificationsAreSentContinuously(isTrue: isEnabled);
+            });
+          },
+        ),
+        SwitchListTile(
+          secondary: const Icon(Icons.star_rounded),
+          title: const Text('Notices and closures at Starbase'),
+          value: _areStarbaseNotificationsEnabled,
+          onChanged: (isEnabled) {
+            // TODO(ivirtex): set up with Adapty
+            setState(() {
+              _areStarbaseNotificationsEnabled = isEnabled;
+
+              context
+                  .read<NotificationsCubit>()
+                  .setIfStarbaseNotificationsAreEnabled(isTrue: isEnabled);
             });
           },
         ),

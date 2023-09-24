@@ -31,8 +31,10 @@ const kBorderRadius = 12.0;
 
 const kBodyPadding = EdgeInsets.symmetric(horizontal: 10);
 
-const kRefreshEdgeOffset = 120.0;
+const kRefreshEdgeOffset = 100.0;
 
 const kSourceCodeUrl = 'https://github.com/ivirtex/starcat';
 
 const kContinuousNotificationsTopicName = 'all';
+
+const kStarbaseNotificationsTopicName = 'starbase';

@@ -56,17 +56,14 @@ class VehiclesView extends StatelessWidget {
                       vehicle.status ?? 'Unknown',
                     );
 
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: kListSpacing),
-                      child: VehicleCard(
-                        title: Text(vehicle.serialNumber ?? 'N/A SN'),
-                        subtitle: Text(vehicle.details ?? 'N/A Details'),
-                        leading: MissionImage(
-                          imageUrl: vehicle.imageUrl ?? '',
-                          fit: BoxFit.cover,
-                        ),
-                        status: Text(status ?? 'Unknown'),
+                    return VehicleCard(
+                      title: Text(vehicle.serialNumber ?? 'N/A SN'),
+                      subtitle: Text(vehicle.details ?? 'N/A Details'),
+                      leading: MissionImage(
+                        imageUrl: vehicle.imageUrl ?? '',
+                        fit: BoxFit.cover,
                       ),
+                      status: Text(status ?? 'Unknown'),
                     );
                   },
                 ),

@@ -5,6 +5,7 @@ class NotificationsState extends Equatable {
   const NotificationsState({
     this.trackedLaunches = const <TrackedLaunch>[],
     this.areNotificationsContinuous = false,
+    this.areStarbaseNotificationsEnabled = false,
     this.hasNotificationsPreferenceModalBeenShown = false,
   });
 
@@ -13,6 +14,7 @@ class NotificationsState extends Equatable {
 
   final List<TrackedLaunch> trackedLaunches;
   final bool areNotificationsContinuous;
+  final bool areStarbaseNotificationsEnabled;
   final bool hasNotificationsPreferenceModalBeenShown;
 
   Map<String, dynamic> toJson() => _$NotificationsStateToJson(this);
@@ -20,12 +22,15 @@ class NotificationsState extends Equatable {
   NotificationsState copyWith({
     List<TrackedLaunch>? trackedLaunches,
     bool? areNotificationsContinuous,
+    bool? areStarbaseNotificationsEnabled,
     bool? hasNotificationsPreferenceModalBeenShown,
   }) {
     return NotificationsState(
       trackedLaunches: trackedLaunches ?? this.trackedLaunches,
       areNotificationsContinuous:
           areNotificationsContinuous ?? this.areNotificationsContinuous,
+      areStarbaseNotificationsEnabled: areStarbaseNotificationsEnabled ??
+          this.areStarbaseNotificationsEnabled,
       hasNotificationsPreferenceModalBeenShown:
           hasNotificationsPreferenceModalBeenShown ??
               this.hasNotificationsPreferenceModalBeenShown,
@@ -36,6 +41,7 @@ class NotificationsState extends Equatable {
   List<Object> get props => [
         trackedLaunches,
         areNotificationsContinuous,
+        areStarbaseNotificationsEnabled,
         hasNotificationsPreferenceModalBeenShown,
       ];
 }

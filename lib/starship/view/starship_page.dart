@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
+import 'package:starcat/explore/explore.dart';
 import 'package:starcat/starship/starship.dart';
 import 'package:starcat/starship/widgets/placeholders/placeholders.dart';
 
@@ -104,6 +105,27 @@ class _Body extends StatelessWidget {
                   ),
                   const SizedBox(height: kSectionSpacing),
                   Notices(notices: state.dashboard?.notices ?? []),
+                  const SizedBox(height: kSectionSpacing),
+                  ExploreCard(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(kBorderRadius),
+                      side: BorderSide(
+                        width: 3,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primaryContainer
+                            .withOpacity(0.1),
+                      ),
+                    ),
+                    // ignore: lines_longer_than_80_chars
+                    child: Text(
+                      'Would you like to receive notification when a road closure is scheduled or notice is posted?',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: kSectionSpacing),
                   Updates(updates: state.dashboard?.updates ?? []),
                   const SizedBox(height: kSectionSpacing),
