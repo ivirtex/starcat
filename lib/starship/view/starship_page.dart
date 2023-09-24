@@ -118,8 +118,8 @@ class _Body extends StatelessWidget {
                             .withOpacity(0.1),
                       ),
                     ),
-                    // ignore: lines_longer_than_80_chars
                     child: Text(
+                      // ignore: lines_longer_than_80_chars
                       'Would you like to receive notification when a road closure is scheduled or notice is posted?',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
