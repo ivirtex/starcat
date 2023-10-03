@@ -40,40 +40,65 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     Launch launch, {
     required TrackingMethod mode,
   }) async {
-    await _liveActivitiesPlugin.init(appGroupId: kAppGroupId);
+    try {
+      await _liveActivitiesPlugin.init(appGroupId: kAppGroupId);
 
-    final activityData = {
-      'status': launch.status!.abbrev!.name,
-      'launchTZeroDate': launch.net!.toUtc().toIso8601String(),
-      'launchName': launch.mission!.name,
-      'launchVehicle': launch.rocket!.configuration!.name,
-    };
+      final activityData = {
+        'status': launch.status!.abbrev!.name,
+        'launchTZeroDate': launch.net!.toUtc().toIso8601String(),
+        'launchName': launch.mission!.name,
+        'launchVehicle': launch.rocket!.configuration!.name,
+      };
 
-    // TODO(ivirtex): fetch push token and upload
-    // to the server for real-time updates
-    final id = await _liveActivitiesPlugin.createActivity(activityData);
+      // TODO(ivirtex): fetch push token and upload
+      // to the server for real-time updates
+      final id = await _liveActivitiesPlugin.createActivity(activityData);
 
-    if (id == null && kReleaseMode) {
+      if (id == null && kReleaseMode) {
+        await FirebaseCrashlytics.instance.recordError(
+          'Failed to create live activity',
+          StackTrace.current,
+          information: activityData.entries
+              .map((entry) => '${entry.key}: ${entry.value}'),
+        );
+
+        emit(
+          state.copyWith(
+            liveActivityCreationStatus: LiveActivityCreationStatus.failure,
+          ),
+        );
+
+        return;
+      }
+
+      emit(
+        state.copyWith(
+          trackedLaunches: [
+            ...state.trackedLaunches,
+            TrackedLaunch(
+              launchData: launch,
+              trackingMethod: mode,
+              activityId: id,
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
       await FirebaseCrashlytics.instance.recordError(
-        'Failed to create live activity',
+        'Failed to initialize live activity',
         StackTrace.current,
-        information:
-            activityData.entries.map((entry) => '${entry.key}: ${entry.value}'),
+        information: [
+          'launch: ${launch.toJson()}',
+          'mode: $mode',
+        ],
+      );
+
+      emit(
+        state.copyWith(
+          liveActivityCreationStatus: LiveActivityCreationStatus.failure,
+        ),
       );
     }
-
-    emit(
-      state.copyWith(
-        trackedLaunches: [
-          ...state.trackedLaunches,
-          TrackedLaunch(
-            launchData: launch,
-            trackingMethod: mode,
-            activityId: id,
-          ),
-        ],
-      ),
-    );
   }
 
   Future<void> cancelTrackingLaunch(Launch launch) async {

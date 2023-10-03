@@ -13,6 +13,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 // Project imports:
 import 'package:starcat/notifications/notifications.dart';
+import '../../sample_launch.dart';
 import '../../test_helpers/test_helpers.dart';
 
 class MockNotificationsCubit extends MockCubit<NotificationsState>
@@ -42,15 +43,7 @@ void main() {
       liveActivitiesPlugin,
       clock: Clock.fixed(DateTime(2023)),
     );
-    launch = MockLaunch();
-
-    when(() => launch.toJson()).thenReturn({});
-    when(() => launch.id).thenReturn('1');
-    when(() => launch.net).thenReturn(DateTime(2023, 1, 1, 0, 0, 0));
-    when(() => launch.name).thenReturn('Test Launch');
-    when(() => launch.pad)
-        .thenReturn(const Pad(location: Location(), name: 'Test Pad'));
-    when(() => launch.url).thenReturn('https://test.com');
+    launch = sampleLaunch;
 
     when(
       () => liveActivitiesPlugin.init(appGroupId: any(named: 'appGroupId')),

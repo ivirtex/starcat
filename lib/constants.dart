@@ -11,6 +11,9 @@ const kLaunchesUpdateErrorText =
 const kNewsUpdateErrorText =
     'Something went wrong while fetching news, current data may be stale.';
 
+const kLiveActivityCreationErrorText =
+    "Couldn't create a Live Activity, check app permissions.";
+
 const kNoLatestArticlesText = 'No articles found';
 
 const kNoFeaturedArticlesText = 'No featured articles today';

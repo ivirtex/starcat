@@ -1,5 +1,4 @@
 // Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -76,8 +75,7 @@ class NextLaunchCard extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: kListSpacing),
-              //! Disabled due to bug in the SwiftUI Text .timer style
-              if (timeLeft != null && timeLeft < 3.hours || kDebugMode)
+              if (timeLeft != null && timeLeft < 6.hours && launch != null)
                 TrackUsingDynamicIslandButton(launch: launch!),
               ThemedButton(
                 onPressed: doesExist

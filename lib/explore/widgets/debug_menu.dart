@@ -24,6 +24,15 @@ class DebugMenu extends StatefulWidget {
 }
 
 class _DebugMenuState extends State<DebugMenu> {
+  final liveActivitiesPlugin = LiveActivities();
+
+  @override
+  void initState() {
+    super.initState();
+
+    liveActivitiesPlugin.init(appGroupId: kAppGroupId);
+  }
+
   @override
   Widget build(BuildContext context) {
     final trackedLaunches =
@@ -93,9 +102,6 @@ class _DebugMenuState extends State<DebugMenu> {
             children: [
               FilledButton.tonal(
                 onPressed: () async {
-                  final liveActivitiesPlugin = LiveActivities();
-                  await liveActivitiesPlugin.init(appGroupId: kAppGroupId);
-
                   final exampleTime = DateTime.now().add(
                     const Duration(
                       minutes: 15,
@@ -104,7 +110,7 @@ class _DebugMenuState extends State<DebugMenu> {
 
                   await liveActivitiesPlugin.createActivity(
                     {
-                      'statusAbbrev': 'Go',
+                      'status': 'Hold',
                       'launchTZeroDate': exampleTime.toUtc().toIso8601String(),
                       'launchName': 'CRS-21 (ISS Resupply) - SpaceX CRS-21',
                       'launchVehicle': 'Falcon 9',
@@ -115,8 +121,6 @@ class _DebugMenuState extends State<DebugMenu> {
               ),
               FilledButton.tonal(
                 onPressed: () async {
-                  final liveActivitiesPlugin = LiveActivities();
-                  await liveActivitiesPlugin.init(appGroupId: kAppGroupId);
                   await liveActivitiesPlugin.endAllActivities();
                 },
                 child: const Text('End all activities (iOS)'),

@@ -1,9 +1,15 @@
 part of 'notifications_cubit.dart';
 
+enum LiveActivityCreationStatus {
+  success,
+  failure,
+}
+
 @JsonSerializable()
 class NotificationsState extends Equatable {
   const NotificationsState({
     this.trackedLaunches = const <TrackedLaunch>[],
+    this.liveActivityCreationStatus = LiveActivityCreationStatus.success,
     this.areNotificationsContinuous = false,
     this.areStarbaseNotificationsEnabled = false,
     this.hasNotificationsPreferenceModalBeenShown = false,
@@ -13,6 +19,7 @@ class NotificationsState extends Equatable {
       _$NotificationsStateFromJson(json);
 
   final List<TrackedLaunch> trackedLaunches;
+  final LiveActivityCreationStatus liveActivityCreationStatus;
   final bool areNotificationsContinuous;
   final bool areStarbaseNotificationsEnabled;
   final bool hasNotificationsPreferenceModalBeenShown;
@@ -21,12 +28,15 @@ class NotificationsState extends Equatable {
 
   NotificationsState copyWith({
     List<TrackedLaunch>? trackedLaunches,
+    LiveActivityCreationStatus? liveActivityCreationStatus,
     bool? areNotificationsContinuous,
     bool? areStarbaseNotificationsEnabled,
     bool? hasNotificationsPreferenceModalBeenShown,
   }) {
     return NotificationsState(
       trackedLaunches: trackedLaunches ?? this.trackedLaunches,
+      liveActivityCreationStatus:
+          liveActivityCreationStatus ?? this.liveActivityCreationStatus,
       areNotificationsContinuous:
           areNotificationsContinuous ?? this.areNotificationsContinuous,
       areStarbaseNotificationsEnabled: areStarbaseNotificationsEnabled ??
