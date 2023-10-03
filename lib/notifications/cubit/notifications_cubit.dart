@@ -84,14 +84,17 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
         ),
       );
     } catch (e) {
-      await FirebaseCrashlytics.instance.recordError(
-        'Failed to initialize live activity',
-        StackTrace.current,
-        information: [
-          'launch: ${launch.toJson()}',
-          'mode: $mode',
-        ],
-      );
+      if (kReleaseMode) {
+        await FirebaseCrashlytics.instance.recordError(
+          'Failed to initialize live activity',
+          StackTrace.current,
+          reason: e.toString(),
+          information: [
+            'launch: ${launch.toJson()}',
+            'mode: $mode',
+          ],
+        );
+      }
 
       emit(
         state.copyWith(

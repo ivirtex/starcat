@@ -43,7 +43,10 @@ void main() {
       liveActivitiesPlugin,
       clock: Clock.fixed(DateTime(2023)),
     );
-    launch = sampleLaunch;
+    launch = sampleLaunch.copyWith(
+      net: DateTime(2023),
+      status: const Status(abbrev: StatusAbbrev.go),
+    );
 
     when(
       () => liveActivitiesPlugin.init(appGroupId: any(named: 'appGroupId')),
