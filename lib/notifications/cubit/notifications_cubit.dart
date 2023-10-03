@@ -45,7 +45,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     final activityData = {
       'status': launch.status!.abbrev!.name,
       'launchTZeroDate': launch.net!.toUtc().toIso8601String(),
-      'launchName': launch.mission!.name!.split(' ').first,
+      'launchName': launch.mission!.name,
       'launchVehicle': launch.rocket!.configuration!.name,
     };
 

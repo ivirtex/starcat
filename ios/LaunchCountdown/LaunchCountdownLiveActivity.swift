@@ -52,7 +52,7 @@ struct LaunchCountdownLiveActivity: Widget {
                     Text(launchVehicle)
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                }.padding(.horizontal)
+                }.padding(.leading)
             }
             DynamicIslandExpandedRegion(.bottom) {
                 ProgressView(timerInterval: remainingTime)
@@ -69,10 +69,10 @@ struct LaunchCountdownLiveActivity: Widget {
                     Image(systemName: parsedStatus.icon)
                         .foregroundStyle(parsedStatus.color)
                 }
-                .padding(.horizontal)
+                .padding(.trailing)
             }
         } compactLeading: {
-            Text(launchName)
+            Text(launchName.split(separator: " ").first!)
         } compactTrailing: {
             CircularTimer(timerInterval: remainingTime)
         } minimal: {
