@@ -11,77 +11,106 @@ import WidgetKit
 
 struct LiveActivitiesAppAttributes: ActivityAttributes, Identifiable {
     public typealias LiveDeliveryData = ContentState
-
+    
     public struct ContentState: Codable, Hashable {}
-
+    
     var id = UUID()
 }
 
-let sharedDefault = UserDefaults(suiteName: "group.hubertjozwiak.starcat")!
+let sharedDefault = UserDefaults(suiteName: "group.dev.ivirtex.starcat.activity")!
 
 struct LaunchCountdownLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        let launchName: String = sharedDefault.string(forKey: "launchName") ?? "CRS-21"
-        let launchTZeroDateInISO8601 = sharedDefault.string(forKey: "launchTZeroDate") ?? Date().addingTimeInterval(900).ISO8601Format()
+        let status = sharedDefault.string(forKey: "status")!
+        let launchName = sharedDefault.string(forKey: "launchName")!
+        let launchVehicle = sharedDefault.string(forKey: "launchVehicle")!
+        let launchTZeroDateInISO8601 = sharedDefault.string(forKey: "launchTZeroDate")!
+        
+        let iso8601formatter = ISO8601DateFormatter()
+        iso8601formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
         let now = Date()
-        let launchTZeroDate = ISO8601DateFormatter().date(from: launchTZeroDateInISO8601)!
+        let launchTZeroDate = iso8601formatter.date(from: launchTZeroDateInISO8601)!
         let remainingTime = now ... launchTZeroDate
-
+        
+        let parsedStatus = LaunchStatus(status: status)
+    
         return ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { _ in
             HStack {
-                Text(launchName)
+                Text("T -")
+                    .foregroundStyle(.red)
+                TextTimer(targetDate: launchTZeroDate)
                 Spacer()
-                CountdownTimer(remainingTime: remainingTime)
+                Text(launchName)
             }
             .padding()
-            .background(.regularMaterial)
-        } dynamicIsland: { _ in
-            DynamicIsland {
-                DynamicIslandExpandedRegion(.leading) {
-                    Text(launchName).font(.title2)
-                }
-                DynamicIslandExpandedRegion(.bottom) {
-                    HStack {
-                        Text("T -").foregroundColor(.red)
-                        CountdownTimer(remainingTime: remainingTime)
-                    }
-                    .font(.title2)
-                }
-                DynamicIslandExpandedRegion(.trailing) {
-                    Label {
-                        Text("Go")
-                            .fontWeight(.semibold)
-                    } icon: {
-                        Image(systemName: "checkmark.circle.fill")
-                    }
-                    .foregroundColor(.green)
-                }
-            } compactLeading: {
-                ZStack {
-                    Circle()
-                        .stroke(.red, lineWidth: 2)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    Text("T-").font(.caption)
-                }.padding(.trailing, 2)
-            } compactTrailing: {
-                CountdownTimer(remainingTime: remainingTime)
-                // Need to define max width due to a bug in SwiftUI
-            } minimal: {
-                ZStack {
-                    Circle()
-                        .stroke(.red, lineWidth: 2).frame(maxWidth: .infinity, maxHeight: .infinity)
-                    Text("T-").font(.caption)
-                }
+        } dynamicIsland: { _ in DynamicIsland {
+            DynamicIslandExpandedRegion(.leading) {
+                VStack(alignment: .leading) {
+                    Text(launchName)
+                    
+                    Text(launchVehicle)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }.padding(.horizontal)
             }
-            .keylineTint(Color.red)
+            DynamicIslandExpandedRegion(.bottom) {
+                ProgressView(timerInterval: remainingTime)
+                    .tint(.red)
+                    .padding(.horizontal)
+                    .padding(.top)
+            }
+            DynamicIslandExpandedRegion(.trailing) {
+                Label {
+                    Text(parsedStatus.status.rawValue)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(parsedStatus.color)
+                } icon: {
+                    Image(systemName: parsedStatus.icon)
+                        .foregroundStyle(parsedStatus.color)
+                }
+                .padding(.horizontal)
+            }
+        } compactLeading: {
+            Text(launchName)
+        } compactTrailing: {
+            CircularTimer(timerInterval: remainingTime)
+        } minimal: {
+            CircularTimer(timerInterval: remainingTime)
         }
+        .keylineTint(Color.red)
+        }
+    }
+}
+
+struct TextTimer: View {
+    let targetDate: Date
+    
+    var body: some View {
+        Text(targetDate, style: .timer)
+            .monospacedDigit()
+    }
+}
+
+struct CircularTimer: View {
+    let timerInterval: ClosedRange<Date>
+    
+    var body: some View {
+        ProgressView(timerInterval: timerInterval, countsDown: true, label: {
+            Text("Countdown timer")
+        }) {
+            // TODO: use T+ when passed launch time
+            Text("T-")
+        }
+        .progressViewStyle(.circular)
+        .tint(.red)
     }
 }
 
 struct LaunchCountdownLiveActivity_Previews: PreviewProvider {
     static let attributes = LiveActivitiesAppAttributes()
     static let contentState = LiveActivitiesAppAttributes.ContentState()
-
+    
     static var previews: some View {
         attributes
             .previewContext(contentState, viewKind: .dynamicIsland(.compact))
@@ -95,15 +124,5 @@ struct LaunchCountdownLiveActivity_Previews: PreviewProvider {
         attributes
             .previewContext(contentState, viewKind: .content)
             .previewDisplayName("Notification")
-    }
-}
-
-struct CountdownTimer: View {
-    let remainingTime: ClosedRange<Date>
-
-    var body: some View {
-        Text(timerInterval: remainingTime, showsHours: false)
-            .monospacedDigit()
-            .background(.red)
     }
 }

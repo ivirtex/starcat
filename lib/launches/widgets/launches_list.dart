@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:starcat/constants.dart';
 import 'package:very_good_infinite_list/very_good_infinite_list.dart';
 
 // Project imports:
+import 'package:starcat/constants.dart';
 import 'package:starcat/launches/launches.dart';
 
 class LaunchesList extends StatelessWidget {

@@ -5,8 +5,8 @@
 //  Created by Hubert Jóźwiak on 21/07/2023.
 //
 
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
@@ -38,11 +38,12 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
 }
 
-struct LaunchCountdownEntryView : View {
+struct LaunchCountdownEntryView: View {
     var entry: Provider.Entry
 
     var body: some View {
         Text(entry.date, style: .time)
+            .widgetBackground(backgroundView: Color.clear)
     }
 }
 
@@ -62,5 +63,17 @@ struct LaunchCountdown_Previews: PreviewProvider {
     static var previews: some View {
         LaunchCountdownEntryView(entry: SimpleEntry(date: Date()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
+    }
+}
+
+extension View {
+    func widgetBackground(backgroundView: some View) -> some View {
+        if #available(watchOS 10.0, iOSApplicationExtension 17.0, iOS 17.0, macOSApplicationExtension 14.0, *) {
+            return containerBackground(for: .widget) {
+                backgroundView
+            }
+        } else {
+            return background(backgroundView)
+        }
     }
 }

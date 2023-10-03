@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -10,6 +11,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/helpers.dart';
+import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/shared/shared.dart';
 
 class NextLaunchCard extends StatelessWidget {
@@ -75,8 +77,8 @@ class NextLaunchCard extends StatelessWidget {
               ),
               const SizedBox(height: kListSpacing),
               //! Disabled due to bug in the SwiftUI Text .timer style
-              // if (timeLeft != null && timeLeft < 3.hours || kDebugMode)
-              //   TrackUsingDynamicIslandButton(launch: launch!),
+              if (timeLeft != null && timeLeft < 3.hours || kDebugMode)
+                TrackUsingDynamicIslandButton(launch: launch!),
               ThemedButton(
                 onPressed: doesExist
                     ? () => context.go('/explore/launch/${launch!.id}')

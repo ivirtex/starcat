@@ -6,21 +6,25 @@ part 'status.g.dart';
 
 enum StatusAbbrev {
   @JsonValue('Go')
-  go,
+  go('Go'),
   @JsonValue('TBC')
-  tbc,
+  tbc('TBC'),
   @JsonValue('Success')
-  success,
+  success('Success'),
   @JsonValue('Failure')
-  failure,
+  failure('Failure'),
   @JsonValue('Hold')
-  hold,
+  hold('Hold'),
   @JsonValue('In Flight')
-  inFlight,
+  inFlight('In Flight'),
   @JsonValue('Partial Failure')
-  partialFailure,
+  partialFailure('Partial Failure'),
   @JsonValue('TBD')
-  tbd,
+  tbd('TBD');
+
+  const StatusAbbrev(this.name);
+
+  final String? name;
 }
 
 @JsonSerializable()

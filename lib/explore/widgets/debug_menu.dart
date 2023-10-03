@@ -94,9 +94,7 @@ class _DebugMenuState extends State<DebugMenu> {
               FilledButton.tonal(
                 onPressed: () async {
                   final liveActivitiesPlugin = LiveActivities();
-                  await liveActivitiesPlugin.init(
-                    appGroupId: 'group.hubertjozwiak.starcat',
-                  );
+                  await liveActivitiesPlugin.init(appGroupId: kAppGroupId);
 
                   final exampleTime = DateTime.now().add(
                     const Duration(
@@ -105,7 +103,12 @@ class _DebugMenuState extends State<DebugMenu> {
                   );
 
                   await liveActivitiesPlugin.createActivity(
-                    {'remainingTime': exampleTime.toIso8601String()},
+                    {
+                      'statusAbbrev': 'Go',
+                      'launchTZeroDate': exampleTime.toUtc().toIso8601String(),
+                      'launchName': 'CRS-21 (ISS Resupply) - SpaceX CRS-21',
+                      'launchVehicle': 'Falcon 9',
+                    },
                   );
                 },
                 child: const Text('Create activity (iOS)'),
@@ -113,10 +116,7 @@ class _DebugMenuState extends State<DebugMenu> {
               FilledButton.tonal(
                 onPressed: () async {
                   final liveActivitiesPlugin = LiveActivities();
-                  await liveActivitiesPlugin.init(
-                    appGroupId: 'group.hubertjozwiak.starcat',
-                  );
-
+                  await liveActivitiesPlugin.init(appGroupId: kAppGroupId);
                   await liveActivitiesPlugin.endAllActivities();
                 },
                 child: const Text('End all activities (iOS)'),

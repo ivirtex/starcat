@@ -1,6 +1,10 @@
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+
 // Package imports:
 import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -36,20 +40,26 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     Launch launch, {
     required TrackingMethod mode,
   }) async {
-    String? id;
+    await _liveActivitiesPlugin.init(appGroupId: kAppGroupId);
 
-    switch (mode) {
-      case TrackingMethod.liveActivity:
-        await _liveActivitiesPlugin.init(
-          appGroupId: 'group.hubertjozwiak.starcat',
-        );
+    final activityData = {
+      'status': launch.status!.abbrev!.name,
+      'launchTZeroDate': launch.net!.toUtc().toIso8601String(),
+      'launchName': launch.mission!.name!.split(' ').first,
+      'launchVehicle': launch.rocket!.configuration!.name,
+    };
 
-        id = await _liveActivitiesPlugin.createActivity(
-          {
-            'launchTZeroDate': launch.net!.toIso8601String(),
-            'launchName': launch.name,
-          },
-        );
+    // TODO(ivirtex): fetch push token and upload
+    // to the server for real-time updates
+    final id = await _liveActivitiesPlugin.createActivity(activityData);
+
+    if (id == null && kReleaseMode) {
+      await FirebaseCrashlytics.instance.recordError(
+        'Failed to create live activity',
+        StackTrace.current,
+        information:
+            activityData.entries.map((entry) => '${entry.key}: ${entry.value}'),
+      );
     }
 
     emit(
@@ -73,10 +83,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
 
     switch (trackedLaunch.trackingMethod) {
       case TrackingMethod.liveActivity:
-        await _liveActivitiesPlugin.init(
-          appGroupId: 'group.hubertjozwiak.starcat',
-        );
-
+        await _liveActivitiesPlugin.init(appGroupId: kAppGroupId);
         await _liveActivitiesPlugin.endActivity(trackedLaunch.activityId!);
     }
 

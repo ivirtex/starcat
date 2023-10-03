@@ -35,6 +35,8 @@ const kRefreshEdgeOffset = 100.0;
 
 const kSourceCodeUrl = 'https://github.com/ivirtex/starcat';
 
+const kAppGroupId = 'group.dev.ivirtex.starcat.activity';
+
 const kContinuousNotificationsTopicName = 'all';
 
 const kStarbaseNotificationsTopicName = 'starbase';

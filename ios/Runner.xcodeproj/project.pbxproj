@@ -22,6 +22,7 @@
 		FE730B6C2A6B075100CAEECF /* LaunchCountdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE730B6B2A6B075100CAEECF /* LaunchCountdown.swift */; };
 		FE730B6E2A6B075200CAEECF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE730B6D2A6B075200CAEECF /* Assets.xcassets */; };
 		FE730B722A6B075200CAEECF /* LaunchCountdownExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FE730B632A6B075000CAEECF /* LaunchCountdownExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FE9722652ACC066900BAEAFB /* LaunchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE42CD7E2ACACE9B009C845D /* LaunchStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +48,7 @@
 		};
 		FE487C3B2921BA210007EAB8 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -83,6 +84,8 @@
 		C76E8DA5EF0F0493BD2C6422 /* Pods-Runner.profile-staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-staging.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-staging.xcconfig"; sourceTree = "<group>"; };
 		DDF5B0AEB32CFD2BCE740CF6 /* Pods-Runner.release-production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-production.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-production.xcconfig"; sourceTree = "<group>"; };
 		FAF12DDF4BFDE42F86CF299A /* Pods-Runner.debug-development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-development.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-development.xcconfig"; sourceTree = "<group>"; };
+		FE42CD7D2AC85029009C845D /* LaunchCountdownExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LaunchCountdownExtension.entitlements; sourceTree = "<group>"; };
+		FE42CD7E2ACACE9B009C845D /* LaunchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchStatus.swift; sourceTree = "<group>"; };
 		FE487C272921BA200007EAB8 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		FE487C292921BA200007EAB8 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		FE487C462921BA3E0007EAB8 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
@@ -92,7 +95,6 @@
 		FE730B6B2A6B075100CAEECF /* LaunchCountdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchCountdown.swift; sourceTree = "<group>"; };
 		FE730B6D2A6B075200CAEECF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE730B6F2A6B075200CAEECF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE730B7D2A6B08DD00CAEECF /* LaunchCountdownExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LaunchCountdownExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,7 +158,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				FE730B7D2A6B08DD00CAEECF /* LaunchCountdownExtension.entitlements */,
+				FE42CD7D2AC85029009C845D /* LaunchCountdownExtension.entitlements */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				FE730B662A6B075100CAEECF /* LaunchCountdown */,
@@ -195,6 +197,7 @@
 		FE730B662A6B075100CAEECF /* LaunchCountdown */ = {
 			isa = PBXGroup;
 			children = (
+				FE42CD7E2ACACE9B009C845D /* LaunchStatus.swift */,
 				FE730B672A6B075100CAEECF /* LaunchCountdownBundle.swift */,
 				FE730B692A6B075100CAEECF /* LaunchCountdownLiveActivity.swift */,
 				FE730B6B2A6B075100CAEECF /* LaunchCountdown.swift */,
@@ -212,6 +215,7 @@
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
 				0A1DD0FDEA653B0F4412DE05 /* [CP] Check Pods Manifest.lock */,
+				FE487C3B2921BA210007EAB8 /* Embed Foundation Extensions */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
@@ -220,7 +224,6 @@
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				0B37E57FA80DC303CC17C04D /* [CP] Embed Pods Frameworks */,
 				60AD779EEBE2906EEBAA1176 /* [CP] Copy Pods Resources */,
-				FE487C3B2921BA210007EAB8 /* Embed Foundation Extensions */,
 				FEEBA89630F6263C6D0E0FAD /* [firebase_crashlytics] Crashlytics Upload Symbols */,
 			);
 			buildRules = (
@@ -438,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE9722652ACC066900BAEAFB /* LaunchStatus.swift in Sources */,
 				FE730B6C2A6B075100CAEECF /* LaunchCountdown.swift in Sources */,
 				FE730B682A6B075100CAEECF /* LaunchCountdownBundle.swift in Sources */,
 				FE730B6A2A6B075100CAEECF /* LaunchCountdownLiveActivity.swift in Sources */,
