@@ -6,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:live_activities/live_activities.dart';
 import 'package:mockito/mockito.dart';
 import 'package:notifications_repository/notifications_repository.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
