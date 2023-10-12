@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
@@ -21,7 +21,8 @@ class MockLaunchLibraryRepository extends Mock
 class MockSpaceflightNewsRepository extends Mock
     implements SpaceflightNewsRepository {}
 
-class FirebaseMessagingMock extends Mock implements FirebaseMessaging {}
+class MockNotificationsRepository extends Mock
+    implements NotificationsRepository {}
 
 void main() {
   initHydratedStorage();
@@ -29,12 +30,12 @@ void main() {
   group('AppWrapper', () {
     late LaunchLibraryRepository launchLibraryRepository;
     late SpaceflightNewsRepository spaceflightNewsRepository;
-    late FirebaseMessaging firebaseMessagingInstance;
+    late NotificationsRepository notificationsRepository;
 
     setUp(() {
       launchLibraryRepository = MockLaunchLibraryRepository();
       spaceflightNewsRepository = MockSpaceflightNewsRepository();
-      firebaseMessagingInstance = FirebaseMessagingMock();
+      notificationsRepository = MockNotificationsRepository();
 
       when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenAnswer((_) async => <Launch>[]);
@@ -42,25 +43,10 @@ void main() {
           .thenAnswer((_) async => <Launch>[]);
       when(() => spaceflightNewsRepository.getNews())
           .thenAnswer((_) async => <Article>[]);
-      when(() => firebaseMessagingInstance.requestPermission()).thenAnswer(
-        (_) async => const NotificationSettings(
-          alert: AppleNotificationSetting.disabled,
-          announcement: AppleNotificationSetting.disabled,
-          authorizationStatus: AuthorizationStatus.authorized,
-          badge: AppleNotificationSetting.disabled,
-          carPlay: AppleNotificationSetting.disabled,
-          criticalAlert: AppleNotificationSetting.disabled,
-          lockScreen: AppleNotificationSetting.disabled,
-          notificationCenter: AppleNotificationSetting.disabled,
-          showPreviews: AppleShowPreviewSetting.always,
-          sound: AppleNotificationSetting.disabled,
-          timeSensitive: AppleNotificationSetting.disabled,
-        ),
-      );
-      when(() => firebaseMessagingInstance.subscribeToTopic(any()))
-          .thenAnswer((_) async {});
-      when(() => firebaseMessagingInstance.unsubscribeFromTopic(any()))
-          .thenAnswer((_) async {});
+      when(() => notificationsRepository.subscribeToTopic(any()))
+          .thenAnswer((invocation) => Future.value());
+      when(() => notificationsRepository.unsubscribeFromTopic(any()))
+          .thenAnswer((invocation) => Future.value());
     });
 
     testWidgets('renders AppView', (tester) async {
@@ -68,7 +54,7 @@ void main() {
         AppWrapper(
           launchLibraryRepository: launchLibraryRepository,
           spaceflightNewsRepository: spaceflightNewsRepository,
-          firebaseMessagingInstance: firebaseMessagingInstance,
+          notificationsRepository: notificationsRepository,
         ),
       );
 
@@ -82,7 +68,7 @@ void main() {
         AppWrapper(
           launchLibraryRepository: launchLibraryRepository,
           spaceflightNewsRepository: spaceflightNewsRepository,
-          firebaseMessagingInstance: firebaseMessagingInstance,
+          notificationsRepository: notificationsRepository,
         ),
       );
 
@@ -99,7 +85,7 @@ void main() {
         AppWrapper(
           launchLibraryRepository: launchLibraryRepository,
           spaceflightNewsRepository: spaceflightNewsRepository,
-          firebaseMessagingInstance: firebaseMessagingInstance,
+          notificationsRepository: notificationsRepository,
         ),
       );
 

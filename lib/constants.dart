@@ -3,6 +3,13 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
+const kApiLaunchLibraryUrl = 'll.thespacedevs.com';
+const kApiLaunchLibraryDevelopmentUrl = 'lldev.thespacedevs.com';
+
+const kApiSpaceflightNewsUrl = 'api.spaceflightnewsapi.net';
+
+const kApiNotificationsUrl = 'api.ivirtex.dev/starcat';
+
 const kImageErrorText = 'Whoops! Image failed to load';
 
 const kLaunchesUpdateErrorText =

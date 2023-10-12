@@ -8,9 +8,9 @@ import 'package:launch_library_api/launch_library_api.dart';
 class LaunchLibraryRepository {
   LaunchLibraryRepository({
     LaunchLibraryApiClient? launchLibraryApiClient,
-    String baseUrlForApi = 'localhost:8080',
+    String baseApiUrl = 'localhost:8080',
   }) : _launchLibraryApiClient = launchLibraryApiClient ??
-            LaunchLibraryApiClient(baseUrl: baseUrlForApi);
+            LaunchLibraryApiClient(baseUrl: baseApiUrl);
 
   final LaunchLibraryApiClient _launchLibraryApiClient;
 

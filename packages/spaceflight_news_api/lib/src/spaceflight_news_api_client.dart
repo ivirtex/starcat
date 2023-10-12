@@ -14,12 +14,13 @@ class ArticlesRequestFailure implements Exception {}
 class ArticlesResultsNotFoundFailure implements Exception {}
 
 class SpaceflightNewsApiClient {
-  SpaceflightNewsApiClient({http.Client? httpClient})
-      : _httpClient = httpClient ?? http.Client();
-
-  static const baseUrl = 'api.spaceflightnewsapi.net';
+  SpaceflightNewsApiClient({
+    this.baseUrl = 'localhost:8000',
+    http.Client? httpClient,
+  }) : _httpClient = httpClient ?? http.Client();
 
   final http.Client _httpClient;
+  final String baseUrl;
 
   Future<Articles> getArticles() async {
     final articlesRequest = Uri.https(baseUrl, '/v4/articles');

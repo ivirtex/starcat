@@ -1,0 +1,21 @@
+name: notifications_repository
+description: A Very Good Project created by Very Good CLI.
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  firebase_messaging: ^14.6.9
+  launch_library_repository:
+    path: ../launch_library_repository
+  live_activities: ^1.7.5
+  notifications_api:
+    path: ../notifications_api
+
+dev_dependencies:
+  import_sorter: ^4.6.0
+  mocktail: ^1.0.0
+  test: ^1.19.2
+  very_good_analysis: ^5.1.0

@@ -12,7 +12,10 @@ import WidgetKit
 struct LiveActivitiesAppAttributes: ActivityAttributes, Identifiable {
     public typealias LiveDeliveryData = ContentState
     
-    public struct ContentState: Codable, Hashable {}
+    public struct ContentState: Codable, Hashable {
+        public var status: String?
+        public var launchTZeroDateInISO8601: String?
+    }
     
     var id = UUID()
 }
@@ -21,21 +24,14 @@ let sharedDefault = UserDefaults(suiteName: "group.dev.ivirtex.starcat.activity"
 
 struct LaunchCountdownLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        let status = sharedDefault.string(forKey: "status")!
         let launchName = sharedDefault.string(forKey: "launchName")!
         let launchVehicle = sharedDefault.string(forKey: "launchVehicle")!
-        let launchTZeroDateInISO8601 = sharedDefault.string(forKey: "launchTZeroDate")!
         
-        let iso8601formatter = ISO8601DateFormatter()
-        iso8601formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        
-        let now = Date()
-        let launchTZeroDate = iso8601formatter.date(from: launchTZeroDateInISO8601)!
-        let remainingTime = now ... launchTZeroDate
-        
-        let parsedStatus = LaunchStatus(status: status)
-    
-        return ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { _ in
+        return ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { context in
+            let status = getStatus(context: context)
+            let remainingTime = getRemainingTimeRange(context: context)
+            let launchTZeroDate = getTargetDate(context: context)
+            
             HStack {
                 Text("T -")
                     .foregroundStyle(.red)
@@ -44,7 +40,9 @@ struct LaunchCountdownLiveActivity: Widget {
                 Text(launchName)
             }
             .padding()
-        } dynamicIsland: { _ in DynamicIsland {
+        } dynamicIsland: { context in DynamicIsland {
+            let status = getStatus(context: context)
+            
             DynamicIslandExpandedRegion(.leading) {
                 VStack(alignment: .leading) {
                     Text(launchName)
@@ -55,31 +53,61 @@ struct LaunchCountdownLiveActivity: Widget {
                 }.padding(.leading)
             }
             DynamicIslandExpandedRegion(.bottom) {
-                ProgressView(timerInterval: remainingTime)
+                ProgressView(timerInterval: getRemainingTimeRange(context: context))
                     .tint(.red)
                     .padding(.horizontal)
                     .padding(.top)
             }
             DynamicIslandExpandedRegion(.trailing) {
                 Label {
-                    Text(parsedStatus.status.rawValue)
+                    Text(status.status.rawValue)
                         .fontWeight(.semibold)
-                        .foregroundStyle(parsedStatus.color)
+                        .foregroundStyle(status.color)
                 } icon: {
-                    Image(systemName: parsedStatus.icon)
-                        .foregroundStyle(parsedStatus.color)
+                    Image(systemName: status.icon)
+                        .foregroundStyle(status.color)
                 }
                 .padding(.trailing)
             }
         } compactLeading: {
             Text(launchName.split(separator: " ").first!)
         } compactTrailing: {
-            CircularTimer(timerInterval: remainingTime)
+            CircularTimer(timerInterval: getRemainingTimeRange(context: context))
         } minimal: {
-            CircularTimer(timerInterval: remainingTime)
+            CircularTimer(timerInterval: getRemainingTimeRange(context: context))
         }
         .keylineTint(Color.red)
         }
+    }
+    
+    func getStatus(context: ActivityViewContext<LiveActivitiesAppAttributes>) -> LaunchStatus {
+        let status = context.state.status ?? sharedDefault.string(forKey: "status")!
+        let parsedStatus = LaunchStatus(status: status)
+        
+        return parsedStatus
+    }
+    
+    func getRemainingTimeRange(context: ActivityViewContext<LiveActivitiesAppAttributes>) -> ClosedRange<Date> {
+        let launchTZeroDateInISO8601 = context.state.launchTZeroDateInISO8601 ?? sharedDefault.string(forKey: "launchTZeroDate")!
+        
+        let iso8601formatter = ISO8601DateFormatter()
+        iso8601formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let launchTZeroDate = iso8601formatter.date(from: launchTZeroDateInISO8601)!
+        
+        let now = Date()
+        let remainingTime = now ... launchTZeroDate
+        
+        return remainingTime
+    }
+    
+    func getTargetDate(context: ActivityViewContext<LiveActivitiesAppAttributes>) -> Date {
+        let launchTZeroDateInISO8601 = context.state.launchTZeroDateInISO8601 ?? sharedDefault.string(forKey: "launchTZeroDate")!
+        
+        let iso8601formatter = ISO8601DateFormatter()
+        iso8601formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let launchTZeroDate = iso8601formatter.date(from: launchTZeroDateInISO8601)!
+        
+        return launchTZeroDate
     }
 }
 

@@ -1,6 +1,7 @@
-// Package imports:
+// Dart imports:
 import 'dart:typed_data';
 
+// Package imports:
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
@@ -123,7 +124,7 @@ void main() {
         verify(
           () => httpClient.get(
             Uri.https(
-              SpaceflightNewsApiClient.baseUrl,
+              'localhost:8000',
               '/v4/articles',
             ),
           ),

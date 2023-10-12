@@ -1,5 +1,5 @@
 name: starcat
-version: 1.0.0+1
+version: 1.0.0+2
 publish_to: none
 
 environment:
@@ -43,6 +43,8 @@ dependencies:
   logger: ^2.0.2
   maps_launcher: ^2.2.0
   mockito: ^5.4.2
+  notifications_repository:
+    path: packages/notifications_repository
   # Temporary fix
   phosphor_flutter:
     git: https://github.com/phosphor-icons/flutter.git

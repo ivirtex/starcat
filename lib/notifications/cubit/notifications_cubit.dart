@@ -2,14 +2,12 @@
 import 'package:flutter/foundation.dart';
 
 // Package imports:
-import 'package:clock/clock.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:live_activities/live_activities.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
@@ -20,14 +18,10 @@ part 'notifications_cubit.g.dart';
 
 class NotificationsCubit extends HydratedCubit<NotificationsState> {
   NotificationsCubit(
-    this._firebaseMessagingInstance,
-    this._liveActivitiesPlugin, {
-    this.clock = const Clock(),
-  }) : super(const NotificationsState());
+    this._notificationsRepository,
+  ) : super(const NotificationsState());
 
-  final FirebaseMessaging _firebaseMessagingInstance;
-  final LiveActivities _liveActivitiesPlugin;
-  final Clock clock;
+  final NotificationsRepository _notificationsRepository;
 
   @override
   NotificationsState? fromJson(Map<String, dynamic> json) =>
@@ -41,35 +35,8 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     required TrackingMethod mode,
   }) async {
     try {
-      await _liveActivitiesPlugin.init(appGroupId: kAppGroupId);
-
-      final activityData = {
-        'status': launch.status!.abbrev!.name,
-        'launchTZeroDate': launch.net!.toUtc().toIso8601String(),
-        'launchName': launch.mission!.name,
-        'launchVehicle': launch.rocket!.configuration!.name,
-      };
-
-      // TODO(ivirtex): fetch push token and upload
-      // to the server for real-time updates
-      final id = await _liveActivitiesPlugin.createActivity(activityData);
-
-      if (id == null && kReleaseMode) {
-        await FirebaseCrashlytics.instance.recordError(
-          'Failed to create live activity',
-          StackTrace.current,
-          information: activityData.entries
-              .map((entry) => '${entry.key}: ${entry.value}'),
-        );
-
-        emit(
-          state.copyWith(
-            liveActivityCreationStatus: LiveActivityCreationStatus.failure,
-          ),
-        );
-
-        return;
-      }
+      final id =
+          await _notificationsRepository.trackLaunchUsingLiveActivity(launch);
 
       emit(
         state.copyWith(
@@ -86,7 +53,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     } catch (e) {
       if (kReleaseMode) {
         await FirebaseCrashlytics.instance.recordError(
-          'Failed to initialize live activity',
+          'Failed to create live activity',
           StackTrace.current,
           reason: e.toString(),
           information: [
@@ -111,8 +78,7 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
 
     switch (trackedLaunch.trackingMethod) {
       case TrackingMethod.liveActivity:
-        await _liveActivitiesPlugin.init(appGroupId: kAppGroupId);
-        await _liveActivitiesPlugin.endActivity(trackedLaunch.activityId!);
+        await _notificationsRepository.cancelLiveActivityTracking(id);
     }
 
     emit(
@@ -130,11 +96,10 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     required bool isTrue,
   }) async {
     if (isTrue) {
-      await _firebaseMessagingInstance.requestPermission();
-      await _firebaseMessagingInstance
+      await _notificationsRepository
           .subscribeToTopic(kContinuousNotificationsTopicName);
     } else {
-      await _firebaseMessagingInstance
+      await _notificationsRepository
           .unsubscribeFromTopic(kContinuousNotificationsTopicName);
     }
 
@@ -147,11 +112,10 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     required bool isTrue,
   }) async {
     if (isTrue) {
-      await _firebaseMessagingInstance.requestPermission();
-      await _firebaseMessagingInstance
+      await _notificationsRepository
           .subscribeToTopic(kStarbaseNotificationsTopicName);
     } else {
-      await _firebaseMessagingInstance
+      await _notificationsRepository
           .unsubscribeFromTopic(kStarbaseNotificationsTopicName);
     }
 

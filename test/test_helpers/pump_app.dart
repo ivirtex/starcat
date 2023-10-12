@@ -8,6 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:live_activities/live_activities.dart';
 import 'package:mockito/mockito.dart';
+import 'package:notifications_repository/notifications_repository.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 
 // Project imports:
@@ -26,13 +27,12 @@ extension PumpApp on WidgetTester {
     Widget widget, {
     LaunchLibraryRepository? launchLibraryRepository,
     SpaceflightNewsRepository? spaceflightNewsRepository,
+    NotificationsRepository? notificationsRepository,
     LaunchesBloc? launchesBloc,
     NewsBloc? newsBloc,
     StarshipDashboardBloc? starshipDashboardBloc,
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
-    FirebaseMessaging? firebaseMessagingInstance,
-    LiveActivities? liveActivitiesPlugin,
     TargetPlatform platform = TargetPlatform.android,
   }) {
     initHydratedStorage();
@@ -65,8 +65,11 @@ extension PumpApp on WidgetTester {
           BlocProvider.value(
             value: notificationsCubit ??
                 NotificationsCubit(
-                  firebaseMessagingInstance ?? FirebaseMessagingMock(),
-                  liveActivitiesPlugin ?? LiveActivities(),
+                  notificationsRepository ??
+                      NotificationsRepository(
+                        appGroupId: 'appGroupId',
+                        firebaseMessagingInstance: FirebaseMessagingMock(),
+                      ),
                 ),
           ),
         ],
@@ -83,13 +86,12 @@ extension PumpApp on WidgetTester {
   Future<void> pumpAppWithRouter({
     LaunchLibraryRepository? launchLibraryRepository,
     SpaceflightNewsRepository? spaceflightNewsRepository,
+    NotificationsRepository? notificationsRepository,
     LaunchesBloc? launchesBloc,
     NewsBloc? newsBloc,
     StarshipDashboardBloc? starshipDashboardBloc,
     ThemeCubit? themeCubit,
     NotificationsCubit? notificationsCubit,
-    FirebaseMessaging? firebaseMessagingInstance,
-    LiveActivities? liveActivitiesPlugin,
     TargetPlatform platform = TargetPlatform.android,
     String location = '/explore',
   }) {
@@ -120,8 +122,11 @@ extension PumpApp on WidgetTester {
           BlocProvider.value(
             value: notificationsCubit ??
                 NotificationsCubit(
-                  firebaseMessagingInstance ?? FirebaseMessagingMock(),
-                  liveActivitiesPlugin ?? LiveActivities(),
+                  notificationsRepository ??
+                      NotificationsRepository(
+                        appGroupId: 'appGroupId',
+                        firebaseMessagingInstance: FirebaseMessagingMock(),
+                      ),
                 ),
           ),
         ],

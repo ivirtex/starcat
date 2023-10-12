@@ -62,6 +62,7 @@ void main() {
       await tester.pumpApp(
         launchesBloc: launchesBloc,
         newsBloc: newsBloc,
+        notificationsCubit: notificationsCubit,
         const ExplorePage(),
       );
 
@@ -103,6 +104,7 @@ void main() {
         await tester.pumpApp(
           launchesBloc: launchesBloc,
           newsBloc: newsBloc,
+          notificationsCubit: notificationsCubit,
           const ExploreView(),
         );
 
@@ -126,6 +128,7 @@ void main() {
         await tester.pumpApp(
           launchesBloc: launchesBloc,
           newsBloc: newsBloc,
+          notificationsCubit: notificationsCubit,
           const ExploreView(),
         );
 
@@ -148,6 +151,7 @@ void main() {
         await tester.pumpApp(
           launchesBloc: launchesBloc,
           newsBloc: newsBloc,
+          notificationsCubit: notificationsCubit,
           const ExploreView(),
         );
 
@@ -207,6 +211,7 @@ void main() {
         await tester.pumpApp(
           launchesBloc: launchesBloc,
           newsBloc: newsBloc,
+          notificationsCubit: notificationsCubit,
           const ExploreView(),
         );
 

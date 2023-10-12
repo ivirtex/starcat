@@ -5,8 +5,10 @@ import 'package:spaceflight_news_api/spaceflight_news_api.dart' hide Article;
 import 'package:spaceflight_news_repository/src/models/models.dart';
 
 class SpaceflightNewsRepository {
-  SpaceflightNewsRepository({SpaceflightNewsApiClient? newsApi})
-      : _newsApiClient = newsApi ?? SpaceflightNewsApiClient();
+  SpaceflightNewsRepository({
+    SpaceflightNewsApiClient? newsApi,
+    String baseUrl = 'localhost:8000',
+  }) : _newsApiClient = newsApi ?? SpaceflightNewsApiClient(baseUrl: baseUrl);
 
   final SpaceflightNewsApiClient _newsApiClient;
 
