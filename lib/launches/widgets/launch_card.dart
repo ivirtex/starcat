@@ -61,7 +61,7 @@ class LaunchCard extends StatelessWidget {
                       Text(
                         formatDate(
                               launch.net?.toLocal(),
-                              dateFormat: DateFormat.yMd().add_jm(),
+                              dateFormat: DateFormat.yMMMd().add_Hm(),
                             ) ??
                             'N/A',
                         style: Theme.of(context).textTheme.titleSmall!.copyWith(
