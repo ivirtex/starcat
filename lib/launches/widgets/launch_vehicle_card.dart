@@ -57,7 +57,7 @@ class LaunchVehicleCard extends StatelessWidget {
                           if (stage.reused != null)
                             InfoCard(
                               bgColor:
-                                  stage.reused! ? Colors.green : Colors.red,
+                                  stage.reused! ? Colors.green : Colors.orange,
                               contentColor: Colors.white,
                               icon: const Icon(Icons.eco_rounded),
                               child:
