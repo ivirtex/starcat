@@ -81,19 +81,26 @@ class UpcomingLaunchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final networkImageProvider =
+        launch.image != null ? CachedNetworkImageProvider(launch.image!) : null;
+
     return SizedBox(
       width: 250,
       child: ExploreCard(
         expandVertically: true,
-        color: Colors.transparent,
-        backgroundDecorationImage: DecorationImage(
-          image: CachedNetworkImageProvider(launch.image ?? ''),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black.withAlpha(30),
-            BlendMode.darken,
-          ),
-        ),
+        color: networkImageProvider != null
+            ? Colors.transparent
+            : Theme.of(context).colorScheme.errorContainer,
+        backgroundDecorationImage: networkImageProvider != null
+            ? DecorationImage(
+                image: networkImageProvider,
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withAlpha(30),
+                  BlendMode.darken,
+                ),
+              )
+            : null,
         onTap: () => context.go('/explore/launch/${launch.id}'),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
