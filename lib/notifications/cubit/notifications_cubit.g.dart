@@ -8,20 +8,36 @@ part of 'notifications_cubit.dart';
 
 NotificationsState _$NotificationsStateFromJson(Map<String, dynamic> json) =>
     NotificationsState(
-      trackedLaunches: (json['trackedLaunches'] as List<dynamic>?)
-              ?.map((e) => TrackedLaunch.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const <TrackedLaunch>[],
       areNotificationsContinuous:
           json['areNotificationsContinuous'] as bool? ?? false,
+      areStarbaseNotificationsEnabled:
+          json['areStarbaseNotificationsEnabled'] as bool? ?? false,
       hasNotificationsPreferenceModalBeenShown:
           json['hasNotificationsPreferenceModalBeenShown'] as bool? ?? false,
+      liveActivityCreationStatus: $enumDecodeNullable(
+              _$LiveActivityCreationStatusEnumMap,
+              json['liveActivityCreationStatus']) ??
+          LiveActivityCreationStatus.success,
+      trackedLaunch: json['trackedLaunch'] == null
+          ? null
+          : TrackedLaunch.fromJson(
+              json['trackedLaunch'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$NotificationsStateToJson(NotificationsState instance) =>
     <String, dynamic>{
-      'trackedLaunches': instance.trackedLaunches,
       'areNotificationsContinuous': instance.areNotificationsContinuous,
+      'areStarbaseNotificationsEnabled':
+          instance.areStarbaseNotificationsEnabled,
       'hasNotificationsPreferenceModalBeenShown':
           instance.hasNotificationsPreferenceModalBeenShown,
+      'liveActivityCreationStatus': _$LiveActivityCreationStatusEnumMap[
+          instance.liveActivityCreationStatus]!,
+      'trackedLaunch': instance.trackedLaunch,
     };
+
+const _$LiveActivityCreationStatusEnumMap = {
+  LiveActivityCreationStatus.success: 'success',
+  LiveActivityCreationStatus.creating: 'creating',
+  LiveActivityCreationStatus.failure: 'failure',
+};

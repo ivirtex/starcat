@@ -9,18 +9,11 @@ part of 'tracked_launch.dart';
 TrackedLaunch _$TrackedLaunchFromJson(Map<String, dynamic> json) =>
     TrackedLaunch(
       launchData: Launch.fromJson(json['launchData'] as Map<String, dynamic>),
-      trackingMethod:
-          $enumDecode(_$TrackingMethodEnumMap, json['trackingMethod']),
-      activityId: json['activityId'] as String?,
+      activityId: json['activityId'] as String,
     );
 
 Map<String, dynamic> _$TrackedLaunchToJson(TrackedLaunch instance) =>
     <String, dynamic>{
       'launchData': instance.launchData,
-      'trackingMethod': _$TrackingMethodEnumMap[instance.trackingMethod]!,
       'activityId': instance.activityId,
     };
-
-const _$TrackingMethodEnumMap = {
-  TrackingMethod.liveActivity: 'liveActivity',
-};

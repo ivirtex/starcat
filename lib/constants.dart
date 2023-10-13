@@ -8,7 +8,7 @@ const kApiLaunchLibraryDevelopmentUrl = 'lldev.thespacedevs.com';
 
 const kApiSpaceflightNewsUrl = 'api.spaceflightnewsapi.net';
 
-const kApiNotificationsUrl = 'api.ivirtex.dev/starcat';
+const kApiNotificationsUrl = 'api.ivirtex.dev';
 
 const kImageErrorText = 'Whoops! Image failed to load';
 

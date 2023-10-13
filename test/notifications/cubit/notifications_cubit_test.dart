@@ -54,17 +54,16 @@ void main() {
         build: () => notificationsCubit,
         act: (cubit) => cubit.trackLaunch(
           launch,
-          mode: TrackingMethod.liveActivity,
         ),
         expect: () => <NotificationsState>[
+          const NotificationsState(
+            liveActivityCreationStatus: LiveActivityCreationStatus.creating,
+          ),
           NotificationsState(
-            trackedLaunches: [
-              TrackedLaunch(
-                launchData: launch,
-                trackingMethod: TrackingMethod.liveActivity,
-                activityId: '1',
-              ),
-            ],
+            trackedLaunch: TrackedLaunch(
+              launchData: launch,
+              activityId: '1',
+            ),
           ),
         ],
       );
@@ -74,19 +73,13 @@ void main() {
       'emits state with launch removed when tracking method is live activity',
       build: () => notificationsCubit,
       seed: () => NotificationsState(
-        trackedLaunches: [
-          TrackedLaunch(
-            launchData: launch,
-            trackingMethod: TrackingMethod.liveActivity,
-            activityId: '1',
-          ),
-        ],
+        trackedLaunch: TrackedLaunch(launchData: launch, activityId: '1'),
       ),
       act: (cubit) {
-        cubit.cancelTrackingLaunch(launch);
+        cubit.cancelTrackingLaunch();
       },
       expect: () => <NotificationsState>[
-        const NotificationsState(trackedLaunches: []),
+        const NotificationsState(trackedLaunch: null),
       ],
     );
   });

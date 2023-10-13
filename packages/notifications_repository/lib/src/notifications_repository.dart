@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:developer';
 
 // Package imports:
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -30,6 +31,7 @@ class NotificationsRepository {
   final NotificationsApi _notificationsApi;
 
   StreamSubscription<ActivityUpdate>? activityUpdateStream;
+  String? activityPushToken;
 
   Future<void> subscribeToTopic(String topic) async {
     await _firebaseMessagingInstance.requestPermission();
@@ -57,9 +59,22 @@ class NotificationsRepository {
 
     activityUpdateStream = _liveActivitiesPlugin.activityUpdateStream.listen(
       (event) => event.mapOrNull(
-        active: (state) {
-          return _notificationsApi
-              .sendLiveActivityPushToken(state.activityToken);
+        // ignore: body_might_complete_normally_nullable
+        active: (state) async {
+          log('Received activity push token: ${state.activityToken}');
+
+          if (activityPushToken != state.activityToken) {
+            activityPushToken = state.activityToken;
+
+            await _notificationsApi
+                .sendLiveActivityPushToken(state.activityToken);
+          }
+        },
+        // ignore: body_might_complete_normally_nullable
+        ended: (state) async {
+          log('Activity is inactive, invalidating token');
+
+          await _notificationsApi.invalidateLiveActivityPushToken(id);
         },
       ),
     );
@@ -69,8 +84,9 @@ class NotificationsRepository {
 
   /// Cancels the Live Activity tracking by given activityId.
   Future<void> cancelLiveActivityTracking(String id) async {
+    await activityUpdateStream!.cancel();
     await _liveActivitiesPlugin.endActivity(id);
     await _notificationsApi.invalidateLiveActivityPushToken(id);
-    await activityUpdateStream?.cancel();
+    activityPushToken = null;
   }
 }

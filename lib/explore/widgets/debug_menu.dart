@@ -1,8 +1,5 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-// Dart imports:
-import 'dart:developer';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -26,6 +23,8 @@ class DebugMenu extends StatefulWidget {
 class _DebugMenuState extends State<DebugMenu> {
   final liveActivitiesPlugin = LiveActivities();
 
+  final List<String> _activitiesIds = [];
+
   @override
   void initState() {
     super.initState();
@@ -33,10 +32,26 @@ class _DebugMenuState extends State<DebugMenu> {
     liveActivitiesPlugin.init(appGroupId: kAppGroupId);
   }
 
+  Future<void> refreshActivities() async {
+    final activities = await liveActivitiesPlugin.getAllActivitiesIds();
+
+    setState(() {
+      _activitiesIds
+        ..clear()
+        ..addAll(activities);
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    refreshActivities();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final trackedLaunches =
-        context.watch<NotificationsCubit>().state.trackedLaunches;
+    final notificationsCubit = context.watch<NotificationsCubit>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -46,25 +61,17 @@ class _DebugMenuState extends State<DebugMenu> {
           child: Text('Debug Menu'),
         ),
         ExploreCard(
-          title: const Text('Tracked launches'),
+          title: const Text('Tracked launch'),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              for (final launch in trackedLaunches)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(launch.launchData.name),
-                    ),
-                    const SizedBox(width: 10),
-                    Text('ID: ${launch.launchData.id.hashCode}'),
-                  ],
-                ),
-              FilledButton.tonal(
-                onPressed: () =>
-                    _clearTrackedLaunches(context, trackedLaunches),
-                child: const Text('Clear tracked launches'),
+              Text(
+                notificationsCubit.state.trackedLaunch?.launchData.name ??
+                    'No tracked launch',
+              ),
+              const SizedBox(width: 10),
+              Text(
+                'ID: ${notificationsCubit.state.trackedLaunch?.launchData.id ?? 'N/A'}',
               ),
             ],
           ),
@@ -76,10 +83,10 @@ class _DebugMenuState extends State<DebugMenu> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'areNotificationsContinuous: ${context.watch<NotificationsCubit>().state.areNotificationsContinuous}',
+                'areNotificationsContinuous: ${notificationsCubit.state.areNotificationsContinuous}',
               ),
               Text(
-                'hasNotificationsPreferenceModalBeenShown: ${context.watch<NotificationsCubit>().state.hasNotificationsPreferenceModalBeenShown}',
+                'hasNotificationsPreferenceModalBeenShown: ${notificationsCubit.state.hasNotificationsPreferenceModalBeenShown}',
               ),
               FilledButton.tonal(
                 onPressed: () {
@@ -100,6 +107,16 @@ class _DebugMenuState extends State<DebugMenu> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              if (_activitiesIds.isNotEmpty)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    for (final id in _activitiesIds) Text('ID: $id'),
+                  ],
+                )
+              else
+                const Text('No activities active'),
+              const SizedBox(height: kListSpacing),
               FilledButton.tonal(
                 onPressed: () async {
                   final exampleTime = DateTime.now().add(
@@ -116,12 +133,15 @@ class _DebugMenuState extends State<DebugMenu> {
                       'launchVehicle': 'Falcon 9',
                     },
                   );
+
+                  await refreshActivities();
                 },
                 child: const Text('Create activity (iOS)'),
               ),
               FilledButton.tonal(
                 onPressed: () async {
                   await liveActivitiesPlugin.endAllActivities();
+                  await refreshActivities();
                 },
                 child: const Text('End all activities (iOS)'),
               ),
@@ -130,20 +150,5 @@ class _DebugMenuState extends State<DebugMenu> {
         ),
       ],
     );
-  }
-
-  void _clearTrackedLaunches(
-    BuildContext context,
-    List<TrackedLaunch> trackedLaunches,
-  ) {
-    for (final launch in trackedLaunches) {
-      log('Cancelling notification (id: ${launch.launchData.id.hashCode})');
-
-      context
-          .read<NotificationsCubit>()
-          .cancelTrackingLaunch(launch.launchData);
-    }
-
-    log('Cleared tracked launches');
   }
 }

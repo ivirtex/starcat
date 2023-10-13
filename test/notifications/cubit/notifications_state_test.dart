@@ -25,20 +25,16 @@ void main() {
 
       expect(
         state.copyWith(
-          trackedLaunches: [
-            const TrackedLaunch(
-              launchData: sampleLaunch,
-              trackingMethod: TrackingMethod.liveActivity,
-            ),
-          ],
+          trackedLaunch: const TrackedLaunch(
+            launchData: sampleLaunch,
+            activityId: '1',
+          ),
         ),
         const NotificationsState(
-          trackedLaunches: [
-            TrackedLaunch(
-              launchData: sampleLaunch,
-              trackingMethod: TrackingMethod.liveActivity,
-            ),
-          ],
+          trackedLaunch: TrackedLaunch(
+            launchData: sampleLaunch,
+            activityId: '1',
+          ),
         ),
       );
     });

@@ -1,8 +1,24 @@
 // Dart imports:
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 // Package imports:
 import 'package:http/http.dart' as http;
+
+class FailedRequestException implements Exception {
+  FailedRequestException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => 'FailedRequestException: $message';
+}
+
+class TokenAlreadyInvalidatedException extends FailedRequestException {
+  TokenAlreadyInvalidatedException()
+      : super('Token has already been invalidated');
+}
 
 /// Class to handle communication with the notifications API.
 class NotificationsApi {
@@ -16,28 +32,45 @@ class NotificationsApi {
 
   /// Sends the given [token] to the API.
   Future<void> sendLiveActivityPushToken(String token) async {
+    final request = Uri.https(baseUrl, '/starcat/v1/push_token');
+
+    log('sendLiveActivityPushToken: $request');
+
     final response = await _httpClient.post(
-      Uri.https(baseUrl, '/starcat/v1/push_token'),
-      body: <String, String>{
-        'token': token,
+      request,
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: jsonEncode({
+        'token': token,
+      }),
     );
 
-    if (response.statusCode != HttpStatus.ok) {
-      throw Exception('Failed to send push token.');
+    if (response.statusCode != HttpStatus.created &&
+        response.statusCode != HttpStatus.ok) {
+      throw FailedRequestException(response.statusCode.toString());
     }
   }
 
   Future<void> invalidateLiveActivityPushToken(String token) async {
+    final request = Uri.https(baseUrl, '/starcat/v1/push_token');
+
+    log('invalidateLiveActivityPushToken: $request');
+
     final response = await _httpClient.delete(
-      Uri.https(baseUrl, '/starcat/v1/push_token'),
-      body: <String, String>{
-        'token': token,
+      request,
+      headers: {
+        'Content-Type': 'application/json',
       },
+      body: jsonEncode({
+        'token': token,
+      }),
     );
 
-    if (response.statusCode != HttpStatus.ok) {
-      throw Exception('Failed to invalidate push token.');
+    if (response.statusCode == HttpStatus.notFound) {
+      throw TokenAlreadyInvalidatedException();
+    } else if (response.statusCode != HttpStatus.ok) {
+      throw FailedRequestException(response.statusCode.toString());
     }
   }
 }

@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:developer';
+
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 
@@ -30,24 +33,24 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
   @override
   Map<String, dynamic>? toJson(NotificationsState state) => state.toJson();
 
-  Future<void> trackLaunch(
-    Launch launch, {
-    required TrackingMethod mode,
-  }) async {
+  Future<void> trackLaunch(Launch launch) async {
+    emit(
+      state.copyWith(
+        liveActivityCreationStatus: LiveActivityCreationStatus.creating,
+      ),
+    );
+
     try {
       final id =
           await _notificationsRepository.trackLaunchUsingLiveActivity(launch);
 
       emit(
         state.copyWith(
-          trackedLaunches: [
-            ...state.trackedLaunches,
-            TrackedLaunch(
-              launchData: launch,
-              trackingMethod: mode,
-              activityId: id,
-            ),
-          ],
+          liveActivityCreationStatus: LiveActivityCreationStatus.success,
+          trackedLaunch: TrackedLaunch(
+            launchData: launch,
+            activityId: id,
+          ),
         ),
       );
     } catch (e) {
@@ -58,10 +61,11 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
           reason: e.toString(),
           information: [
             'launch: ${launch.toJson()}',
-            'mode: $mode',
           ],
         );
       }
+
+      log('Failed to create live activity', error: e);
 
       emit(
         state.copyWith(
@@ -71,23 +75,22 @@ class NotificationsCubit extends HydratedCubit<NotificationsState> {
     }
   }
 
-  Future<void> cancelTrackingLaunch(Launch launch) async {
-    final trackedLaunch = state.trackedLaunches.firstWhere(
-      (trackedLaunch) => trackedLaunch.launchData.id == launch.id,
-    );
-
-    switch (trackedLaunch.trackingMethod) {
-      case TrackingMethod.liveActivity:
-        await _notificationsRepository.cancelLiveActivityTracking(id);
+  Future<void> cancelTrackingLaunch() async {
+    try {
+      await _notificationsRepository
+          .cancelLiveActivityTracking(state.trackedLaunch!.activityId);
+    } catch (e) {
+      if (kReleaseMode && e is TokenAlreadyInvalidatedException) {
+        await FirebaseCrashlytics.instance.recordError(
+          e,
+          StackTrace.current,
+        );
+      }
     }
 
     emit(
-      state.copyWith(
-        trackedLaunches: state.trackedLaunches
-            .where(
-              (trackedLaunch) => trackedLaunch.launchData.id != launch.id,
-            )
-            .toList(),
+      state.copyWithNullable(
+        trackedLaunch: () => null,
       ),
     );
   }

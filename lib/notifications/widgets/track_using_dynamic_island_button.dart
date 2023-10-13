@@ -32,18 +32,16 @@ class TrackUsingDynamicIslandButton extends StatelessWidget {
       },
       builder: (context, state) {
         final notificationsCubit = context.read<NotificationsCubit>();
-        final isTracked = state.trackedLaunches.any(
-          (trackedLaunch) =>
-              trackedLaunch.launchData.id == launch.id &&
-              trackedLaunch.trackingMethod == TrackingMethod.liveActivity,
-        );
+        final isCreating = state.liveActivityCreationStatus ==
+            LiveActivityCreationStatus.creating;
+        final isTracked = state.trackedLaunch?.launchData.id == launch.id;
 
         return OutlinedButton(
-          onPressed: isTracked
-              ? () => notificationsCubit.cancelTrackingLaunch(launch)
-              : () => notificationsCubit.trackLaunch(
-                    launch,
-                    mode: TrackingMethod.liveActivity,
+          onPressed: isCreating
+              ? null
+              : () => onTrackPressed(
+                    notificationsCubit,
+                    isTracked: isTracked,
                   ),
           child: Text(
             isTracked ? 'Cancel Tracking' : 'Track with Live Activity',
@@ -51,5 +49,16 @@ class TrackUsingDynamicIslandButton extends StatelessWidget {
         );
       },
     );
+  }
+
+  void onTrackPressed(
+    NotificationsCubit notificationsCubit, {
+    required bool isTracked,
+  }) {
+    if (isTracked) {
+      notificationsCubit.cancelTrackingLaunch();
+    } else {
+      notificationsCubit.trackLaunch(launch);
+    }
   }
 }
