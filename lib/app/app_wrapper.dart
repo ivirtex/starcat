@@ -108,7 +108,7 @@ class App extends StatelessWidget {
             projectId: 'starcat-w3mkxif',
             secret: '8y10DEziectf1WRHc9DWrmnog2p_YHo8',
             child: MaterialApp.router(
-              title: 'Starcat',
+              title: 'StarCat',
               theme: createThemeBasedOn(
                 scheme: lightScheme,
                 brightness: Brightness.light,

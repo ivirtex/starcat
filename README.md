@@ -1,4 +1,4 @@
-# Starcat
+# StarCat
 
 ![GitHub CI](https://github.com/ivirtex/starcat/.github/workflows/main.yaml/badge.svg)
 [![codecov](https://codecov.io/gh/ivirtex/starcat/branch/master/graph/badge.svg?token=924YWTBVPS)](https://codecov.io/gh/ivirtex/starcat)
@@ -26,7 +26,7 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
-_\*Starcat works on iOS, Android, Web, and Windows._
+_\*StarCat works on iOS, Android, Web, and Windows._
 
 ---
 
