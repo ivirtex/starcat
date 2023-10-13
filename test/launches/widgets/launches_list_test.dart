@@ -91,7 +91,7 @@ void main() {
             matching: find.text(
               formatDate(
                     launches[i].net?.toLocal(),
-                    dateFormat: DateFormat.yMd().add_jm(),
+                    dateFormat: DateFormat.yMMMd().add_Hm(),
                   ) ??
                   'N/A',
             ),
