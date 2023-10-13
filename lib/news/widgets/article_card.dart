@@ -42,32 +42,38 @@ class ArticleCard extends StatelessWidget {
             dateFormat: DateFormat.yMMMd(),
           )!,
         ),
-        slideOutPadding: EdgeInsets.zero,
-        slideOut: ClipRRect(
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(kBorderRadius),
-          ),
-          child: SizedBox(
-            height: 150,
-            child: MissionImage(
-              fit: BoxFit.cover,
-              imageUrl: article.imageUrl,
-            ),
-          ),
-        ),
+        padding: EdgeInsets.zero,
         onTap: () => launchUrlString(article.url),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            AutoSizeText(
-              article.title,
-              style: Theme.of(context).textTheme.titleMedium,
+            SizedBox(
+              height: 150,
+              child: MissionImage(
+                fit: BoxFit.cover,
+                imageUrl: article.imageUrl,
+              ),
             ),
-            const SizedBox(height: kListSpacing),
-            Text(
-              article.summary,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 3,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    AutoSizeText(
+                      article.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      maxLines: 3,
+                    ),
+                    const SizedBox(height: kListSpacing),
+                    Flexible(
+                      child: AutoSizeText(
+                        '${article.summary.split(' ').take(25).join(' ')}...',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
