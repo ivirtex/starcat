@@ -15,12 +15,14 @@ struct LiveActivitiesAppAttributes: ActivityAttributes, Identifiable {
     public struct ContentState: Codable, Hashable {
         public var status: String?
         public var launchTZeroDateInISO8601: String?
+        public var updateMessage: String?
     }
     
     var id = UUID()
 }
 
 let sharedDefault = UserDefaults(suiteName: "group.dev.ivirtex.starcat.activity")!
+let paddingValue: CGFloat = 5
 
 struct LaunchCountdownLiveActivity: Widget {
     var body: some WidgetConfiguration {
@@ -30,12 +32,11 @@ struct LaunchCountdownLiveActivity: Widget {
         return ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { context in
             let status = getStatus(context: context)
             let remainingTime = getRemainingTimeRange(context: context)
-            let launchTZeroDate = getTargetDate(context: context)
             
             HStack {
                 Text("T -")
                     .foregroundStyle(.red)
-                TextTimer(targetDate: launchTZeroDate)
+                TextTimer(timerInterval: remainingTime)
                 Spacer()
                 Text(launchName)
             }
@@ -43,20 +44,32 @@ struct LaunchCountdownLiveActivity: Widget {
         } dynamicIsland: { context in DynamicIsland {
             let status = getStatus(context: context)
             
-            DynamicIslandExpandedRegion(.leading) {
+            DynamicIslandExpandedRegion(.leading, priority: 10) {
                 VStack(alignment: .leading) {
                     Text(launchName)
-                    
                     Text(launchVehicle)
                         .font(.caption)
                         .foregroundStyle(.secondary)
-                }.padding(.leading)
+                    Spacer()
+                }
+                .padding(.leading, paddingValue)
             }
             DynamicIslandExpandedRegion(.bottom) {
-                ProgressView(timerInterval: getRemainingTimeRange(context: context))
-                    .tint(.red)
-                    .padding(.horizontal)
-                    .padding(.top)
+                VStack(alignment: .leading) {
+                    if let updateMessage = context.state.updateMessage {
+                        HStack {
+                            Text("Update: ")
+                                .fontWeight(.bold)
+                                .foregroundStyle(.orange)
+                            Text(updateMessage)
+                        }
+                        .font(.footnote)
+                    }
+                    ProgressView(timerInterval: getRemainingTimeRange(context: context))
+                        .tint(.red)
+                }
+                .padding(.horizontal, paddingValue)
+                .padding(.top, paddingValue * 2)
             }
             DynamicIslandExpandedRegion(.trailing) {
                 Label {
@@ -67,10 +80,10 @@ struct LaunchCountdownLiveActivity: Widget {
                     Image(systemName: status.icon)
                         .foregroundStyle(status.color)
                 }
-                .padding(.trailing)
+                .padding(.trailing, paddingValue)
             }
         } compactLeading: {
-            Text(launchName.split(separator: " ").first!)
+            Text(launchName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).split(separator: " ").first!.trimmingCharacters(in: CharacterSet.punctuationCharacters))
         } compactTrailing: {
             CircularTimer(timerInterval: getRemainingTimeRange(context: context))
         } minimal: {
@@ -99,24 +112,14 @@ struct LaunchCountdownLiveActivity: Widget {
         
         return remainingTime
     }
-    
-    func getTargetDate(context: ActivityViewContext<LiveActivitiesAppAttributes>) -> Date {
-        let launchTZeroDateInISO8601 = context.state.launchTZeroDateInISO8601 ?? sharedDefault.string(forKey: "launchTZeroDate")!
-        
-        let iso8601formatter = ISO8601DateFormatter()
-        iso8601formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        let launchTZeroDate = iso8601formatter.date(from: launchTZeroDateInISO8601)!
-        
-        return launchTZeroDate
-    }
 }
 
 struct TextTimer: View {
-    let targetDate: Date
+    let timerInterval: ClosedRange<Date>
     
     var body: some View {
-        Text(targetDate, style: .timer)
-            .monospacedDigit()
+        Text(timerInterval: timerInterval, pauseTime: timerInterval.upperBound)
+            .monospaced()
     }
 }
 
@@ -127,7 +130,6 @@ struct CircularTimer: View {
         ProgressView(timerInterval: timerInterval, countsDown: true, label: {
             Text("Countdown timer")
         }) {
-            // TODO: use T+ when passed launch time
             Text("T-")
         }
         .progressViewStyle(.circular)
