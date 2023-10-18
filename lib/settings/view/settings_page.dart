@@ -99,10 +99,9 @@ class _SettingsViewState extends State<SettingsView> {
         ),
         SwitchListTile(
           secondary: const Icon(Icons.star_rounded),
-          title: const Text('Notices and closures at Starbase'),
+          title: const Text('Notices and closures at Starbase (Beta)'),
           value: _areStarbaseNotificationsEnabled,
           onChanged: (isEnabled) {
-            // TODO(ivirtex): set up with Adapty
             setState(() {
               _areStarbaseNotificationsEnabled = isEnabled;
 

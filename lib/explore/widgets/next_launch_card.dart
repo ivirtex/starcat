@@ -24,10 +24,7 @@ class NextLaunchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final doesExist = launch != null;
-    final launchDate = launch?.net;
     final timeLeft = launch?.net?.difference(DateTime.now());
-    final launchName = launch?.name;
-    final launchStatus = launch?.status;
     final description = createShortDescription(launch?.mission?.description);
 
     return Column(
@@ -39,7 +36,7 @@ class NextLaunchCard extends StatelessWidget {
         ),
         ExploreCard(
           title: const Text('Status'),
-          trailing: LaunchStatus(launchStatus),
+          trailing: LaunchStatus(launch?.status),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(kBorderRadius),
           ),
@@ -51,9 +48,9 @@ class NextLaunchCard extends StatelessWidget {
               ),
               const Spacer(),
               CountdownTimer(
-                launchDate: launchDate,
+                launchDate: launch?.net,
                 // TODO(ivirtex): use netPrecision instead
-                mode: launchStatus?.abbrev == StatusAbbrev.go &&
+                mode: launch?.status?.abbrev == StatusAbbrev.go &&
                         timeLeft! < 24.hours
                     ? CountdownTimerMode.hoursMinutesSeconds
                     : CountdownTimerMode.daysHoursMinutes,
@@ -64,7 +61,7 @@ class NextLaunchCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                launchName ?? 'Unknown',
+                launch?.name ?? 'Unknown',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: kListSpacing),
