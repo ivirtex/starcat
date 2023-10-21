@@ -118,7 +118,7 @@ struct TextTimer: View {
     let timerInterval: ClosedRange<Date>
     
     var body: some View {
-        Text(timerInterval: timerInterval, pauseTime: timerInterval.upperBound)
+        Text(timerInterval: timerInterval, pauseTime: timerInterval.lowerBound)
             .monospaced()
     }
 }
