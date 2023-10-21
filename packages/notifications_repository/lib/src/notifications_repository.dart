@@ -1,6 +1,7 @@
 // Dart imports:
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 
 // Package imports:
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -23,7 +24,9 @@ class NotificationsRepository {
         _liveActivitiesPlugin = liveActivitiesPlugin ?? LiveActivities(),
         _notificationsApi =
             notificationsApi ?? NotificationsApi(baseUrl: baseApiUrl) {
-    _liveActivitiesPlugin.init(appGroupId: appGroupId);
+    if (Platform.isIOS) {
+      _liveActivitiesPlugin.init(appGroupId: appGroupId);
+    }
   }
 
   final FirebaseMessaging _firebaseMessagingInstance;

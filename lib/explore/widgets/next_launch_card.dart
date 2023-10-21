@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -51,7 +52,8 @@ class NextLaunchCard extends StatelessWidget {
                 launchDate: launch?.net,
                 // TODO(ivirtex): use netPrecision instead
                 mode: launch?.status?.abbrev == StatusAbbrev.go &&
-                        timeLeft! < 24.hours
+                        timeLeft! < 24.hours &&
+                        defaultTargetPlatform == TargetPlatform.iOS
                     ? CountdownTimerMode.hoursMinutesSeconds
                     : CountdownTimerMode.daysHoursMinutes,
               ),

@@ -1,6 +1,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 // Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
@@ -29,10 +30,14 @@ class _DebugMenuState extends State<DebugMenu> {
   void initState() {
     super.initState();
 
-    liveActivitiesPlugin.init(appGroupId: kAppGroupId);
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      liveActivitiesPlugin.init(appGroupId: kAppGroupId);
+    }
   }
 
   Future<void> refreshActivities() async {
+    if (defaultTargetPlatform != TargetPlatform.iOS) return;
+
     final activities = await liveActivitiesPlugin.getAllActivitiesIds();
 
     setState(() {
@@ -88,6 +93,7 @@ class _DebugMenuState extends State<DebugMenu> {
               Text(
                 'hasNotificationsPreferenceModalBeenShown: ${notificationsCubit.state.hasNotificationsPreferenceModalBeenShown}',
               ),
+              const SizedBox(height: kListSpacing),
               FilledButton.tonal(
                 onPressed: () {
                   context
@@ -101,53 +107,56 @@ class _DebugMenuState extends State<DebugMenu> {
             ],
           ),
         ),
-        const SizedBox(height: kListSpacing),
-        ExploreCard(
-          title: const Text('Live activities'),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (_activitiesIds.isNotEmpty)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    for (final id in _activitiesIds) Text('ID: $id'),
-                  ],
-                )
-              else
-                const Text('No activities active'),
-              const SizedBox(height: kListSpacing),
-              FilledButton.tonal(
-                onPressed: () async {
-                  final exampleTime = DateTime.now().add(
-                    const Duration(
-                      minutes: 15,
-                    ),
-                  );
+        if (defaultTargetPlatform == TargetPlatform.iOS) ...[
+          const SizedBox(height: kListSpacing),
+          ExploreCard(
+            title: const Text('Live activities'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (_activitiesIds.isNotEmpty)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (final id in _activitiesIds) Text('ID: $id'),
+                    ],
+                  )
+                else
+                  const Text('No activities active'),
+                const SizedBox(height: kListSpacing),
+                FilledButton.tonal(
+                  onPressed: () async {
+                    final exampleTime = DateTime.now().add(
+                      const Duration(
+                        minutes: 15,
+                      ),
+                    );
 
-                  await liveActivitiesPlugin.createActivity(
-                    {
-                      'status': 'Hold',
-                      'launchTZeroDate': exampleTime.toUtc().toIso8601String(),
-                      'launchName': 'CRS-21 (ISS Resupply) - SpaceX CRS-21',
-                      'launchVehicle': 'Falcon 9',
-                    },
-                  );
+                    await liveActivitiesPlugin.createActivity(
+                      {
+                        'status': 'Hold',
+                        'launchTZeroDate':
+                            exampleTime.toUtc().toIso8601String(),
+                        'launchName': 'CRS-21 (ISS Resupply) - SpaceX CRS-21',
+                        'launchVehicle': 'Falcon 9',
+                      },
+                    );
 
-                  await refreshActivities();
-                },
-                child: const Text('Create activity (iOS)'),
-              ),
-              FilledButton.tonal(
-                onPressed: () async {
-                  await liveActivitiesPlugin.endAllActivities();
-                  await refreshActivities();
-                },
-                child: const Text('End all activities (iOS)'),
-              ),
-            ],
+                    await refreshActivities();
+                  },
+                  child: const Text('Create activity (iOS)'),
+                ),
+                FilledButton.tonal(
+                  onPressed: () async {
+                    await liveActivitiesPlugin.endAllActivities();
+                    await refreshActivities();
+                  },
+                  child: const Text('End all activities (iOS)'),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ],
     );
   }
