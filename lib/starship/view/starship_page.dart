@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
+import 'package:starcat/shared/shared.dart';
 import 'package:starcat/starship/starship.dart';
 import 'package:starcat/starship/widgets/placeholders/placeholders.dart';
 
@@ -35,6 +36,9 @@ class StarshipView extends StatelessWidget {
             SliverAppBar(
               pinned: true,
               title: Text('Starship'),
+              actions: [
+                StatusIndicator(),
+              ],
             ),
             SliverToBoxAdapter(
               child: _Body(),

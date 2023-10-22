@@ -9,4 +9,5 @@ export 'loading_placeholder.dart';
 export 'outlined_card.dart';
 export 'platform_widget.dart';
 export 'section.dart';
+export 'status_indicator.dart';
 export 'themed_button.dart';

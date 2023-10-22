@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/news/news.dart';
+import 'package:starcat/shared/shared.dart';
 
 class NewsPage extends StatelessWidget {
   const NewsPage({super.key});
@@ -69,6 +70,9 @@ class _NewsViewState extends State<NewsView> {
             SliverAppBar(
               pinned: true,
               title: Text('News'),
+              actions: [
+                StatusIndicator(),
+              ],
             ),
             _Body(),
           ],

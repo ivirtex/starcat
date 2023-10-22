@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/launches/launches.dart';
+import 'package:starcat/shared/shared.dart';
 
 class LaunchesPage extends StatefulWidget {
   const LaunchesPage({super.key});
@@ -63,6 +64,9 @@ class _LaunchesPageState extends State<LaunchesPage> {
             SliverAppBar(
               pinned: true,
               title: Text('Launches'),
+              actions: [
+                StatusIndicator(),
+              ],
             ),
             _Body(),
           ],

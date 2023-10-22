@@ -158,8 +158,6 @@ void main() {
         await tester.pump(const Duration(seconds: 3));
 
         expect(find.text(kLaunchesUpdateErrorText), findsOneWidget);
-
-        await tester.pumpAndSettle();
       },
     );
 
@@ -189,8 +187,6 @@ void main() {
         await tester.pump(const Duration(seconds: 3));
 
         expect(find.text(kNewsUpdateErrorText), findsOneWidget);
-
-        await tester.pumpAndSettle();
 
         addTearDown(() => tester.binding.setSurfaceSize(null));
       },

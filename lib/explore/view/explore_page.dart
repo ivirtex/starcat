@@ -13,6 +13,7 @@ import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/news.dart';
 import 'package:starcat/notifications/notifications.dart';
 import 'package:starcat/settings/settings.dart';
+import 'package:starcat/shared/shared.dart';
 import 'package:starcat/starship/starship.dart';
 
 class ExplorePage extends StatelessWidget {
@@ -72,6 +73,7 @@ class _ExploreViewState extends State<ExploreView> {
               pinned: true,
               title: const Text('Explore'),
               actions: [
+                const StatusIndicator(padding: EdgeInsets.zero),
                 IconButton(
                   icon: const Icon(Icons.settings_rounded),
                   onPressed: () {
@@ -82,7 +84,7 @@ class _ExploreViewState extends State<ExploreView> {
                       isScrollControlled: true,
                       builder: (_) {
                         return const FractionallySizedBox(
-                          heightFactor: 0.8,
+                          heightFactor: 0.7,
                           child: SettingsView(),
                         );
                       },
@@ -101,9 +103,6 @@ class _ExploreViewState extends State<ExploreView> {
   void _onRefresh(BuildContext context) {
     context.read<LaunchesBloc>().add(const LaunchesRequested());
     context.read<NewsBloc>().add(const NewsFetchRequested());
-    context
-        .read<StarshipDashboardBloc>()
-        .add(const StarshipDashboardRequested());
   }
 }
 
