@@ -9,9 +9,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-// Project imports:
-import 'package:starcat/constants.dart';
-
 class MissionImage extends StatelessWidget {
   const MissionImage({
     required this.imageUrl,
@@ -50,38 +47,22 @@ class MissionImage extends StatelessWidget {
         fit: fit,
         cacheManager: cacheManager,
         progressIndicatorBuilder: (context, child, _) {
-          return SizedBox(
-            height: 150,
-            child: ColoredBox(
-              color: Theme.of(context).colorScheme.surface,
-              child: const Center(
-                child: CircularProgressIndicator.adaptive(),
-              ),
+          return ColoredBox(
+            color: Theme.of(context).colorScheme.surface,
+            child: const Center(
+              child: CircularProgressIndicator.adaptive(),
             ),
           );
         },
         errorWidget: (context, error, stackTrace) {
           log(error);
 
-          return SizedBox(
-            height: 150,
-            child: ColoredBox(
-              color: Theme.of(context).colorScheme.errorContainer,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.image_not_supported_rounded,
-                    color: Theme.of(context).colorScheme.onErrorContainer,
-                  ),
-                  Text(
-                    kImageErrorText,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onErrorContainer,
-                    ),
-                  ),
-                ],
-              ),
+          return ColoredBox(
+            color: Theme.of(context).colorScheme.errorContainer,
+            child: Icon(
+              Icons.image_not_supported_rounded,
+              color: Theme.of(context).colorScheme.onErrorContainer,
+              size: 32,
             ),
           );
         },

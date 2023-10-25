@@ -67,7 +67,7 @@ class StatusIndicator extends StatelessWidget {
                 width: 14,
                 height: 14,
                 child: sourcesRefreshing > 0
-                    ? const CircularProgressIndicator(strokeWidth: 2)
+                    ? const CircularProgressIndicator.adaptive(strokeWidth: 2)
                     : const Icon(Icons.check_rounded, size: 16),
               ),
               const SizedBox(width: kListSpacing),
