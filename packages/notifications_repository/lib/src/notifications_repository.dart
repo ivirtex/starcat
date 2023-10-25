@@ -69,15 +69,27 @@ class NotificationsRepository {
           if (activityPushToken != state.activityToken) {
             activityPushToken = state.activityToken;
 
-            await _notificationsApi
-                .sendLiveActivityPushToken(state.activityToken);
+            try {
+              await _notificationsApi
+                  .sendLiveActivityPushToken(state.activityToken);
+            } catch (e) {
+              log('Failed to send push token', error: e);
+
+              rethrow;
+            }
           }
         },
         // ignore: body_might_complete_normally_nullable
         ended: (state) async {
           log('Activity is inactive, invalidating token');
 
-          await _notificationsApi.invalidateLiveActivityPushToken(id);
+          try {
+            await _notificationsApi.invalidateLiveActivityPushToken(id);
+          } catch (e) {
+            log('Failed to invalidate push token', error: e);
+
+            rethrow;
+          }
         },
       ),
     );
