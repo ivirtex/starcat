@@ -32,7 +32,7 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends State<SettingsView> {
   late bool _isMaterial3Enabled;
   late bool _areNotificationsSentContinuously;
-  late bool _areStarbaseNotificationsEnabled;
+  // late bool _areStarbaseNotificationsEnabled;
 
   final _textPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
 
@@ -44,10 +44,10 @@ class _SettingsViewState extends State<SettingsView> {
         context.read<ThemeCubit>().state.isDynamicThemeEnabled == true;
     _areNotificationsSentContinuously =
         context.read<NotificationsCubit>().state.areNotificationsContinuous;
-    _areStarbaseNotificationsEnabled = context
-        .read<NotificationsCubit>()
-        .state
-        .areStarbaseNotificationsEnabled;
+    // _areStarbaseNotificationsEnabled = context
+    //     .read<NotificationsCubit>()
+    //     .state
+    //     .areStarbaseNotificationsEnabled;
   }
 
   @override
@@ -97,20 +97,21 @@ class _SettingsViewState extends State<SettingsView> {
             });
           },
         ),
-        SwitchListTile(
-          secondary: const Icon(Icons.star_rounded),
-          title: const Text('Notices and closures at Starbase (Beta)'),
-          value: _areStarbaseNotificationsEnabled,
-          onChanged: (isEnabled) {
-            setState(() {
-              _areStarbaseNotificationsEnabled = isEnabled;
+        // TODO(ivirtex): broken on API side
+        // SwitchListTile(
+        //   secondary: const Icon(Icons.star_rounded),
+        //   title: const Text('Notices and closures at Starbase (Beta)'),
+        //   value: _areStarbaseNotificationsEnabled,
+        //   onChanged: (isEnabled) {
+        //     setState(() {
+        //       _areStarbaseNotificationsEnabled = isEnabled;
 
-              context
-                  .read<NotificationsCubit>()
-                  .setIfStarbaseNotificationsAreEnabled(isTrue: isEnabled);
-            });
-          },
-        ),
+        //       context
+        //           .read<NotificationsCubit>()
+        //           .setIfStarbaseNotificationsAreEnabled(isTrue: isEnabled);
+        //     });
+        //   },
+        // ),
         const SizedBox(height: kListSpacing),
         Padding(
           padding: _textPadding,

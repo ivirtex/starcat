@@ -69,14 +69,15 @@ class _Body extends StatelessWidget {
                     title: 'Upcoming Launches',
                     icon: Icons.schedule_rounded,
                   ),
-                  SizedBox(height: kSectionSpacing),
-                  RoadClosurePlaceholder(
-                    delay: Duration(milliseconds: 500),
-                  ),
-                  SizedBox(height: kSectionSpacing),
-                  NoticesPlaceholder(
-                    delay: Duration(milliseconds: 500 * 2),
-                  ),
+                  // TODO(ivirtex): broken on API side
+                  // SizedBox(height: kSectionSpacing),
+                  // RoadClosurePlaceholder(
+                  //   delay: Duration(milliseconds: 500),
+                  // ),
+                  // SizedBox(height: kSectionSpacing),
+                  // NoticesPlaceholder(
+                  //   delay: Duration(milliseconds: 500 * 2),
+                  // ),
                   SizedBox(height: kSectionSpacing),
                   UpdatesPlaceholder(
                     delay: Duration(milliseconds: 500 * 3),
@@ -102,12 +103,13 @@ class _Body extends StatelessWidget {
                     icon: Icons.schedule_rounded,
                     launches: state.dashboard?.upcoming?.launches ?? [],
                   ),
-                  const SizedBox(height: kSectionSpacing),
-                  RoadClosures(
-                    roadClosures: state.dashboard?.roadClosures ?? [],
-                  ),
-                  const SizedBox(height: kSectionSpacing),
-                  Notices(notices: state.dashboard?.notices ?? []),
+                  // TODO(ivirtex): broken on API side
+                  // const SizedBox(height: kSectionSpacing),
+                  // RoadClosures(
+                  //   roadClosures: state.dashboard?.roadClosures ?? [],
+                  // ),
+                  // const SizedBox(height: kSectionSpacing),
+                  // Notices(notices: state.dashboard?.notices ?? []),
                   const SizedBox(height: kSectionSpacing),
                   Updates(updates: state.dashboard?.updates ?? []),
                   const SizedBox(height: kSectionSpacing),
