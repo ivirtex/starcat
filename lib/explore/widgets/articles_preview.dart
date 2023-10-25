@@ -31,7 +31,7 @@ class ArticlesPreview extends StatelessWidget {
           child: Text('Latest News'),
         ),
         SizedBox(
-          height: 350,
+          height: 300,
           child: articles.isNotEmpty
               ? ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -41,9 +41,8 @@ class ArticlesPreview extends StatelessWidget {
                       width: 300,
                       child: Padding(
                         padding: const EdgeInsets.only(right: kListSpacing),
-                        child: ArticleCard(
+                        child: ArticleCard.preview(
                           expandVertically: true,
-                          previewMode: true,
                           article: articles[index],
                         ),
                       ),

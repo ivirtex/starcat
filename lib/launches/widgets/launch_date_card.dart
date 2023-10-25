@@ -29,17 +29,10 @@ class LaunchDateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? localMMMd;
-    String? localEEEE;
-    String? localHm;
-    String? utcTime;
-
-    if (date != null) {
-      localMMMd = formatDate(date, dateFormat: DateFormat.MMMd());
-      localEEEE = formatDate(date, dateFormat: DateFormat.EEEE());
-      localHm = formatDate(date?.toLocal(), dateFormat: DateFormat.Hm());
-      utcTime = formatDate(date?.toUtc(), dateFormat: DateFormat.Hm());
-    }
+    final localMMMd = formatDate(date, dateFormat: DateFormat.MMMd());
+    final localEEEE = formatDate(date, dateFormat: DateFormat.EEEE());
+    final localHm = formatDate(date?.toLocal(), dateFormat: DateFormat.Hm());
+    final utcTime = formatDate(date?.toUtc(), dateFormat: DateFormat.Hm());
 
     return ExploreCard(
       trailing: LaunchStatus(status),

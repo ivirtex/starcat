@@ -1,8 +1,8 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Package imports:
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
@@ -21,14 +21,39 @@ class ArticleCard extends StatelessWidget {
     required this.article,
     this.isSaved = false,
     this.expandVertically = false,
-    this.previewMode = false,
     super.key,
-  });
+  }) : previewMode = false;
+
+  const ArticleCard.preview({
+    required this.article,
+    this.isSaved = false,
+    this.expandVertically = false,
+    super.key,
+  }) : previewMode = true;
 
   final Article article;
   final bool isSaved;
   final bool expandVertically;
   final bool previewMode;
+
+  Future<void> launchUrlAndSetOverlayStyle(
+    Uri uri,
+    BuildContext context,
+  ) async {
+    WidgetsBinding.instance.renderView.automaticSystemUiAdjustment = false;
+
+    final brightness = MediaQuery.of(context).platformBrightness;
+
+    if (brightness == Brightness.light) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    } else {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    }
+
+    await launchUrlString(article.url);
+
+    WidgetsBinding.instance.renderView.automaticSystemUiAdjustment = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +85,29 @@ class ArticleCard extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: Column(
                   children: [
-                    AutoSizeText(
+                    Text(
                       article.title,
                       style: Theme.of(context).textTheme.titleMedium,
-                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                     const SizedBox(height: kListSpacing),
-                    Flexible(
-                      child: AutoSizeText(
-                        '${article.summary.split(' ').take(25).join(' ')}...',
+                    Expanded(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final maxLines = ((constraints.maxHeight - 10) /
+                                  Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .fontSize!)
+                              .floor();
+
+                          return Text(
+                            article.summary,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: maxLines,
+                          );
+                        },
                       ),
                     ),
                   ],
@@ -81,61 +120,71 @@ class ArticleCard extends StatelessWidget {
     } else {
       return ExploreCard(
         expandVertically: expandVertically,
-        title: Text(article.newsSite),
+        title: Text(
+          article.newsSite,
+        ),
         trailing: Text(
-          '${formatDate(
-            article.publishedAt,
-            dateFormat: DateFormat.Hm(),
-          )} ${formatDate(
-            article.publishedAt,
-            dateFormat: DateFormat.yMMMd(),
-          )}',
+          formatDate(
+                article.publishedAt,
+                dateFormat: DateFormat.yMMMd(),
+              ) ??
+              'N/A',
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
         ),
         padding: EdgeInsets.zero,
-        onTap: () => launchUrlString(article.url),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        onTap: () => launchUrlAndSetOverlayStyle(
+          Uri.parse(article.url),
+          context,
+        ),
+        child: Row(
           children: [
-            MissionImage(
-              fit: BoxFit.cover,
-              imageUrl: article.imageUrl,
+            SizedBox(
+              width: 100,
+              height: 100,
+              child: MissionImage(
+                fit: BoxFit.cover,
+                imageUrl: article.imageUrl,
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 10,
-                        child: Text(
-                          article.title,
-                          style: Theme.of(context).textTheme.titleMedium,
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            article.title,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      IconToggleButton(
-                        icon: const Icon(Icons.bookmark_outline_rounded),
-                        selectedIcon: const Icon(Icons.bookmark_rounded),
-                        getDefaultStyle: enabledFilledTonalButtonStyle,
-                        selected: isSaved,
-                        onToggle: (isToggled) {
-                          if (isToggled) {
-                            context
-                                .read<NewsBloc>()
-                                .add(NewsArticleSaveRequested(article));
-                          } else {
-                            context
-                                .read<NewsBloc>()
-                                .add(NewsArticleUnsaveRequested(article));
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: kListSpacing),
-                  Text(article.summary),
-                ],
+                        const SizedBox(width: kListSpacing),
+                        IconToggleButton(
+                          icon: const Icon(Icons.bookmark_outline_rounded),
+                          selectedIcon: const Icon(Icons.bookmark_rounded),
+                          getDefaultStyle: enabledFilledTonalButtonStyle,
+                          selected: isSaved,
+                          onToggle: (isToggled) {
+                            if (isToggled) {
+                              context
+                                  .read<NewsBloc>()
+                                  .add(NewsArticleSaveRequested(article));
+                            } else {
+                              context
+                                  .read<NewsBloc>()
+                                  .add(NewsArticleUnsaveRequested(article));
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
