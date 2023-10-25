@@ -58,15 +58,38 @@ class LaunchCard extends StatelessWidget {
                         launch.name,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      Text(
-                        formatDate(
-                              launch.net?.toLocal(),
-                              dateFormat: DateFormat.yMMMd().add_Hm(),
-                            ) ??
-                            'N/A',
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                              color: Theme.of(context).colorScheme.outline,
+                      const SizedBox(height: 5),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: formatDate(
+                                    launch.net?.toLocal(),
+                                    dateFormat: DateFormat.yMMMd(),
+                                  ) ??
+                                  'N/A',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.tertiary,
+                              ),
                             ),
+                            TextSpan(
+                              text: ' • ',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                            ),
+                            TextSpan(
+                              text: formatDate(
+                                    launch.net?.toLocal(),
+                                    dateFormat: DateFormat.Hm(),
+                                  ) ??
+                                  'N/A',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.outline,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 5),
                       Text(
