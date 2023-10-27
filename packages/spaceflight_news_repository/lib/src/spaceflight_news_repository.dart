@@ -1,4 +1,3 @@
-// Package imports:
 import 'package:spaceflight_news_api/spaceflight_news_api.dart' hide Article;
 
 // Project imports:
@@ -12,8 +11,8 @@ class SpaceflightNewsRepository {
 
   final SpaceflightNewsApiClient _newsApiClient;
 
-  Future<List<Article>> getNews() async {
-    final articles = await _newsApiClient.getArticles();
+  Future<List<Article>> getNews({int offset = 0}) async {
+    final articles = await _newsApiClient.getArticles(offset: offset);
 
     final processedArticles = articles.results
         .map(

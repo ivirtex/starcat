@@ -22,8 +22,12 @@ class SpaceflightNewsApiClient {
   final http.Client _httpClient;
   final String baseUrl;
 
-  Future<Articles> getArticles() async {
-    final articlesRequest = Uri.https(baseUrl, '/v4/articles');
+  Future<Articles> getArticles({int offset = 0}) async {
+    log('Requesting articles with offset: $offset');
+
+    final articlesRequest = Uri.https(baseUrl, '/v4/articles', {
+      'offset': offset.toString(),
+    });
 
     final response = await _httpClient.get(articlesRequest);
 
@@ -35,7 +39,6 @@ class SpaceflightNewsApiClient {
 
     final articlesJson =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
-
     final articles = Articles.fromJson(articlesJson);
 
     if (articles.results.isEmpty) {

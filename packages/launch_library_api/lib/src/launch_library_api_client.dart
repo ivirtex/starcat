@@ -33,6 +33,8 @@ class LaunchLibraryApiClient {
   Future<Launches> getLaunches(LaunchTime launchTime, {int offset = 0}) async {
     late final Uri launchRequest;
 
+    log('Requesting launches with offset: $offset and launchTime: $launchTime');
+
     switch (launchTime) {
       case LaunchTime.previous:
         launchRequest = Uri.https(

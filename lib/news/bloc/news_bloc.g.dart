@@ -13,14 +13,16 @@ NewsState _$NewsStateFromJson(Map<String, dynamic> json) => NewsState(
           $enumDecodeNullable(_$SelectedNewsEnumMap, json['selection']) ??
               SelectedNews.latest,
       news: json['news'] == null
-          ? null
+          ? const News()
           : News.fromJson(json['news'] as Map<String, dynamic>),
+      currentOffsetOfArticles: json['currentOffsetOfArticles'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$NewsStateToJson(NewsState instance) => <String, dynamic>{
       'status': _$NewsStatusEnumMap[instance.status]!,
       'selection': _$SelectedNewsEnumMap[instance.selection]!,
       'news': instance.news,
+      'currentOffsetOfArticles': instance.currentOffsetOfArticles,
     };
 
 const _$NewsStatusEnumMap = {

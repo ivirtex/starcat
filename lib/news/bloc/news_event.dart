@@ -2,13 +2,13 @@ part of 'news_bloc.dart';
 
 sealed class NewsEvent extends Equatable {
   const NewsEvent();
+
+  @override
+  List<Object?> get props => [];
 }
 
 final class NewsFetchRequested extends NewsEvent {
   const NewsFetchRequested();
-
-  @override
-  List<Object> get props => [];
 }
 
 final class NewsSelectionChanged extends NewsEvent {
@@ -36,4 +36,12 @@ final class NewsArticleUnsaveRequested extends NewsEvent {
 
   @override
   List<Object> get props => [article];
+}
+
+final class NewsNewPageRequested extends NewsEvent {
+  const NewsNewPageRequested();
+}
+
+final class NewsOffsetReset extends NewsEvent {
+  const NewsOffsetReset();
 }

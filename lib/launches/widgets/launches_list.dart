@@ -35,19 +35,17 @@ class LaunchesList extends StatelessWidget {
       hasError:
           context.read<LaunchesBloc>().state.status == LaunchesStatus.failure,
       loadingBuilder: (context) => const Padding(
-        padding: EdgeInsets.symmetric(vertical: kListSpacing * 2),
+        padding: EdgeInsets.symmetric(vertical: kSectionSpacing),
         child: Center(
           child: CircularProgressIndicator.adaptive(),
         ),
       ),
-      errorBuilder: (context) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(vertical: kListSpacing),
-          child: Center(
-            child: Text('Something went wrong'),
-          ),
-        );
-      },
+      errorBuilder: (context) => const Padding(
+        padding: EdgeInsets.symmetric(vertical: kSectionSpacing),
+        child: Center(
+          child: Text('Something went wrong'),
+        ),
+      ),
       separatorBuilder: (context, index) =>
           const SizedBox(height: kListSpacing),
       itemCount: launches.length,

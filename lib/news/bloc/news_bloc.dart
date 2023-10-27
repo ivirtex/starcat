@@ -21,6 +21,8 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
     on<NewsSelectionChanged>(_onNewsSelected);
     on<NewsArticleSaveRequested>(_onNewsArticleSaveRequested);
     on<NewsArticleUnsaveRequested>(_onNewsArticleUnsaveRequested);
+    on<NewsNewPageRequested>(_onNewsNewPageRequested);
+    on<NewsOffsetReset>(_onNewsOffsetReset);
   }
 
   final SpaceflightNewsRepository _spaceflightNewsRepository;
@@ -43,8 +45,6 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
           .where((article) => article.featured)
           .toList(growable: false);
 
-      log('no. of popularArticles: ${popularArticles.length}');
-
       emit(
         state.copyWith(
           status: NewsStatus.success,
@@ -61,14 +61,14 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
     }
   }
 
-  FutureOr<void> _onNewsSelected(
+  void _onNewsSelected(
     NewsSelectionChanged event,
     Emitter<NewsState> emit,
   ) {
     emit(state.copyWith(selection: event.selection));
   }
 
-  FutureOr<void> _onNewsArticleSaveRequested(
+  void _onNewsArticleSaveRequested(
     NewsArticleSaveRequested event,
     Emitter<NewsState> emit,
   ) {
@@ -85,7 +85,7 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
     );
   }
 
-  FutureOr<void> _onNewsArticleUnsaveRequested(
+  void _onNewsArticleUnsaveRequested(
     NewsArticleUnsaveRequested event,
     Emitter<NewsState> emit,
   ) {
@@ -98,5 +98,46 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
         ),
       ),
     );
+  }
+
+  Future<void> _onNewsNewPageRequested(
+    NewsNewPageRequested event,
+    Emitter<NewsState> emit,
+  ) async {
+    emit(state.copyWith(status: NewsStatus.loading));
+
+    try {
+      final latestArticles = await _spaceflightNewsRepository.getNews(
+        offset: state.currentOffsetOfArticles,
+      );
+      final popularArticles =
+          latestArticles.where((article) => article.featured).toList();
+
+      emit(
+        state.copyWith(
+          status: NewsStatus.success,
+          news: state.news.copyWith(
+            latestArticles: [
+              ...state.news.latestArticles,
+              ...latestArticles,
+            ],
+            popularArticles: [
+              ...state.news.popularArticles,
+              ...popularArticles,
+            ],
+            savedArticles: state.news.savedArticles,
+          ),
+          currentOffsetOfArticles: state.currentOffsetOfArticles + 10,
+        ),
+      );
+    } catch (err) {
+      log('NewsBloc._onNewsNewPageRequested: $err');
+
+      emit(state.copyWith(status: NewsStatus.failure));
+    }
+  }
+
+  void _onNewsOffsetReset(NewsOffsetReset event, Emitter<NewsState> emit) {
+    emit(state.copyWith(currentOffsetOfArticles: 0));
   }
 }

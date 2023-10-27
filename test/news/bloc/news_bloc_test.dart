@@ -147,9 +147,7 @@ void main() {
         NewsState(
           news: News(savedArticles: [article]),
         ),
-        const NewsState(
-          news: News(),
-        ),
+        const NewsState(),
       ],
     );
   });

@@ -9,8 +9,9 @@ class NewsState extends Equatable {
   const NewsState({
     this.status = NewsStatus.initial,
     this.selection = SelectedNews.latest,
-    News? news,
-  }) : news = news ?? const News();
+    this.news = const News(),
+    this.currentOffsetOfArticles = 0,
+  });
 
   factory NewsState.fromJson(Map<String, dynamic> json) =>
       _$NewsStateFromJson(json);
@@ -18,6 +19,7 @@ class NewsState extends Equatable {
   final NewsStatus status;
   final SelectedNews selection;
   final News news;
+  final int currentOffsetOfArticles;
 
   Map<String, dynamic> toJson() => _$NewsStateToJson(this);
 
@@ -25,11 +27,14 @@ class NewsState extends Equatable {
     NewsStatus? status,
     SelectedNews? selection,
     News? news,
+    int? currentOffsetOfArticles,
   }) {
     return NewsState(
       status: status ?? this.status,
       selection: selection ?? this.selection,
       news: news ?? this.news,
+      currentOffsetOfArticles:
+          currentOffsetOfArticles ?? this.currentOffsetOfArticles,
     );
   }
 
@@ -41,5 +46,6 @@ class NewsState extends Equatable {
         status,
         selection,
         news,
+        currentOffsetOfArticles,
       ];
 }
