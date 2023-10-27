@@ -85,15 +85,24 @@ void main() {
           ),
           findsOneWidget,
         );
+
+        final formattedDate = formatDate(
+              launches[i].net?.toLocal(),
+              dateFormat: DateFormat.yMMMd(),
+            ) ??
+            'N/A';
+        final formattedTime = formatDate(
+              launches[i].net?.toLocal(),
+              dateFormat: DateFormat.Hm(),
+            ) ??
+            'N/A';
+
         expect(
           find.descendant(
             of: find.byType(ExploreCard).at(i),
             matching: find.text(
-              formatDate(
-                    launches[i].net?.toLocal(),
-                    dateFormat: DateFormat.yMMMd().add_Hm(),
-                  ) ??
-                  'N/A',
+              '$formattedDate • $formattedTime',
+              findRichText: true,
             ),
           ),
           findsOneWidget,
