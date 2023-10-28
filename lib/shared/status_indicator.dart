@@ -43,7 +43,8 @@ class StatusIndicator extends StatelessWidget {
         refreshMessage = 'Refreshing launches';
       } else if (newsBloc.state.status == NewsStatus.loading) {
         refreshMessage = 'Refreshing news';
-      } else if (starshipBloc.state.dashboardStatus == FetchStatus.loading) {
+      } else if (starshipBloc.state.dashboardStatus == FetchStatus.loading ||
+          starshipBloc.state.newsStatus == FetchStatus.loading) {
         refreshMessage = 'Refreshing Starship';
       }
     } else if (sourcesRefreshing > 1) {
