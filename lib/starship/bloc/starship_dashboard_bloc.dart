@@ -22,6 +22,7 @@ class StarshipDashboardBloc
   StarshipDashboardBloc(this._repository, this._newsRepository)
       : super(const StarshipDashboardState()) {
     on<StarshipDashboardRequested>(_onStarshipDashboardRequested);
+    on<StarshipNewsRequested>(_onStarshipNewsRequested);
   }
 
   final LaunchLibraryRepository _repository;
@@ -36,17 +37,6 @@ class StarshipDashboardBloc
 
   Future<void> _onStarshipDashboardRequested(
     StarshipDashboardRequested event,
-    Emitter<StarshipDashboardState> emit,
-  ) async {
-    final futures = [
-      _fetchStarshipDashboard(emit),
-      _fetchNews(emit),
-    ];
-
-    await Future.wait(futures);
-  }
-
-  Future<void> _fetchStarshipDashboard(
     Emitter<StarshipDashboardState> emit,
   ) async {
     emit(
@@ -81,7 +71,8 @@ class StarshipDashboardBloc
     }
   }
 
-  Future<void> _fetchNews(
+  Future<void> _onStarshipNewsRequested(
+    StarshipNewsRequested event,
     Emitter<StarshipDashboardState> emit,
   ) async {
     emit(

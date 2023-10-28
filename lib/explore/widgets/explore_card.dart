@@ -49,7 +49,13 @@ class ExploreCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (title != null) Expanded(child: title!),
+                if (title != null)
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: title,
+                    ),
+                  ),
                 if (trailing != null) trailing!,
               ],
             ),

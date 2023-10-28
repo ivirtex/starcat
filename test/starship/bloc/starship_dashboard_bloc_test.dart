@@ -33,6 +33,8 @@ void main() {
 
       when(() => launchLibraryRepository.getStarshipDashboard())
           .thenAnswer((_) async => const StarshipDashboard());
+      when(() => spaceflightNewsRepository.getNews())
+          .thenAnswer((_) async => []);
     });
 
     test('initial state is correct', () {

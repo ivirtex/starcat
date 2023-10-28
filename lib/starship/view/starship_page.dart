@@ -26,9 +26,11 @@ class StarshipView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async => context
-            .read<StarshipDashboardBloc>()
-            .add(const StarshipDashboardRequested()),
+        onRefresh: () async {
+          context.read<StarshipDashboardBloc>()
+            ..add(const StarshipDashboardRequested())
+            ..add(const StarshipNewsRequested());
+        },
         edgeOffset: kRefreshEdgeOffset,
         child: const CustomScrollView(
           slivers: [
@@ -78,6 +80,9 @@ class _Body extends StatelessWidget {
                   //   delay: Duration(milliseconds: 500 * 2),
                   // ),
                   SizedBox(height: kSectionSpacing),
+                  NewsPlaceholder(
+                    delay: Duration(milliseconds: 500 * 2),
+                  ),
                   UpdatesPlaceholder(
                     delay: Duration(milliseconds: 500 * 3),
                   ),

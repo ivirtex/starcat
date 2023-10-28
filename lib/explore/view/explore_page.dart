@@ -39,9 +39,9 @@ class _ExploreViewState extends State<ExploreView> {
   void initState() {
     context.read<LaunchesBloc>().add(const LaunchesRequested());
     context.read<NewsBloc>().add(const NewsFetchRequested());
-    context
-        .read<StarshipDashboardBloc>()
-        .add(const StarshipDashboardRequested());
+    context.read<StarshipDashboardBloc>()
+      ..add(const StarshipDashboardRequested())
+      ..add(const StarshipNewsRequested());
 
     if (!context
         .read<NotificationsCubit>()
