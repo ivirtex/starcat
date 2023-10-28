@@ -7,6 +7,6 @@ sealed class StarshipDashboardEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class StarshipDashboardRequested extends StarshipDashboardEvent {
+final class StarshipDashboardRequested extends StarshipDashboardEvent {
   const StarshipDashboardRequested();
 }

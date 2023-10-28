@@ -53,6 +53,7 @@ class AppWrapper extends StatelessWidget {
         BlocProvider(
           create: (context) => StarshipDashboardBloc(
             _launchLibraryRepository,
+            _spaceflightNewsRepository,
           ),
         ),
         BlocProvider(

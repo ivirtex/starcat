@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:launch_library_repository/launch_library_repository.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:starcat/explore/explore.dart';
@@ -22,8 +21,9 @@ class UpdateCard extends StatelessWidget {
     final infoUrl = update.infoUrl;
 
     return ExploreCard(
-      onTap:
-          update.infoUrl != null ? () => launchUrl(Uri.parse(infoUrl!)) : null,
+      onTap: update.infoUrl != null
+          ? () => launchUrlAndSetOverlayStyle(Uri.parse(infoUrl!), context)
+          : null,
       title: Text(
         formatDate(update.createdOn?.toLocal()) ?? '',
         style: Theme.of(context)

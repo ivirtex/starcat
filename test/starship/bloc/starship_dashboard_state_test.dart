@@ -17,18 +17,18 @@ void main() {
 
     test('copyWith works', () {
       expect(
-        state.copyWith(status: StarshipDashboardStatus.loading),
-        const StarshipDashboardState(status: StarshipDashboardStatus.loading),
+        state.copyWith(dashboardStatus: FetchStatus.loading),
+        const StarshipDashboardState(dashboardStatus: FetchStatus.loading),
       );
 
       expect(
-        state.copyWith(status: StarshipDashboardStatus.success),
-        const StarshipDashboardState(status: StarshipDashboardStatus.success),
+        state.copyWith(dashboardStatus: FetchStatus.success),
+        const StarshipDashboardState(dashboardStatus: FetchStatus.success),
       );
 
       expect(
-        state.copyWith(status: StarshipDashboardStatus.failure),
-        const StarshipDashboardState(status: StarshipDashboardStatus.failure),
+        state.copyWith(dashboardStatus: FetchStatus.failure),
+        const StarshipDashboardState(dashboardStatus: FetchStatus.failure),
       );
 
       expect(

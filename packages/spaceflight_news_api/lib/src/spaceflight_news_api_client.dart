@@ -22,11 +22,14 @@ class SpaceflightNewsApiClient {
   final http.Client _httpClient;
   final String baseUrl;
 
-  Future<Articles> getArticles({int offset = 0}) async {
-    log('Requesting articles with offset: $offset');
+  Future<Articles> getArticles({int offset = 0, String? searchTopic}) async {
+    log(
+      'Requesting articles with offset: $offset and search topic: $searchTopic',
+    );
 
     final articlesRequest = Uri.https(baseUrl, '/v4/articles', {
       'offset': offset.toString(),
+      if (searchTopic != null) 'search': searchTopic,
     });
 
     final response = await _httpClient.get(articlesRequest);

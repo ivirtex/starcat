@@ -1,12 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 // Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
@@ -36,39 +34,29 @@ class ArticleCard extends StatelessWidget {
   final bool expandVertically;
   final bool previewMode;
 
-  Future<void> launchUrlAndSetOverlayStyle(
-    Uri uri,
-    BuildContext context,
-  ) async {
-    WidgetsBinding.instance.renderView.automaticSystemUiAdjustment = false;
-
-    final brightness = MediaQuery.of(context).platformBrightness;
-
-    if (brightness == Brightness.light) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    }
-
-    await launchUrlString(article.url);
-
-    WidgetsBinding.instance.renderView.automaticSystemUiAdjustment = true;
-  }
-
   @override
   Widget build(BuildContext context) {
     if (previewMode) {
       return ExploreCard(
         expandVertically: expandVertically,
-        title: Text(article.newsSite),
+        title: Text(
+          article.newsSite,
+          overflow: TextOverflow.ellipsis,
+        ),
         trailing: Text(
           formatDate(
             article.publishedAt,
             dateFormat: DateFormat.yMMMd(),
           )!,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
         ),
         padding: EdgeInsets.zero,
-        onTap: () => launchUrlString(article.url),
+        onTap: () => launchUrlAndSetOverlayStyle(
+          Uri.parse(article.url),
+          context,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,

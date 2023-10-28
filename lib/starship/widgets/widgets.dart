@@ -1,6 +1,8 @@
 export 'launches.dart';
+export 'news.dart';
 export 'notices.dart';
 export 'orbiters.dart';
+export 'placeholders/placeholders.dart';
 export 'road_closures.dart';
 export 'section_button.dart';
 export 'update_card.dart';

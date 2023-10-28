@@ -11,8 +11,11 @@ class SpaceflightNewsRepository {
 
   final SpaceflightNewsApiClient _newsApiClient;
 
-  Future<List<Article>> getNews({int offset = 0}) async {
-    final articles = await _newsApiClient.getArticles(offset: offset);
+  Future<List<Article>> getNews({int offset = 0, String? searchTopic}) async {
+    final articles = await _newsApiClient.getArticles(
+      offset: offset,
+      searchTopic: searchTopic,
+    );
 
     final processedArticles = articles.results
         .map(

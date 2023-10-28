@@ -1,19 +1,23 @@
 part of 'starship_dashboard_bloc.dart';
 
-enum StarshipDashboardStatus { initial, loading, success, failure }
+enum FetchStatus { initial, loading, success, failure }
 
 @JsonSerializable()
 final class StarshipDashboardState extends Equatable {
   const StarshipDashboardState({
-    this.status = StarshipDashboardStatus.initial,
+    this.dashboardStatus = FetchStatus.initial,
+    this.newsStatus = FetchStatus.initial,
     this.dashboard,
+    this.news = const [],
   });
 
   factory StarshipDashboardState.fromJson(Map<String, dynamic> json) =>
       _$StarshipDashboardStateFromJson(json);
 
-  final StarshipDashboardStatus status;
+  final FetchStatus dashboardStatus;
+  final FetchStatus newsStatus;
   final StarshipDashboard? dashboard;
+  final List<Article> news;
 
   List<Launch> get allLaunches => [
         ...dashboard?.upcoming?.launches ?? [],
@@ -23,19 +27,25 @@ final class StarshipDashboardState extends Equatable {
   Map<String, dynamic> toJson() => _$StarshipDashboardStateToJson(this);
 
   StarshipDashboardState copyWith({
-    StarshipDashboardStatus? status,
+    FetchStatus? dashboardStatus,
+    FetchStatus? newsStatus,
     StarshipDashboard? dashboard,
+    List<Article>? news,
   }) {
     return StarshipDashboardState(
-      status: status ?? this.status,
+      dashboardStatus: dashboardStatus ?? this.dashboardStatus,
+      newsStatus: newsStatus ?? this.newsStatus,
       dashboard: dashboard ?? this.dashboard,
+      news: news ?? this.news,
     );
   }
 
   @override
   List<Object?> get props => [
-        status,
+        dashboardStatus,
+        newsStatus,
         dashboard,
+        news,
       ];
 
   @override

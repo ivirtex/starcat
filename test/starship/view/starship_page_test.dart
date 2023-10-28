@@ -41,7 +41,7 @@ void main() {
         (tester) async {
       when(() => starshipDashboardBloc.state).thenReturn(
         const StarshipDashboardState(
-          status: StarshipDashboardStatus.loading,
+          dashboardStatus: FetchStatus.loading,
         ),
       );
 
@@ -58,7 +58,7 @@ void main() {
         (tester) async {
       when(() => starshipDashboardBloc.state).thenReturn(
         const StarshipDashboardState(
-          status: StarshipDashboardStatus.success,
+          dashboardStatus: FetchStatus.success,
           dashboard: StarshipDashboard(),
         ),
       );
@@ -76,7 +76,7 @@ void main() {
         (tester) async {
       when(() => starshipDashboardBloc.state).thenReturn(
         const StarshipDashboardState(
-          status: StarshipDashboardStatus.failure,
+          dashboardStatus: FetchStatus.failure,
           dashboard: StarshipDashboard(),
         ),
       );
@@ -94,7 +94,7 @@ void main() {
         (tester) async {
       when(() => starshipDashboardBloc.state).thenReturn(
         const StarshipDashboardState(
-          status: StarshipDashboardStatus.success,
+          dashboardStatus: FetchStatus.success,
           dashboard: StarshipDashboard(),
         ),
       );

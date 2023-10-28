@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:starcat/constants.dart';
 import 'package:starcat/shared/shared.dart';
 import 'package:starcat/starship/starship.dart';
-import 'package:starcat/starship/widgets/placeholders/placeholders.dart';
 
 class StarshipPage extends StatelessWidget {
   const StarshipPage({super.key});
@@ -59,9 +58,9 @@ class _Body extends StatelessWidget {
       padding: kBodyPadding,
       child: BlocBuilder<StarshipDashboardBloc, StarshipDashboardState>(
         builder: (context, state) {
-          switch (state.status) {
-            case StarshipDashboardStatus.initial:
-            case StarshipDashboardStatus.loading:
+          switch (state.dashboardStatus) {
+            case FetchStatus.initial:
+            case FetchStatus.loading:
               return const Column(
                 children: [
                   SizedBox(height: kListSpacing),
@@ -93,8 +92,8 @@ class _Body extends StatelessWidget {
                   SizedBox(height: kSectionSpacing),
                 ],
               );
-            case StarshipDashboardStatus.failure:
-            case StarshipDashboardStatus.success:
+            case FetchStatus.failure:
+            case FetchStatus.success:
               return Column(
                 children: [
                   const SizedBox(height: kListSpacing),
@@ -110,6 +109,8 @@ class _Body extends StatelessWidget {
                   // ),
                   // const SizedBox(height: kSectionSpacing),
                   // Notices(notices: state.dashboard?.notices ?? []),
+                  const SizedBox(height: kSectionSpacing),
+                  News(news: state.news),
                   const SizedBox(height: kSectionSpacing),
                   Updates(updates: state.dashboard?.updates ?? []),
                   const SizedBox(height: kSectionSpacing),

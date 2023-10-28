@@ -47,9 +47,9 @@ class ExploreCard extends StatelessWidget {
           child: DefaultTextStyle(
             style: Theme.of(context).textTheme.titleSmall!,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (title != null) title!,
-                const Spacer(),
+                if (title != null) Expanded(child: title!),
                 if (trailing != null) trailing!,
               ],
             ),

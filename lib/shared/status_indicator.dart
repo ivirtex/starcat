@@ -33,7 +33,7 @@ class StatusIndicator extends StatelessWidget {
       sourcesRefreshing++;
     }
 
-    if (starshipBloc.state.status == StarshipDashboardStatus.loading) {
+    if (starshipBloc.state.dashboardStatus == FetchStatus.loading) {
       sourcesRefreshing++;
     }
 
@@ -43,7 +43,7 @@ class StatusIndicator extends StatelessWidget {
         refreshMessage = 'Refreshing launches';
       } else if (newsBloc.state.status == NewsStatus.loading) {
         refreshMessage = 'Refreshing news';
-      } else if (starshipBloc.state.status == StarshipDashboardStatus.loading) {
+      } else if (starshipBloc.state.dashboardStatus == FetchStatus.loading) {
         refreshMessage = 'Refreshing Starship';
       }
     } else if (sourcesRefreshing > 1) {

@@ -59,6 +59,7 @@ extension PumpApp on WidgetTester {
                 starshipDashboardBloc ??
                 StarshipDashboardBloc(
                   launchLibraryRepository ?? LaunchLibraryRepository(),
+                  spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                 ),
           ),
           BlocProvider.value(
@@ -116,6 +117,7 @@ extension PumpApp on WidgetTester {
             value: starshipDashboardBloc ??
                 StarshipDashboardBloc(
                   launchLibraryRepository ?? LaunchLibraryRepository(),
+                  spaceflightNewsRepository ?? SpaceflightNewsRepository(),
                 ),
           ),
           BlocProvider.value(
