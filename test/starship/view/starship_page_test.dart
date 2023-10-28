@@ -95,6 +95,7 @@ void main() {
       when(() => starshipDashboardBloc.state).thenReturn(
         const StarshipDashboardState(
           dashboardStatus: FetchStatus.success,
+          newsStatus: FetchStatus.success,
           dashboard: StarshipDashboard(),
         ),
       );
@@ -110,6 +111,9 @@ void main() {
 
       verify(
         () => starshipDashboardBloc.add(const StarshipDashboardRequested()),
+      ).called(1);
+      verify(
+        () => starshipDashboardBloc.add(const StarshipNewsRequested()),
       ).called(1);
     });
   });
