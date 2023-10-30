@@ -6,11 +6,46 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:clock/clock.dart';
+import 'package:equatable/equatable.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+// Project imports:
+import 'package:starcat/explore/explore.dart';
 
 enum CountdownTimerMode {
   daysHoursMinutes,
   hoursMinutesSeconds,
+}
+
+class TimeUnit {
+  const TimeUnit.days(this.value) : abbrev = 'd';
+  const TimeUnit.hours(this.value) : abbrev = 'h';
+  const TimeUnit.minutes(this.value) : abbrev = 'm';
+  const TimeUnit.seconds(this.value) : abbrev = 's';
+
+  final String abbrev;
+  final int value;
+
+  String get valueFormatted {
+    return value.toString().replaceAll('-', '').padLeft(2, '0');
+  }
+}
+
+class Time extends Equatable {
+  const Time({
+    this.days,
+    this.hours,
+    this.minutes,
+    this.seconds,
+  });
+
+  final TimeUnit? days;
+  final TimeUnit? hours;
+  final TimeUnit? minutes;
+  final TimeUnit? seconds;
+
+  @override
+  List<Object?> get props => [days, hours, minutes, seconds];
 }
 
 class CountdownTimer extends StatefulWidget {
@@ -30,11 +65,11 @@ class CountdownTimer extends StatefulWidget {
 }
 
 class _CountdownTimerState extends State<CountdownTimer> {
-  late Map<String, String> _timeMap;
+  Time _time = const Time();
   bool _isNegative = false;
   Timer? _timer;
 
-  Map<String, String> _getTimeToLaunchMap(Duration duration) {
+  Time _getTime(Duration duration) {
     final days = duration.inDays;
     final hours = duration.inHours - days * 24;
     final minutes = duration.inMinutes - days * 24 * 60 - hours * 60;
@@ -43,18 +78,19 @@ class _CountdownTimerState extends State<CountdownTimer> {
         hours * 60 * 60 -
         minutes * 60;
 
-    if (widget.mode == CountdownTimerMode.daysHoursMinutes) {
-      return {
-        'days': days.toString().replaceAll('-', '').padLeft(2, '0'),
-        'hours': hours.toString().replaceAll('-', '').padLeft(2, '0'),
-        'minutes': minutes.toString().replaceAll('-', '').padLeft(2, '0'),
-      };
-    } else {
-      return {
-        'hours': hours.toString().replaceAll('-', '').padLeft(2, '0'),
-        'minutes': minutes.toString().replaceAll('-', '').padLeft(2, '0'),
-        'seconds': seconds.toString().replaceAll('-', '').padLeft(2, '0'),
-      };
+    switch (widget.mode) {
+      case CountdownTimerMode.daysHoursMinutes:
+        return Time(
+          days: TimeUnit.days(days),
+          hours: TimeUnit.hours(hours),
+          minutes: TimeUnit.minutes(minutes),
+        );
+      case CountdownTimerMode.hoursMinutesSeconds:
+        return Time(
+          hours: TimeUnit.hours(hours),
+          minutes: TimeUnit.minutes(minutes),
+          seconds: TimeUnit.seconds(seconds),
+        );
     }
   }
 
@@ -65,8 +101,10 @@ class _CountdownTimerState extends State<CountdownTimer> {
     final duration = localLaunchDate.difference(now);
     _isNegative = duration.isNegative;
 
+    // TODO(ivirtex): do not rebuild every second if
+    // mode is .daysHoursMinutes
     setState(() {
-      _timeMap = _getTimeToLaunchMap(duration);
+      _time = _getTime(duration);
     });
   }
 
@@ -92,6 +130,8 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   @override
   Widget build(BuildContext context) {
+    const abbrevPadding = EdgeInsets.only(left: 2);
+    const unitSeperatorWidth = 6.0;
     final numberTextStyle = Theme.of(context).textTheme.titleMedium?.copyWith(
           fontFamily: GoogleFonts.ptMono().fontFamily,
           fontWeight: FontWeight.bold,
@@ -125,34 +165,65 @@ class _CountdownTimerState extends State<CountdownTimer> {
                 ?.copyWith(color: Theme.of(context).colorScheme.tertiary),
           ),
           const SizedBox(width: 5),
-          for (final timeUnit in _timeMap.entries)
-            Row(
-              children: [
-                for (final char in timeUnit.value.characters)
-                  Card(
-                    color: Theme.of(context).colorScheme.surface,
-                    margin: const EdgeInsets.only(right: 2),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Text(
-                        char,
-                        style: numberTextStyle,
-                      ),
-                    ),
-                  ),
-                const SizedBox(width: 2),
-                Text(
-                  timeUnit.key.characters.first,
-                  style: Theme.of(context).textTheme.titleMedium,
+          Row(
+            children: [
+              if (_time.days != null) ...[
+                MonospaceNumberCard(
+                  numberString: _time.days!.valueFormatted,
+                  numberTextStyle: numberTextStyle!,
                 ),
-                if (timeUnit.key != _timeMap.entries.last.key)
-                  const SizedBox(width: 6),
+                Padding(
+                  padding: abbrevPadding,
+                  child: Text(
+                    _time.days!.abbrev,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                const SizedBox(width: unitSeperatorWidth),
               ],
-            ),
+              if (_time.hours != null) ...[
+                MonospaceNumberCard(
+                  numberString: _time.hours!.valueFormatted,
+                  numberTextStyle: numberTextStyle!,
+                ),
+                Padding(
+                  padding: abbrevPadding,
+                  child: Text(
+                    _time.hours!.abbrev,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+              const SizedBox(width: unitSeperatorWidth),
+              if (_time.minutes != null) ...[
+                MonospaceNumberCard(
+                  numberString: _time.minutes!.valueFormatted,
+                  numberTextStyle: numberTextStyle!,
+                ),
+                Padding(
+                  padding: abbrevPadding,
+                  child: Text(
+                    _time.minutes!.abbrev,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+              if (_time.seconds != null) ...[
+                const SizedBox(width: unitSeperatorWidth),
+                MonospaceNumberCard(
+                  numberString: _time.seconds!.valueFormatted,
+                  numberTextStyle: numberTextStyle!,
+                ),
+                Padding(
+                  padding: abbrevPadding,
+                  child: Text(
+                    _time.seconds!.abbrev,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              ],
+            ],
+          ),
         ],
       ),
     );
