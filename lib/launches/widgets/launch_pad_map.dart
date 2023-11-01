@@ -107,7 +107,7 @@ class _LaunchPadMapState extends State<LaunchPadMap>
               topRight: Radius.circular(10),
             ),
             child: SizedBox(
-              height: 150,
+              height: 200,
               child: _isDataValid()
                   ? GoogleMap(
                       zoomControlsEnabled: false,
