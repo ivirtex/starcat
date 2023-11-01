@@ -75,7 +75,7 @@ class NextLaunchCard extends StatelessWidget {
               ),
               const SizedBox(height: kListSpacing),
               if (timeLeft != null && timeLeft < 6.hours && launch != null)
-                TrackUsingDynamicIslandButton(launch: launch!),
+                TrackUsingLiveActivityButton(launch: launch!),
               ThemedButton(
                 onPressed: doesExist
                     ? () => context.go('/explore/launch/${launch!.id}')

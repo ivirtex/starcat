@@ -9,8 +9,8 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 import 'package:starcat/constants.dart';
 import 'package:starcat/notifications/notifications.dart';
 
-class TrackUsingDynamicIslandButton extends StatelessWidget {
-  const TrackUsingDynamicIslandButton({
+class TrackUsingLiveActivityButton extends StatelessWidget {
+  const TrackUsingLiveActivityButton({
     required this.launch,
     super.key,
   });
