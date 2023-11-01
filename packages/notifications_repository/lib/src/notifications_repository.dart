@@ -81,10 +81,11 @@ class NotificationsRepository {
         },
         // ignore: body_might_complete_normally_nullable
         ended: (state) async {
-          log('Activity is inactive, invalidating token');
+          log('Activity is inactive, invalidating token ${state.activityId}');
 
           try {
-            await _notificationsApi.invalidateLiveActivityPushToken(id);
+            await _notificationsApi
+                .invalidateLiveActivityPushToken(activityPushToken!);
           } catch (e) {
             log('Failed to invalidate push token', error: e);
 
@@ -101,7 +102,7 @@ class NotificationsRepository {
   Future<void> cancelLiveActivityTracking(String id) async {
     await activityUpdateStream!.cancel();
     await _liveActivitiesPlugin.endActivity(id);
-    await _notificationsApi.invalidateLiveActivityPushToken(id);
+    await _notificationsApi.invalidateLiveActivityPushToken(activityPushToken!);
     activityPushToken = null;
   }
 }

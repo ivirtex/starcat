@@ -1,5 +1,4 @@
 // Dart imports:
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -32,19 +31,11 @@ class NotificationsApi {
 
   /// Sends the given [token] to the API.
   Future<void> sendLiveActivityPushToken(String token) async {
-    final request = Uri.https(baseUrl, '/starcat/v1/push_token');
+    final request = Uri.https(baseUrl, '/starcat/v1/push_token/$token');
 
     log('sendLiveActivityPushToken: $request');
 
-    final response = await _httpClient.post(
-      request,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        'token': token,
-      }),
-    );
+    final response = await _httpClient.post(request);
 
     if (response.statusCode != HttpStatus.created &&
         response.statusCode != HttpStatus.ok) {
@@ -53,19 +44,11 @@ class NotificationsApi {
   }
 
   Future<void> invalidateLiveActivityPushToken(String token) async {
-    final request = Uri.https(baseUrl, '/starcat/v1/push_token');
+    final request = Uri.https(baseUrl, '/starcat/v1/push_token/$token');
 
     log('invalidateLiveActivityPushToken: $request');
 
-    final response = await _httpClient.delete(
-      request,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        'token': token,
-      }),
-    );
+    final response = await _httpClient.delete(request);
 
     if (response.statusCode == HttpStatus.notFound) {
       throw TokenAlreadyInvalidatedException();
