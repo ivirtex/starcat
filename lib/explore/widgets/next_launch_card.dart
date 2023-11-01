@@ -52,8 +52,7 @@ class NextLaunchCard extends StatelessWidget {
                 launchDate: launch?.net,
                 // TODO(ivirtex): use netPrecision instead
                 mode: launch?.status?.abbrev == StatusAbbrev.go &&
-                        timeLeft! < 24.hours &&
-                        defaultTargetPlatform == TargetPlatform.iOS
+                        timeLeft! < 24.hours
                     ? CountdownTimerMode.hoursMinutesSeconds
                     : CountdownTimerMode.daysHoursMinutes,
               ),
@@ -74,7 +73,10 @@ class NextLaunchCard extends StatelessWidget {
                     ),
               ),
               const SizedBox(height: kListSpacing),
-              if (timeLeft != null && timeLeft < 6.hours && launch != null)
+              if (timeLeft != null &&
+                  timeLeft < 6.hours &&
+                  launch != null &&
+                  defaultTargetPlatform == TargetPlatform.iOS)
                 TrackUsingLiveActivityButton(launch: launch!),
               ThemedButton(
                 onPressed: doesExist
