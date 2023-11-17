@@ -44,8 +44,8 @@ void main() {
 
       await tester.pump(const Duration(seconds: 1));
 
-      final articleList = tester.widget<ArticleList>(
-        find.byType(ArticleList),
+      final articleList = tester.widget<ArticleInfiniteList>(
+        find.byType(ArticleInfiniteList),
       );
       expect(articleList.articles, [sampleArticle]);
     });
