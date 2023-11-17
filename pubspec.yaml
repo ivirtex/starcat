@@ -15,11 +15,11 @@ dependencies:
   duration: ^3.0.13
   dynamic_color: ^1.6.8
   equatable: ^2.0.5
-  firebase_analytics: ^10.6.2
-  firebase_core: ^2.20.0
-  firebase_crashlytics: ^3.4.2
-  firebase_messaging: ^14.7.2
-  firebase_performance: ^0.9.3+2
+  firebase_analytics: ^10.7.0
+  firebase_core: ^2.22.0
+  firebase_crashlytics: ^3.4.4
+  firebase_messaging: ^14.7.4
+  firebase_performance: ^0.9.3+4
   flex_color_scheme: ^7.3.1
   flutter:
     sdk: flutter
@@ -27,8 +27,8 @@ dependencies:
   flutter_bloc: ^8.1.3
   flutter_cache_manager: ^3.3.1
   flutter_native_timezone: ^2.0.0
-  flutter_svg: ^2.0.8
-  go_router: ^12.0.1
+  flutter_svg: ^2.0.9
+  go_router: ^12.1.1
   google_fonts: ^6.1.0
   google_maps_flutter: ^2.5.0
   hive: ^2.2.3
@@ -39,15 +39,12 @@ dependencies:
   json_annotation: ^4.8.1
   launch_library_repository:
     path: packages/launch_library_repository
-  live_activities: ^1.8.0
+  live_activities: ^1.9.0
   logger: ^2.0.2+1
   maps_launcher: ^2.2.0
-  mockito: ^5.4.2
   notifications_repository:
     path: packages/notifications_repository
-  # Temporary fix
-  phosphor_flutter:
-    git: https://github.com/phosphor-icons/flutter.git
+  phosphor_flutter: ^2.0.1
   spaceflight_news_repository:
     path: packages/spaceflight_news_repository
   url_launcher: ^6.2.1
