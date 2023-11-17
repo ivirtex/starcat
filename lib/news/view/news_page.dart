@@ -111,7 +111,7 @@ class _Body extends StatelessWidget {
                     );
                   }
 
-                  return ArticleList(
+                  return ArticleInfiniteList(
                     articles: state.news.latestArticles,
                     key: const ValueKey('latest'),
                   );
