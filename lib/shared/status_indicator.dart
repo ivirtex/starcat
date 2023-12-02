@@ -61,7 +61,7 @@ class StatusIndicator extends StatelessWidget {
         duration: const Duration(milliseconds: 750),
         curve: Curves.easeOutCubic,
         child: Padding(
-          padding: padding ?? kBodyPadding * 2,
+          padding: padding ?? kBodyPadding,
           child: Row(
             children: [
               SizedBox(

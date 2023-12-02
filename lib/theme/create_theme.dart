@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 
+// Project imports:
+import 'package:starcat/constants.dart';
+
 ThemeData createThemeBasedOn({
   required ColorScheme scheme,
   required Brightness brightness,
@@ -18,6 +21,7 @@ ThemeData createThemeBasedOn({
       appBarCenterTitle: false,
       adaptiveSplash: FlexAdaptive.apple(),
       splashTypeAdaptive: FlexSplashType.noSplash,
+      chipRadius: kBorderRadius,
     ),
   ).toTheme;
 }
