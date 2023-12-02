@@ -8,7 +8,12 @@ sealed class NewsEvent extends Equatable {
 }
 
 final class NewsFetchRequested extends NewsEvent {
-  const NewsFetchRequested();
+  const NewsFetchRequested({this.query});
+
+  final String? query;
+
+  @override
+  List<Object?> get props => [query];
 }
 
 final class NewsSelectionChanged extends NewsEvent {

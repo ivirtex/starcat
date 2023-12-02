@@ -29,6 +29,7 @@ class _NewsViewState extends State<NewsView> {
   final scrollController = ScrollController();
 
   bool shouldShowFab = false;
+  String? searchQuery;
 
   @override
   void initState() {
@@ -63,24 +64,49 @@ class _NewsViewState extends State<NewsView> {
             )
           : null,
       body: RefreshIndicator(
-        onRefresh: () async =>
-            context.read<NewsBloc>().add(const NewsFetchRequested()),
+        onRefresh: () async {
+          setState(() {
+            searchQuery = null;
+          });
+
+          context.read<NewsBloc>().add(const NewsFetchRequested());
+        },
         edgeOffset: kRefreshEdgeOffset,
         child: CustomScrollView(
           controller: scrollController,
-          slivers: const [
+          slivers: [
             SliverAppBar(
               pinned: true,
-              title: Text('News'),
+              title: const Text('News'),
               actions: [
-                StatusIndicator(),
+                const StatusIndicator(),
+                ActionButton(
+                  icon: const Icon(Icons.search_rounded),
+                  label: searchQuery,
+                  onPressed: _onSearchPressed,
+                ),
               ],
             ),
-            _Body(),
+            const _Body(),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _onSearchPressed() async {
+    final newsBloc = context.read<NewsBloc>();
+
+    final query = await showSearch(
+      context: context,
+      useRootNavigator: true,
+      delegate: NewsSearchDelegate(),
+    );
+
+    if (query != null) {
+      setState(() => searchQuery = query);
+      newsBloc.add(NewsFetchRequested(query: query));
+    }
   }
 }
 
@@ -93,7 +119,6 @@ class _Body extends StatelessWidget {
       padding: kBodyPadding,
       sliver: SliverMainAxisGroup(
         slivers: [
-          // TODO(ivirtex): add a search bar
           const SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: kListSpacing),

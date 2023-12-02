@@ -40,7 +40,8 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
     emit(state.copyWith(status: NewsStatus.loading));
 
     try {
-      final latestArticles = await _spaceflightNewsRepository.getNews();
+      final latestArticles =
+          await _spaceflightNewsRepository.getNews(searchTopic: event.query);
       final popularArticles = latestArticles
           .where((article) => article.featured)
           .toList(growable: false);
