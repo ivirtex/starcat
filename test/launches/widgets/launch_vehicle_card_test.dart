@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
-import 'package:starcat/launches/launch_details.dart';
+import 'package:starcat/launches/launches.dart';
 
 void main() {
   group('LaunchVehicleCard', () {

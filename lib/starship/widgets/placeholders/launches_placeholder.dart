@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 // Project imports:
-import 'package:starcat/launches/launch_details.dart';
+import 'package:starcat/launches/launches.dart';
 import 'package:starcat/shared/shared.dart';
 
 class LaunchesPlaceholder extends StatelessWidget {

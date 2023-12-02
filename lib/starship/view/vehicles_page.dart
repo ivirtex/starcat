@@ -7,7 +7,7 @@ import 'package:launch_library_repository/launch_library_repository.dart';
 
 // Project imports:
 import 'package:starcat/constants.dart';
-import 'package:starcat/launches/launch_details.dart';
+import 'package:starcat/launches/launches.dart';
 import 'package:starcat/starship/starship.dart';
 
 class VehiclesPage extends StatelessWidget {

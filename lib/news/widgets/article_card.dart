@@ -10,7 +10,7 @@ import 'package:spaceflight_news_repository/spaceflight_news_repository.dart';
 import 'package:starcat/constants.dart';
 import 'package:starcat/explore/explore.dart';
 import 'package:starcat/helpers/helpers.dart';
-import 'package:starcat/launches/launch_details.dart';
+import 'package:starcat/launches/launches.dart';
 import 'package:starcat/news/bloc/news_bloc.dart';
 import 'package:starcat/shared/shared.dart';
 

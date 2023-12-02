@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // Project imports:
-import 'package:starcat/launches/launch_details.dart';
+import 'package:starcat/launches/launches.dart';
 import '../../test_helpers/test_helpers.dart';
 
 class MockCacheManager extends Mock implements DefaultCacheManager {}
