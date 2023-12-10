@@ -8,8 +8,8 @@ void main() {
   group('LaunchesEvent', () {
     test('supports value comparisons', () {
       expect(
-        const LaunchesRequested(),
-        const LaunchesRequested(),
+        const ExploreLaunchesRequested(),
+        const ExploreLaunchesRequested(),
       );
 
       expect(

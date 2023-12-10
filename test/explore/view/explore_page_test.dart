@@ -80,8 +80,9 @@ void main() {
       newsBloc = MockNewsBloc();
       notificationsCubit = MockNotificationsCubit();
 
-      when(() => launchesBloc.state)
-          .thenReturn(const LaunchesState(status: LaunchesStatus.success));
+      when(() => launchesBloc.state).thenReturn(
+        const LaunchesState(upcomingLaunchesStatus: LaunchesStatus.success),
+      );
 
       when(() => newsBloc.add(const NewsFetchRequested()))
           .thenAnswer((_) async => <Article>[]);
@@ -119,7 +120,7 @@ void main() {
       'renders placeholders for LaunchesStatus.loading and NewsStatus.loading',
       (WidgetTester tester) async {
         when(() => launchesBloc.state).thenReturn(
-          const LaunchesState(status: LaunchesStatus.loading),
+          const LaunchesState(upcomingLaunchesStatus: LaunchesStatus.loading),
         );
         when(() => newsBloc.state).thenReturn(
           const NewsState(status: NewsStatus.loading),
@@ -143,7 +144,7 @@ void main() {
       'dispatches snackbar with failure message for LaunchesStatus.failure',
       (WidgetTester tester) async {
         final expectedLaunchesState = [
-          const LaunchesState(status: LaunchesStatus.failure),
+          const LaunchesState(upcomingLaunchesStatus: LaunchesStatus.failure),
         ];
 
         whenListen(launchesBloc, Stream.fromIterable(expectedLaunchesState));
@@ -197,7 +198,7 @@ void main() {
       (WidgetTester tester) async {
         when(() => launchesBloc.state).thenReturn(
           const LaunchesState(
-            status: LaunchesStatus.success,
+            upcomingLaunchesStatus: LaunchesStatus.success,
           ),
         );
         when(() => newsBloc.state).thenReturn(
@@ -222,7 +223,7 @@ void main() {
       (WidgetTester tester) async {
         when(() => launchesBloc.state).thenReturn(
           const LaunchesState(
-            status: LaunchesStatus.success,
+            upcomingLaunchesStatus: LaunchesStatus.success,
           ),
         );
         when(() => newsBloc.state).thenReturn(
@@ -244,7 +245,8 @@ void main() {
         await tester.pumpAndSettle();
 
         // First call is in initState and second is triggered by pull to refresh
-        verify(() => launchesBloc.add(const LaunchesRequested())).called(2);
+        verify(() => launchesBloc.add(const ExploreLaunchesRequested()))
+            .called(2);
         verify(() => newsBloc.add(const NewsFetchRequested())).called(2);
       },
     );

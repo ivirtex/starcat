@@ -25,7 +25,8 @@ class StatusIndicator extends StatelessWidget {
     final starshipBloc = context.watch<StarshipDashboardBloc>();
 
     var sourcesRefreshing = 0;
-    if (launchesBloc.state.status == LaunchesStatus.loading) {
+    if (launchesBloc.state.upcomingLaunchesStatus == LaunchesStatus.loading ||
+        launchesBloc.state.pastLaunchesStatus == LaunchesStatus.loading) {
       sourcesRefreshing++;
     }
 
@@ -39,7 +40,8 @@ class StatusIndicator extends StatelessWidget {
 
     var refreshMessage = '';
     if (sourcesRefreshing == 1) {
-      if (launchesBloc.state.status == LaunchesStatus.loading) {
+      if (launchesBloc.state.upcomingLaunchesStatus == LaunchesStatus.loading ||
+          launchesBloc.state.pastLaunchesStatus == LaunchesStatus.loading) {
         refreshMessage = 'Refreshing launches';
       } else if (newsBloc.state.status == NewsStatus.loading) {
         refreshMessage = 'Refreshing news';

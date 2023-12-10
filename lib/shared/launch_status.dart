@@ -29,7 +29,7 @@ class LaunchStatus extends StatelessWidget {
       case StatusAbbrev.failure:
         return Theme.of(context).colorScheme.error;
       case StatusAbbrev.tbd:
-        return Theme.of(context).colorScheme.onSurface.withOpacity(0.8);
+        return Theme.of(context).colorScheme.outline;
     }
   }
 

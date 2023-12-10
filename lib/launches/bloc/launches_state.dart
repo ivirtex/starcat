@@ -1,6 +1,6 @@
 part of 'launches_bloc.dart';
 
-enum LaunchesStatus { initial, loading, success, failure }
+enum LaunchesStatus { initial, loading, success, failure, noMoreResults }
 
 enum SelectedLaunches {
   upcoming,
@@ -10,43 +10,59 @@ enum SelectedLaunches {
 @JsonSerializable()
 class LaunchesState extends Equatable {
   const LaunchesState({
-    this.status = LaunchesStatus.initial,
+    this.upcomingLaunchesStatus = LaunchesStatus.initial,
+    this.pastLaunchesStatus = LaunchesStatus.initial,
+    this.allUpcomingLaunches = const <Launch>[],
     this.upcomingLaunches = const <Launch>[],
     this.pastLaunches = const <Launch>[],
     this.selectedLaunches = SelectedLaunches.upcoming,
-    this.currentOffsetOfUpcomingLaunches = 10,
-    this.currentOffsetOfPastLaunches = 10,
+    this.filter = const LaunchesFilter(),
+    this.currentOffsetOfUpcomingLaunches = 0,
+    this.currentOffsetOfPastLaunches = 0,
   });
 
   factory LaunchesState.fromJson(Map<String, dynamic> json) =>
       _$LaunchesStateFromJson(json);
 
-  final LaunchesStatus status;
+  final LaunchesStatus upcomingLaunchesStatus;
+  final LaunchesStatus pastLaunchesStatus;
+
+  // This is used to store all upcoming launches
+  // for the Explore page.
+  final List<Launch> allUpcomingLaunches;
   final List<Launch> upcomingLaunches;
   final List<Launch> pastLaunches;
   final SelectedLaunches selectedLaunches;
+  final LaunchesFilter filter;
 
   final int currentOffsetOfUpcomingLaunches;
   final int currentOffsetOfPastLaunches;
 
-  List<Launch> get allLaunches => pastLaunches + upcomingLaunches;
+  List<Launch> get allLaunches =>
+      pastLaunches + upcomingLaunches + allUpcomingLaunches;
 
   Map<String, dynamic> toJson() => _$LaunchesStateToJson(this);
 
   LaunchesState copyWith({
-    LaunchesStatus? status,
+    LaunchesStatus? upcomingLaunchesStatus,
+    LaunchesStatus? pastLaunchesStatus,
+    List<Launch>? allUpcomingLaunches,
     List<Launch>? upcomingLaunches,
     List<Launch>? pastLaunches,
-    Set<LaunchCached>? detailedLaunchesCached,
     SelectedLaunches? selectedLaunches,
+    LaunchesFilter? filter,
     int? currentOffsetOfUpcomingLaunches,
     int? currentOffsetOfPastLaunches,
   }) {
     return LaunchesState(
-      status: status ?? this.status,
+      upcomingLaunchesStatus:
+          upcomingLaunchesStatus ?? this.upcomingLaunchesStatus,
+      pastLaunchesStatus: pastLaunchesStatus ?? this.pastLaunchesStatus,
+      allUpcomingLaunches: allUpcomingLaunches ?? this.allUpcomingLaunches,
       upcomingLaunches: upcomingLaunches ?? this.upcomingLaunches,
       pastLaunches: pastLaunches ?? this.pastLaunches,
       selectedLaunches: selectedLaunches ?? this.selectedLaunches,
+      filter: filter ?? this.filter,
       currentOffsetOfUpcomingLaunches: currentOffsetOfUpcomingLaunches ??
           this.currentOffsetOfUpcomingLaunches,
       currentOffsetOfPastLaunches:
@@ -59,10 +75,13 @@ class LaunchesState extends Equatable {
 
   @override
   List<Object?> get props => [
-        status,
+        upcomingLaunchesStatus,
+        pastLaunchesStatus,
+        allUpcomingLaunches,
         upcomingLaunches,
         pastLaunches,
         selectedLaunches,
+        filter,
         currentOffsetOfUpcomingLaunches,
         currentOffsetOfPastLaunches,
       ];

@@ -14,12 +14,18 @@ class LaunchLibraryRepository {
 
   final LaunchLibraryApiClient _launchLibraryApiClient;
 
-  Future<List<Launch>> getUpcomingLaunches() async {
+  Future<List<Launch>> getUpcomingLaunches({
+    String? searchQuery,
+    List<String>? providers,
+  }) async {
     Launches apiResponse;
 
     try {
-      apiResponse =
-          await _launchLibraryApiClient.getLaunches(LaunchTime.upcoming);
+      apiResponse = await _launchLibraryApiClient.getLaunches(
+        LaunchTime.upcoming,
+        searchQuery: searchQuery,
+        providers: providers,
+      );
     } catch (e) {
       log('LaunchLibraryRepository.getUpcomingLaunches: $e');
 
@@ -29,12 +35,20 @@ class LaunchLibraryRepository {
     return apiResponse.results;
   }
 
-  Future<List<Launch>> getNextPageUpcomingLaunches({int offset = 0}) async {
+  Future<List<Launch>> getNextPageUpcomingLaunches({
+    int offset = 0,
+    String? searchQuery,
+    List<String>? providers,
+  }) async {
     Launches apiResponse;
 
     try {
-      apiResponse = await _launchLibraryApiClient
-          .getLaunches(LaunchTime.upcoming, offset: offset);
+      apiResponse = await _launchLibraryApiClient.getLaunches(
+        LaunchTime.upcoming,
+        offset: offset,
+        searchQuery: searchQuery,
+        providers: providers,
+      );
     } catch (e) {
       log('LaunchLibraryRepository.getUpcomingLaunches: $e');
 
@@ -44,12 +58,18 @@ class LaunchLibraryRepository {
     return apiResponse.results;
   }
 
-  Future<List<Launch>> getPastLaunches() async {
+  Future<List<Launch>> getPastLaunches({
+    String? searchQuery,
+    List<String>? providers,
+  }) async {
     Launches apiResponse;
 
     try {
-      apiResponse =
-          await _launchLibraryApiClient.getLaunches(LaunchTime.previous);
+      apiResponse = await _launchLibraryApiClient.getLaunches(
+        LaunchTime.previous,
+        searchQuery: searchQuery,
+        providers: providers,
+      );
     } catch (e) {
       log('LaunchLibraryRepository.getPreviousLaunches: $e');
 
@@ -59,12 +79,20 @@ class LaunchLibraryRepository {
     return apiResponse.results;
   }
 
-  Future<List<Launch>> getNextPagePastLaunches({int offset = 0}) async {
+  Future<List<Launch>> getNextPagePastLaunches({
+    int offset = 0,
+    String? searchQuery,
+    List<String>? providers,
+  }) async {
     Launches apiResponse;
 
     try {
-      apiResponse = await _launchLibraryApiClient
-          .getLaunches(LaunchTime.previous, offset: offset);
+      apiResponse = await _launchLibraryApiClient.getLaunches(
+        LaunchTime.previous,
+        offset: offset,
+        searchQuery: searchQuery,
+        providers: providers,
+      );
     } catch (e) {
       log('LaunchLibraryRepository.getPreviousLaunches: $e');
 

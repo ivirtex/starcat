@@ -9,12 +9,6 @@ import 'package:http/http.dart' as http;
 // Project imports:
 import 'package:launch_library_api/launch_library_api.dart';
 
-class LaunchesRequestFailure implements Exception {}
-
-class LaunchesResultsNotFoundFailure implements Exception {}
-
-class LaunchesRateLimitHit implements Exception {}
-
 enum LaunchTime {
   previous,
   upcoming,
@@ -30,10 +24,16 @@ class LaunchLibraryApiClient {
   final String baseUrl;
   final http.Client _httpClient;
 
-  Future<Launches> getLaunches(LaunchTime launchTime, {int offset = 0}) async {
+  Future<Launches> getLaunches(
+    LaunchTime launchTime, {
+    int offset = 0,
+    String? searchQuery,
+    List<String>? providers,
+  }) async {
     late final Uri launchRequest;
 
-    log('Requesting launches with offset: $offset and launchTime: $launchTime');
+    // ignore: lines_longer_than_80_chars
+    log('Requesting launches with offset: $offset, launchTime: $launchTime and searchQuery: $searchQuery');
 
     switch (launchTime) {
       case LaunchTime.previous:
@@ -41,8 +41,10 @@ class LaunchLibraryApiClient {
           baseUrl,
           '/2.2.0/launch/previous/',
           <String, String>{
-            'offset': offset.toString(),
             'mode': 'detailed',
+            if (offset != 0) 'offset': offset.toString(),
+            if (searchQuery != null) 'search': searchQuery,
+            if (providers != null) 'lsp__ids': providers.join(','),
           },
         );
         break;
@@ -52,8 +54,10 @@ class LaunchLibraryApiClient {
           '/2.2.0/launch/upcoming/',
           <String, String>{
             'hide_recent_previous': 'true',
-            'offset': offset.toString(),
             'mode': 'detailed',
+            if (offset != 0) 'offset': offset.toString(),
+            if (searchQuery != null) 'search': searchQuery,
+            if (providers != null) 'lsp__ids': providers.join(','),
           },
         );
         break;
@@ -76,13 +80,15 @@ class LaunchLibraryApiClient {
     final launchesJson =
         jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
 
-    if (!launchesJson.containsKey('results')) {
+    final launches = Launches.fromJson(launchesJson);
+
+    if (launches.results.isEmpty || launches.count == 0) {
       log('Results not found in response.');
 
       throw LaunchesResultsNotFoundFailure();
     }
 
-    return Launches.fromJson(launchesJson);
+    return launches;
   }
 
   Future<StarshipDashboard> getStarshipDashboard() async {

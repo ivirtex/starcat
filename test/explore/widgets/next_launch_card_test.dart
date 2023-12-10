@@ -31,7 +31,7 @@ void main() {
       when(() => launchesBloc.state).thenReturn(
         const LaunchesState(
           upcomingLaunches: [sampleLaunch],
-          status: LaunchesStatus.success,
+          upcomingLaunchesStatus: LaunchesStatus.success,
         ),
       );
     });

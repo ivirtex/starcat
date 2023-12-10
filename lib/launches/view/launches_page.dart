@@ -25,8 +25,6 @@ class _LaunchesPageState extends State<LaunchesPage> {
   void initState() {
     super.initState();
 
-    context.read<LaunchesBloc>().add(const LaunchesOffsetReset());
-
     scrollController.addListener(() {
       if (scrollController.offset > 0) {
         if (!shouldShowFab) {
@@ -42,7 +40,6 @@ class _LaunchesPageState extends State<LaunchesPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(ivirtex): add filter button
     return Scaffold(
       floatingActionButton: shouldShowFab
           ? FloatingActionButton(
@@ -56,19 +53,28 @@ class _LaunchesPageState extends State<LaunchesPage> {
           : null,
       body: RefreshIndicator(
         onRefresh: () async =>
-            context.read<LaunchesBloc>().add(const LaunchesRequested()),
+            context.read<LaunchesBloc>().add(const LaunchesRefreshRequested()),
         edgeOffset: kRefreshEdgeOffset,
         child: CustomScrollView(
           controller: scrollController,
-          slivers: const [
+          slivers: [
             SliverAppBar(
               pinned: true,
-              title: Text('Launches'),
+              title: const Text('Launches'),
               actions: [
-                StatusIndicator(),
+                const StatusIndicator(),
+                ActionButton(
+                  icon: const Icon(Icons.filter_list_rounded),
+                  onPressed: () {
+                    showDialog<void>(
+                      context: context,
+                      builder: (context) => const LaunchesFilterDialog(),
+                    );
+                  },
+                ),
               ],
             ),
-            _Body(),
+            const _Body(),
           ],
         ),
       ),

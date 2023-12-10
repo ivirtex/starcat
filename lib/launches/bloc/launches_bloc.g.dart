@@ -8,8 +8,16 @@ part of 'launches_bloc.dart';
 
 LaunchesState _$LaunchesStateFromJson(Map<String, dynamic> json) =>
     LaunchesState(
-      status: $enumDecodeNullable(_$LaunchesStatusEnumMap, json['status']) ??
+      upcomingLaunchesStatus: $enumDecodeNullable(
+              _$LaunchesStatusEnumMap, json['upcomingLaunchesStatus']) ??
           LaunchesStatus.initial,
+      pastLaunchesStatus: $enumDecodeNullable(
+              _$LaunchesStatusEnumMap, json['pastLaunchesStatus']) ??
+          LaunchesStatus.initial,
+      allUpcomingLaunches: (json['allUpcomingLaunches'] as List<dynamic>?)
+              ?.map((e) => Launch.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <Launch>[],
       upcomingLaunches: (json['upcomingLaunches'] as List<dynamic>?)
               ?.map((e) => Launch.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -21,18 +29,26 @@ LaunchesState _$LaunchesStateFromJson(Map<String, dynamic> json) =>
       selectedLaunches: $enumDecodeNullable(
               _$SelectedLaunchesEnumMap, json['selectedLaunches']) ??
           SelectedLaunches.upcoming,
+      filter: json['filter'] == null
+          ? const LaunchesFilter()
+          : LaunchesFilter.fromJson(json['filter'] as Map<String, dynamic>),
       currentOffsetOfUpcomingLaunches:
-          json['currentOffsetOfUpcomingLaunches'] as int? ?? 10,
+          json['currentOffsetOfUpcomingLaunches'] as int? ?? 0,
       currentOffsetOfPastLaunches:
-          json['currentOffsetOfPastLaunches'] as int? ?? 10,
+          json['currentOffsetOfPastLaunches'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$LaunchesStateToJson(LaunchesState instance) =>
     <String, dynamic>{
-      'status': _$LaunchesStatusEnumMap[instance.status]!,
+      'upcomingLaunchesStatus':
+          _$LaunchesStatusEnumMap[instance.upcomingLaunchesStatus]!,
+      'pastLaunchesStatus':
+          _$LaunchesStatusEnumMap[instance.pastLaunchesStatus]!,
+      'allUpcomingLaunches': instance.allUpcomingLaunches,
       'upcomingLaunches': instance.upcomingLaunches,
       'pastLaunches': instance.pastLaunches,
       'selectedLaunches': _$SelectedLaunchesEnumMap[instance.selectedLaunches]!,
+      'filter': instance.filter,
       'currentOffsetOfUpcomingLaunches':
           instance.currentOffsetOfUpcomingLaunches,
       'currentOffsetOfPastLaunches': instance.currentOffsetOfPastLaunches,
@@ -43,6 +59,7 @@ const _$LaunchesStatusEnumMap = {
   LaunchesStatus.loading: 'loading',
   LaunchesStatus.success: 'success',
   LaunchesStatus.failure: 'failure',
+  LaunchesStatus.noMoreResults: 'noMoreResults',
 };
 
 const _$SelectedLaunchesEnumMap = {

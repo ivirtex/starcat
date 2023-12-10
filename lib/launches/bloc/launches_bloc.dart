@@ -25,8 +25,10 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     this._launchLibraryRepository, {
     this.clock = const Clock(),
   }) : super(const LaunchesState()) {
-    on<LaunchesRequested>(_onLaunchesRequested);
+    on<ExploreLaunchesRequested>(_onExploreLaunchesRequested);
+    on<LaunchesRefreshRequested>(_onLaunchesRefreshRequested);
     on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
+    on<LaunchesFilterChanged>(_onLaunchesFilterChanged);
     on<LaunchesNextPageRequested>(_onLaunchesNextPageRequested);
     on<LaunchesOffsetReset>(_onLaunchesOffsetReset);
   }
@@ -41,22 +43,24 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
   @override
   Map<String, dynamic>? toJson(LaunchesState state) => state.toJson();
 
-  Future<void> _onLaunchesRequested(
-    LaunchesRequested event,
+  Future<void> _onExploreLaunchesRequested(
+    ExploreLaunchesRequested event,
     Emitter<LaunchesState> emit,
   ) async {
-    emit(state.copyWith(status: LaunchesStatus.loading));
+    emit(
+      state.copyWith(
+        upcomingLaunchesStatus: LaunchesStatus.loading,
+      ),
+    );
 
     try {
       final upcomingLaunches =
           await _launchLibraryRepository.getUpcomingLaunches();
-      final pastLaunches = await _launchLibraryRepository.getPastLaunches();
 
       emit(
         state.copyWith(
-          status: LaunchesStatus.success,
-          upcomingLaunches: upcomingLaunches,
-          pastLaunches: pastLaunches,
+          upcomingLaunchesStatus: LaunchesStatus.success,
+          allUpcomingLaunches: upcomingLaunches,
         ),
       );
     } catch (err) {
@@ -72,9 +76,108 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
 
       emit(
         state.copyWith(
-          status: LaunchesStatus.failure,
-          upcomingLaunches: state.upcomingLaunches,
-          pastLaunches: state.pastLaunches,
+          upcomingLaunchesStatus: LaunchesStatus.failure,
+        ),
+      );
+    }
+  }
+
+  Future<void> _onLaunchesRefreshRequested(
+    LaunchesRefreshRequested event,
+    Emitter<LaunchesState> emit,
+  ) async {
+    add(const LaunchesOffsetReset());
+
+    emit(
+      state.copyWith(
+        upcomingLaunchesStatus: LaunchesStatus.loading,
+        pastLaunchesStatus: LaunchesStatus.loading,
+      ),
+    );
+
+    final providerIds = state.filter.selectedLaunchProviders.map((provider) {
+      return provider.id;
+    }).toList();
+
+    try {
+      final upcomingLaunches =
+          await _launchLibraryRepository.getUpcomingLaunches(
+        searchQuery: state.filter.searchQuery,
+        providers: providerIds,
+      );
+
+      emit(
+        state.copyWith(
+          upcomingLaunchesStatus: LaunchesStatus.success,
+          upcomingLaunches: upcomingLaunches,
+        ),
+      );
+    } catch (err) {
+      log('LaunchesBloc._onLaunchesRequested: $err');
+
+      if (kReleaseMode) {
+        await FirebaseCrashlytics.instance.recordError(
+          err,
+          StackTrace.current,
+          reason: 'LaunchesBloc._onLaunchesRequested',
+        );
+      }
+
+      if (err is LaunchesResultsNotFoundFailure) {
+        emit(
+          state.copyWith(
+            upcomingLaunchesStatus: LaunchesStatus.noMoreResults,
+            upcomingLaunches: const <Launch>[],
+          ),
+        );
+
+        return;
+      }
+
+      emit(
+        state.copyWith(
+          upcomingLaunchesStatus: LaunchesStatus.failure,
+        ),
+      );
+    }
+
+    try {
+      final pastLaunches = await _launchLibraryRepository.getPastLaunches(
+        searchQuery: state.filter.searchQuery,
+        providers: providerIds,
+      );
+
+      emit(
+        state.copyWith(
+          pastLaunchesStatus: LaunchesStatus.success,
+          pastLaunches: pastLaunches,
+        ),
+      );
+    } catch (err) {
+      log('LaunchesBloc._onLaunchesRequested: $err');
+
+      if (kReleaseMode) {
+        await FirebaseCrashlytics.instance.recordError(
+          err,
+          StackTrace.current,
+          reason: 'LaunchesBloc._onLaunchesRequested',
+        );
+      }
+
+      if (err is LaunchesResultsNotFoundFailure) {
+        emit(
+          state.copyWith(
+            pastLaunchesStatus: LaunchesStatus.noMoreResults,
+            pastLaunches: const <Launch>[],
+          ),
+        );
+
+        return;
+      }
+
+      emit(
+        state.copyWith(
+          pastLaunchesStatus: LaunchesStatus.failure,
         ),
       );
     }
@@ -87,67 +190,117 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     emit(state.copyWith(selectedLaunches: event.selectedLaunches));
   }
 
+  Future<void> _onLaunchesFilterChanged(
+    LaunchesFilterChanged event,
+    Emitter<LaunchesState> emit,
+  ) async {
+    emit(
+      state.copyWith(filter: event.newFilter),
+    );
+
+    add(const LaunchesRefreshRequested());
+  }
+
   Future<void> _onLaunchesNextPageRequested(
     LaunchesNextPageRequested event,
     Emitter<LaunchesState> emit,
   ) async {
-    emit(state.copyWith(status: LaunchesStatus.loading));
+    final providerIds = state.filter.selectedLaunchProviders.map((provider) {
+      return provider.id;
+    }).toList();
 
     switch (event.type) {
       case SelectedLaunches.upcoming:
+        emit(
+          state.copyWith(
+            upcomingLaunchesStatus: LaunchesStatus.loading,
+            currentOffsetOfUpcomingLaunches:
+                state.currentOffsetOfUpcomingLaunches + 10,
+          ),
+        );
+
         try {
           final upcomingLaunches =
               await _launchLibraryRepository.getNextPageUpcomingLaunches(
             offset: state.currentOffsetOfUpcomingLaunches,
+            searchQuery: state.filter.searchQuery,
+            providers: providerIds,
           );
 
           emit(
             state.copyWith(
-              status: LaunchesStatus.success,
+              upcomingLaunchesStatus: LaunchesStatus.success,
               upcomingLaunches: [
                 ...state.upcomingLaunches,
                 ...upcomingLaunches,
               ],
               currentOffsetOfUpcomingLaunches:
-                  state.currentOffsetOfUpcomingLaunches + 10,
+                  state.currentOffsetOfUpcomingLaunches,
             ),
           );
         } catch (err) {
           log('LaunchesBloc._onLaunchesNextPageRequested: $err');
 
+          if (err is LaunchesResultsNotFoundFailure) {
+            emit(
+              state.copyWith(
+                upcomingLaunchesStatus: LaunchesStatus.noMoreResults,
+              ),
+            );
+
+            return;
+          }
+
           emit(
             state.copyWith(
-              status: LaunchesStatus.failure,
-              upcomingLaunches: state.upcomingLaunches,
+              upcomingLaunchesStatus: LaunchesStatus.failure,
             ),
           );
         }
         break;
       case SelectedLaunches.past:
         try {
+          emit(
+            state.copyWith(
+              pastLaunchesStatus: LaunchesStatus.loading,
+              currentOffsetOfPastLaunches:
+                  state.currentOffsetOfPastLaunches + 10,
+            ),
+          );
+
           final pastLaunches =
               await _launchLibraryRepository.getNextPagePastLaunches(
             offset: state.currentOffsetOfPastLaunches,
+            searchQuery: state.filter.searchQuery,
+            providers: providerIds,
           );
 
           emit(
             state.copyWith(
-              status: LaunchesStatus.success,
+              pastLaunchesStatus: LaunchesStatus.success,
               pastLaunches: [
                 ...state.pastLaunches,
                 ...pastLaunches,
               ],
-              currentOffsetOfPastLaunches:
-                  state.currentOffsetOfPastLaunches + 10,
+              currentOffsetOfPastLaunches: state.currentOffsetOfPastLaunches,
             ),
           );
         } catch (err) {
           log('LaunchesBloc._onLaunchesNextPageRequested: $err');
 
+          if (err is LaunchesResultsNotFoundFailure) {
+            emit(
+              state.copyWith(
+                pastLaunchesStatus: LaunchesStatus.noMoreResults,
+              ),
+            );
+
+            return;
+          }
+
           emit(
             state.copyWith(
-              status: LaunchesStatus.failure,
-              pastLaunches: state.pastLaunches,
+              pastLaunchesStatus: LaunchesStatus.failure,
             ),
           );
         }

@@ -44,7 +44,7 @@ void main() {
     blocTest<LaunchesBloc, LaunchesState>(
       'calls getLaunches with correct time',
       build: () => launchesBloc,
-      act: (bloc) => bloc.add(const LaunchesRequested()),
+      act: (bloc) => bloc.add(const ExploreLaunchesRequested()),
       verify: (_) {
         verify(() => launchLibraryRepository.getUpcomingLaunches()).called(1);
       },
@@ -53,11 +53,11 @@ void main() {
     blocTest<LaunchesBloc, LaunchesState>(
       'emits [loading, success] when getUpcomingLaunches returns launches',
       build: () => launchesBloc,
-      act: (bloc) => bloc.add(const LaunchesRequested()),
+      act: (bloc) => bloc.add(const ExploreLaunchesRequested()),
       expect: () => [
-        const LaunchesState(status: LaunchesStatus.loading),
+        const LaunchesState(upcomingLaunchesStatus: LaunchesStatus.loading),
         const LaunchesState(
-          status: LaunchesStatus.success,
+          upcomingLaunchesStatus: LaunchesStatus.success,
           upcomingLaunches: [sampleLaunch],
         ),
       ],
@@ -68,11 +68,14 @@ void main() {
       setUp: () => when(() => launchLibraryRepository.getUpcomingLaunches())
           .thenThrow(Exception()),
       build: () => launchesBloc,
-      act: (bloc) => bloc.add(const LaunchesRequested()),
+      act: (bloc) => bloc.add(const ExploreLaunchesRequested()),
       expect: () => [
-        const LaunchesState(status: LaunchesStatus.loading),
-        isA<LaunchesState>()
-            .having((w) => w.status, 'status', LaunchesStatus.failure),
+        const LaunchesState(upcomingLaunchesStatus: LaunchesStatus.loading),
+        isA<LaunchesState>().having(
+          (w) => w.upcomingLaunchesStatus,
+          'status',
+          LaunchesStatus.failure,
+        ),
       ],
     );
 

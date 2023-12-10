@@ -1,6 +1,7 @@
 export 'configuration.dart';
 export 'event.dart';
 export 'event_type.dart';
+export 'exceptions.dart';
 export 'first_stage.dart';
 export 'landing.dart';
 export 'landing_location.dart';

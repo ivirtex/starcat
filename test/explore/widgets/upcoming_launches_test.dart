@@ -99,7 +99,7 @@ void main() {
       when(() => launchesBloc.state).thenReturn(
         LaunchesState(
           upcomingLaunches: launches,
-          status: LaunchesStatus.success,
+          upcomingLaunchesStatus: LaunchesStatus.success,
         ),
       );
 

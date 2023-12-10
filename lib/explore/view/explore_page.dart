@@ -37,7 +37,7 @@ class ExploreView extends StatefulWidget {
 class _ExploreViewState extends State<ExploreView> {
   @override
   void initState() {
-    context.read<LaunchesBloc>().add(const LaunchesRequested());
+    context.read<LaunchesBloc>().add(const ExploreLaunchesRequested());
     context.read<NewsBloc>().add(const NewsFetchRequested());
     context.read<StarshipDashboardBloc>()
       ..add(const StarshipDashboardRequested())
@@ -101,7 +101,7 @@ class _ExploreViewState extends State<ExploreView> {
   }
 
   void _onRefresh(BuildContext context) {
-    context.read<LaunchesBloc>().add(const LaunchesRequested());
+    context.read<LaunchesBloc>().add(const ExploreLaunchesRequested());
     context.read<NewsBloc>().add(const NewsFetchRequested());
   }
 }
@@ -111,7 +111,6 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(ivirtex): add animated background patterns
     return SliverPadding(
       padding: kBodyPadding,
       sliver: SliverList(
@@ -125,7 +124,7 @@ class _Body extends StatelessWidget {
               child: BlocConsumer<LaunchesBloc, LaunchesState>(
                 listener: _listenForLaunchesStateUpdates,
                 builder: (context, state) {
-                  switch (state.status) {
+                  switch (state.upcomingLaunchesStatus) {
                     case LaunchesStatus.initial:
                     case LaunchesStatus.loading:
                       return const Column(
@@ -137,15 +136,16 @@ class _Body extends StatelessWidget {
                           ),
                         ],
                       );
+                    case LaunchesStatus.noMoreResults:
                     case LaunchesStatus.failure:
                     case LaunchesStatus.success:
                       return Column(
                         children: [
                           NextLaunchCard(
-                            launch: state.upcomingLaunches.firstOrNull,
+                            launch: state.allUpcomingLaunches.firstOrNull,
                           ),
                           const SizedBox(height: kSectionSpacing),
-                          UpcomingLaunches(launches: state.upcomingLaunches),
+                          UpcomingLaunches(launches: state.allUpcomingLaunches),
                         ]
                             .animate(interval: kListAnimationIntervalDuration)
                             .fadeIn(duration: kStateChangeAnimationDuration),
@@ -194,10 +194,11 @@ class _Body extends StatelessWidget {
     BuildContext context,
     LaunchesState state,
   ) {
-    switch (state.status) {
+    switch (state.upcomingLaunchesStatus) {
       case LaunchesStatus.initial:
       case LaunchesStatus.loading:
       case LaunchesStatus.success:
+      case LaunchesStatus.noMoreResults:
         break;
       case LaunchesStatus.failure:
         ScaffoldMessenger.of(context).showSnackBar(

@@ -148,7 +148,9 @@ void main() {
         );
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
-        await apiClient.getLaunches(LaunchTime.previous);
+        try {
+          await apiClient.getLaunches(LaunchTime.previous);
+        } catch (_) {}
 
         verify(
           () => httpClient.get(
@@ -156,14 +158,15 @@ void main() {
               'lldev.thespacedevs.com',
               '/2.2.0/launch/previous/',
               {
-                'offset': '0',
                 'mode': 'detailed',
               },
             ),
           ),
         ).called(1);
 
-        await apiClient.getLaunches(LaunchTime.upcoming);
+        try {
+          await apiClient.getLaunches(LaunchTime.upcoming);
+        } catch (_) {}
 
         verify(
           () => httpClient.get(
@@ -172,7 +175,6 @@ void main() {
               '/2.2.0/launch/upcoming/',
               {
                 'hide_recent_previous': 'true',
-                'offset': '0',
                 'mode': 'detailed',
               },
             ),
@@ -195,8 +197,9 @@ void main() {
           () async {
         final response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.bodyBytes)
-            .thenReturn(Uint8List.fromList('{}'.codeUnits));
+        when(() => response.bodyBytes).thenReturn(
+          Uint8List.fromList('{"count": 0, "results": []}'.codeUnits),
+        );
         when(() => httpClient.get(any())).thenAnswer((_) async => response);
 
         await expectLater(
