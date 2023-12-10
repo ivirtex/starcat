@@ -30,7 +30,7 @@ void main() {
 
       when(() => launchesBloc.state).thenReturn(
         const LaunchesState(
-          upcomingLaunches: [sampleLaunch],
+          allUpcomingLaunches: [sampleLaunch],
           upcomingLaunchesStatus: LaunchesStatus.success,
         ),
       );

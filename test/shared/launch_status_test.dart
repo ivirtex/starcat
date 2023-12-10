@@ -48,7 +48,7 @@ void main() {
       expect(statusWidgetIcon.color, Colors.lightGreen);
     });
 
-    testWidgets('renders with grey color when abbrev is "TBD"',
+    testWidgets('renders with outline color when abbrev is "TBD"',
         (WidgetTester tester) async {
       const launchStatus = Status(
         abbrev: StatusAbbrev.tbd,
@@ -69,7 +69,7 @@ void main() {
       final statusWidgetIcon = tester.widget(find.byType(Icon)) as Icon;
       expect(
         statusWidgetIcon.color,
-        Theme.of(capturedContext).colorScheme.onSurface.withOpacity(0.8),
+        Theme.of(capturedContext).colorScheme.outline,
       );
     });
   });

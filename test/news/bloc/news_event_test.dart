@@ -18,8 +18,8 @@ void main() {
         );
       });
 
-      test('props should return an empty list', () {
-        expect(const NewsFetchRequested().props, <Object>[]);
+      test('props should return null', () {
+        expect(const NewsFetchRequested().props, [null]);
       });
     });
 

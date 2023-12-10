@@ -43,6 +43,7 @@ void main() {
 
     testWidgets('renders', (tester) async {
       await tester.pumpApp(
+        launchesBloc: launchesBloc,
         CustomScrollView(
           slivers: [
             LaunchesList(launches: launches),
@@ -56,6 +57,7 @@ void main() {
 
     testWidgets('has correct widgets', (widgetTester) async {
       await widgetTester.pumpApp(
+        launchesBloc: launchesBloc,
         CustomScrollView(
           slivers: [
             LaunchesList(launches: launches),

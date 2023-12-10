@@ -58,7 +58,7 @@ void main() {
         const LaunchesState(upcomingLaunchesStatus: LaunchesStatus.loading),
         const LaunchesState(
           upcomingLaunchesStatus: LaunchesStatus.success,
-          upcomingLaunches: [sampleLaunch],
+          allUpcomingLaunches: [sampleLaunch],
         ),
       ],
     );

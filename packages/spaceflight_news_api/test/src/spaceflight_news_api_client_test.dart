@@ -126,6 +126,7 @@ void main() {
             Uri.https(
               'localhost:8000',
               '/v4/articles',
+              {},
             ),
           ),
         ).called(1);

@@ -28,7 +28,7 @@ class SpaceflightNewsApiClient {
     );
 
     final articlesRequest = Uri.https(baseUrl, '/v4/articles', {
-      'offset': offset.toString(),
+      if (offset != 0) 'offset': offset.toString(),
       if (searchTopic != null) 'search': searchTopic,
     });
 

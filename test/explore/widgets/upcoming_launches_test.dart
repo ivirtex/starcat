@@ -98,7 +98,7 @@ void main() {
         (tester) async {
       when(() => launchesBloc.state).thenReturn(
         LaunchesState(
-          upcomingLaunches: launches,
+          allUpcomingLaunches: launches,
           upcomingLaunchesStatus: LaunchesStatus.success,
         ),
       );
