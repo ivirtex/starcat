@@ -58,14 +58,18 @@ class _LaunchesFilterDialogState extends State<LaunchesFilterDialog> {
           actions: [
             TextButton(
               onPressed: () {
-                context.read<LaunchesBloc>().add(
-                      LaunchesFilterChanged(
-                        newFilter: LaunchesFilter(
-                          searchQuery: searchController.text,
-                          selectedLaunchProviders: selectedLaunchProviders,
-                        ),
+                context.read<LaunchesBloc>()
+                  ..add(
+                    LaunchesFilterChanged(
+                      newFilter: LaunchesFilter(
+                        searchQuery: searchController.text,
+                        selectedLaunchProviders: selectedLaunchProviders,
                       ),
-                    );
+                    ),
+                  )
+                  ..add(
+                    const LaunchesRefreshRequested(),
+                  );
 
                 Navigator.pop(context);
               },

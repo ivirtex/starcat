@@ -91,5 +91,388 @@ void main() {
         ),
       ],
     );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'fetches launches with filters when LaunchesRefreshRequested is added',
+      build: () => launchesBloc,
+      setUp: () {
+        when(
+          () => launchLibraryRepository.getUpcomingLaunches(
+            searchQuery: 'test',
+            providers: [LaunchProviders.spaceX.id],
+          ),
+        ).thenAnswer((_) async => <Launch>[sampleLaunch]);
+        when(
+          () => launchLibraryRepository.getPastLaunches(
+            searchQuery: 'test',
+            providers: [LaunchProviders.spaceX.id],
+          ),
+        ).thenAnswer((_) async => <Launch>[sampleLaunch]);
+      },
+      seed: () => const LaunchesState(
+        filter: LaunchesFilter(
+          searchQuery: 'test',
+          selectedLaunchProviders: {LaunchProviders.spaceX},
+        ),
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesRefreshRequested(),
+      ),
+      expect: () => [
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.loading,
+          pastLaunchesStatus: LaunchesStatus.loading,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+        ),
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.success,
+          pastLaunchesStatus: LaunchesStatus.loading,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+          upcomingLaunches: [sampleLaunch],
+        ),
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.success,
+          pastLaunchesStatus: LaunchesStatus.success,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+          upcomingLaunches: [sampleLaunch],
+          pastLaunches: [sampleLaunch],
+        ),
+      ],
+      verify: (_) {
+        verify(
+          () => launchLibraryRepository.getUpcomingLaunches(
+            searchQuery: 'test',
+            providers: [LaunchProviders.spaceX.id],
+          ),
+        ).called(1);
+        verify(
+          () => launchLibraryRepository.getPastLaunches(
+            searchQuery: 'test',
+            providers: [LaunchProviders.spaceX.id],
+          ),
+        ).called(1);
+      },
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits (loading, loading), (failure, success) when getUpcomingLaunches throws',
+      setUp: () {
+        when(
+          () => launchLibraryRepository.getUpcomingLaunches(
+            searchQuery: 'test',
+            providers: [LaunchProviders.spaceX.id],
+          ),
+        ).thenThrow(Exception());
+        when(
+          () => launchLibraryRepository.getPastLaunches(
+            searchQuery: 'test',
+            providers: [LaunchProviders.spaceX.id],
+          ),
+        ).thenAnswer((_) async => <Launch>[sampleLaunch]);
+      },
+      build: () => launchesBloc,
+      seed: () => const LaunchesState(
+        filter: LaunchesFilter(
+          searchQuery: 'test',
+          selectedLaunchProviders: {LaunchProviders.spaceX},
+        ),
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesRefreshRequested(),
+      ),
+      expect: () => [
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.loading,
+          pastLaunchesStatus: LaunchesStatus.loading,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+        ),
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.failure,
+          pastLaunchesStatus: LaunchesStatus.loading,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+        ),
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.failure,
+          pastLaunchesStatus: LaunchesStatus.success,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+          pastLaunches: [sampleLaunch],
+        ),
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits (loading, loading), (success, failure) when getPastLaunches throws',
+      setUp: () {
+        when(
+          () => launchLibraryRepository.getUpcomingLaunches(
+            searchQuery: 'test',
+            providers: [LaunchProviders.spaceX.id],
+          ),
+        ).thenAnswer((_) async => <Launch>[sampleLaunch]);
+        when(
+          () => launchLibraryRepository.getPastLaunches(
+            searchQuery: 'test',
+            providers: [LaunchProviders.spaceX.id],
+          ),
+        ).thenThrow(Exception());
+      },
+      build: () => launchesBloc,
+      seed: () => const LaunchesState(
+        filter: LaunchesFilter(
+          searchQuery: 'test',
+          selectedLaunchProviders: {LaunchProviders.spaceX},
+        ),
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesRefreshRequested(),
+      ),
+      expect: () => [
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.loading,
+          pastLaunchesStatus: LaunchesStatus.loading,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+        ),
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.success,
+          pastLaunchesStatus: LaunchesStatus.loading,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+          upcomingLaunches: [sampleLaunch],
+        ),
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.success,
+          pastLaunchesStatus: LaunchesStatus.failure,
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+          upcomingLaunches: [sampleLaunch],
+        ),
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits filter when LaunchesFilterChanged is added',
+      build: () => launchesBloc,
+      act: (bloc) => bloc.add(
+        const LaunchesFilterChanged(
+          newFilter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+        ),
+      ),
+      expect: () => [
+        const LaunchesState(
+          filter: LaunchesFilter(
+            searchQuery: 'test',
+            selectedLaunchProviders: {LaunchProviders.spaceX},
+          ),
+        ),
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits [loading, success] when getNextPageUpcomingLaunches returns launches',
+      build: () => launchesBloc,
+      setUp: () {
+        when(
+          () => launchLibraryRepository
+              .getNextPageUpcomingLaunches(offset: 10, providers: []),
+        ).thenAnswer((_) async => <Launch>[sampleLaunch]);
+      },
+      seed: () => const LaunchesState(
+        upcomingLaunchesStatus: LaunchesStatus.success,
+        upcomingLaunches: [sampleLaunch],
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesNextPageRequested(type: SelectedLaunches.upcoming),
+      ),
+      expect: () => [
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.loading,
+          upcomingLaunches: [sampleLaunch],
+          currentOffsetOfUpcomingLaunches: 10,
+        ),
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.success,
+          upcomingLaunches: [sampleLaunch, sampleLaunch],
+          currentOffsetOfUpcomingLaunches: 10,
+        ),
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits [loading, noMoreResults] when getNextPageUpcomingLaunches returns no launches',
+      build: () => launchesBloc,
+      setUp: () {
+        when(
+          () => launchLibraryRepository
+              .getNextPageUpcomingLaunches(offset: 10, providers: []),
+        ).thenThrow(LaunchesResultsNotFoundFailure());
+      },
+      seed: () => const LaunchesState(
+        upcomingLaunchesStatus: LaunchesStatus.success,
+        upcomingLaunches: [sampleLaunch],
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesNextPageRequested(type: SelectedLaunches.upcoming),
+      ),
+      expect: () => [
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.loading,
+          upcomingLaunches: [sampleLaunch],
+          currentOffsetOfUpcomingLaunches: 10,
+        ),
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.noMoreResults,
+          upcomingLaunches: [sampleLaunch],
+          currentOffsetOfUpcomingLaunches: 10,
+        ),
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits [loading, failure] when getNextPageUpcomingLaunches throws',
+      build: () => launchesBloc,
+      setUp: () {
+        when(
+          () => launchLibraryRepository
+              .getNextPageUpcomingLaunches(offset: 10, providers: []),
+        ).thenThrow(Exception());
+      },
+      seed: () => const LaunchesState(
+        upcomingLaunchesStatus: LaunchesStatus.success,
+        upcomingLaunches: [sampleLaunch],
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesNextPageRequested(type: SelectedLaunches.upcoming),
+      ),
+      expect: () => [
+        const LaunchesState(
+          upcomingLaunchesStatus: LaunchesStatus.loading,
+          upcomingLaunches: [sampleLaunch],
+          currentOffsetOfUpcomingLaunches: 10,
+        ),
+        isA<LaunchesState>().having(
+          (w) => w.upcomingLaunchesStatus,
+          'status',
+          LaunchesStatus.failure,
+        ),
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits [loading, success] when getNextPagePastLaunches returns launches',
+      build: () => launchesBloc,
+      setUp: () {
+        when(
+          () => launchLibraryRepository
+              .getNextPagePastLaunches(offset: 10, providers: []),
+        ).thenAnswer((_) async => <Launch>[sampleLaunch]);
+      },
+      seed: () => const LaunchesState(
+        pastLaunchesStatus: LaunchesStatus.success,
+        pastLaunches: [sampleLaunch],
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesNextPageRequested(type: SelectedLaunches.past),
+      ),
+      expect: () => [
+        const LaunchesState(
+          pastLaunchesStatus: LaunchesStatus.loading,
+          pastLaunches: [sampleLaunch],
+          currentOffsetOfPastLaunches: 10,
+        ),
+        const LaunchesState(
+          pastLaunchesStatus: LaunchesStatus.success,
+          pastLaunches: [sampleLaunch, sampleLaunch],
+          currentOffsetOfPastLaunches: 10,
+        ),
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits [loading, noMoreResults] when getNextPagePastLaunches returns no launches',
+      build: () => launchesBloc,
+      setUp: () {
+        when(
+          () => launchLibraryRepository
+              .getNextPagePastLaunches(offset: 10, providers: []),
+        ).thenThrow(LaunchesResultsNotFoundFailure());
+      },
+      seed: () => const LaunchesState(
+        pastLaunchesStatus: LaunchesStatus.success,
+        pastLaunches: [sampleLaunch],
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesNextPageRequested(type: SelectedLaunches.past),
+      ),
+      expect: () => [
+        const LaunchesState(
+          pastLaunchesStatus: LaunchesStatus.loading,
+          pastLaunches: [sampleLaunch],
+          currentOffsetOfPastLaunches: 10,
+        ),
+        const LaunchesState(
+          pastLaunchesStatus: LaunchesStatus.noMoreResults,
+          pastLaunches: [sampleLaunch],
+          currentOffsetOfPastLaunches: 10,
+        ),
+      ],
+    );
+
+    blocTest<LaunchesBloc, LaunchesState>(
+      'emits [loading, failure] when getNextPagePastLaunches throws',
+      build: () => launchesBloc,
+      setUp: () {
+        when(
+          () => launchLibraryRepository
+              .getNextPagePastLaunches(offset: 10, providers: []),
+        ).thenThrow(Exception());
+      },
+      seed: () => const LaunchesState(
+        pastLaunchesStatus: LaunchesStatus.success,
+        pastLaunches: [sampleLaunch],
+      ),
+      act: (bloc) => bloc.add(
+        const LaunchesNextPageRequested(type: SelectedLaunches.past),
+      ),
+      expect: () => [
+        const LaunchesState(
+          pastLaunchesStatus: LaunchesStatus.loading,
+          pastLaunches: [sampleLaunch],
+          currentOffsetOfPastLaunches: 10,
+        ),
+        isA<LaunchesState>().having(
+          (w) => w.pastLaunchesStatus,
+          'status',
+          LaunchesStatus.failure,
+        ),
+      ],
+    );
   });
 }

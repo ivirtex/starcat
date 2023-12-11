@@ -197,8 +197,6 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     emit(
       state.copyWith(filter: event.newFilter),
     );
-
-    add(const LaunchesRefreshRequested());
   }
 
   Future<void> _onLaunchesNextPageRequested(
@@ -234,8 +232,6 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
                 ...state.upcomingLaunches,
                 ...upcomingLaunches,
               ],
-              currentOffsetOfUpcomingLaunches:
-                  state.currentOffsetOfUpcomingLaunches,
             ),
           );
         } catch (err) {
@@ -282,7 +278,6 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
                 ...state.pastLaunches,
                 ...pastLaunches,
               ],
-              currentOffsetOfPastLaunches: state.currentOffsetOfPastLaunches,
             ),
           );
         } catch (err) {
