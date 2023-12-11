@@ -9,10 +9,6 @@ import 'package:http/http.dart' as http;
 // Project imports:
 import 'package:spaceflight_news_api/src/models/models.dart';
 
-class ArticlesRequestFailure implements Exception {}
-
-class ArticlesResultsNotFoundFailure implements Exception {}
-
 class SpaceflightNewsApiClient {
   SpaceflightNewsApiClient({
     this.baseUrl = 'localhost:8000',

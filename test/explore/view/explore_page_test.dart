@@ -245,9 +245,9 @@ void main() {
         await tester.pumpAndSettle();
 
         // First call is in initState and second is triggered by pull to refresh
-        verify(() => launchesBloc.add(const ExploreLaunchesRequested()))
+        verify(() => launchesBloc.add(const LaunchesExploreRequested()))
             .called(2);
-        verify(() => newsBloc.add(const NewsFetchRequested())).called(2);
+        verify(() => newsBloc.add(const NewsExploreFetchRequested())).called(2);
       },
     );
   });

@@ -12,6 +12,10 @@ NewsState _$NewsStateFromJson(Map<String, dynamic> json) => NewsState(
       selection:
           $enumDecodeNullable(_$SelectedNewsEnumMap, json['selection']) ??
               SelectedNews.latest,
+      allLatestArticles: (json['allLatestArticles'] as List<dynamic>?)
+              ?.map((e) => Article.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       news: json['news'] == null
           ? const News()
           : News.fromJson(json['news'] as Map<String, dynamic>),
@@ -21,6 +25,7 @@ NewsState _$NewsStateFromJson(Map<String, dynamic> json) => NewsState(
 Map<String, dynamic> _$NewsStateToJson(NewsState instance) => <String, dynamic>{
       'status': _$NewsStatusEnumMap[instance.status]!,
       'selection': _$SelectedNewsEnumMap[instance.selection]!,
+      'allLatestArticles': instance.allLatestArticles,
       'news': instance.news,
       'currentOffsetOfArticles': instance.currentOffsetOfArticles,
     };
@@ -30,6 +35,7 @@ const _$NewsStatusEnumMap = {
   NewsStatus.loading: 'loading',
   NewsStatus.success: 'success',
   NewsStatus.failure: 'failure',
+  NewsStatus.noResults: 'noResults',
 };
 
 const _$SelectedNewsEnumMap = {

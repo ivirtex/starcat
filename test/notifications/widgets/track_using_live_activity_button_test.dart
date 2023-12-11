@@ -1,10 +1,14 @@
-import 'package:bloc_test/bloc_test.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+// Project imports:
 import 'package:starcat/constants.dart';
 import 'package:starcat/notifications/notifications.dart';
-
 import '../../sample_launch.dart';
 import '../../test_helpers/test_helpers.dart';
 

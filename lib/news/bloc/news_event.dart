@@ -7,6 +7,10 @@ sealed class NewsEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+final class NewsExploreFetchRequested extends NewsEvent {
+  const NewsExploreFetchRequested();
+}
+
 final class NewsFetchRequested extends NewsEvent {
   const NewsFetchRequested({this.query});
 
@@ -45,8 +49,4 @@ final class NewsArticleUnsaveRequested extends NewsEvent {
 
 final class NewsNewPageRequested extends NewsEvent {
   const NewsNewPageRequested();
-}
-
-final class NewsOffsetReset extends NewsEvent {
-  const NewsOffsetReset();
 }

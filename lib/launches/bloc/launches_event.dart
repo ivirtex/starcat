@@ -7,8 +7,8 @@ sealed class LaunchesEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-final class ExploreLaunchesRequested extends LaunchesEvent {
-  const ExploreLaunchesRequested();
+final class LaunchesExploreRequested extends LaunchesEvent {
+  const LaunchesExploreRequested();
 }
 
 final class LaunchesRefreshRequested extends LaunchesEvent {

@@ -27,8 +27,8 @@ class LaunchesState extends Equatable {
   final LaunchesStatus upcomingLaunchesStatus;
   final LaunchesStatus pastLaunchesStatus;
 
-  // This is used to store all upcoming launches
-  // for the Explore page.
+  /// Contains all the upcoming launches
+  /// for the explore page.
   final List<Launch> allUpcomingLaunches;
   final List<Launch> upcomingLaunches;
   final List<Launch> pastLaunches;

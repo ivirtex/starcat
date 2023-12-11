@@ -25,7 +25,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
     this._launchLibraryRepository, {
     this.clock = const Clock(),
   }) : super(const LaunchesState()) {
-    on<ExploreLaunchesRequested>(_onExploreLaunchesRequested);
+    on<LaunchesExploreRequested>(_onExploreLaunchesRequested);
     on<LaunchesRefreshRequested>(_onLaunchesRefreshRequested);
     on<LaunchesSelectionChanged>(_onLaunchesSelectionChanged);
     on<LaunchesFilterChanged>(_onLaunchesFilterChanged);
@@ -44,7 +44,7 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
   Map<String, dynamic>? toJson(LaunchesState state) => state.toJson();
 
   Future<void> _onExploreLaunchesRequested(
-    ExploreLaunchesRequested event,
+    LaunchesExploreRequested event,
     Emitter<LaunchesState> emit,
   ) async {
     emit(
@@ -130,15 +130,13 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
             upcomingLaunches: const <Launch>[],
           ),
         );
-
-        return;
+      } else {
+        emit(
+          state.copyWith(
+            upcomingLaunchesStatus: LaunchesStatus.failure,
+          ),
+        );
       }
-
-      emit(
-        state.copyWith(
-          upcomingLaunchesStatus: LaunchesStatus.failure,
-        ),
-      );
     }
 
     try {
@@ -171,15 +169,13 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
             pastLaunches: const <Launch>[],
           ),
         );
-
-        return;
+      } else {
+        emit(
+          state.copyWith(
+            pastLaunchesStatus: LaunchesStatus.failure,
+          ),
+        );
       }
-
-      emit(
-        state.copyWith(
-          pastLaunchesStatus: LaunchesStatus.failure,
-        ),
-      );
     }
   }
 
@@ -243,15 +239,13 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
                 upcomingLaunchesStatus: LaunchesStatus.noMoreResults,
               ),
             );
-
-            return;
+          } else {
+            emit(
+              state.copyWith(
+                upcomingLaunchesStatus: LaunchesStatus.failure,
+              ),
+            );
           }
-
-          emit(
-            state.copyWith(
-              upcomingLaunchesStatus: LaunchesStatus.failure,
-            ),
-          );
         }
         break;
       case SelectedLaunches.past:
@@ -289,15 +283,13 @@ class LaunchesBloc extends HydratedBloc<LaunchesEvent, LaunchesState> {
                 pastLaunchesStatus: LaunchesStatus.noMoreResults,
               ),
             );
-
-            return;
+          } else {
+            emit(
+              state.copyWith(
+                pastLaunchesStatus: LaunchesStatus.failure,
+              ),
+            );
           }
-
-          emit(
-            state.copyWith(
-              pastLaunchesStatus: LaunchesStatus.failure,
-            ),
-          );
         }
         break;
     }

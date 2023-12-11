@@ -17,12 +17,12 @@ part 'news_bloc.g.dart';
 
 class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
   NewsBloc(this._spaceflightNewsRepository) : super(const NewsState()) {
+    on<NewsExploreFetchRequested>(_onExploreNewsFetchRequested);
     on<NewsFetchRequested>(_onNewsFetchRequested);
     on<NewsSelectionChanged>(_onNewsSelected);
     on<NewsArticleSaveRequested>(_onNewsArticleSaveRequested);
     on<NewsArticleUnsaveRequested>(_onNewsArticleUnsaveRequested);
     on<NewsNewPageRequested>(_onNewsNewPageRequested);
-    on<NewsOffsetReset>(_onNewsOffsetReset);
   }
 
   final SpaceflightNewsRepository _spaceflightNewsRepository;
@@ -33,18 +33,50 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
   @override
   Map<String, dynamic>? toJson(NewsState state) => state.toJson();
 
-  Future<void> _onNewsFetchRequested(
-    NewsFetchRequested event,
+  Future<void> _onExploreNewsFetchRequested(
+    NewsExploreFetchRequested event,
     Emitter<NewsState> emit,
   ) async {
     emit(state.copyWith(status: NewsStatus.loading));
 
     try {
+      final latestArticles = await _spaceflightNewsRepository.getNews();
+
+      emit(
+        state.copyWith(
+          status: NewsStatus.success,
+          allLatestArticles: latestArticles,
+        ),
+      );
+    } catch (err) {
+      log('NewsBloc._onExploreNewsFetchRequested: $err');
+
+      emit(state.copyWith(status: NewsStatus.failure));
+    }
+  }
+
+  /// Fetches news articles from the API
+  /// when user searches for a topic.
+  Future<void> _onNewsFetchRequested(
+    NewsFetchRequested event,
+    Emitter<NewsState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        status: NewsStatus.loading,
+        currentOffsetOfArticles: 0,
+        query: event.query,
+      ),
+    );
+
+    try {
       final latestArticles =
           await _spaceflightNewsRepository.getNews(searchTopic: event.query);
-      final popularArticles = latestArticles
-          .where((article) => article.featured)
-          .toList(growable: false);
+      final popularArticles =
+          latestArticles.where((article) => article.featured).toList();
+      final savedArticles = state.news.savedArticles
+          .where((article) => article.title.contains(event.query!))
+          .toList();
 
       emit(
         state.copyWith(
@@ -52,13 +84,23 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
           news: state.news.copyWith(
             latestArticles: latestArticles,
             popularArticles: popularArticles,
+            savedArticles: savedArticles,
           ),
         ),
       );
     } catch (err) {
       log('NewsBloc._onNewsFetchRequested: $err');
 
-      emit(state.copyWith(status: NewsStatus.failure));
+      if (err is ArticlesResultsNotFoundFailure) {
+        emit(
+          state.copyWith(
+            status: NewsStatus.noResults,
+            news: const News(),
+          ),
+        );
+      } else {
+        emit(state.copyWith(status: NewsStatus.failure));
+      }
     }
   }
 
@@ -109,7 +151,8 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
 
     try {
       final latestArticles = await _spaceflightNewsRepository.getNews(
-        offset: state.currentOffsetOfArticles,
+        offset: state.currentOffsetOfArticles + 10,
+        searchTopic: state.query,
       );
       final popularArticles =
           latestArticles.where((article) => article.featured).toList();
@@ -126,7 +169,6 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
               ...state.news.popularArticles,
               ...popularArticles,
             ],
-            savedArticles: state.news.savedArticles,
           ),
           currentOffsetOfArticles: state.currentOffsetOfArticles + 10,
         ),
@@ -136,9 +178,5 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
 
       emit(state.copyWith(status: NewsStatus.failure));
     }
-  }
-
-  void _onNewsOffsetReset(NewsOffsetReset event, Emitter<NewsState> emit) {
-    emit(state.copyWith(currentOffsetOfArticles: 0));
   }
 }

@@ -37,8 +37,8 @@ class ExploreView extends StatefulWidget {
 class _ExploreViewState extends State<ExploreView> {
   @override
   void initState() {
-    context.read<LaunchesBloc>().add(const ExploreLaunchesRequested());
-    context.read<NewsBloc>().add(const NewsFetchRequested());
+    context.read<LaunchesBloc>().add(const LaunchesExploreRequested());
+    context.read<NewsBloc>().add(const NewsExploreFetchRequested());
     context.read<StarshipDashboardBloc>()
       ..add(const StarshipDashboardRequested())
       ..add(const StarshipNewsRequested());
@@ -101,8 +101,8 @@ class _ExploreViewState extends State<ExploreView> {
   }
 
   void _onRefresh(BuildContext context) {
-    context.read<LaunchesBloc>().add(const ExploreLaunchesRequested());
-    context.read<NewsBloc>().add(const NewsFetchRequested());
+    context.read<LaunchesBloc>().add(const LaunchesExploreRequested());
+    context.read<NewsBloc>().add(const NewsExploreFetchRequested());
   }
 }
 
@@ -173,9 +173,10 @@ class _Body extends StatelessWidget {
                         delay: Duration(milliseconds: 1000),
                       );
                     case NewsStatus.failure:
+                    case NewsStatus.noResults:
                     case NewsStatus.success:
                       return ArticlesPreview(
-                        articles: state.news.latestArticles,
+                        articles: state.allLatestArticles,
                       )
                           .animate()
                           .fadeIn(duration: kStateChangeAnimationDuration);
@@ -223,6 +224,7 @@ class _Body extends StatelessWidget {
       case NewsStatus.initial:
       case NewsStatus.loading:
       case NewsStatus.success:
+      case NewsStatus.noResults:
         break;
       case NewsStatus.failure:
         ScaffoldMessenger.of(context).showSnackBar(

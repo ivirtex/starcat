@@ -23,9 +23,9 @@ const kLiveActivityCreationErrorText =
 
 const kNoLatestArticlesText = 'No articles found';
 
-const kNoFeaturedArticlesText = 'No featured articles today';
+const kNoFeaturedArticlesText = 'No featured articles found';
 
-const kNoSavedArticlesText = 'No saved articles';
+const kNoSavedArticlesText = 'No saved articles found';
 
 const kStateChangeAnimationDuration = Duration(milliseconds: 500);
 
