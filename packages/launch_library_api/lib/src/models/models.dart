@@ -32,3 +32,4 @@ export 'starship_dashboard.dart';
 export 'starship_dashboard_upcoming.dart';
 export 'status.dart';
 export 'update.dart';
+export 'video.dart';

@@ -60,7 +60,7 @@ class VehiclesView extends StatelessWidget {
                       title: Text(vehicle.serialNumber ?? 'N/A SN'),
                       subtitle: Text(vehicle.details ?? 'N/A Details'),
                       leading: MissionImage(
-                        imageUrl: vehicle.imageUrl ?? '',
+                        imageUrl: vehicle.imageUrl,
                         fit: BoxFit.cover,
                       ),
                       status: Text(status ?? 'Unknown'),

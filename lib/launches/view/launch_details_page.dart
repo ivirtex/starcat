@@ -91,7 +91,7 @@ class _LaunchDetailsPageState extends State<LaunchDetailsPage> {
                     child: Hero(
                       tag: widget.launch.id,
                       child: MissionImage(
-                        imageUrl: widget.launch.image ?? '',
+                        imageUrl: widget.launch.image,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -149,11 +149,14 @@ class _Body extends StatelessWidget {
           [
             const SizedBox(height: kListSpacing),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding:
+                  EdgeInsets.symmetric(horizontal: kBodyPadding.horizontal / 4),
               child: Text(
                 launch.mission?.description ?? 'No description',
               ),
             ),
+            const SizedBox(height: kListSpacing),
+            LaunchVideoCard(videos: launch.vidURLs),
             const SizedBox(height: kListSpacing),
             LaunchDateCard(
               date: launch.net,

@@ -43,7 +43,7 @@ class LaunchCard extends StatelessWidget {
                 child: Hero(
                   tag: launch.id,
                   child: MissionImage(
-                    imageUrl: launch.image ?? '',
+                    imageUrl: launch.image,
                     fit: BoxFit.cover,
                   ),
                 ),

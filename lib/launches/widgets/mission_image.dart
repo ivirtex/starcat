@@ -14,24 +14,29 @@ class MissionImage extends StatelessWidget {
     required this.imageUrl,
     this.fit,
     this.cacheManager,
+    this.errorColor,
+    this.onErrorColor,
     super.key,
   });
 
-  final String imageUrl;
+  final String? imageUrl;
   final BoxFit? fit;
   final BaseCacheManager? cacheManager;
+  final Color? errorColor;
+  final Color? onErrorColor;
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl.isEmpty) {
+    if (imageUrl == null || imageUrl!.isEmpty) {
       return SizedBox(
         height: 150,
         child: ColoredBox(
-          color: Theme.of(context).colorScheme.errorContainer,
+          color: errorColor ?? Theme.of(context).colorScheme.errorContainer,
           child: Center(
             child: Icon(
               Icons.image_not_supported_rounded,
-              color: Theme.of(context).colorScheme.onErrorContainer,
+              color: onErrorColor ??
+                  Theme.of(context).colorScheme.onErrorContainer,
             ),
           ),
         ),
@@ -42,7 +47,7 @@ class MissionImage extends StatelessWidget {
       duration: 500.ms,
       curve: Curves.easeInOut,
       child: CachedNetworkImage(
-        imageUrl: imageUrl,
+        imageUrl: imageUrl!,
         fadeOutDuration: 0.ms,
         fit: fit,
         cacheManager: cacheManager,
@@ -58,10 +63,11 @@ class MissionImage extends StatelessWidget {
           log(error);
 
           return ColoredBox(
-            color: Theme.of(context).colorScheme.errorContainer,
+            color: errorColor ?? Theme.of(context).colorScheme.errorContainer,
             child: Icon(
               Icons.image_not_supported_rounded,
-              color: Theme.of(context).colorScheme.onErrorContainer,
+              color: onErrorColor ??
+                  Theme.of(context).colorScheme.onErrorContainer,
               size: 32,
             ),
           );

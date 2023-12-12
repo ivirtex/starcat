@@ -16,6 +16,7 @@ class ExploreCard extends StatelessWidget {
     ),
     this.slideOutColor,
     this.padding = const EdgeInsets.all(10),
+    this.margin,
     this.shape,
     this.color,
     this.backgroundDecorationImage,
@@ -30,6 +31,7 @@ class ExploreCard extends StatelessWidget {
   final EdgeInsets slideOutPadding;
   final Color? slideOutColor;
   final EdgeInsets padding;
+  final EdgeInsets? margin;
   final ShapeBorder? shape;
   final Color? color;
   final DecorationImage? backgroundDecorationImage;
@@ -43,7 +45,13 @@ class ExploreCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+          padding: margin ??
+              EdgeInsets.only(
+                left: kBodyPadding.left,
+                right: kBodyPadding.right,
+                top: 2,
+                bottom: 6,
+              ),
           child: DefaultTextStyle(
             style: Theme.of(context).textTheme.titleSmall!,
             child: Row(
@@ -73,62 +81,55 @@ class ExploreCard extends StatelessWidget {
 
   Widget buildBody({required BuildContext context}) {
     return slideOut != null
-        ? Padding(
-            // Compensate for margin of a card
-            padding: const EdgeInsets.only(top: 4),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: slideOutColor ??
-                    Theme.of(context).colorScheme.surfaceVariant,
-                borderRadius: BorderRadius.circular(kBorderRadius),
+        ? DecoratedBox(
+            decoration: BoxDecoration(
+              color:
+                  slideOutColor ?? Theme.of(context).colorScheme.surfaceVariant,
+              borderRadius: BorderRadius.circular(kBorderRadius),
+            ),
+            child: DefaultTextStyle(
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: slideOutPadding,
-                      child: slideOut,
-                    ),
-                    Expanded(
-                      flex: expandVertically ? 1 : 0,
-                      child: Card(
-                        margin: EdgeInsets.zero,
-                        shape: shape,
-                        child: InkWell(
-                          onTap: onTap,
-                          child: Padding(
-                            padding: padding,
-                            child: child,
-                          ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: slideOutPadding,
+                    child: slideOut,
+                  ),
+                  Expanded(
+                    flex: expandVertically ? 1 : 0,
+                    child: Card(
+                      margin: EdgeInsets.zero,
+                      shape: shape,
+                      child: InkWell(
+                        onTap: onTap,
+                        child: Padding(
+                          padding: padding,
+                          child: child,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           )
-        : Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(kBorderRadius),
-                image: backgroundDecorationImage,
-              ),
-              child: Card(
-                color: color,
-                shape: shape,
-                margin: EdgeInsets.zero,
-                child: InkWell(
-                  onTap: onTap,
-                  child: Padding(
-                    padding: padding,
-                    child: child,
-                  ),
+        : DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(kBorderRadius),
+              image: backgroundDecorationImage,
+            ),
+            child: Card(
+              color: color,
+              shape: shape,
+              margin: EdgeInsets.zero,
+              child: InkWell(
+                onTap: onTap,
+                child: Padding(
+                  padding: padding,
+                  child: child,
                 ),
               ),
             ),

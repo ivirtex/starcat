@@ -71,6 +71,10 @@ void main() {
 
     testWidgets('shows "Track with Live Activity" when not tracked',
         (tester) async {
+      when(() => notificationsCubit.state).thenReturn(
+        const NotificationsState(),
+      );
+
       await tester.pumpApp(
         notificationsCubit: notificationsCubit,
         const TrackUsingLiveActivityButton(

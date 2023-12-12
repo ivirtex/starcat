@@ -30,6 +30,9 @@ Launch _$LaunchFromJson(Map<String, dynamic> json) => Launch(
       pad: json['pad'] == null
           ? null
           : Pad.fromJson(json['pad'] as Map<String, dynamic>),
+      vidURLs: (json['vidURLs'] as List<dynamic>?)
+          ?.map((e) => Video.fromJson(e as Map<String, dynamic>))
+          .toList(),
       webcastLive: json['webcast_live'] as bool?,
       image: json['image'] as String?,
       program: (json['program'] as List<dynamic>?)
@@ -83,6 +86,7 @@ Map<String, dynamic> _$LaunchToJson(Launch instance) => <String, dynamic>{
       'rocket': instance.rocket,
       'mission': instance.mission,
       'pad': instance.pad,
+      'vidURLs': instance.vidURLs,
       'webcast_live': instance.webcastLive,
       'image': instance.image,
       'infographic': instance.infographic,

@@ -20,6 +20,7 @@ class Launch extends Equatable {
     this.rocket,
     this.mission,
     this.pad,
+    this.vidURLs,
     this.webcastLive,
     this.image,
     this.program,
@@ -62,6 +63,8 @@ class Launch extends Equatable {
   final Rocket? rocket;
   final Mission? mission;
   final Pad? pad;
+  @JsonKey(name: 'vidURLs')
+  final List<Video>? vidURLs;
   final bool? webcastLive;
   final String? image;
   final String? infographic;
@@ -96,6 +99,7 @@ class Launch extends Equatable {
         rocket,
         mission,
         pad,
+        vidURLs,
         webcastLive,
         image,
         infographic,
