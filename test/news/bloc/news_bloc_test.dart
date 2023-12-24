@@ -145,7 +145,9 @@ void main() {
       },
       expect: () => [
         NewsState(
-          news: News(savedArticles: [article]),
+          news: News(
+            savedArticles: [article],
+          ),
         ),
         const NewsState(),
       ],

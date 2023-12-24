@@ -18,8 +18,8 @@ void main() {
         );
       });
 
-      test('props should return null', () {
-        expect(const NewsFetchRequested().props, [null]);
+      test('props work', () {
+        expect(const NewsFetchRequested().props, ['']);
       });
     });
 

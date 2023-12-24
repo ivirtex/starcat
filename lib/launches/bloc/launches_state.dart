@@ -28,8 +28,10 @@ class LaunchesState extends Equatable {
   final LaunchesStatus pastLaunchesStatus;
 
   /// Contains all the upcoming launches
-  /// for the explore page.
+  /// for the explore page, they are not
+  /// updated when filters are applied.
   final List<Launch> allUpcomingLaunches;
+
   final List<Launch> upcomingLaunches;
   final List<Launch> pastLaunches;
   final SelectedLaunches selectedLaunches;

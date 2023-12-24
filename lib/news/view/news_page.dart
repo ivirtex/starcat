@@ -86,7 +86,7 @@ class _NewsViewState extends State<NewsView> {
                 ),
               ],
             ),
-            const _Body(),
+            _Body(searchQuery: searchQuery),
           ],
         ),
       ),
@@ -110,7 +110,9 @@ class _NewsViewState extends State<NewsView> {
 }
 
 class _Body extends StatelessWidget {
-  const _Body();
+  const _Body({this.searchQuery});
+
+  final String? searchQuery;
 
   @override
   Widget build(BuildContext context) {
@@ -154,14 +156,25 @@ class _Body extends StatelessWidget {
                       key: const ValueKey('popular'),
                     );
                   case SelectedNews.saved:
-                    if (state.news.savedArticles.isEmpty) {
+                    final articles =
+                        searchQuery != null && searchQuery!.isNotEmpty
+                            ? state.news.savedArticles
+                                .where(
+                                  (article) =>
+                                      article.title.contains(searchQuery!) ||
+                                      article.summary.contains(searchQuery!),
+                                )
+                                .toList()
+                            : state.news.savedArticles;
+
+                    if (articles.isEmpty) {
                       return const NoResultsMessage(
                         message: kNoSavedArticlesText,
                       );
                     }
 
                     return ArticleList(
-                      articles: state.news.savedArticles,
+                      articles: articles,
                       key: const ValueKey('saved'),
                     );
                 }

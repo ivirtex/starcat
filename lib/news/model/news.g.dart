@@ -19,15 +19,10 @@ News _$NewsFromJson(Map<String, dynamic> json) => News(
               ?.map((e) => Article.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      allSavedArticles: (json['allSavedArticles'] as List<dynamic>?)
-              ?.map((e) => Article.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
     );
 
 Map<String, dynamic> _$NewsToJson(News instance) => <String, dynamic>{
       'latestArticles': instance.latestArticles,
       'popularArticles': instance.popularArticles,
       'savedArticles': instance.savedArticles,
-      'allSavedArticles': instance.allSavedArticles,
     };
