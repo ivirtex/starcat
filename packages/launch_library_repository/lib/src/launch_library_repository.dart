@@ -37,7 +37,7 @@ class LaunchLibraryRepository {
 
   Future<List<Launch>> getNextPageUpcomingLaunches({
     int offset = 0,
-    String? searchQuery,
+    String searchQuery = '',
     List<String>? providers,
   }) async {
     Launches apiResponse;
@@ -59,7 +59,7 @@ class LaunchLibraryRepository {
   }
 
   Future<List<Launch>> getPastLaunches({
-    String? searchQuery,
+    String searchQuery = '',
     List<String>? providers,
   }) async {
     Launches apiResponse;
@@ -81,7 +81,7 @@ class LaunchLibraryRepository {
 
   Future<List<Launch>> getNextPagePastLaunches({
     int offset = 0,
-    String? searchQuery,
+    String searchQuery = '',
     List<String>? providers,
   }) async {
     Launches apiResponse;
