@@ -74,9 +74,11 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
           await _spaceflightNewsRepository.getNews(searchTopic: event.query);
       final popularArticles =
           latestArticles.where((article) => article.featured).toList();
-      final savedArticles = state.news.savedArticles
-          .where((article) => article.title.contains(event.query!))
-          .toList();
+      final savedArticles = event.query.isNotEmpty
+          ? state.news.allSavedArticles
+              .where((article) => article.title.contains(event.query))
+              .toList()
+          : state.news.allSavedArticles;
 
       emit(
         state.copyWith(
@@ -123,6 +125,9 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
           savedArticles: state.news.savedArticles.contains(article)
               ? state.news.savedArticles
               : [...state.news.savedArticles, article],
+          allSavedArticles: state.news.allSavedArticles.contains(article)
+              ? state.news.allSavedArticles
+              : [...state.news.allSavedArticles, article],
         ),
       ),
     );
@@ -136,6 +141,9 @@ class NewsBloc extends HydratedBloc<NewsEvent, NewsState> {
       state.copyWith(
         news: state.news.copyWith(
           savedArticles: state.news.savedArticles
+              .where((article) => article.id != event.article.id)
+              .toList(),
+          allSavedArticles: state.news.allSavedArticles
               .where((article) => article.id != event.article.id)
               .toList(),
         ),

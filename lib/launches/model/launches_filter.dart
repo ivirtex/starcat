@@ -10,15 +10,18 @@ part 'launches_filter.g.dart';
 @JsonSerializable()
 class LaunchesFilter extends Equatable {
   const LaunchesFilter({
-    this.searchQuery,
+    this.searchQuery = '',
     this.selectedLaunchProviders = const {},
   });
 
   factory LaunchesFilter.fromJson(Map<String, dynamic> json) =>
       _$LaunchesFilterFromJson(json);
 
-  final String? searchQuery;
+  final String searchQuery;
   final Set<LaunchProviders> selectedLaunchProviders;
+
+  bool get isFilterActive =>
+      searchQuery.isNotEmpty || selectedLaunchProviders.isNotEmpty;
 
   Map<String, dynamic> toJson() => _$LaunchesFilterToJson(this);
 

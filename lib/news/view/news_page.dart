@@ -81,6 +81,7 @@ class _NewsViewState extends State<NewsView> {
                 ActionButton(
                   icon: const Icon(Icons.search_rounded),
                   label: searchQuery,
+                  isActive: searchQuery != null,
                   onPressed: _onSearchPressed,
                 ),
               ],
@@ -119,67 +120,80 @@ class _Body extends StatelessWidget {
         slivers: [
           const SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: kListSpacing),
+              padding: EdgeInsets.only(top: kListSpacing),
               child: ArticleSelection(),
             ),
           ),
-          BlocBuilder<NewsBloc, NewsState>(
-            builder: (context, state) {
-              switch (state.selection) {
-                case SelectedNews.latest:
-                  if (state.news.latestArticles.isEmpty) {
-                    return _buildEmpty(
-                      context,
-                      kNoLatestArticlesText,
-                    );
-                  }
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(vertical: kListSpacing),
+            sliver: BlocBuilder<NewsBloc, NewsState>(
+              builder: (context, state) {
+                switch (state.selection) {
+                  case SelectedNews.latest:
+                    if (state.news.latestArticles.isEmpty) {
+                      return const NoResultsMessage(
+                        message: kNoLatestArticlesText,
+                      );
+                    }
 
-                  return ArticleInfiniteList(
-                    articles: state.news.latestArticles,
-                    key: const ValueKey('latest'),
-                  );
-                case SelectedNews.featured:
-                  if (state.news.popularArticles.isEmpty) {
-                    return _buildEmpty(
-                      context,
-                      kNoFeaturedArticlesText,
+                    // TODO(ivirtex): NewsNewPageRequested is added
+                    // every time this is selected
+                    return ArticleInfiniteList(
+                      articles: state.news.latestArticles,
+                      key: const ValueKey('latest'),
                     );
-                  }
+                  case SelectedNews.featured:
+                    if (state.news.popularArticles.isEmpty) {
+                      return const NoResultsMessage(
+                        message: kNoFeaturedArticlesText,
+                      );
+                    }
 
-                  return ArticleList(
-                    articles: state.news.popularArticles,
-                    key: const ValueKey('popular'),
-                  );
-                case SelectedNews.saved:
-                  if (state.news.savedArticles.isEmpty) {
-                    return _buildEmpty(
-                      context,
-                      kNoSavedArticlesText,
+                    return ArticleList(
+                      articles: state.news.popularArticles,
+                      key: const ValueKey('popular'),
                     );
-                  }
+                  case SelectedNews.saved:
+                    if (state.news.savedArticles.isEmpty) {
+                      return const NoResultsMessage(
+                        message: kNoSavedArticlesText,
+                      );
+                    }
 
-                  return ArticleList(
-                    articles: state.news.savedArticles,
-                    key: const ValueKey('saved'),
-                  );
-              }
-            },
+                    return ArticleList(
+                      articles: state.news.savedArticles,
+                      key: const ValueKey('saved'),
+                    );
+                }
+              },
+            ),
           ),
         ],
       ),
     );
   }
+}
 
-  Widget _buildEmpty(BuildContext context, String message) =>
-      SliverFillRemaining(
-        hasScrollBody: false,
-        child: Center(
-          child: Text(
-            message,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-          ),
+class NoResultsMessage extends StatelessWidget {
+  const NoResultsMessage({
+    required this.message,
+    super.key,
+  });
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverFillRemaining(
+      hasScrollBody: false,
+      child: Center(
+        child: Text(
+          message,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).colorScheme.outline,
+              ),
         ),
-      );
+      ),
+    );
+  }
 }

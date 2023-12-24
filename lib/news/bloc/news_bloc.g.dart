@@ -20,6 +20,7 @@ NewsState _$NewsStateFromJson(Map<String, dynamic> json) => NewsState(
           ? const News()
           : News.fromJson(json['news'] as Map<String, dynamic>),
       currentOffsetOfArticles: json['currentOffsetOfArticles'] as int? ?? 0,
+      query: json['query'] as String? ?? '',
     );
 
 Map<String, dynamic> _$NewsStateToJson(NewsState instance) => <String, dynamic>{
@@ -28,6 +29,7 @@ Map<String, dynamic> _$NewsStateToJson(NewsState instance) => <String, dynamic>{
       'allLatestArticles': instance.allLatestArticles,
       'news': instance.news,
       'currentOffsetOfArticles': instance.currentOffsetOfArticles,
+      'query': instance.query,
     };
 
 const _$NewsStatusEnumMap = {

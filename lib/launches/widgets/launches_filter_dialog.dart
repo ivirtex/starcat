@@ -31,7 +31,7 @@ class _LaunchesFilterDialogState extends State<LaunchesFilterDialog> {
     selectedLaunchProviders = filter.selectedLaunchProviders;
 
     searchController
-      ..text = filter.searchQuery ?? ''
+      ..text = filter.searchQuery
       ..addListener(() {
         if (searchController.text.isNotEmpty) {
           if (!shouldShowClearButton) {
@@ -108,7 +108,16 @@ class _LaunchesFilterDialogState extends State<LaunchesFilterDialog> {
                 children: LaunchProviders.values
                     .map(
                       (provider) => FilterChip(
-                        label: Text(provider.name),
+                        label: Text(
+                          provider.name,
+                          style: TextStyle(
+                            color: selectedLaunchProviders.contains(provider)
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer
+                                : null,
+                          ),
+                        ),
                         selected: selectedLaunchProviders.contains(provider),
                         onSelected: (selected) {
                           setState(() {

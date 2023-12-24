@@ -12,7 +12,7 @@ class NewsState extends Equatable {
     this.allLatestArticles = const [],
     this.news = const News(),
     this.currentOffsetOfArticles = 0,
-    this.query,
+    this.query = '',
   });
 
   factory NewsState.fromJson(Map<String, dynamic> json) =>
@@ -27,7 +27,7 @@ class NewsState extends Equatable {
 
   final News news;
   final int currentOffsetOfArticles;
-  final String? query;
+  final String query;
 
   Map<String, dynamic> toJson() => _$NewsStateToJson(this);
 

@@ -8,7 +8,7 @@ part of 'launches_filter.dart';
 
 LaunchesFilter _$LaunchesFilterFromJson(Map<String, dynamic> json) =>
     LaunchesFilter(
-      searchQuery: json['searchQuery'] as String?,
+      searchQuery: json['searchQuery'] as String? ?? '',
       selectedLaunchProviders:
           (json['selectedLaunchProviders'] as List<dynamic>?)
                   ?.map((e) => $enumDecode(_$LaunchProvidersEnumMap, e))

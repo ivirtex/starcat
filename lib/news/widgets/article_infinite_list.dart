@@ -27,6 +27,8 @@ class ArticleInfiniteList extends StatelessWidget {
       debounceDuration: const Duration(milliseconds: 500),
       isLoading: context.read<NewsBloc>().state.status == NewsStatus.loading,
       hasError: context.read<NewsBloc>().state.status == NewsStatus.failure,
+      hasReachedMax:
+          context.read<NewsBloc>().state.status == NewsStatus.noResults,
       loadingBuilder: (context) => const Padding(
         padding: EdgeInsets.symmetric(vertical: kSectionSpacing),
         child: Center(

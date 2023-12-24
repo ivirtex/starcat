@@ -12,9 +12,9 @@ final class NewsExploreFetchRequested extends NewsEvent {
 }
 
 final class NewsFetchRequested extends NewsEvent {
-  const NewsFetchRequested({this.query});
+  const NewsFetchRequested({this.query = ''});
 
-  final String? query;
+  final String query;
 
   @override
   List<Object?> get props => [query];

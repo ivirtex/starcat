@@ -64,7 +64,12 @@ class _LaunchesPageState extends State<LaunchesPage> {
               actions: [
                 const StatusIndicator(),
                 ActionButton(
-                  icon: const Icon(Icons.filter_list_rounded),
+                  icon: const Icon(
+                    Icons.filter_list_rounded,
+                  ),
+                  isActive: context.select(
+                    (LaunchesBloc bloc) => bloc.state.filter.isFilterActive,
+                  ),
                   onPressed: () {
                     showDialog<void>(
                       context: context,
