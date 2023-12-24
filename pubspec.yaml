@@ -13,17 +13,17 @@ dependencies:
   clock: ^1.1.1
   cupertino_icons: ^1.0.6
   duration: ^3.0.13
-  dynamic_color: ^1.6.8
+  dynamic_color: ^1.6.9
   equatable: ^2.0.5
-  firebase_analytics: ^10.7.0
-  firebase_core: ^2.22.0
-  firebase_crashlytics: ^3.4.4
-  firebase_messaging: ^14.7.4
-  firebase_performance: ^0.9.3+4
+  firebase_analytics: ^10.7.4
+  firebase_core: ^2.24.2
+  firebase_crashlytics: ^3.4.8
+  firebase_messaging: ^14.7.9
+  firebase_performance: ^0.9.3+8
   flex_color_scheme: ^7.3.1
   flutter:
     sdk: flutter
-  flutter_animate: ^4.2.0
+  flutter_animate: ^4.3.0
   flutter_bloc: ^8.1.3
   flutter_cache_manager: ^3.3.1
   flutter_native_timezone: ^2.0.0
@@ -33,9 +33,9 @@ dependencies:
   google_maps_flutter: ^2.5.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  http: ^1.1.0
-  hydrated_bloc: ^9.1.2
-  intl: ^0.18.0
+  http: ^1.1.2
+  hydrated_bloc: ^9.1.3
+  intl: ^0.18.1
   json_annotation: ^4.8.1
   launch_library_repository:
     path: packages/launch_library_repository
@@ -47,19 +47,19 @@ dependencies:
   phosphor_flutter: ^2.0.1
   spaceflight_news_repository:
     path: packages/spaceflight_news_repository
-  url_launcher: ^6.2.1
+  url_launcher: ^6.2.2
   vector_graphics: ^1.1.9
   very_good_infinite_list: ^0.7.1
-  wiredash: ^1.7.5
+  wiredash: ^1.8.1
 
 dev_dependencies:
   bloc_test: ^9.1.5
-  build_runner: ^2.4.6
+  build_runner: ^2.4.7
   flutter_test:
     sdk: flutter
   import_sorter: ^4.6.0
   json_serializable: ^6.7.1
-  mocktail: ^1.0.1
+  mocktail: ^1.0.2
   very_good_analysis: ^5.1.0
 
 flutter:

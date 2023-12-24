@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 // Package imports:
@@ -9,7 +10,9 @@ Future<void> launchUrlAndSetOverlayStyle(
   Uri uri,
   BuildContext context,
 ) async {
-  WidgetsBinding.instance.renderView.automaticSystemUiAdjustment = false;
+  for (final view in RendererBinding.instance.renderViews) {
+    view.automaticSystemUiAdjustment = false;
+  }
 
   final brightness = MediaQuery.of(context).platformBrightness;
 
@@ -21,5 +24,7 @@ Future<void> launchUrlAndSetOverlayStyle(
 
   await launchUrl(uri);
 
-  WidgetsBinding.instance.renderView.automaticSystemUiAdjustment = true;
+  for (final view in RendererBinding.instance.renderViews) {
+    view.automaticSystemUiAdjustment = true;
+  }
 }
