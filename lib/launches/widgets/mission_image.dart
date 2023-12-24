@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:developer';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -60,8 +57,6 @@ class MissionImage extends StatelessWidget {
           );
         },
         errorWidget: (context, error, stackTrace) {
-          log(error);
-
           return ColoredBox(
             color: errorColor ?? Theme.of(context).colorScheme.errorContainer,
             child: Icon(

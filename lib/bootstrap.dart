@@ -40,7 +40,12 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  FlutterError.onError = (error) {
+    //! https://github.com/Baseflow/flutter_cached_network_image/issues/336
+    if (error.library == 'image resource service') return;
+
+    FirebaseCrashlytics.instance.recordFlutterFatalError(error);
+  };
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
 
