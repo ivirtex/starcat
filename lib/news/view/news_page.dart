@@ -35,6 +35,8 @@ class _NewsViewState extends State<NewsView> {
   void initState() {
     super.initState();
 
+    context.read<NewsBloc>().add(const NewsFetchRequested());
+
     scrollController.addListener(() {
       if (scrollController.offset > 0) {
         if (!shouldShowFab) {
