@@ -6,14 +6,11 @@ import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 // Package imports:
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
-import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -53,18 +50,6 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: await getTemporaryDirectory(),
   );
-
-  final mapsImplementation = GoogleMapsFlutterPlatform.instance;
-  if (mapsImplementation is GoogleMapsFlutterAndroid) {
-    mapsImplementation.useAndroidViewSurface = false;
-
-    try {
-      await mapsImplementation
-          .initializeWithRenderer(AndroidMapRenderer.latest);
-    } on PlatformException catch (e) {
-      log(e.toString());
-    }
-  }
 
   runApp(await builder());
 }
