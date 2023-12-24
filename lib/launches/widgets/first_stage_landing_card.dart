@@ -45,17 +45,19 @@ class FirstStageLandingCard extends StatelessWidget {
                     ),
                   ],
                 )
-              : const Row(
+              : Row(
                   children: [
                     Icon(
                       Icons.cancel_rounded,
                       size: 14,
-                      color: Colors.red,
+                      color: Theme.of(context).colorScheme.error,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
                       'Landing Failed',
-                      style: TextStyle(color: Colors.green),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                     ),
                   ],
                 )
