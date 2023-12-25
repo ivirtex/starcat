@@ -54,7 +54,12 @@ class NotificationsRepository {
       'launchVehicle': launch.rocket!.configuration!.name,
     };
 
-    final id = await _liveActivitiesPlugin.createActivity(activityData);
+    log('Creating live activity with data: $activityData');
+
+    final id = await _liveActivitiesPlugin.createActivity(
+      activityData,
+      removeWhenAppIsKilled: true,
+    );
 
     if (id == null) {
       throw Exception('Failed to create live activity');

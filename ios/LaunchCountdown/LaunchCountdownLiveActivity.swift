@@ -26,10 +26,9 @@ let paddingValue: CGFloat = 5
 
 struct LaunchCountdownLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        let launchName = sharedDefault.string(forKey: "launchName")!
-        let launchVehicle = sharedDefault.string(forKey: "launchVehicle")!
-        
         return ActivityConfiguration(for: LiveActivitiesAppAttributes.self) { context in
+            let launchName = sharedDefault.string(forKey: context.attributes.prefixedKey("launchName"))!
+            let launchVehicle = sharedDefault.string(forKey: context.attributes.prefixedKey("launchVehicle"))!
             let status = getStatus(context: context)
             let remainingTime = getRemainingTimeRange(context: context)
             
@@ -42,6 +41,8 @@ struct LaunchCountdownLiveActivity: Widget {
             }
             .padding()
         } dynamicIsland: { context in DynamicIsland {
+            let launchName = sharedDefault.string(forKey: context.attributes.prefixedKey("launchName"))!
+            let launchVehicle = sharedDefault.string(forKey: context.attributes.prefixedKey("launchVehicle"))!
             let status = getStatus(context: context)
             
             DynamicIslandExpandedRegion(.leading, priority: 10) {
@@ -83,6 +84,8 @@ struct LaunchCountdownLiveActivity: Widget {
                 .padding(.trailing, paddingValue)
             }
         } compactLeading: {
+            let launchName = sharedDefault.string(forKey: context.attributes.prefixedKey("launchName"))!
+            
             Text(launchName.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).split(separator: " ").first!.trimmingCharacters(in: CharacterSet.punctuationCharacters))
         } compactTrailing: {
             CircularTimer(timerInterval: getRemainingTimeRange(context: context))
@@ -94,14 +97,14 @@ struct LaunchCountdownLiveActivity: Widget {
     }
     
     func getStatus(context: ActivityViewContext<LiveActivitiesAppAttributes>) -> LaunchStatus {
-        let status = context.state.status ?? sharedDefault.string(forKey: "status")!
+        let status = context.state.status ?? sharedDefault.string(forKey: context.attributes.prefixedKey("status"))!
         let parsedStatus = LaunchStatus(status: status)
         
         return parsedStatus
     }
     
     func getRemainingTimeRange(context: ActivityViewContext<LiveActivitiesAppAttributes>) -> ClosedRange<Date> {
-        let launchTZeroDateInISO8601 = context.state.launchTZeroDateInISO8601 ?? sharedDefault.string(forKey: "launchTZeroDate")!
+        let launchTZeroDateInISO8601 = context.state.launchTZeroDateInISO8601 ?? sharedDefault.string(forKey: context.attributes.prefixedKey("launchTZeroDate"))!
         
         let iso8601formatter = ISO8601DateFormatter()
         iso8601formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
@@ -155,4 +158,10 @@ struct LaunchCountdownLiveActivity_Previews: PreviewProvider {
             .previewContext(contentState, viewKind: .content)
             .previewDisplayName("Notification")
     }
+}
+
+extension LiveActivitiesAppAttributes {
+  func prefixedKey(_ key: String) -> String {
+    return "\(id)_\(key)"
+  }
 }
