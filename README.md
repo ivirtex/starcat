@@ -5,9 +5,9 @@
 
 Starcat is a Flutter app for tracking world-wide rocket launches featuring iOS Live Activities.
 
-<img src="https://github.com/ivirtex/starcat/assets/57679865/46146bcf-82a3-48c0-af64-4112a4e27bf4" width="33%"/>
-<img src="https://github.com/ivirtex/starcat/assets/57679865/aed3df11-1ce6-417c-bb65-ecd4ab59132c" width="33%"/>
-<img src="https://github.com/ivirtex/starcat/assets/57679865/bc6ef033-d9a4-4f8d-b364-2cf514d63703" width="33%"/>
+<img src="https://github.com/ivirtex/starcat/assets/57679865/46146bcf-82a3-48c0-af64-4112a4e27bf4" width="30%"/>
+<img src="https://github.com/ivirtex/starcat/assets/57679865/aed3df11-1ce6-417c-bb65-ecd4ab59132c" width="30%"/>
+<img src="https://github.com/ivirtex/starcat/assets/57679865/bc6ef033-d9a4-4f8d-b364-2cf514d63703" width="30%"/>
 
 ---
 
