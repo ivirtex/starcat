@@ -1,9 +1,16 @@
 # StarCat
 
-![GitHub CI](https://github.com/ivirtex/starcat/.github/workflows/main.yaml/badge.svg)
+![GitHub CI](https://github.com/ivirtex/starcat/actions/workflows/main.yaml/badge.svg)
 [![codecov](https://codecov.io/gh/ivirtex/starcat/branch/master/graph/badge.svg?token=924YWTBVPS)](https://codecov.io/gh/ivirtex/starcat)
 
+Starcat is a Flutter app for tracking world-wide rocket launches featuring iOS Live Activities.
+
+<img src="https://github.com/ivirtex/starcat/assets/57679865/46146bcf-82a3-48c0-af64-4112a4e27bf4" width="33%"/>
+<img src="https://github.com/ivirtex/starcat/assets/57679865/aed3df11-1ce6-417c-bb65-ecd4ab59132c" width="33%"/>
+<img src="https://github.com/ivirtex/starcat/assets/57679865/bc6ef033-d9a4-4f8d-b364-2cf514d63703" width="33%"/>
+
 ---
+
 
 ## Getting Started 🚀
 
@@ -25,8 +32,6 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 # Production
 $ flutter run --flavor production --target lib/main_production.dart
 ```
-
-_\*StarCat works on iOS, Android, Web, and Windows._
 
 ---
 
